@@ -1,5 +1,46 @@
 package com.codeenginestudio.elearning.service.impl;
 
-public class UserServiceImpl {
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.UserEntity;
+import com.codeenginestudio.elearning.dto.UserDTO;
+import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.util.UserUtil;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserDAO userDAO;
+
+	private UserUtil userUtil;
+
+	@Override
+	public List<UserDTO> getListUser() {
+
+		List<UserEntity> listUserEntity = userDAO.findAll();
+		List<UserDTO> listUserDTO = new ArrayList<>();
+		for (UserEntity userEntity : listUserEntity) {
+			listUserDTO.add(userUtil.parseToUserDTO(userEntity));
+		}
+		return listUserDTO;
+	}
+
+	@Override
+	public void addUser(UserDTO user) {
+
+		userDAO.saveAndFlush(userUtil.parseToUserEntity(user));
+	}
+
+	@Override
+	public void deleteUser(long userId) {
+
+		userDAO.deleteById(userId);
+	}
 
 }
