@@ -18,15 +18,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO userDAO;
 
-	private UserUtil userUtil;
-
 	@Override
 	public List<UserDTO> getListUser() {
 
 		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<UserDTO> listUserDTO = new ArrayList<>();
 		for (UserEntity userEntity : listUserEntity) {
-			listUserDTO.add(userUtil.parseToUserDTO(userEntity));
+			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 		}
 		return listUserDTO;
 	}
@@ -34,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void addUser(UserDTO user) {
 
-		userDAO.saveAndFlush(userUtil.parseToUserEntity(user));
+		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
 	}
 
 	@Override
@@ -42,5 +40,4 @@ public class UserServiceImpl implements UserService {
 
 		userDAO.deleteById(userId);
 	}
-
 }
