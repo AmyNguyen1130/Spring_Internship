@@ -7,6 +7,6 @@ public class AdminSiteMeshFilter extends ConfigurableSiteMeshFilter {
 
 	@Override
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-		builder.addDecoratorPath("/", "/WEB-INF/view/decorator/decorator.jsp");
+		builder.addDecoratorPath("/", "/WEB-INF/view/decorator/administrator/decorator.jsp");
 	}
 }
