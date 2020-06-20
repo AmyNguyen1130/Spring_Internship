@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="en">
 <head>
-    <%@ include file="/WEB-INF/view/decorator/header.jsp" %>
+    <%@ include file="/WEB-INF/view/decorator/administrator/header.jsp" %>
 </head>
 <body>
         <main id="page-wrapper5">
@@ -9,6 +9,6 @@
                        <sitemesh:write property='body'/>
                 </div>
         </main>
-     <%@ include file="/WEB-INF/view/decorator/footer.jsp" %>
+     <%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp" %>
 </body>
 </html>
