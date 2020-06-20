@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 
 @Repository
-public interface ClassDAO extends JpaRepository<ClassEntity, Integer>{
+public interface ClassDAO extends JpaRepository<ClassEntity, Integer> {
 
 }

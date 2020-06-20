@@ -12,7 +12,6 @@ import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
 
-
 @Service("classService")
 public class ClassServiceImpl implements ClassService {
 
@@ -46,5 +45,4 @@ public class ClassServiceImpl implements ClassService {
 	public ClassDTO showEditClass(int id) {
 		return ClassUtil.parseToDTO(classDAO.getOne(id));
 	}
-
 }
