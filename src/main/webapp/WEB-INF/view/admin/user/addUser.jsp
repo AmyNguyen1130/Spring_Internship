@@ -43,9 +43,9 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="gender" class="col-sm-1 col-form-label">Gender</label>
+				<label for="dob" class="col-sm-1 col-form-label">Dob</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="gender">
+					<input type="text" class="form-control" name="dob">
 				</div>
 			</div>
 
@@ -61,8 +61,8 @@
 			<div class="form-group row">
 				<label for="role">Role</label>
 				<div class="col-sm-4">
-					<input type="radio" name="roleId" value="Teacher">Teacher <input
-						type="radio" name="roleId" value="Student">Student
+					<input type="radio" name="roleId" value="1">Teacher <input
+						type="radio" name="roleId" value="2">Student
 				</div>
 			</div>
 

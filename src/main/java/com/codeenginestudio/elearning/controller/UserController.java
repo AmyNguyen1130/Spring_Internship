@@ -17,31 +17,35 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/")
-	public String goToListUser(Model model) {
+	public String showListUser(Model model) {
 
 		model.addAttribute("listUser", userService.getListUser());
-		return "/admin/user/listUser";
+		return PRE_FIX + "listUser";
 	}
 
 	@GetMapping("admin/user/addUser")
-	public String goToAddStudent(Model model) {
+	public String addUser(Model model) {
 
-		model.addAttribute("url", "admin/user/saveAddUser");
-		return "admin/user/addUser";
+		model.addAttribute("url", "/admin/user/saveAddUser");
+		return PRE_FIX + "addUser";
 	}
 
 	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model) {
 
 		userService.addUser(userDTO);
-		return "redirect: /";
+		model.addAttribute("listUser", userService.getListUser());
+		return PRE_FIX + "listUser";
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
-	public String deleteProduct(@PathVariable(name = "userId") Long userId) {
+	public String deleteUser(@PathVariable(name = "userId") Long userId, Model model) {
 
 		userService.deleteUser(userId);
-		return "redirect:/";
+		model.addAttribute("listUser", userService.getListUser());
+		return PRE_FIX + "listUser";
 	}
+
+	private final String PRE_FIX = "admin/user/";
 
 }
