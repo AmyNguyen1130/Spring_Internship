@@ -21,11 +21,13 @@ img {
 button {
 	margin: 20px;
 }
-.field{
-width: 50px;
+
+.field {
+	width: 50px;
 }
-td{
-width: 40px;
+
+td {
+	width: 40px;
 }
 </style>
 <body>
@@ -33,8 +35,8 @@ width: 40px;
 		String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
 	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 	%>
-	<div >
-		<a href="/addUser">
+	<div>
+		<a href="admin/user/addUser">
 			<button class="btn btn-primary">Add User</button>
 		</a>
 		<table class="table table-bordered table-hover">
@@ -54,19 +56,27 @@ width: 40px;
 			<tbody>
 				<c:forEach items="${listUser}" var="user">
 					<tr>
-						<td scope="row"><input class="field" name = "userId" value="${user.getUserId()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getLastName()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getFirstName()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getUserName()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getDob()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getGender()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getStatus()}"/></td>
-						<td><input class="field" name = "userId" value="${user.getRoleId()}"/></td>
+						<td scope="row"><input class="field" name="userId"
+							value="${user.getUserId()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getLastName()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getFirstName()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getUserName()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getDob()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getGender()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getStatus()}" /></td>
+						<td><input class="field" name="userId"
+							value="${user.getRoleId()}" /></td>
 
 						<td><a href="/editUser/${user.getUserId()}"> <img
 								alt="edit" src="<%=editImageAddress%>" class="optionSize" />
-						</a> <a href="/deleteUser/${user.getUserId()}"> <img
-								alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
+						</a> <a href="/deleteUser/${user.getUserId()}"> <img alt="delete"
+								src="<%=deleteImageAddress%>" class="optionSize" />
 						</a></td>
 					</tr>
 				</c:forEach>

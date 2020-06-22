@@ -20,24 +20,24 @@ public class UserController {
 	public String goToListUser(Model model) {
 
 		model.addAttribute("listUser", userService.getListUser());
-		return "admin/user/listUser";
+		return "/admin/user/listUser";
 	}
 
-	@GetMapping("/addUser")
+	@GetMapping("admin/user/addUser")
 	public String goToAddStudent(Model model) {
 
-		model.addAttribute("url", "saveAddUser");
+		model.addAttribute("url", "admin/user/saveAddUser");
 		return "admin/user/addUser";
 	}
 
-	@PostMapping("/saveAddUser")
+	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model) {
 
 		userService.addUser(userDTO);
 		return "redirect: /";
 	}
 
-	@GetMapping("/deleteUser/{userId}")
+	@GetMapping("admin/user/deleteUser/{userId}")
 	public String deleteProduct(@PathVariable(name = "userId") Long userId) {
 
 		userService.deleteUser(userId);
