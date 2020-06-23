@@ -6,7 +6,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
@@ -17,53 +16,55 @@ public class ClassController {
 	@Autowired
 	private ClassService classService;
 
-	@RequestMapping("/admin/")
-	public String welcome(ModelMap model) {
+	@GetMapping("/admin/class")
+	public String showListClass(ModelMap model) {
 
 		model.addAttribute("data", classService.getAllClass());
 
-		return "listClassPage";
+		return PREFIX + "listClass";
 	}
 
-	@GetMapping("/admin/addClass")
-	public String showAddClass() {
+	@GetMapping("/admin/class/addClass")
+	public String addClass() {
 
-		return "addClassPage";
+		return PREFIX + "addClass";
 	}
 
-	@PostMapping("/admin/addClass")
-	public String addClass(ModelMap model, ClassDTO classDTO) {
-
-		classService.saveClass(classDTO);
-		model.addAttribute("data", classService.getAllClass());
-
-		return "listClassPage";
-	}
-
-	@GetMapping("/admin/editClass")
-	public String showEditStudent(ModelMap model, @ModelAttribute("id") int id) {
-
-		model.addAttribute("data", classService.showEditClass(id));
-
-		return "editClassPage";
-	}
-
-	@PostMapping("/admin/editClass")
-	public String editStudent(ModelMap model, ClassDTO classDTO) {
-
-		classService.saveClass(classDTO);
-		model.addAttribute("data", classService.getAllClass());
-
-		return "listClassPage";
-	}
-
-	@GetMapping("/admin/deleteClass")
-	public String deleteStudent(ModelMap model, @ModelAttribute("id") int id) {
+	@GetMapping("/admin/class/deleteClass")
+	public String deleteClass(ModelMap model, @ModelAttribute("id") Long id) {
 
 		classService.deleteClass(id);
 		model.addAttribute("data", classService.getAllClass());
 
-		return "listClassPage";
+		return PREFIX + "listClass";
 	}
+
+	@GetMapping("/admin/class/editClass")
+	public String editClass(ModelMap model, @ModelAttribute("id") Long id) {
+
+		model.addAttribute("data", classService.showEditClass(id));
+
+		return PREFIX + "editClass";
+	}
+
+	@PostMapping("/admin/class/saveAddClass")
+	public String saveAddClass(ModelMap model, ClassDTO classDTO) {
+
+		classService.saveClass(classDTO);
+		model.addAttribute("data", classService.getAllClass());
+
+		return PREFIX + "listClass";
+	}
+
+	@PostMapping("/admin/class/saveEditClass")
+	public String saveEditClass(ModelMap model, ClassDTO classDTO) {
+
+		classService.saveClass(classDTO);
+		model.addAttribute("data", classService.getAllClass());
+
+		return PREFIX + "listClass";
+	}
+
+	private static final String PREFIX = "/admin/class/";
 
 }

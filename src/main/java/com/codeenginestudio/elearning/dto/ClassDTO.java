@@ -2,15 +2,15 @@ package com.codeenginestudio.elearning.dto;
 
 public class ClassDTO {
 
-	private int classId;
+	private Long classId;
 	private String className;
-	private int teacherId;
+	private Long teacherId;
 
-	public int getClassId() {
+	public Long getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Long classId) {
 		this.classId = classId;
 	}
 
@@ -22,11 +22,11 @@ public class ClassDTO {
 		this.className = className;
 	}
 
-	public int getTeacherId() {
+	public Long getTeacherId() {
 		return teacherId;
 	}
 
-	public void setTeacherId(int teacherId) {
+	public void setTeacherId(Long teacherId) {
 		this.teacherId = teacherId;
 	}
 }

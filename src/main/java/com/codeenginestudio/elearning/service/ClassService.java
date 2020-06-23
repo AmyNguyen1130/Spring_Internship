@@ -9,7 +9,7 @@ public interface ClassService {
 
 	void saveClass(ClassDTO classDTO);
 
-	void deleteClass(int id);
+	void deleteClass(Long id);
 
-	ClassDTO showEditClass(int id);
+	ClassDTO showEditClass(Long id);
 }

@@ -37,12 +37,12 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public void deleteClass(int id) {
+	public void deleteClass(Long id) {
 		classDAO.deleteById(id);
 	}
 
 	@Override
-	public ClassDTO showEditClass(int id) {
+	public ClassDTO showEditClass(Long id) {
 		return ClassUtil.parseToDTO(classDAO.getOne(id));
 	}
 }
