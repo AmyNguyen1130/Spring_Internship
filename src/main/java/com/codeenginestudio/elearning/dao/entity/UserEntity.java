@@ -5,33 +5,36 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 
-	@Column
+	@Column(name = "username")
 	private String userName;
 
-	@Column
+	@Column(name = "password")
 	private String password;
 
-	@Column
+	@Column(name = "firstname")
 	private String firstName;
 
-	@Column
+	@Column(name = "lastname")
 	private String lastName;
 
-	@Column
+	@Column(name = "email")
 	private String email;
 
-	@Column
+	@Column(name = "gender")
 	private String gender;
 
-	@Column
+	@Column(name = "dob")
 	private Date dob;
+
+	@Column(name= "enabled")
+	private boolean enabled;
 
 	@Column
 	private String avartar;
@@ -47,7 +50,7 @@ public class UserEntity {
 	}
 
 	public UserEntity(String userName, String password, String firstName, String lastName, String email, String gender,
-			Date dob, String avartar, int roleId) {
+			Date dob, String avartar, int roleId, boolean enabled) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -58,6 +61,7 @@ public class UserEntity {
 		this.dob = dob;
 		this.avartar = avartar;
 		this.roleId = roleId;
+		this.enabled = enabled;
 	}
 
 	public Long getUserId() {
@@ -146,6 +150,14 @@ public class UserEntity {
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 }
