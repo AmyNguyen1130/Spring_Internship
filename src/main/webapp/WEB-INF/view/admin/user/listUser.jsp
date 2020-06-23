@@ -13,8 +13,7 @@
 </head>
 
 <body>
-
-	<style>
+<style>
 img {
 	width: 30px;
 	height: 30px;
@@ -59,36 +58,16 @@ td {
 			<tbody>
 				<c:forEach items="${listUser}" var="user">
 					<tr>
-						<td scope="row"><input class="field ${user.getUserId()}"
-							name="userId" id="${user.getUserId()}" disabled
-							value="${user.getUserId()}" /></td>
-
-						<td><input class="field" name="lastName"
-							id="${user.getUserId()}" disabled value="${user.getLastName()}" /></td>
-
-						<td><input class="field" name="firstName"
-							id="${user.getUserId()}" disabled value="${user.getFirstName()}" /></td>
-
-						<td><input class="field" name="userName"
-							id="${user.getUserId()}" disabled value="${user.getUserName()}" /></td>
-
-						<td><input class="field" name="dob" id="${user.getUserId()}"
-							disabled value="${user.getDob()}" /></td>
-
-						<td><input class="field" name="gender"
-							id="${user.getUserId()}" disabled value="${user.getGender()}" /></td>
-
-						<td><input class="field" name="status"
-							id="${user.getUserId()}" disabled value="${user.getStatus()}" /></td>
-
-						<td><input class="field" name="roleId"
-							id="${user.getUserId()}" enable value="${user.getRoleId()}" /></td>
-
-						<td><a href="#"> <img alt="edit"
-								src="<%=editImageAddress%>" class="optionSize"
-								onClick="enableField('${user.getUserId()}')" />
-						</a> <a href="/editUser/${user.getUserId()}"> <img alt="edit"
-								src="<%=editImageAddress%>" class="optionSize" />
+						<td scope="row">${user.getUserId()}</td>
+						<td>${user.getLastName()}</td>
+						<td>${user.getFirstName()}</td>
+						<td>${user.getUserName()}</td>
+						<td>${user.getDob()}</td>
+						<td>${user.getGender()}</td>
+						<td>${user.getStatus()}</td>
+						<td>${user.getRoleId()}</td>
+						<td><a href="/admin/user/editUser/${user.getUserId()}"> <img
+								alt="edit" src="<%=editImageAddress%>" class="optionSize" />
 						</a> <a href="/admin/user/deleteUser/${user.getUserId()}"> <img
 								alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
 						</a></td>
@@ -97,12 +76,5 @@ td {
 			</tbody>
 		</table>
 	</div>
-
-	<script type="text/javascript">
-		function enableField(idUser) {
-			document.getElementsByClassName(idUser).removeAttribute("disabled");
-		}
-	</script>
-
 </body>
 </html>

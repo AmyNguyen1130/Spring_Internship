@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,7 +17,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/")
+	@GetMapping("/admin/user/")
 	public String showListUser(Model model) {
 
 		model.addAttribute("listUser", userService.getListUser());
@@ -31,21 +32,34 @@ public class UserController {
 	}
 
 	@PostMapping("admin/user/saveAddUser")
-	public String saveAddUser(UserDTO userDTO, Model model) {
+	public String saveAddUser(UserDTO userDTO) {
 
 		userService.addUser(userDTO);
-		model.addAttribute("listUser", userService.getListUser());
-		return PRE_FIX + "listUser";
+		return "redirect:/admin/user/";
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
 	public String deleteUser(@PathVariable(name = "userId") Long userId, Model model) {
 
 		userService.deleteUser(userId);
-		model.addAttribute("listUser", userService.getListUser());
-		return PRE_FIX + "listUser";
+		return "redirect:/admin/user/";
 	}
 
-	private final String PRE_FIX = "admin/user/";
+	@GetMapping("admin/user/editUser/{userId}")
+	public String editUser(@PathVariable(name = "userId") Long userId, Model model) {
+
+		model.addAttribute("userInf", userService.getOneUser(userId));
+		model.addAttribute("url", "/admin/user/saveEditUser");
+		return PRE_FIX + "addUser";
+	}
+
+	@PostMapping("admin/user/saveEditUser")
+	public String saveEditUser(UserDTO userDTO) {
+
+		userService.editUser(userDTO);
+		return "redirect:/admin/user/";
+	}
+
+	private final String PRE_FIX = "/admin/user/";
 
 }

@@ -31,13 +31,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(UserDTO user) {
-
 		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
 	}
 
 	@Override
 	public void deleteUser(long userId) {
-
 		userDAO.deleteById(userId);
+	}
+
+	@Override
+	public UserDTO getOneUser(long userId) {
+		return UserUtil.parseToUserDTO(userDAO.getOne(userId));
+	}
+
+	@Override
+	public void editUser(UserDTO user) {
+		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
+
 	}
 }
