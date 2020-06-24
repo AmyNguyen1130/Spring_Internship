@@ -12,28 +12,28 @@ public class UserEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 
-	@Column(name = "username")
-	private String userName;
+	@Column
+	private String username;
 
-	@Column(name = "password")
+	@Column
 	private String password;
 
-	@Column(name = "firstname")
+	@Column
 	private String firstName;
 
-	@Column(name = "lastname")
+	@Column
 	private String lastName;
 
-	@Column(name = "email")
+	@Column
 	private String email;
 
-	@Column(name = "gender")
+	@Column
 	private String gender;
 
-	@Column(name = "dob")
+	@Column
 	private Date dob;
 
-	@Column(name= "enabled")
+	@Column
 	private boolean enabled;
 
 	@Column
@@ -52,7 +52,7 @@ public class UserEntity {
 	public UserEntity(String userName, String password, String firstName, String lastName, String email, String gender,
 			Date dob, String avartar, int roleId, boolean enabled) {
 		super();
-		this.userName = userName;
+		this.username = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -72,12 +72,12 @@ public class UserEntity {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

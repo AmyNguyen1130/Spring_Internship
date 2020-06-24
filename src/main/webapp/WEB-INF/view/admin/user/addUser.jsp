@@ -9,7 +9,7 @@
 					Name</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="userName"
-						value="${userInf.getUserName()}">
+						value="${userInf.getUsername()}">
 				</div>
 			</div>
 

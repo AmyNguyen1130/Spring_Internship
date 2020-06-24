@@ -61,7 +61,7 @@ td {
 						<td scope="row">${user.getUserId()}</td>
 						<td>${user.getLastName()}</td>
 						<td>${user.getFirstName()}</td>
-						<td>${user.getUserName()}</td>
+						<td>${user.getUsername()}</td>
 						<td>${user.getDob()}</td>
 						<td>${user.getGender()}</td>
 						<td>${user.getStatus()}</td>
