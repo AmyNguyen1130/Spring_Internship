@@ -26,14 +26,14 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 		boolean hasAdminRole = false;
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("ADMIN")) {
+			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
 				hasAdminRole = true;
 				break;
 			}
 		}
 
 		if (hasAdminRole) {
-			redirectStrategy.sendRedirect(request, response, "/admin/user");
+			redirectStrategy.sendRedirect(request, response, "/admin/user/");
 		} else {
 			throw new IllegalStateException();
 		}
