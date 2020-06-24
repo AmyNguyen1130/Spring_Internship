@@ -1,6 +1,5 @@
 package com.codeenginestudio.elearning.configuration;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.codeenginestudio.elearning.service.MyUserDetailsService;
 
@@ -25,9 +23,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private MyUserDetailsService myUserDetailsService;
+
+	@Autowired
+	private ElearningAuthenticationSuccessHandler elearningAuthenticationSuccessHandler;
+
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService())
+		auth.userDetailsService(myUserDetailsService)
 			.and()
 			.authenticationProvider(authenticationProvider())
 			.jdbcAuthentication()
@@ -47,7 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().loginPage("/login").permitAll()
+			.formLogin()
+			.successHandler(elearningAuthenticationSuccessHandler)
+			.loginPage("/login").permitAll()
 			.and()
 			.logout().permitAll();
 
@@ -57,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
+		authProvider.setUserDetailsService(myUserDetailsService);
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
