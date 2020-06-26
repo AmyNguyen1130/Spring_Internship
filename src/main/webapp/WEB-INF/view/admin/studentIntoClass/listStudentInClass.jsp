@@ -26,7 +26,7 @@
 				       <td>${i}</td>
 				       <td>${data.classId}</td>
 				       <td>${data.studentId}</td>
-				 		<td>#</td>
+				 		<td><a href = "/admin/deleteStudentInClass?userId=<c:out value='${data.studentId}'/>" ><button>Delete</button></a></td>
 				   </tr>
 				   <c:set var="i" value="${i+1}" />
 		     	</c:forEach>

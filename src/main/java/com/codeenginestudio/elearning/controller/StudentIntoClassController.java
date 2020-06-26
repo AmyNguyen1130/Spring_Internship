@@ -25,10 +25,19 @@ public class StudentIntoClassController {
 	@GetMapping("/admin/getTeacherAddToClass")
 	public String getTeacherAddToClass(ModelMap model, @ModelAttribute("classId") Long classId) {
 
-		model.addAttribute("classId", classId);
+		model.addAttribute("classId",classId);
 		model.addAttribute("listUser", userService.getListUser());
 
 		return PREFIX + "addStudentIntoClass";
+	}
+
+	@GetMapping("/admin/deleteStudentInClass")
+	public String deleteStudentInClass(ModelMap model, @ModelAttribute("userId") Long userId) {
+
+		studentInClassService.deleteStudentInClass(userId);
+		model.addAttribute("data", studentInClassService.getAllStudentInClass());
+
+		return PREFIX + "listStudentInClass";
 	}
 
 	@PostMapping("/admin/saveTeacherAddToClass")
