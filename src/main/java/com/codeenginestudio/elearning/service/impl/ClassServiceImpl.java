@@ -11,6 +11,7 @@ import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
+import com.codeenginestudio.elearning.util.General.UtilGeneral;
 
 @Service("classService")
 public class ClassServiceImpl implements ClassService {
@@ -21,7 +22,7 @@ public class ClassServiceImpl implements ClassService {
 	@Override
 	public List<ClassDTO> getAllClass() {
 
-		List<ClassEntity> listClass = classDAO.findAll();
+		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findAll();
 
 		List<ClassDTO> classDTO = new ArrayList<>();
 		for (ClassEntity classes : listClass) {
@@ -38,11 +39,14 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void deleteClass(Long id) {
+
 		classDAO.deleteById(id);
 	}
 
 	@Override
 	public ClassDTO showEditClass(Long id) {
+
 		return ClassUtil.parseToDTO(classDAO.getOne(id));
 	}
+
 }

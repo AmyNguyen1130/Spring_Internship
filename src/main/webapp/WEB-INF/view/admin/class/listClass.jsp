@@ -3,13 +3,6 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-</head>
 <body>
 	<div class"parents" style="margin: 5%">
 	<h1>List Class</h1>
@@ -31,11 +24,12 @@
 				<c:set var="i" value="1" />
 				<c:forEach items="${data}" var="class">
 			       <tr>
-				       <td>${i}</td>
+				       <td>${class.classId}</td>
 				       <td>${class.className}</td>
 				       <td>${class.teacherId}</td>
 				       <td><a href="editClass?id=<c:out value='${class.classId}' />">Edit</a> &emsp;
-					       <a href="deleteClass?id=<c:out value='${class.classId}' />">Delete</a></td>
+					       <a href="deleteClass?id=<c:out value='${class.classId}' />">Delete</a> &emsp;
+					      	<a href="/admin/getTeacherAddToClass?classId=<c:out value='${class.classId}'/>"><button>Assign</button></a></td>
 
 				   </tr>
 				   <c:set var="i" value="${i+1}" />

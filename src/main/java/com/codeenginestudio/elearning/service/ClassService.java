@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.service;
 
 import java.util.List;
+
 import com.codeenginestudio.elearning.dto.ClassDTO;
 
 public interface ClassService {
@@ -12,4 +13,5 @@ public interface ClassService {
 	void deleteClass(Long id);
 
 	ClassDTO showEditClass(Long id);
+
 }

@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.UserService;
 
 @Controller
 public class ClassController {
 
 	@Autowired
 	private ClassService classService;
+
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("/admin/class")
 	public String showListClass(ModelMap model) {
@@ -25,8 +29,9 @@ public class ClassController {
 	}
 
 	@GetMapping("/admin/class/addClass")
-	public String addClass() {
+	public String addClass(ModelMap model) {
 
+		model.addAttribute("data", userService.getListUser());
 		return PREFIX + "addClass";
 	}
 
@@ -43,7 +48,7 @@ public class ClassController {
 	public String editClass(ModelMap model, @ModelAttribute("id") Long id) {
 
 		model.addAttribute("data", classService.showEditClass(id));
-
+		model.addAttribute("user", userService.getListUser());
 		return PREFIX + "editClass";
 	}
 
