@@ -11,12 +11,12 @@
 
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveEditClass"
 			method="POST" style="width: 50%;">
-			<input class="form-control" type="hidden" name="classId" value="${data.classId}">
-			Class Name: <input class="form-control" type="text" name="className" value="${data.className}"> <br>
+			<input class="form-control" type="hidden" name="classId" value="${data.classid}">
+			Class Name: <input class="form-control" type="text" name="className" value="${data.classname}"> <br>
 			Teacher Id: 
-			<select class="form-control" id="teacherId" name="teacherId"> 
+			<select class="form-control" id="teacherid" name="teacherid">
 				 <c:forEach items="${user}" var="user">
-					<option value="${user.userId}" ${user.userId == data.teacherId ? 'selected="selected"' : ''}>${user.getUsername()}</option>
+					<option value="${user.userid}" ${user.userid == data.teacherid ? 'selected="selected"' : ''}>${user.getUsername()}</option>
 
 			     </c:forEach>
 			</select><br>

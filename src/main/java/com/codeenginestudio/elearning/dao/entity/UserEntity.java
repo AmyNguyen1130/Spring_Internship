@@ -10,7 +10,7 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long userId;
+	private Long userid;
 
 	@Column
 	private String username;
@@ -19,10 +19,10 @@ public class UserEntity {
 	private String password;
 
 	@Column
-	private String firstName;
+	private String firstname;
 
 	@Column
-	private String lastName;
+	private String lastname;
 
 	@Column
 	private String email;
@@ -43,33 +43,49 @@ public class UserEntity {
 	private String status;
 
 	@Column
-	private int roleId;
+	private Integer roleid;
 
 	public UserEntity() {
 		super();
 	}
 
-	public UserEntity(String userName, String password, String firstName, String lastName, String email, String gender,
-			Date dob, String avartar, int roleId, boolean enabled) {
+	public UserEntity(String username, String password, String firstname, String lastname, String email, String gender,
+			Date dob, String avartar, Integer roleid, boolean enabled) {
 		super();
-		this.username = userName;
+		this.username = username;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.email = email;
 		this.gender = gender;
 		this.dob = dob;
 		this.avartar = avartar;
-		this.roleId = roleId;
+		this.roleid = roleid;
 		this.enabled = enabled;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getUsername() {
@@ -88,21 +104,6 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
 	public String getEmail() {
 		return email;
@@ -144,12 +145,12 @@ public class UserEntity {
 		this.status = status;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public Integer getRoleid() {
+		return roleid;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setRoleid(Integer roleid) {
+		this.roleid = roleid;
 	}
 
 	public boolean isEnabled() {

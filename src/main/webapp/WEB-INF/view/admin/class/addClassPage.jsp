@@ -11,8 +11,8 @@
 
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/addClass"
 			method="POST" style="width: 50%;">
-			Class Name: <input class="form-control" type="text" name="className"> <br>
-			Teacher Id: <input class="form-control" type="text" name="teacherId"><br>
+			Class Name: <input class="form-control" type="text" name="classname"> <br>
+			Teacher Id: <input class="form-control" type="text" name="teacherid"><br>
 
 			<input class="btn btn-success" type="submit" value="Save"
 				style="margin-top: 30px; width: 100%">

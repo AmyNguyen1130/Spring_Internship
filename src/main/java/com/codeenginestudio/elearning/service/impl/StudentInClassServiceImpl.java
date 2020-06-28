@@ -10,7 +10,7 @@ import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
-import com.codeenginestudio.elearning.util.StudentInClassUtil;
+//import com.codeenginestudio.elearning.util.StudentInClassUtil;
 
 @Service
 public class StudentInClassServiceImpl implements StudentInClassService {
@@ -25,7 +25,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 		for (StudentInClassEntity word : studentInClassEntity) {
-			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
+//			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
 		}
 		return studentInClassDTO;
 	}

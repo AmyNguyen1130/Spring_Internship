@@ -13,46 +13,46 @@ public class ClassEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long classId;
+	private Long classid;
 
 	@Column
-	private String className;
+	private String classname;
 
 	@Column
-	private Long teacherId;
+	private Long teacherid;
 
 	public ClassEntity() {
 
 	}
 
-	public ClassEntity(Long classId, String className, Long teacherId) {
-		this.classId = classId;
-		this.className = className;
-		this.teacherId = teacherId;
+	public ClassEntity(Long classid, String classname, Long teacherid) {
+		this.classid = classid;
+		this.classname = classname;
+		this.teacherid = teacherid;
 	}
 
-	public Long getClassId() {
-		return classId;
+	public Long getClassid() {
+		return classid;
 	}
 
-	public void setClassId(Long classId) {
-		this.classId = classId;
+	public void setClassid(Long classid) {
+		this.classid = classid;
 	}
 
-	public String getClassName() {
-		return className;
+	public String getClassname() {
+		return classname;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setClassname(String classname) {
+		this.classname = classname;
 	}
 
-	public Long getTeacherId() {
-		return teacherId;
+	public Long getTeacherid() {
+		return teacherid;
 	}
 
-	public void setTeacherId(Long teacherId) {
-		this.teacherId = teacherId;
+	public void setTeacherid(Long teacherid) {
+		this.teacherid = teacherid;
 	}
 
 }

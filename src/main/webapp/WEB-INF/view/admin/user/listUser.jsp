@@ -1,15 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>List student</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>List student</title>
 </head>
 
 <body>
@@ -35,7 +29,7 @@ td {
 </style>
 	<%
 		String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+		String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 	%>
 	<div>
 		<a href="/admin/user/addUser">
@@ -58,17 +52,17 @@ td {
 			<tbody>
 				<c:forEach items="${listUser}" var="user">
 					<tr>
-						<td scope="row">${user.getUserId()}</td>
-						<td>${user.getLastName()}</td>
-						<td>${user.getFirstName()}</td>
+						<td scope="row">${user.getUserid()}</td>
+						<td>${user.getLastname()}</td>
+						<td>${user.getFirstname()}</td>
 						<td>${user.getUsername()}</td>
 						<td>${user.getDob()}</td>
 						<td>${user.getGender()}</td>
 						<td>${user.getStatus()}</td>
-						<td>${user.getRoleId()}</td>
-						<td><a href="/admin/user/editUser/${user.getUserId()}"> <img
+						<td>${user.getRoleid()}</td>
+						<td><a href="/admin/user/editUser/${user.getUserid()}"> <img
 								alt="edit" src="<%=editImageAddress%>" class="optionSize" />
-						</a> <a href="/admin/user/deleteUser/${user.getUserId()}"> <img
+						</a> <a href="/admin/user/deleteUser/${user.getUserid()}"> <img
 								alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
 						</a></td>
 					</tr>

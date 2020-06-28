@@ -1,7 +1,5 @@
 package com.codeenginestudio.elearning.configuration;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,22 +19,14 @@ import com.codeenginestudio.elearning.service.MyUserDetailsService;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DataSource dataSource;
-
-	@Autowired
 	private MyUserDetailsService myUserDetailsService;
 
 	@Autowired
 	private ElearningAuthenticationSuccessHandler elearningAuthenticationSuccessHandler;
 
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(myUserDetailsService)
-			.and()
-			.authenticationProvider(authenticationProvider())
-			.jdbcAuthentication()
-			.dataSource(dataSource);
+		auth.authenticationProvider(authenticationProvider());
 	}
 
 	@Override

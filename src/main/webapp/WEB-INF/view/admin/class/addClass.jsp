@@ -10,11 +10,11 @@
 
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveAddClass"
 			method="POST" style="width: 50%;">
-			Class Name: <input class="form-control" type="text" name="className"> <br>
+			Class Name: <input class="form-control" type="text" name="classname"> <br>
 			Teacher Id:
-			<select class="form-control" id="teacherId" name="teacherId"> 
+			<select class="form-control" id="teacherid" name="teacherid">
 			 <c:forEach items="${data}" var="user">
-				   <option value="${user.userId}">${user.username}</option>
+				   <option value="${user.userid}">${user.username}</option>
 		     </c:forEach>
 			</select>
 			<br>

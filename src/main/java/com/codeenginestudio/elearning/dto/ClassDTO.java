@@ -2,31 +2,28 @@ package com.codeenginestudio.elearning.dto;
 
 public class ClassDTO {
 
-	private Long classId;
-	private String className;
-	private Long teacherId;
+	private Long classid;
 
-	public Long getClassId() {
-		return classId;
+	private String classname;
+
+	private Long teacherid;
+
+	public Long getClassid() {
+		return classid;
 	}
-
-	public void setClassId(Long classId) {
-		this.classId = classId;
+	public void setClassid(Long classid) {
+		this.classid = classid;
 	}
-
-	public String getClassName() {
-		return className;
+	public String getClassname() {
+		return classname;
 	}
-
-	public void setClassName(String className) {
-		this.className = className;
+	public void setClassname(String classname) {
+		this.classname = classname;
 	}
-
-	public Long getTeacherId() {
-		return teacherId;
+	public Long getTeacherid() {
+		return teacherid;
 	}
-
-	public void setTeacherId(Long teacherId) {
-		this.teacherId = teacherId;
+	public void setTeacherid(Long teacherid) {
+		this.teacherid = teacherid;
 	}
 }

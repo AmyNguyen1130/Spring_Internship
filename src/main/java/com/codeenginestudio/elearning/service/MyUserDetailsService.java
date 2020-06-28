@@ -10,13 +10,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.UserEntity;
 
-@Component
+@Service
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -25,24 +24,17 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+		UserEntity user = userDAO.getUserByUsername(username);
+
+		if (user == null) {
+			throw new UsernameNotFoundException("Can not found user");
+		}
+
+		// List Roles should get from role table
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-		// UserEntity
-		if (DEFAULT_USER_NAME.equals(username)) {
-			return new User(username, getDefaultPassword(DEFAULT_PASSWORD), authorities);
-		}
-
-		throw new UsernameNotFoundException("Can not found user");
+		return new User(username, user.getPassword(), authorities);
 	}
-
-	private String getDefaultPassword(String password) {
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
-		return passwordEncoder.encode(password);
-	}
-
-	private static String DEFAULT_PASSWORD = "12345";
-
-	private static String DEFAULT_USER_NAME = "admin";
 }

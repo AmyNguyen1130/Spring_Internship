@@ -32,10 +32,10 @@
 				<c:forEach items="${data}" var="class">
 			       <tr>
 				       <td>${i}</td>
-				       <td>${class.className}</td>
-				       <td>${class.teacherId}</td>
-				       <td><a href="editClass?id=<c:out value='${class.classId}' />">Edit</a> &emsp;
-					       <a href="deleteClass?id=<c:out value='${class.classId}' />">Delete</a></td>
+				       <td>${class.classname}</td>
+				       <td>${class.teacherid}</td>
+				       <td><a href="editClass?id=<c:out value='${class.classid}' />">Edit</a> &emsp;
+					       <a href="deleteClass?id=<c:out value='${class.classid}' />">Delete</a></td>
 
 				   </tr>
 				   <c:set var="i" value="${i+1}" />

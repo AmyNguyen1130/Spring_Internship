@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class UserDTO {
 
-	private Long userId;
+	private Long userid;
 
 	private String username;
 
 	private String password;
 
-	private String firstName;
+	private String firstname;
 
-	private String lastName;
+	private String lastname;
 
 	private String email;
 
@@ -26,32 +26,32 @@ public class UserDTO {
 
 	private String status;
 
-	private int roleId;
+	private int roleid;
 
 	public UserDTO() {
 	}
 
-	public UserDTO(String username, String password, String firstName, String lastName, String email, String gender,
-			Date dob, String avartar, int roleId, boolean enabled) {
+	public UserDTO(String username, String password, String firstName, String lastname, String email, String gender,
+			Date dob, String avartar, int roleid, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstname = firstName;
+		this.lastname = lastname;
 		this.email = email;
 		this.gender = gender;
 		this.dob = dob;
 		this.avartar = avartar;
-		this.roleId = roleId;
+		this.roleid = roleid;
 		this.enabled = enabled;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getUserid() {
+		return userid;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {
@@ -78,22 +78,7 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -134,11 +119,28 @@ public class UserDTO {
 		this.status = status;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public int getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
+	}
+
 }

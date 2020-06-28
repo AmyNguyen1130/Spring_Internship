@@ -3,13 +3,11 @@
 		<h3>Enter student's informations here</h3>
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
-			<input type="hidden" name="userId" value="${userInf.getUserId()}" />
+			<input type="hidden" name="userId" value="${userInf.getUserid()}" />
 			<div class="form-group row">
-				<label for="userName" class="col-sm-1 col-form-label">User
-					Name</label>
+				<label for="userName" class="col-sm-1 col-form-label">UserName</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="userName"
-						value="${userInf.getUsername()}">
+					<input type="text" class="form-control" name="username" value="${userInf.getUsername()}">
 				</div>
 			</div>
 
@@ -21,36 +19,24 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="firstName" class="col-sm-1 col-form-label">First
-					Name</label>
+				<label for="firstName" class="col-sm-1 col-form-label">FirstName</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="firstName"
-						value="${userInf.getFirstName()}">
+					<input type="text" class="form-control" name="firstname"
+						value="${userInf.getFirstname()}">
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="lastName" class="col-sm-1 col-form-label">last
-					Name</label>
+				<label for="lastName" class="col-sm-1 col-form-label">LastName</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="lastName"
-						value="${userInf.getLastName()}">
+					<input type="text" class="form-control" name="lastname" value="${userInf.getLastname()}">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="email" class="col-sm-1 col-form-label">Email</label>
 				<div class="col-sm-4">
-					<input type="email" class="form-control" name="email"
-						value="${userInf.getEmail()}">
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="dob" class="col-sm-1 col-form-label">Dob</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="dob"
-						value="${userInf.getDob()}">
+					<input type="email" class="form-control" name="email" value="${userInf.getEmail()}">
 				</div>
 			</div>
 
@@ -62,7 +48,7 @@
 						type="radio" name="gender" value="Female"
 						${userInf.getGender()}  == "Female" :checked ? "">Female
 					<input type="radio" name="gender" value="Other"
-						${userInf.getGender()} == "Other" :checked ? "">other
+						${userInf.getGender()} == "Other" :checked ? "">Other
 				</div>
 			</div>
 
