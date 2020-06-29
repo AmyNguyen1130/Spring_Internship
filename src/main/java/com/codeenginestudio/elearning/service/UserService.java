@@ -14,4 +14,6 @@ public interface UserService {
 	UserDTO getOneUser(long userId);
 
 	void editUser(UserDTO user);
+	
+	void editUserStatus(long userId);
 }

@@ -1,7 +1,5 @@
 package com.codeenginestudio.elearning.dao.entity;
 
-import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,16 +29,10 @@ public class UserEntity {
 	private String gender;
 
 	@Column
-	private Date dob;
-
-	@Column
 	private boolean enabled;
 
 	@Column
 	private String avartar;
-
-	@Column
-	private String status;
 
 	@Column
 	private Integer roleid;
@@ -50,7 +42,7 @@ public class UserEntity {
 	}
 
 	public UserEntity(String username, String password, String firstname, String lastname, String email, String gender,
-			Date dob, String avartar, Integer roleid, boolean enabled) {
+			String avartar, Integer roleid, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -58,7 +50,6 @@ public class UserEntity {
 		this.lastname = lastname;
 		this.email = email;
 		this.gender = gender;
-		this.dob = dob;
 		this.avartar = avartar;
 		this.roleid = roleid;
 		this.enabled = enabled;
@@ -121,28 +112,12 @@ public class UserEntity {
 		this.gender = gender;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
 	public String getAvartar() {
 		return avartar;
 	}
 
 	public void setAvartar(String avartar) {
 		this.avartar = avartar;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public Integer getRoleid() {

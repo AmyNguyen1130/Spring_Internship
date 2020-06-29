@@ -1,7 +1,5 @@
 package com.codeenginestudio.elearning.dto;
 
-import java.util.Date;
-
 public class UserDTO {
 
 	private Long userid;
@@ -18,21 +16,17 @@ public class UserDTO {
 
 	private String gender;
 
-	private Date dob;
-
 	private boolean enabled;
 
 	private String avartar;
 
-	private String status;
-
-	private int roleid;
+	private Long roleid;
 
 	public UserDTO() {
 	}
 
 	public UserDTO(String username, String password, String firstName, String lastname, String email, String gender,
-			Date dob, String avartar, int roleid, boolean enabled) {
+			String avartar, Long roleid, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -40,7 +34,6 @@ public class UserDTO {
 		this.lastname = lastname;
 		this.email = email;
 		this.gender = gender;
-		this.dob = dob;
 		this.avartar = avartar;
 		this.roleid = roleid;
 		this.enabled = enabled;
@@ -95,28 +88,12 @@ public class UserDTO {
 		this.gender = gender;
 	}
 
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
 	public String getAvartar() {
 		return avartar;
 	}
 
 	public void setAvartar(String avartar) {
 		this.avartar = avartar;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getFirstname() {
@@ -135,12 +112,11 @@ public class UserDTO {
 		this.lastname = lastname;
 	}
 
-	public int getRoleid() {
+	public Long getRoleid() {
 		return roleid;
 	}
 
-	public void setRoleid(int roleid) {
+	public void setRoleid(Long roleid) {
 		this.roleid = roleid;
 	}
-
 }

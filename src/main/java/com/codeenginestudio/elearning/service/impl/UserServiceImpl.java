@@ -49,4 +49,11 @@ public class UserServiceImpl implements UserService {
 		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
 
 	}
+
+	@Override
+	public void editUserStatus(long userId) {
+		boolean status = userDAO.getOne(userId).isEnabled();
+		userDAO.getOne(userId).setEnabled(!status);
+		userDAO.saveAndFlush(userDAO.getOne(userId));
+	}
 }

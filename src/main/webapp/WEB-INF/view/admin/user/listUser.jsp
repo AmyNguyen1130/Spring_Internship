@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>List student</title>
+<meta charset="UTF-8">
+<title>List student</title>
 </head>
 
 <body>
-<style>
+	<style>
 img {
 	width: 30px;
 	height: 30px;
@@ -35,31 +35,43 @@ td {
 		<a href="/admin/user/addUser">
 			<button class="btn btn-primary">Add User</button>
 		</a>
+		<div class="form-group row">
+				<div class="col-sm-4">
+					<select name ="roleid" class="form-control">
+					  <option value="2" ${userInf.getRoleid()}  == 2 : selected ? "" >Teacher</option>
+					  <option value="3" ${userInf.getRoleid()}  == 3 : selected ? "">Student</option>
+					</select>
+				</div>
+				
+ 				<div class="col-sm-4">
+					<select name ="roleid" class="form-control">
+					  <c:forEach items="${listRole}" var="role">
+					  	<option value="${role.getRoleid()}"> ${role.getRolename()}</option>
+					  </c:forEach>
+					</select>
+				</div>
+			</div>
+		
+		
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th scope="col">UserId</th>
-					<th scope="col">Last Name</th>
 					<th scope="col">First Name</th>
-					<th scope="col">UserName</th>
-					<th scope="col">Dob</th>
-					<th scope="col">Gender</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
 					<th scope="col">Status</th>
-					<th scope="col">RoleId</th>
 					<th scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${listUser}" var="user">
 					<tr>
-						<td scope="row">${user.getUserid()}</td>
-						<td>${user.getLastname()}</td>
 						<td>${user.getFirstname()}</td>
-						<td>${user.getUsername()}</td>
-						<td>${user.getDob()}</td>
-						<td>${user.getGender()}</td>
-						<td>${user.getStatus()}</td>
-						<td>${user.getRoleid()}</td>
+						<td>${user.getLastname()}</td>
+						<td>${user.getEmail()}</td>
+						<td>${listRole.get(user.getRoleid() - 1).getRolename()}</td>
+						<td><a href="/admin/user/editUserEnabled/${user.getUserid()}"><button>${user.isEnabled() == true ? 'Active' : 'Deactivated'}</button></a></td>
 						<td><a href="/admin/user/editUser/${user.getUserid()}"> <img
 								alt="edit" src="<%=editImageAddress%>" class="optionSize" />
 						</a> <a href="/admin/user/deleteUser/${user.getUserid()}"> <img
