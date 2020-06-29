@@ -13,14 +13,16 @@
 			Class Name: <input class="form-control" type="text" name="classname"> <br>
 			Teacher Id:
 			<select class="form-control" id="teacherid" name="teacherid">
+				<option value="">None</option>
 			 <c:forEach items="${data}" var="user">
 				   <option value="${user.userid}">${user.username}</option>
 		     </c:forEach>
 			</select>
 			<br>
 
-			<input class="btn btn-success" type="submit" value="Save"
-				style="margin-top: 30px; width: 100%">
+			<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
+
+			<input class="btn btn-success" type="submit" value="Save">
 
 		</form>	
 	</div>

@@ -2,34 +2,45 @@ package com.codeenginestudio.elearning.dto;
 
 public class StudentInClassDTO {
 
-	private Long idRowStudentInClass;
+	private Long idrow;
 
-	private Long classId;
+	private Long classid;
 
-	private Long studentId;
+	private Long studentid;
 
-	public Long getIdRowStudentInClass() {
-		return idRowStudentInClass;
+	public StudentInClassDTO() {
+		super();
 	}
 
-	public void setIdRowStudentInClass(Long idRowStudentInClass) {
-		this.idRowStudentInClass = idRowStudentInClass;
+	public StudentInClassDTO(Long idrow, Long classid, Long studentid) {
+		super();
+		this.idrow = idrow;
+		this.classid = classid;
+		this.studentid = studentid;
 	}
 
-	public Long getClassId() {
-		return classId;
+	public Long getIdrow() {
+		return idrow;
 	}
 
-	public void setClassId(Long classId) {
-		this.classId = classId;
+	public void setIdrow(Long idrow) {
+		this.idrow = idrow;
 	}
 
-	public Long getStudentId() {
-		return studentId;
+	public Long getClassid() {
+		return classid;
 	}
 
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
+	public void setClassid(Long classid) {
+		this.classid = classid;
+	}
+
+	public Long getStudentid() {
+		return studentid;
+	}
+
+	public void setStudentid(Long studentid) {
+		this.studentid = studentid;
 	}
 
 }

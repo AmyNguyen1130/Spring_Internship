@@ -10,7 +10,9 @@ import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
-//import com.codeenginestudio.elearning.util.StudentInClassUtil;
+import com.codeenginestudio.elearning.util.StudentInClassUtil;
+
+import org.springframework.data.domain.Sort;
 
 @Service
 public class StudentInClassServiceImpl implements StudentInClassService {
@@ -21,20 +23,23 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public List<StudentInClassDTO> getAllStudentInClass() {
 
-		List<StudentInClassEntity> studentInClassEntity = (List<StudentInClassEntity>) studentInClassDAO.findAll();
+		List<StudentInClassEntity> studentInClassEntity = (List<StudentInClassEntity>) studentInClassDAO
+				.findAll(Sort.by("studentid"));
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 		for (StudentInClassEntity word : studentInClassEntity) {
-//			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
+			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
 		}
 		return studentInClassDTO;
+
 	}
 
 	@Override
-	public void saveTeachersToClass(Long classId, Long userId) {
+	public void saveTeachersToClass(Long classid, Long userid) {
+
 		StudentInClassEntity studentInClassEntity = new StudentInClassEntity();
-		studentInClassEntity.setClassId(classId);
-		studentInClassEntity.setStudentId(userId);
+		studentInClassEntity.setClassid(classid);
+		studentInClassEntity.setStudentid(userid);
 		studentInClassDAO.save(studentInClassEntity);
 
 	}
@@ -42,6 +47,22 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public void deleteStudentInClass(Long id) {
 		studentInClassDAO.deleteById(id);
+	}
+
+	@Override
+	public Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid) {
+
+		for (StudentInClassDTO student : studentInClassDTO) {
+			if (student.getStudentid().equals(userid)) {
+				return student.getIdrow();
+			}
+		}
+		return null;
+
+	}
+
+	public void deleteAll() {
+		studentInClassDAO.deleteAll();
 	}
 
 }

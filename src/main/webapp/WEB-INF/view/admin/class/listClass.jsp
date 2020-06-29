@@ -24,12 +24,12 @@
 				<c:set var="i" value="1" />
 				<c:forEach items="${data}" var="class">
 			       <tr>
-				       <td>${class.classid}</td>
+				       <td>${i}</td>
 				       <td>${class.classname}</td>
 				       <td>${class.teacherid}</td>
-				       <td><a href="editClass?id=<c:out value='${class.classid}' />">Edit</a> &emsp;
-							<a href="deleteClass?id=<c:out value='${class.classid}' />">Delete</a> &emsp;
-							<a href="/admin/getTeacherAddToClass?classId=<c:out value='${class.classid}'/>"><button>Assign</button></a></td>
+				       <td><a href="/admin/class/editClass?id=<c:out value='${class.classid}' />">Edit</a> &emsp;
+							<a href="/admin/class/deleteClass?id=<c:out value='${class.classid}' />">Delete</a> &emsp;
+							<a href="/admin/getTeacherAddToClass?classid=<c:out value='${class.classid}'/>"><button>Assign</button></a></td>
 
 				   </tr>
 				   <c:set var="i" value="${i+1}" />

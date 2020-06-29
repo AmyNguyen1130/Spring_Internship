@@ -13,48 +13,47 @@ public class StudentInClassEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idRowStudentInClass;
-	
-	@Column
-	private Long classId;
+	private Long idrow;
 
 	@Column
-	private Long studentId;
+	private Long classid;
 
-	public Long getIdRowStudentInClass() {
-		return idRowStudentInClass;
-	}
-
-	public void setIdRowStudentInClass(Long idRowStudentInClass) {
-		this.idRowStudentInClass = idRowStudentInClass;
-	}
-
-	public Long getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Long classId) {
-		this.classId = classId;
-	}
-
-	public Long getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
-
-	public StudentInClassEntity(Long idRowStudentInClass, Long classId, Long studentId) {
-		super();
-		this.idRowStudentInClass = idRowStudentInClass;
-		this.classId = classId;
-		this.studentId = studentId;
-	}
+	@Column
+	private Long studentid;
 
 	public StudentInClassEntity() {
 		super();
 	}
 
+	public StudentInClassEntity(Long idrow, Long classid, Long studentid) {
+		super();
+		this.idrow = idrow;
+		this.classid = classid;
+		this.studentid = studentid;
+	}
+
+	public Long getIdrow() {
+		return idrow;
+	}
+
+	public void setIdrow(Long idrow) {
+		this.idrow = idrow;
+	}
+
+	public Long getClassid() {
+		return classid;
+	}
+
+	public void setClassid(Long classid) {
+		this.classid = classid;
+	}
+
+	public Long getStudentid() {
+		return studentid;
+	}
+
+	public void setStudentid(Long studentid) {
+		this.studentid = studentid;
+	}
 
 }

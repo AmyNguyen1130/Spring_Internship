@@ -1,77 +1,53 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.codeenginestudio.elearning.controller.StudentIntoClassController"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>List student</title>
+<title>List student in class</title>
 
-<style>
-	img {
-		width: 30px;
-		height: 30px;
-		margin: 4px;
-	}
-	
-	button {
-		margin: 20px;
-	}
-	
-	.field {
-		width: 50px;
-		border: none;
-	}
-	
-	td {
-		width: 40px;
-	}
-</style>
 </head>
-
 <body>
 	<div style="width: 50%; margin: 5%">
 		<h1>Assign students into class</h1>
-		<br><br>
-		<form class="form-group" action="<%=request.getContextPath()%>/admin/saveTeacherAddToClass?classId=<c:out value='${classId}'/>"
+		<br>
+		<br>
+		<form class="form-group"
+			action="<%=request.getContextPath()%>/admin/saveTeacherAddToClass?classid=<c:out value='${classid}'/>"
 			method="POST" style="width: 50%;">
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>#</th>
+						<th>UserID</th>
 						<th scope="col">User Name</th>
 						<th scope="col">Status</th>
 						<th scope="col">RoleId</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${listUser}" var="user">
+
+						<c:forEach items="${listUser}" var="user">
 						<tr>
-						<td><input type="checkbox" name="checkSelected" id="checkSelected" value="${user.getUserId()}"></td>
+							<td><input type="checkbox" name="checkSelected"
+								id="checkSelected" value="${user.getUserid()}" ${studentChecked.contains(user.getUserid()) ? 'checked="checked"' : ''}></td>
+							<td>${user.getUserid()}</td>
 							<td>${user.getUsername()}</td>
 							<td>${user.getStatus()}</td>
-							<td>${user.getRoleId()}</td>
+							<td>${user.getRoleid()}</td>
+
 						</tr>
+
+
 					</c:forEach>
 				</tbody>
 			</table>
 			<button type="submit" class="btn btn-success">Save</button>
 
-		</form>	
+		</form>
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
