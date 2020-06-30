@@ -13,4 +13,8 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	 * META-INF/jpa/user.orm.xml
 	 */
 	UserEntity getUserByUsername(@Param("username") String username);
+
+	long countByUsername(String lastname);
+
+	long countByEmail(String email);
 }

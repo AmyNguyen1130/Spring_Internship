@@ -44,40 +44,28 @@ public class UserValidation {
 		
 		return true;
 	}
-	
+
 	static boolean checkUsernameUnique(String username) {
-		if(username == "") {
-			errUsername = "Username could not be null"; 
+		if (username == "") {
+			errUsername = "Username could not be null";
 			return false;
-		}else {
-			List<UserDTO> listUser = userService.getListUser();
-			for (UserDTO existedUser : listUser) {
-				if(existedUser.getUsername() == username) {
-					errUsername = "username already exists !";
-					return false;
-				};
-			}
+		} else if (userService.countByUsername(username) > 0) {
+			errUsername = "username already exists !";
+			return false;
 		}
-		
 		return true;
 	}
-	
-	
+
 	static boolean checkEmail(String email) {
-		if(email == "") {
+		if (email == "") {
 			errEmail = "Email could not be null";
 			return false;
-		}else if(!isValidEmail(email)) {
+		} else if (!isValidEmail(email)) {
 			errEmail = "This email is wrong format";
 			return false;
-		}else {
-			List<UserDTO> listUser = userService.getListUser();
-			for (UserDTO existedUser : listUser) {
-				if(existedUser.getEmail() == email) {
-					errEmail = "Email already exists !";
-					return false;
-				};
-			}
+		} else if (userService.countByEmail(email) > 0) {
+			errEmail = "Email already exists !";
+			return false;
 		}
 		return true;
 	}

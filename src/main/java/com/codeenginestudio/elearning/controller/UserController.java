@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.RoleService;
@@ -16,14 +18,13 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private RoleService roleService;
 
 	@GetMapping("/admin/user")
-	public String showListUser(Model model) {
-
-		model.addAttribute("listUser", userService.getListUser());
+	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
+		model.addAttribute("userPage", userService.getUserPage(page));
 		model.addAttribute("listRole", roleService.getListRole());
 		return PRE_FIX + "listUser";
 	}

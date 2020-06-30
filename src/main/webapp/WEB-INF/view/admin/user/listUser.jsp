@@ -1,4 +1,5 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,7 @@ td {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${listUser}" var="user">
+				<c:forEach items="${userPage.getContent()}" var="user">
 					<tr>
 						<td>${user.getFirstname()}</td>
 						<td>${user.getLastname()}</td>
@@ -81,6 +82,11 @@ td {
 				</c:forEach>
 			</tbody>
 		</table>
+		<util:pagination
+			count="${userPage.getTotalElements()}"
+			totalPages="${userPage.getTotalPages()}" 
+			url="${pageContext.request.contextPath}/admin/user"
+			curpage="${userPage.getNumber()}" />
 	</div>
 </body>
 </html>
