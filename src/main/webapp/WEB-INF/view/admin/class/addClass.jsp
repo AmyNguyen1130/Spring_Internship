@@ -8,9 +8,15 @@
 	<div style="margin: 5%">
 		<h1>Add Class Form</h1>
 
+		<c:forEach items="${errors}" var="error">
+			<span style="color: red">${error}</span>
+		</c:forEach>
+
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveAddClass"
 			method="POST" style="width: 50%;">
-			Class Name: <input class="form-control" type="text" name="classname"> <br>
+			Class Name: <input class="form-control" type="text" name="classname">
+
+			 <br>
 			Teacher Id:
 			<select class="form-control" id="teacherid" name="teacherid">
 				<option value="">None</option>

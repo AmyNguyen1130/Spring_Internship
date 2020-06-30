@@ -15,7 +15,6 @@
 				<th scope="col">#</th>
 				<th scope="col">Class ID</th>
 				<th scope="col">Student ID</th>
-				<th scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>

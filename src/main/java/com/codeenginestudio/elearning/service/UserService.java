@@ -19,10 +19,13 @@ public interface UserService {
 	UserDTO getOneUser(long userId);
 
 	void editUser(UserDTO user);
-	
+
 	void editUserStatus(long userId);
 
 	long countByUsername(String username);
 
 	long countByEmail(String email);
+
+	List<UserDTO> getUsersByRoleid(Long roleid);
+
 }

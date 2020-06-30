@@ -35,14 +35,14 @@ public class UserEntity {
 	private String avartar;
 
 	@Column
-	private Integer roleid;
+	private Long roleid;
 
 	public UserEntity() {
 		super();
 	}
 
 	public UserEntity(String username, String password, String firstname, String lastname, String email, String gender,
-			String avartar, Integer roleid, boolean enabled) {
+			String avartar, Long roleid, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -120,11 +120,11 @@ public class UserEntity {
 		this.avartar = avartar;
 	}
 
-	public Integer getRoleid() {
+	public Long getRoleid() {
 		return roleid;
 	}
 
-	public void setRoleid(Integer roleid) {
+	public void setRoleid(Long roleid) {
 		this.roleid = roleid;
 	}
 

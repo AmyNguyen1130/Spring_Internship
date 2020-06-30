@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +19,7 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	long countByUsername(String lastname);
 
 	long countByEmail(String email);
+
+	List<UserEntity> getUsersByRoleid(@Param("roleid") Long roleid);
+
 }

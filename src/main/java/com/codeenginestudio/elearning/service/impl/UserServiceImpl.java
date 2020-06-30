@@ -91,4 +91,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
+
+	public List<UserDTO> getUsersByRoleid(Long roleid) {
+
+		List<UserEntity> listUserEntity = userDAO.getUsersByRoleid(roleid);
+		List<UserDTO> listUserDTO = new ArrayList<>();
+		for (UserEntity userEntity : listUserEntity) {
+			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+		}
+		return listUserDTO;
+	}
+
 }
