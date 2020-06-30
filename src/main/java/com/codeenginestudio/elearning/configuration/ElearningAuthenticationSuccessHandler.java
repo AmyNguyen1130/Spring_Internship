@@ -33,7 +33,7 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 		}
 
 		if (hasAdminRole) {
-			redirectStrategy.sendRedirect(request, response, "/admin/user/");
+			redirectStrategy.sendRedirect(request, response, "/admin/user");
 		} else {
 			throw new IllegalStateException();
 		}

@@ -1,4 +1,4 @@
-package com.codeenginestudio.elearning.util.General;
+package com.codeenginestudio.elearning.util.general;
 
 import org.modelmapper.ModelMapper;
 

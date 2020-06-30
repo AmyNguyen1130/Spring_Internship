@@ -2,7 +2,7 @@ package com.codeenginestudio.elearning.util;
 
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
-import com.codeenginestudio.elearning.util.General.UtilGeneral;
+import com.codeenginestudio.elearning.util.general.UtilGeneral;
 
 public class ClassUtil {
 	public static ClassDTO parseToDTO(ClassEntity classEntity) {

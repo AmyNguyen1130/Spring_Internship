@@ -2,7 +2,7 @@ package com.codeenginestudio.elearning.util;
 
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
-import com.codeenginestudio.elearning.util.General.UtilGeneral;
+import com.codeenginestudio.elearning.util.general.UtilGeneral;
 
 public class UserUtil {
 

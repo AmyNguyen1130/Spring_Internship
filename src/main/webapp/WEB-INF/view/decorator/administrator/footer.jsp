@@ -1,3 +1,7 @@
-<footer class="header" style="position: fixed; bottom: 0;width: 100%;height:100px; background: black; color:white; text-align: center;">
-	<p>&copy; 2020 CodeEngineStudio<p>
+<footer class="sticky-footer">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright © Code Engine Studio 2020</span>
+        </div>
+    </div>
 </footer>

@@ -10,7 +10,7 @@ import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
-import com.codeenginestudio.elearning.util.StudentInClassUtil;
+//import com.codeenginestudio.elearning.util.StudentInClassUtil;
 
 import org.springframework.data.domain.Sort;
 
@@ -28,7 +28,8 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 		for (StudentInClassEntity word : studentInClassEntity) {
-			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
+			// TODO: please commit StudentInClassUtil file
+//			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
 		}
 		return studentInClassDTO;
 

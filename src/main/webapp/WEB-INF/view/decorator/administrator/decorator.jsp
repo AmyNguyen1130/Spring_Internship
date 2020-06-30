@@ -1,16 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
+	<sitemesh:write property="head"/>
+	<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
 </head>
-<body>
-	<main id="page-wrapper5">
-		<div class="container-fluid">
-			<sitemesh:write property='body' />
-		</div>
-	</main>
-	<%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
+<body id="page-top">
+	<%@ include file="/WEB-INF/view/decorator/administrator/top_title.jsp" %>
+	<div id="wrapper">
+
+		<%@ include file="/WEB-INF/view/decorator/administrator/navigation.jsp" %>
+
+		<div id="content-wrapper">
+
+	        <div class="container-fluid">
+	            <sitemesh:write property="body" />
+	        </div>
+
+	        <%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
+	    </div>
+	</div>
+
 </body>
 </html>

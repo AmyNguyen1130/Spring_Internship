@@ -10,6 +10,7 @@ import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.util.PasswordUtil;
 import com.codeenginestudio.elearning.util.UserUtil;
 
 @Service
@@ -31,7 +32,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(UserDTO user) {
-		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
+		UserEntity userEntity = UserUtil.parseToUserEntity(user);
+		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
+
+		userDAO.saveAndFlush(userEntity);
 	}
 
 	@Override
@@ -46,8 +50,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUser(UserDTO user) {
-		userDAO.saveAndFlush(UserUtil.parseToUserEntity(user));
+		UserEntity userEntity = UserUtil.parseToUserEntity(user);
+		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
 
+		userDAO.saveAndFlush(userEntity);
 	}
 
 	@Override
