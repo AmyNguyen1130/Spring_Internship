@@ -24,7 +24,6 @@
 						<th>#</th>
 						<th>UserID</th>
 						<th scope="col">User Name</th>
-						<th scope="col">Status</th>
 						<th scope="col">RoleId</th>
 					</tr>
 				</thead>
@@ -36,7 +35,6 @@
 								id="checkSelected" value="${user.getUserid()}" ${studentChecked.contains(user.getUserid()) ? 'checked="checked"' : ''}></td>
 							<td>${user.getUserid()}</td>
 							<td>${user.getUsername()}</td>
-							<td>${user.getStatus()}</td>
 							<td>${user.getRoleid()}</td>
 
 						</tr>

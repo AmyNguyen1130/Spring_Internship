@@ -45,7 +45,7 @@ public class StudentIntoClassController {
 
 	@PostMapping("/admin/saveTeacherAddToClass")
 	public String saveTeacherAddToClass(ModelMap model, @ModelAttribute("classid") Long classid,
-			@RequestParam("checkSelected") List<Long> listUserId) {
+			@RequestParam(required=false, name="checkSelected") List<Long> listUserId) {
 
 		if (listUserId != null) {
 			for (Long userid : listUserId) {
@@ -63,9 +63,9 @@ public class StudentIntoClassController {
 				}
 			}
 		}
-//		if (listUserId == null) {
-//			studentInClassService.deleteAll();
-//		}
+		if (listUserId == null) {
+			studentInClassService.deleteAll();
+		}
 
 		model.addAttribute("data", studentInClassService.getAllStudentInClass());
 		return PREFIX + "listStudentInClass";

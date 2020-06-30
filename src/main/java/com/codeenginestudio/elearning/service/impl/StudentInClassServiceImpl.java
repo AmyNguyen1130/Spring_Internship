@@ -10,7 +10,7 @@ import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
-//import com.codeenginestudio.elearning.util.StudentInClassUtil;
+import com.codeenginestudio.elearning.util.StudentInClassUtil;
 
 import org.springframework.data.domain.Sort;
 
@@ -28,8 +28,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 		for (StudentInClassEntity word : studentInClassEntity) {
-			// TODO: please commit StudentInClassUtil file
-//			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
+			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
 		}
 		return studentInClassDTO;
 
@@ -46,11 +45,6 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	}
 
 	@Override
-	public void deleteStudentInClass(Long id) {
-		studentInClassDAO.deleteById(id);
-	}
-
-	@Override
 	public Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid) {
 
 		for (StudentInClassDTO student : studentInClassDTO) {
@@ -64,6 +58,12 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	public void deleteAll() {
 		studentInClassDAO.deleteAll();
+	}
+
+	@Override
+	public void deleteStudentInClass(Long id) {
+		studentInClassDAO.deleteById(id);
+
 	}
 
 }

@@ -14,7 +14,7 @@ public class ClassUtil {
 
 	public static ClassEntity parseToEntity(ClassDTO classDTO) {
 
-		ClassEntity classEntity =  UtilGeneral.modelMapper.map(classDTO, ClassEntity.class);
+		ClassEntity classEntity = UtilGeneral.modelMapper.map(classDTO, ClassEntity.class);
 
 		return classEntity;
 	}
