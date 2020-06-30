@@ -15,9 +15,8 @@
 			Class Name: <input class="form-control" type="text" name="classname" value="${data.classname}"> <br>
 			Teacher Id: 
 			<select class="form-control" id="teacherid" name="teacherid">
-
+				<option value="" ${data.teacherid == null ? 'selected="selected"' : ''}>None</option>
 				 <c:forEach items="${user}" var="user">
-					<option value="${user.userid}" ${user.userid == null ? 'selected="selected"' : ''}>None</option>
 					<option value="${user.userid}" ${user.userid == data.teacherid ? 'selected="selected"' : ''}>${user.getUsername()}</option>
 			     </c:forEach>
 			</select><br>
