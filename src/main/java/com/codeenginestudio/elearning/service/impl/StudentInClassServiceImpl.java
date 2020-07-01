@@ -56,14 +56,29 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	}
 
-	public void deleteAll() {
-		studentInClassDAO.deleteAll();
+	@Override
+	public void deleteByClassid(Long classid) {
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassid(classid);
+
+		studentInClassDAO.deleteAll(studentInClassEntity);
+	}
+
+	@Override
+	public List<StudentInClassDTO> getAllStudentInClassByClassid(Long classid) {
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassid(classid);
+
+		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
+		for (StudentInClassEntity word : studentInClassEntity) {
+
+			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
+		}
+		return studentInClassDTO;
 	}
 
 	@Override
 	public void deleteStudentInClass(Long id) {
 		studentInClassDAO.deleteById(id);
-
+		
 	}
 
 }

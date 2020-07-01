@@ -11,13 +11,13 @@ public class ClassValidation {
 
 	public static boolean checkEmpty(String classname) {
 		if (classname == "") {
-			errClassname = "Username could not be null";
+			errClassname = "class name could not be null";
 			return false;
 		}
 		return true;
 	}
 
-	public static boolean checkClassnameExisted(String classname, ClassService classService) {
+	public static boolean checkClassnameExisted(Long classid, String classname, ClassService classService) {
 		List<ClassDTO> listClass = classService.getAllClass();
 
 		if (listClass.size() == 0) {
@@ -26,8 +26,13 @@ public class ClassValidation {
 		if (listClass.size() != 0) {
 			for (ClassDTO existed : listClass) {
 				if (classname.equals(existed.getClassname())) {
-					errClassname = "username already exists !";
-					return false;
+					if (classid == existed.getClassid()) {
+						return true;
+					}
+					else {
+						errClassname = "class name already exists !";
+						return false;
+					}
 				}
 			}
 		}

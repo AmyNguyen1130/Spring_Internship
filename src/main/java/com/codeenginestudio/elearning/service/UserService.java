@@ -29,4 +29,7 @@ public interface UserService {
 	long countByEmail(String email);
 
 	List<UserDTO> getUsersByRoleid(Long roleid);
+	
+	Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page);
+	
 }

@@ -26,53 +26,45 @@ public class StudentIntoClassController {
 	private StudentInClassService studentInClassService;
 
 	@GetMapping("/admin/getTeacherAddToClass")
-	public String getTeacherAddToClass(ModelMap model, @ModelAttribute("classid") Long classid) {
+	public String getTeacherAddToClass(ModelMap model, @ModelAttribute("classid") Long classid,
+			@RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("listUser", userService.getUsersByRoleid(RoleConstant.ROLE_STUDENT));
-		model.addAttribute("studentChecked", listCheckId());
+		model.addAttribute("userPage", userService.getUserPageByRoleid(RoleConstant.ROLE_STUDENT, page));
+		model.addAttribute("studentChecked", listStudentCheckedByClass(classid));
 
 		return PREFIX + "addStudentIntoClass";
 	}
 
-	@GetMapping("/admin/deleteStudentInClass")
-	public String deleteStudentInClass(ModelMap model, @ModelAttribute("idrow") Long id) {
+	@PostMapping("/admin/saveStudentsToClass")
+	public String saveStudentsToClass(ModelMap model, @ModelAttribute("classid") Long classid,
+			@RequestParam(required = false, name = "checkSelected") List<Long> listUserId) {
 
-		studentInClassService.deleteStudentInClass(id);
-		model.addAttribute("data", studentInClassService.getAllStudentInClass());
-
-		return PREFIX + "listStudentInClass";
-	}
-
-	@PostMapping("/admin/saveTeacherAddToClass")
-	public String saveTeacherAddToClass(ModelMap model, @ModelAttribute("classid") Long classid,
-			@RequestParam(required=false, name="checkSelected") List<Long> listUserId) {
+		studentInClassService.deleteByClassid(classid);
 
 		if (listUserId != null) {
+
 			for (Long userid : listUserId) {
 
-				if (!listCheckId().contains(userid)) {
-					studentInClassService.saveTeachersToClass(classid, userid);
-				}
-			}
-			for (Long checkedId : listCheckId()) {
-
-				if (!listUserId.contains(checkedId)) {
-					Long id = studentInClassService.findIdByValue(studentInClassService.getAllStudentInClass(),
-							checkedId);
-					studentInClassService.deleteStudentInClass(id);
-				}
+				studentInClassService.saveTeachersToClass(classid, userid);
 			}
 		}
-		if (listUserId == null) {
-			studentInClassService.deleteAll();
-		}
 
-		model.addAttribute("data", studentInClassService.getAllStudentInClass());
-		return PREFIX + "listStudentInClass";
+		return "redirect:/admin/class";
 	}
 
-	public List<Long> listCheckId() {
+	public List<Long> listStudentCheckedByClass(Long classid) {
+		List<StudentInClassDTO> listChecked = studentInClassService.getAllStudentInClassByClassid(classid);
+		List<Long> listCheckedId = new ArrayList<>();
+
+		for (int i = 0; i < listChecked.size(); i++) {
+			listCheckedId.add(listChecked.get(i).getStudentid());
+
+		}
+		return listCheckedId;
+	}
+
+	public List<Long> listStudentChecked() {
 		List<StudentInClassDTO> listChecked = studentInClassService.getAllStudentInClass();
 		List<Long> listCheckedId = new ArrayList<>();
 

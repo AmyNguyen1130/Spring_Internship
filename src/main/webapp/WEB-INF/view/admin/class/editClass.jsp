@@ -7,13 +7,17 @@
 </head>
 <body>
 	<div style="margin: 5%">
-		<h1>Add Class Form</h1>
+		<h1>Edit Class Form</h1>
+
+		<c:forEach items="${errors}" var="error">
+			<span style="color: red">${error}</span>
+		</c:forEach>
 
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveEditClass"
 			method="POST" style="width: 50%;">
 			<input class="form-control" type="hidden" name="classid" value="${data.classid}">
 			Class Name: <input class="form-control" type="text" name="classname" value="${data.classname}"> <br>
-			Teacher Id: 
+			Teacher:
 			<select class="form-control" id="teacherid" name="teacherid">
 				<option value="" ${data.teacherid == null ? 'selected="selected"' : ''}>None</option>
 				 <c:forEach items="${user}" var="user">

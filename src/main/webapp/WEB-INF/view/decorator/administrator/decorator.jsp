@@ -8,8 +8,6 @@
 	<%@ include file="/WEB-INF/view/decorator/administrator/top_title.jsp" %>
 	<div id="wrapper">
 
-		<%@ include file="/WEB-INF/view/decorator/administrator/navigation.jsp" %>
-
 		<div id="content-wrapper">
 
 	        <div class="container-fluid">

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.dao.ClassDAO;
@@ -11,6 +14,7 @@ import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
+import com.codeenginestudio.elearning.util.CommonUtil;
 
 @Service("classService")
 public class ClassServiceImpl implements ClassService {
@@ -47,5 +51,18 @@ public class ClassServiceImpl implements ClassService {
 
 		return ClassUtil.parseToDTO(classDAO.getOne(id));
 	}
+
+	@Override
+	public Page<ClassDTO> getClassPage(Integer page) {
+
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+
+		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
+
+		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
+
+	}
+
+	private static final int ITEM_PER_PAGE = 10;
 
 }

@@ -12,7 +12,10 @@ public interface StudentInClassService {
 
 	Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid);
 
-	void deleteAll();
+	void deleteByClassid(Long classid);
+
+	List<StudentInClassDTO> getAllStudentInClassByClassid(Long classid);
 
 	void deleteStudentInClass(Long id);
+
 }

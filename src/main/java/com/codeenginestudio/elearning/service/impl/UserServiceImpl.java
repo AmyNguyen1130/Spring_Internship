@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
 
 		Page<UserEntity> listUserEntity = userDAO.findAll(pageable);
-
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
@@ -108,6 +107,14 @@ public class UserServiceImpl implements UserService {
 			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 		}
 		return listUserDTO;
+	}
+
+	@Override
+	public Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page) {
+		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+
+		Page<UserEntity> listUserEntity = userDAO.getUserPageByRoleid(roleid, pageable);
+		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
 	private static final int ITEM_PER_PAGE = 10;

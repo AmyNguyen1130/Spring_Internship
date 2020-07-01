@@ -17,7 +17,7 @@
 			Class Name: <input class="form-control" type="text" name="classname">
 
 			 <br>
-			Teacher Id:
+			Teacher:
 			<select class="form-control" id="teacherid" name="teacherid">
 				<option value="">None</option>
 			 <c:forEach items="${data}" var="user">

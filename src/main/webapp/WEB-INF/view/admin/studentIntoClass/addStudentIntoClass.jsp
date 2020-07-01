@@ -1,8 +1,5 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +8,12 @@
 
 </head>
 <body>
-	<div style="width: 50%; margin: 5%">
+	<div style="margin: 5%">
 		<h1>Assign students into class</h1>
 		<br>
 		<br>
 		<form class="form-group"
-			action="<%=request.getContextPath()%>/admin/saveTeacherAddToClass?classid=<c:out value='${classid}'/>"
+			action="<%=request.getContextPath()%>/admin/saveStudentsToClass?classid=<c:out value='${classid}'/>"
 			method="POST" style="width: 50%;">
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -28,23 +25,33 @@
 					</tr>
 				</thead>
 				<tbody>
+						<c:forEach items="${userPage.getContent()}" var="user">
 
-						<c:forEach items="${listUser}" var="user">
 						<tr>
-							<td><input type="checkbox" name="checkSelected"
-								id="checkSelected" value="${user.getUserid()}" ${studentChecked.contains(user.getUserid()) ? 'checked="checked"' : ''}></td>
+							<td>
+								<input type="checkbox" name="checkSelected"
+									id="checkbox_${user.getUserid() }"
+									value="${user.getUserid()}"
+									${studentChecked.contains(user.getUserid()) ? 'checked' : ''}>
+							</td>
 							<td>${user.getUserid()}</td>
 							<td>${user.getUsername()}</td>
 							<td>${user.getRoleid()}</td>
 
 						</tr>
 
-
 					</c:forEach>
 				</tbody>
 			</table>
+			<util:pagination
+			count="${userPage.getTotalElements()}"
+			totalPages="${userPage.getTotalPages()}" 
+			url="${pageContext.request.contextPath}/admin/getTeacherAddToClass"
+			curpage="${userPage.getNumber()}" />
+			
 			<button type="submit" class="btn btn-success">Save</button>
 
+			<a href="/admin/class"><button type="button" class="btn btn-warning">Cancel</button></a>
 		</form>
 	</div>
 </body>
