@@ -2,10 +2,10 @@ package com.codeenginestudio.elearning.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,6 +43,16 @@ public class UserServiceImpl implements UserService {
 		Page<UserEntity> listUserEntity = userDAO.findAll(pageable);
 
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
+	}
+
+	@Override
+	public Page<UserDTO> getUserByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page) {
+
+		List<UserEntity> listUserEntity = userDAO.getUserByEnabledAndRoleid(enabled, roleid);
+
+		Page<UserEntity> pageUserEntities = new PageImpl<UserEntity>(listUserEntity);
+
+		return pageUserEntities.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
 	@Override
@@ -90,8 +100,6 @@ public class UserServiceImpl implements UserService {
 		return userDAO.countByEmail(email);
 	}
 
-	private static final int ITEM_PER_PAGE = 10;
-
 	public List<UserDTO> getUsersByRoleid(Long roleid) {
 
 		List<UserEntity> listUserEntity = userDAO.getUsersByRoleid(roleid);
@@ -101,5 +109,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return listUserDTO;
 	}
+
+	private static final int ITEM_PER_PAGE = 10;
 
 }

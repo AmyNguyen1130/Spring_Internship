@@ -56,4 +56,24 @@
 			]]>
 		</query>
 	</named-native-query>
+	
+	<named-native-query name=getUserByEnabledAndRoleid result-set-mapping="userEntity">
+		<query>
+			<![CDATA[
+				SELECT 
+					u.userid AS userid,
+					u.username AS username,
+					u.password AS password,
+					u.firstname AS firstname,
+					u.lastname AS lastname,
+					u.email AS email,
+					u.gender AS gender,
+					u.enabled AS enabled,
+					u.roleid AS roleid
+				FROM users u
+				WHERE u.enabled = :enabled AND u.roleid = :roleid
+			]]>
+		</query>
+	</named-native-query>
+	
 </entity-mappings>

@@ -22,4 +22,7 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 
 	List<UserEntity> getUsersByRoleid(@Param("roleid") Long roleid);
 
+	List<UserEntity> getUserByEnabledAndRoleid(
+			@Param("enabled") Boolean enabled,
+			@Param("roleid") Long roleid);
 }

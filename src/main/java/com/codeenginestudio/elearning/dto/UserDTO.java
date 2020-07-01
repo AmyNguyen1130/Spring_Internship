@@ -16,17 +16,18 @@ public class UserDTO {
 
 	private String gender;
 
-	private boolean enabled;
+	private Boolean enabled;
 
 	private String avartar;
 
 	private Long roleid;
 
 	public UserDTO() {
+		
 	}
 
 	public UserDTO(String username, String password, String firstName, String lastname, String email, String gender,
-			String avartar, Long roleid, boolean enabled) {
+			String avartar, Long roleid, Boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -55,11 +56,11 @@ public class UserDTO {
 		this.username = username;
 	}
 
-	public boolean isEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 

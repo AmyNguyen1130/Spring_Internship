@@ -1,3 +1,5 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <div>
 	<div class="card-body">
 		<h3>Enter student's informations here</h3>
@@ -49,9 +51,9 @@
 				<label for="gender" class="col-sm-1 col-form-label">Gender</label>
 				<div class="col-sm-4">
 					<input type="radio" name="gender" value="Male"
-						${userInf.getGender()}  == "Male" : checked ? "" >Male <input
+						${userInf.getGender()}  == "Male" ? checked : "" >Male <input
 						type="radio" name="gender" value="Female"
-						${userInf.getGender()}  == "Female" : checked ? "">Female
+						${userInf.getGender()}  == "Female" ? checked : "">Female
 				</div>
 			</div>
 
@@ -59,8 +61,9 @@
 				<label for="role" class="col-sm-1 col-form-label">Role</label>
 				<div class="col-sm-4">
 					<select name ="roleid" class="form-control">
-					  <option value="2" ${userInf.getRoleid()}  == 2 : selected ? "" >Teacher</option>
-					  <option value="3" ${userInf.getRoleid()}  == 3 : selected ? "">Student</option>
+					<c:forEach items="${listRole}" var="role">
+					  	<option value="${role.getRoleid()}" ${userInf.getRoleid()}  == ${role.getRoleid()}  ? selected : "" > ${role.getRolename()}</option>
+					  </c:forEach>
 					</select>
 				</div>
 			</div>
@@ -70,49 +73,4 @@
 		</form>
 	</div>
 </div>
- <script>
- $( document ).ready(function() {
-	 
-		 function isEmail(email) {
-			  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			  return regex.test(email);
-			}
-
-		function checkLength(String input, int minLength, int maxLength){
-			if(value < minLength || value > maxLength){
-					return false;
-				}
-			return true;
-			}
-	 
-	    $('#addAndEditForm').bind({
-	    	'submit': function(){
-					if($('username').val().length == "" || !checkLength($('username').val(), 1, 8)){
-						$('errUsername').html('Username could not null and must be between 1 to 8');
-					return false;
-					}
-	
-					if($('password').val().length == "" || !checkLength($('password').val(), 1, 8)){
-						$('errPassword').html('Password could not null and must be between 1 to 8');
-					return false;
-					}
-
-					if($('firstname').val().length == "" || !checkLength($('firstname').val(), 1, 8)){
-						$('errFirstname').html('Firstname could not null and must be between 1 to 8');
-					return false;
-					}
-
-					if($('lastname').val().length == "" || !checkLength($('lastname').val(), 1, 8)){
-						$('errLastname').html('Lastname could not null and must be between 1 to 8');
-					return false;
-					}
-
-					if($('email').val().length == "" || !isEmail($('email').val())){
-						$('errEmail').html('Email could not null and must be formatted');
-					return false;
-					}
-
-				return true;
-	    	}
-	});
- </script>
+ 

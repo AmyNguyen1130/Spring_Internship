@@ -36,27 +36,34 @@ td {
 		<a href="/admin/user/addUser">
 			<button class="btn btn-primary">Add User</button>
 		</a>
-		<div class="form-group row">
-				<div class="col-sm-4">
-					<select name ="roleid" class="form-control">
-					  <option value="2" ${userInf.getRoleid()}  == 2 : selected ? "" >Teacher</option>
-					  <option value="3" ${userInf.getRoleid()}  == 3 : selected ? "">Student</option>
-					</select>
-				</div>
-				
- 				<div class="col-sm-4">
-					<select name ="roleid" class="form-control">
-					  <c:forEach items="${listRole}" var="role">
-					  	<option value="${role.getRoleid()}"> ${role.getRolename()}</option>
-					  </c:forEach>
-					</select>
-				</div>
+		<form action="/admin/user/getUserByEnabledAndRoleid" method="get">
+		<div class="form-group row"">
+
+			<div class="col-sm-4">
+				<select name="enabled" class="form-control">
+					<option value="true">Activated</option>
+					<option value="false">Deactivated</option>
+					<option value="null">All</option>
+				</select>
 			</div>
+			<div class="col-sm-4">
+				<select name="roleid" class="form-control">
+					<c:forEach items="${listRole}" var="role">
+						<option value="${role.getRoleid()}">${role.getRolename()}</option>
+					</c:forEach>
+					<option value="0">All</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-large">Search</button>
+
+		</div>
+	</form>
 		
 		
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
+					<th scope="col">Username</th>
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
 					<th scope="col">Email</th>
@@ -68,11 +75,12 @@ td {
 			<tbody>
 				<c:forEach items="${userPage.getContent()}" var="user">
 					<tr>
+						<td>${user.getUsername()}</td>
 						<td>${user.getFirstname()}</td>
 						<td>${user.getLastname()}</td>
 						<td>${user.getEmail()}</td>
 						<td>${listRole.get(user.getRoleid() - 1).getRolename()}</td>
-						<td><a href="/admin/user/editUserEnabled/${user.getUserid()}"><button>${user.isEnabled() == true ? 'Active' : 'Deactivated'}</button></a></td>
+						<td><a href="/admin/user/editUserEnabled/${user.getUserid()}" onclick="return confirm('Are you sure?')"><button>${user.isEnabled() == true ? 'Active' : 'Deactivated'}</button></a></td>
 						<td><a href="/admin/user/editUser/${user.getUserid()}"> <img
 								alt="edit" src="<%=editImageAddress%>" class="optionSize" />
 						</a> <a href="/admin/user/deleteUser/${user.getUserid()}"> <img

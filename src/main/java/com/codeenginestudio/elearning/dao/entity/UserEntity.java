@@ -42,7 +42,7 @@ public class UserEntity {
 	}
 
 	public UserEntity(String username, String password, String firstname, String lastname, String email, String gender,
-			String avartar, Long roleid, boolean enabled) {
+			String avartar, Long roleid, Boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -128,11 +128,11 @@ public class UserEntity {
 		this.roleid = roleid;
 	}
 
-	public boolean isEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 
