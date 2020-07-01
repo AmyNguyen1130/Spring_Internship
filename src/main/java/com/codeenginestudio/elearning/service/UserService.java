@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
 
 public interface UserService {
@@ -24,9 +25,9 @@ public interface UserService {
 	
 	void editUserStatus(long userId);
 
-	long countByUsername(String username);
+	List<UserEntity> findByUsername(String username);
 
-	long countByEmail(String email);
+	List<UserEntity> findByEmail(String email);
 
 	List<UserDTO> getUsersByRoleid(Long roleid);
 	

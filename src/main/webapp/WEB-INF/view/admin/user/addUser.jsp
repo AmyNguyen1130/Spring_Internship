@@ -1,16 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div>
 	<div class="card-body">
 		<h3>Enter student's informations here</h3>
 
-		<form action="<%=request.getContextPath()%>${url}" method="post" id="addAndEditForm">
+		<form action="<%=request.getContextPath()%>${url}" method="post">
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
 			<div class="form-group row">
 				<label for="userName" class="col-sm-1 col-form-label">UserName</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="username" value="${userInf.getUsername()}">
-					<p id="errUsername"> </p>
+					<p id="errUsername"> ${error.getErrUsername()}</p>
 				</div>
 			</div>
 
@@ -18,7 +20,7 @@
 				<label for="password" class="col-sm-1 col-form-label">Password</label>
 				<div class="col-sm-4">
 					<input type="password" class="form-control" name="password">
-					<p id="errPassword"> </p>
+					<p id="errPassword"> ${error.getErrPassword()} </p>
 				</div>
 			</div>
 
@@ -27,7 +29,7 @@
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="firstname"
 						value="${userInf.getFirstname()}">
-						<p id="errFirstname"> </p>
+						<p id="errFirstname"> ${error.getErrFirstname()} </p>
 				</div>
 			</div>
 
@@ -35,7 +37,7 @@
 				<label for="lastName" class="col-sm-1 col-form-label">LastName</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="lastname" value="${userInf.getLastname()}">
-					<p id="errLastname"> </p>
+					<p id="errLastname"> ${error.getErrLastname()} </p>
 				</div>
 			</div>
 
@@ -43,7 +45,7 @@
 				<label for="email" class="col-sm-1 col-form-label">Email</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="email" value="${userInf.getEmail()}">
-					<p id="errEmail"> </p>
+					<p id="errEmail"> ${error.getErrEmail()} </p>
 				</div>
 			</div>
 

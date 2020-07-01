@@ -16,13 +16,11 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	 */
 	UserEntity getUserByUsername(@Param("username") String username);
 
-	long countByUsername(String lastname);
+	List<UserEntity> findByUsername(String username);
 
-	long countByEmail(String email);
+	List<UserEntity> findByEmail(String email);
 
 	List<UserEntity> getUsersByRoleid(@Param("roleid") Long roleid);
 
-	List<UserEntity> getUserByEnabledAndRoleid(
-			@Param("enabled") Boolean enabled,
-			@Param("roleid") Long roleid);
+	List<UserEntity> getUserByEnabledAndRoleid(@Param("enabled") Boolean enabled, @Param("roleid") Long roleid);
 }

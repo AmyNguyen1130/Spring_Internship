@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
 	public Page<UserDTO> getUserPage(Integer page) {
 
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
 		Page<UserEntity> listUserEntity = userDAO.findAll(pageable);
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
@@ -48,9 +47,7 @@ public class UserServiceImpl implements UserService {
 	public Page<UserDTO> getUserByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page) {
 
 		List<UserEntity> listUserEntity = userDAO.getUserByEnabledAndRoleid(enabled, roleid);
-
 		Page<UserEntity> pageUserEntities = new PageImpl<UserEntity>(listUserEntity);
-
 		return pageUserEntities.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
@@ -76,7 +73,6 @@ public class UserServiceImpl implements UserService {
 	public void editUser(UserDTO user) {
 		UserEntity userEntity = UserUtil.parseToUserEntity(user);
 		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
-
 		userDAO.saveAndFlush(userEntity);
 	}
 
@@ -88,15 +84,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public long countByUsername(String username) {
+	public List<UserEntity> findByUsername(String username) {
 
-		return userDAO.countByUsername(username);
+		return userDAO.findByUsername(username);
 	}
 
 	@Override
-	public long countByEmail(String email) {
+	public List<UserEntity> findByEmail(String email) {
 
-		return userDAO.countByEmail(email);
+		return userDAO.findByEmail(email);
 	}
 
 	public List<UserDTO> getUsersByRoleid(Long roleid) {

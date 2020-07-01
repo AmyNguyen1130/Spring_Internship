@@ -2,76 +2,121 @@ package com.codeenginestudio.elearning.validation;
 
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
 
 public class UserValidation {
-	public static String errUsername = "";
-	public static String errPassword = "";
-	public static String errFirstname = "";
-	public static String errLastname = "";
-	public static String errEmail = "";
+
+	private String errUsername;
+	private String errPassword = "";
+	private String errFirstname = "";
+	private String errLastname = "";
+	private String errEmail = "";
 	
-	private static UserService userService;
-	
-	public UserValidation() {
-		super();
+	public String getErrUsername() {
+		return errUsername;
 	}
 
-	public static boolean validateAddUser(UserDTO userDTO) {
-		if(!checkUsernameUnique(userDTO.getUsername())) {
-			return false;
-		}
-		
-		if(userDTO.getPassword() == "") {
-			errPassword = "Password could not be null";
-			return false;
-		}
-		
-		if(userDTO.getFirstname() == "") {
-			errFirstname = "Firstname could not be null";
-			return false;	
-		}
-		
-		if(userDTO.getLastname() == "") {
-			errLastname = "Lastname could not be null";
-			return false;	
-		}
-		
-		if(!checkEmail(userDTO.getEmail())) {
-			return false;	
-		}
-		
-		return true;
+	public void setErrUsername(String errUsername) {
+		this.errUsername = errUsername;
 	}
 
-	static boolean checkUsernameUnique(String username) {
+	public String getErrPassword() {
+		return errPassword;
+	}
+
+	public void setErrPassword(String errPassword) {
+		this.errPassword = errPassword;
+	}
+
+	public String getErrFirstname() {
+		return errFirstname;
+	}
+
+	public void setErrFirstname(String errFirstname) {
+		this.errFirstname = errFirstname;
+	}
+
+	public String getErrLastname() {
+		return errLastname;
+	}
+
+	public void setErrLastname(String errLastname) {
+		this.errLastname = errLastname;
+	}
+
+	public String getErrEmail() {
+		return errEmail;
+	}
+
+	public void setErrEmail(String errEmail) {
+		this.errEmail = errEmail;
+	}
+
+	public String getUsernameErr() {
+		return this.errUsername;
+	}
+
+	public UserValidation validateAddUser(UserDTO userDTO, UserService userService) {
+		UserValidation inValid = new UserValidation();
+
+		inValid.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
+
+		if (userDTO.getPassword() == "") {
+			inValid.errPassword = "Password could not be null";
+		}
+
+		if (userDTO.getFirstname() == "") {
+			inValid.errFirstname = "Firstname could not be null";
+		}
+
+		if (userDTO.getLastname() == "") {
+			inValid.errLastname = "Lastname could not be null";
+		}
+
+		inValid.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
+
+		return inValid;
+	}
+
+	String checkUsernameUnique(String username, UserService userService) {
+
 		if (username == "") {
-			errUsername = "Username could not be null";
-			return false;
-		} else if (userService.countByUsername(username) > 0) {
-			errUsername = "username already exists !";
-			return false;
+			return "Username could not be null";
+		} else if (!CollectionUtils.isEmpty(userService.findByUsername(username))) {
+
+			return "Username already exsits";
 		}
-		return true;
+
+		return "";
 	}
 
-	static boolean checkEmail(String email) {
+	String checkEmailUnique(String email, UserService userService) {
+
 		if (email == "") {
-			errEmail = "Email could not be null";
-			return false;
+			return "Email could not be null";
+
 		} else if (!isValidEmail(email)) {
-			errEmail = "This email is wrong format";
-			return false;
-		} else if (userService.countByEmail(email) > 0) {
-			errEmail = "Email already exists !";
-			return false;
+			return "This email is wrong format";
+
+		} else if (!CollectionUtils.isEmpty(userService.findByEmail(email))) {
+			return "Email already exists !";
 		}
-		return true;
+
+		return "";
+	}
+
+	boolean isValidEmail(String email) {
+
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		return email.matches(regex);
 	}
 	
-	static boolean isValidEmail(String email) {
-	      String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-	      return email.matches(regex);
-	   }
+//	@Override
+//	public String toString() {
+//		return "UserValidation ToString Method";
+//	}
+
 }

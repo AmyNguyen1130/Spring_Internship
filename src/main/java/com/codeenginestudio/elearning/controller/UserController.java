@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.validation.UserValidation;
 
 @Controller
 public class UserController {
@@ -21,6 +22,8 @@ public class UserController {
 
 	@Autowired
 	private RoleService roleService;
+
+	private UserValidation userValidation = new UserValidation();
 
 	@GetMapping("/admin/user")
 	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
@@ -40,15 +43,23 @@ public class UserController {
 
 		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("listRole", roleService.getListRole());
-
 		return PREFIX + "addUser";
 	}
 
 	@PostMapping("admin/user/saveAddUser")
-	public String saveAddUser(UserDTO userDTO) {
+	public String saveAddUser(UserDTO userDTO, Model model) {
 
-		userService.addUser(userDTO);
-		return "redirect:/admin/user";
+		UserValidation inValid = userValidation.validateAddUser(userDTO, userService);
+		if (inValid.getErrUsername() == "" && inValid.getErrPassword() == "" && inValid.getErrFirstname() == ""
+				&& inValid.getErrLastname() == "" && inValid.getErrEmail() == "") {
+			userService.addUser(userDTO);
+			return "redirect:/admin/user";
+		} else {
+			model.addAttribute("error", inValid);
+			model.addAttribute("url", "/admin/user/saveAddUser");
+			model.addAttribute("listRole", roleService.getListRole());
+			return PREFIX + "addUser";
+		}
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
@@ -76,10 +87,8 @@ public class UserController {
 	}
 
 	@GetMapping("/admin/user/getUserByEnabledAndRoleid")
-	public String getUserByEnabledAndRoleid(Model model,
-			@ModelAttribute("enabled") Boolean enabled,
-			@ModelAttribute("roleid") Long roleid,
-			@RequestParam(name = "page", required = false) Integer page) {
+	public String getUserByEnabledAndRoleid(Model model, @ModelAttribute("enabled") Boolean enabled,
+			@ModelAttribute("roleid") Long roleid, @RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("listUser", userService.getUserByEnabledAndRoleid(enabled, roleid, page));
 		model.addAttribute("listRole", roleService.getListRole());
@@ -87,5 +96,4 @@ public class UserController {
 	}
 
 	private final String PREFIX = "/admin/user/";
-
 }
