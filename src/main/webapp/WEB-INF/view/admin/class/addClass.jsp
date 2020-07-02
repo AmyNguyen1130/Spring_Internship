@@ -25,6 +25,7 @@
 		     </c:forEach>
 			</select>
 			<br>
+			<input type="hidden" value="true" name="status" />
 
 			<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
 

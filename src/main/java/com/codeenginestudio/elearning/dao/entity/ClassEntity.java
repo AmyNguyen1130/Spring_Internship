@@ -21,14 +21,19 @@ public class ClassEntity {
 	@Column
 	private Long teacherid;
 
+	@Column
+	private Boolean status;
+
 	public ClassEntity() {
 
 	}
 
-	public ClassEntity(Long classid, String classname, Long teacherid) {
+	public ClassEntity(Long classid, String classname, Long teacherid, Boolean status) {
+		super();
 		this.classid = classid;
 		this.classname = classname;
 		this.teacherid = teacherid;
+		this.status = status;
 	}
 
 	public Long getClassid() {
@@ -53,6 +58,14 @@ public class ClassEntity {
 
 	public void setTeacherid(Long teacherid) {
 		this.teacherid = teacherid;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

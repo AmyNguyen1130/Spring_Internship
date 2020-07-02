@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.validation.ClassValidation;
 
@@ -26,11 +28,14 @@ public class ClassController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private StudentInClassService studentInClassService;
+
 	@GetMapping("/admin/class")
 	public String showListClass(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
 
+		model.addAttribute("totalStudent", studentInClassService.getAllStudentInClass().size());
 		model.addAttribute("classPage", classService.getClassPage(page));
-
 		return PREFIX + "listClass";
 	}
 
@@ -54,6 +59,29 @@ public class ClassController {
 		model.addAttribute("data", classService.showEditClass(id));
 		model.addAttribute("user", userService.getUsersByRoleid(RoleConstant.ROLE_TEACHER));
 		return PREFIX + "editClass";
+	}
+
+	@GetMapping("/admin/class/editClassStatus")
+	public String editStatusClass(@ModelAttribute("classid") Long classid) {
+		classService.editStatusClass(classid);
+		return "redirect:/admin/class";
+	}
+
+	@GetMapping("/admin/class/search")
+	public String SearchByClassName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		model.addAttribute("classPage", classService.getClassPageByClassname(inputSearch, page));
+		return PREFIX + "listClass";
+	}
+	
+	@GetMapping("/admin/class/getClassByStatus")
+	public String getClassByStatus(Model model, @ModelAttribute("status") Boolean status, @RequestParam(name = "page", required = false) Integer page) {
+
+		model.addAttribute("status", status);
+		model.addAttribute("classPage", classService.getClassByStatus(status, page));
+
+		return PREFIX + "listClass";
 	}
 
 	@PostMapping("/admin/class/saveAddClass")

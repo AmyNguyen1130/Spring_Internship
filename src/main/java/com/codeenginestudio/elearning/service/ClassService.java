@@ -18,4 +18,10 @@ public interface ClassService {
 
 	Page<ClassDTO> getClassPage(Integer page);
 
+	Page<ClassDTO> getClassPageByClassname(String inputSearch, Integer page);
+
+	void editStatusClass(Long classid);
+
+	Page<ClassDTO> getClassByStatus(Boolean status, Integer page);
+
 }

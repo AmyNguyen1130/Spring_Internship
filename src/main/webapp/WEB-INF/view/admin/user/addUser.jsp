@@ -69,6 +69,7 @@ color: red
 				<div class="col-sm-4">
 					<select name ="roleid" class="form-control">
 					<c:forEach items="${listRole}" var="role">
+
 					  	<option value="${role.getRoleid()}" ${userInf.getRoleid() == role.getRoleid() ? 'selected' : "" }> ${role.getRolename()}</option>
 					  </c:forEach>
 					</select>

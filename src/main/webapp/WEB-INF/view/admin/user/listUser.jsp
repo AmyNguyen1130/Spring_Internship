@@ -8,7 +8,7 @@
 </head>
 
 <body>
-
+	
 	<%
 		String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
 		String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
@@ -18,7 +18,7 @@
 			<button class="btn btn-primary">Add User</button>
 		</a>
 		<form action="/admin/user/getUserByEnabledAndRoleid" method="get">
-		<div class="form-group row"">
+		<div class="form-group row">
 
 			<div class="col-sm-4">
 				<select name="enabled" class="form-control">

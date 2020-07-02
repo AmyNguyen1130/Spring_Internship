@@ -49,10 +49,23 @@
 			url="${pageContext.request.contextPath}/admin/getTeacherAddToClass"
 			curpage="${userPage.getNumber()}" />
 			
-			<button type="submit" class="btn btn-success">Save</button>
+			<button type="submit" id="assign_buton" class="btn btn-success">Save</button>
 
 			<a href="/admin/class"><button type="button" class="btn btn-warning">Cancel</button></a>
 		</form>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			
+			$("#assign_buton").click(function(){
+			    if(confirm("Are you sure you want to assign students?")){
+			    	 return true;
+			    }
+			    else{
+			        return false;
+			    }
+			});
+		});
+		</script>
 	</div>
 </body>
 </html>
