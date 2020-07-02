@@ -21,6 +21,8 @@
 
 	<!-- Custom styles for this template-->
 	<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/css/top_title.css"/>" rel="stylesheet" type="text/css">
+	
 
 	<script	src="<c:url value="/js/jquery/jquery.min.3.5.1.js"/>"></script>
 	<script	src="<c:url value="/js/bootstrap/bootstrap.bundle.4.5.0.js"/>"></script>

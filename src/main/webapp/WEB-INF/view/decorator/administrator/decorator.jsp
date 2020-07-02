@@ -5,7 +5,8 @@
 	<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
 </head>
 <body id="page-top">
-	<%@ include file="/WEB-INF/view/decorator/administrator/top_title.jsp" %>
+	<div class="container-fluid">
+		<%@ include file="/WEB-INF/view/decorator/administrator/top_title.jsp" %>
 	<div id="wrapper">
 
 		<div id="content-wrapper">
@@ -16,6 +17,7 @@
 
 	        <%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
 	    </div>
+	</div>
 	</div>
 
 </body>
