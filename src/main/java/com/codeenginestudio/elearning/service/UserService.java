@@ -11,7 +11,7 @@ public interface UserService {
 
 	List<UserDTO> getListUser();
 	
-	Page<UserDTO> getUserByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page);
+	Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page);
 
 	Page<UserDTO> getUserPage(Integer page);
 	

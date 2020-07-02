@@ -8,26 +8,7 @@
 </head>
 
 <body>
-	<style>
-img {
-	width: 30px;
-	height: 30px;
-	margin: 4px;
-}
 
-button {
-	margin: 20px;
-}
-
-.field {
-	width: 50px;
-	border: none;
-}
-
-td {
-	width: 40px;
-}
-</style>
 	<%
 		String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
 		String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
@@ -41,17 +22,19 @@ td {
 
 			<div class="col-sm-4">
 				<select name="enabled" class="form-control">
-					<option value="true">Activated</option>
-					<option value="false">Deactivated</option>
-					<option value="null">All</option>
+				<option value="null" ${enabled == "all" ? 'selected' : ''}>All</option>
+				<option value="true" ${enabled == true ? 'selected' : ''}>Activated</option>
+				<option value="false" ${enabled == false ? 'selected' : ''}>Deactivated</option>
+
 				</select>
 			</div>
 			<div class="col-sm-4">
 				<select name="roleid" class="form-control">
+					<option value="0" ${roleid == 0 ? 'selected' : ''}>All</option>
 					<c:forEach items="${listRole}" var="role">
-						<option value="${role.getRoleid()}">${role.getRolename()}</option>
+						<option value="${role.getRoleid()}" ${roleid == role.getRoleid() ? 'selected' : ''}>${role.getRolename()}</option>
 					</c:forEach>
-					<option value="0">All</option>
+
 				</select>
 			</div>
 			<button type="submit" class="btn btn-large">Search</button>

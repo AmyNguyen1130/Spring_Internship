@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,11 +43,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<UserDTO> getUserByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page) {
+	public Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page) {
 
-		List<UserEntity> listUserEntity = userDAO.getUserByEnabledAndRoleid(enabled, roleid);
-		Page<UserEntity> pageUserEntities = new PageImpl<UserEntity>(listUserEntity);
-		return pageUserEntities.map(x -> (UserUtil.parseToUserDTO(x)));
+		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+
+		Page<UserEntity> listUserEntity = userDAO.getUserPageByEnabledAndRoleid(enabled, roleid, pageable);
+
+		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
 	@Override

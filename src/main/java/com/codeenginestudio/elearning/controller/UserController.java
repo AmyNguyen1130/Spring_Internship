@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.UserDTO;
+import com.codeenginestudio.elearning.enumUtil.EnabledEnum;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.validation.UserValidation;
@@ -90,7 +91,9 @@ public class UserController {
 	public String getUserByEnabledAndRoleid(Model model, @ModelAttribute("enabled") Boolean enabled,
 			@ModelAttribute("roleid") Long roleid, @RequestParam(name = "page", required = false) Integer page) {
 
-		model.addAttribute("listUser", userService.getUserByEnabledAndRoleid(enabled, roleid, page));
+		model.addAttribute("enabled", enabled);
+		model.addAttribute("roleid", roleid);
+		model.addAttribute("userPage", userService.getUserPageByEnabledAndRoleid(enabled, roleid, page));
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "listUser";
 	}
