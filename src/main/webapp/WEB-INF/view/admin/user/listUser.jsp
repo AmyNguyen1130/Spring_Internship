@@ -62,7 +62,11 @@
 						<td>${user.getFirstname()}</td>
 						<td>${user.getLastname()}</td>
 						<td>${user.getEmail()}</td>
-						<td>${listRole.get(user.getRoleid() - 1).getRolename()}</td>
+						<c:forEach items="${listRole}" var="role">
+							<c:if test="${role.roleid == user.getRoleid()}"> 
+								<td>${role.getRolename()}</td>
+							</c:if>
+						</c:forEach>
 						<td><a href="/admin/user/editUserEnabled/${user.getUserid()}" onclick="return confirm('Are you sure?')"><button>${user.isEnabled() == true ? 'Active' : 'Deactivated'}</button></a></td>
 						<td><a href="/admin/user/editUser/${user.getUserid()}"> <img
 								alt="edit" src="<%=editImageAddress%>" class="optionSize" />

@@ -30,4 +30,5 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 
 	Page<UserEntity> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Pageable pageable);
 
+
 }

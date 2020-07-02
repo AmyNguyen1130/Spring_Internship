@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.UserDTO;
-import com.codeenginestudio.elearning.enumUtil.EnabledEnum;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.UserService;
-import com.codeenginestudio.elearning.validation.UserValidation;
+import com.codeenginestudio.elearning.validation.UserValidator;
 
 @Controller
 public class UserController {
@@ -24,7 +23,7 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 
-	private UserValidation userValidation = new UserValidation();
+	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("/admin/user")
 	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
@@ -50,13 +49,15 @@ public class UserController {
 	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model) {
 
-		UserValidation inValid = userValidation.validateAddUser(userDTO, userService);
+		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
+
 		if (inValid.getErrUsername() == "" && inValid.getErrPassword() == "" && inValid.getErrFirstname() == ""
 				&& inValid.getErrLastname() == "" && inValid.getErrEmail() == "") {
 			userService.addUser(userDTO);
 			return "redirect:/admin/user";
 		} else {
 			model.addAttribute("error", inValid);
+			model.addAttribute("userInf", userDTO);
 			model.addAttribute("url", "/admin/user/saveAddUser");
 			model.addAttribute("listRole", roleService.getListRole());
 			return PREFIX + "addUser";
@@ -82,9 +83,21 @@ public class UserController {
 	@PostMapping("admin/user/saveEditUser")
 	public String saveEditUser(UserDTO userDTO, Model model) {
 
-		userService.editUser(userDTO);
-		model.addAttribute("listRole", roleService.getListRole());
-		return "redirect:/admin/user";
+		UserValidator inValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
+
+		if (inValid.getErrUsername() == "" && inValid.getErrPassword() == "" && inValid.getErrFirstname() == ""
+				&& inValid.getErrLastname() == "" && inValid.getErrEmail() == "") {
+
+			userService.editUser(userDTO);
+			return "redirect:/admin/user";
+		} else {
+
+			model.addAttribute("error", inValid);
+			model.addAttribute("userInf", userDTO);
+			model.addAttribute("url", "/admin/user/saveEditUser");
+			model.addAttribute("listRole", roleService.getListRole());
+			return PREFIX + "addUser";
+		}
 	}
 
 	@GetMapping("/admin/user/getUserByEnabledAndRoleid")
