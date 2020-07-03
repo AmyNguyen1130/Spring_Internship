@@ -50,7 +50,7 @@
 	<br><br>
 	<div class="container-fluid">
 	  <div class="row = 12">
-	  	<table class="table table-bordered">
+	  	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
 				<th scope="col">#</th>

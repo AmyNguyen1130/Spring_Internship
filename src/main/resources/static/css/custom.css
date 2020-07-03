@@ -59,4 +59,11 @@ img {
 	color: #040404de;
 	border-bottom: 4px solid black;
 }
-
+.sticky-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
