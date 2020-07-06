@@ -74,9 +74,10 @@ public class ClassController {
 		model.addAttribute("classPage", classService.getClassPageByClassname(inputSearch, page));
 		return PREFIX + "listClass";
 	}
-	
+
 	@GetMapping("/admin/class/getClassByStatus")
-	public String getClassByStatus(Model model, @ModelAttribute("status") Boolean status, @RequestParam(name = "page", required = false) Integer page) {
+	public String getClassByStatus(Model model, @ModelAttribute("status") Boolean status,
+			@RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("status", status);
 		model.addAttribute("classPage", classService.getClassByStatus(status, page));

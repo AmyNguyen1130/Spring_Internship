@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
-import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
@@ -74,8 +73,6 @@ public class ClassServiceImpl implements ClassService {
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 
-	private static final int ITEM_PER_PAGE = 10;
-
 	@Override
 	public void editStatusClass(Long classid) {
 		boolean status = classDAO.getOne(classid).getStatus();
@@ -91,5 +88,8 @@ public class ClassServiceImpl implements ClassService {
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
+
+	private static final int ITEM_PER_PAGE = 10;
+
 
 }

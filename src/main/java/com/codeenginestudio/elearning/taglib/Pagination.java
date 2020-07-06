@@ -9,6 +9,11 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 public class Pagination extends TagSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String getUrl() {
 		return url;
 	}
@@ -67,18 +72,11 @@ public class Pagination extends TagSupport {
 
 		try {
 
-			String outStr = "<div class=\"row\" id=\"pagination\">" + 
-				"<div class=\"col-sm-12 col-md-5\">" + 
-				"<div class=\"dataTables_info\" id=\"dtBasicExample_info\" role=\"status\" aria-live=\"polite\">{0}</div>" + 
-				"</div>" +
-				"<div class=\"col-sm-12 col-md-7\">" + 
-				"<div class=\"dataTables_paginate paging_simple_numbers\">" + 
-				"<ul class=\"pagination\">" +
-				"{1}{2}{3}" + 
-				"</ul>" + 
-				"</div>" + 
-				"</div>" + 
-				"</div>";
+			String outStr = "<div class=\"row\" id=\"pagination\">" + "<div class=\"col-sm-12 col-md-5\">"
+					+ "<div class=\"dataTables_info\" id=\"dtBasicExample_info\" role=\"status\" aria-live=\"polite\">{0}</div>"
+					+ "</div>" + "<div class=\"col-sm-12 col-md-7\">"
+					+ "<div class=\"dataTables_paginate paging_simple_numbers\">" + "<ul class=\"pagination\">"
+					+ "{1}{2}{3}" + "</ul>" + "</div>" + "</div>" + "</div>";
 			outStr = MessageFormat.format(outStr, getShowingMessage(), first, getPageSerial(), last);
 			out.println(outStr);
 		} catch (IOException e) {
@@ -89,7 +87,7 @@ public class Pagination extends TagSupport {
 
 	private String getPageSerial() {
 
-		int start = curpage -1;
+		int start = curpage - 1;
 		int end = curpage + 1;
 
 		if (start < 0) {
@@ -135,15 +133,15 @@ public class Pagination extends TagSupport {
 		if (end > count) {
 			end = count;
 		}
-		return MessageFormat.format("Showing {0} to {1} of {2} entries", String.valueOf(start),
-			String.valueOf(end), String.valueOf(count));
+		return MessageFormat.format("Showing {0} to {1} of {2} entries", String.valueOf(start), String.valueOf(end),
+				String.valueOf(count));
 	}
 
 	private String getItem(String text, int page, boolean disabled) {
 
 		return MessageFormat.format("<li class=\"paginate_button page-item {0}\">"
-			+ "<a class=\"page-link\" href=\"{1}?page={2}\">{3}</a>" + "</li>", disabled ? "disabled" : "", url,
-			page, text);
+				+ "<a class=\"page-link\" href=\"{1}?page={2}\">{3}</a>" + "</li>", disabled ? "disabled" : "", url,
+				page, text);
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
