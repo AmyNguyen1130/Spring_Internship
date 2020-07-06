@@ -67,7 +67,7 @@ public class Pagination extends TagSupport {
 
 		try {
 
-			String outStr = "<div class=\"row\">" + 
+			String outStr = "<div class=\"row\" id=\"pagination\">" + 
 				"<div class=\"col-sm-12 col-md-5\">" + 
 				"<div class=\"dataTables_info\" id=\"dtBasicExample_info\" role=\"status\" aria-live=\"polite\">{0}</div>" + 
 				"</div>" +
