@@ -11,4 +11,8 @@ public interface AssessmentService {
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
 
 	List<AssessmentDTO> getListAssessment();
+
+	void saveAssessment(AssessmentDTO assessmentDTO);
+
+	AssessmentDTO findByAssessmentName(String assessmentname);
 }

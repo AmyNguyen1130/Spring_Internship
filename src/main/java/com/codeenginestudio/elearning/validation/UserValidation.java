@@ -1,7 +1,5 @@
 package com.codeenginestudio.elearning.validation;
 
-import java.util.List;
-
 import org.springframework.util.CollectionUtils;
 
 import com.codeenginestudio.elearning.dto.UserDTO;

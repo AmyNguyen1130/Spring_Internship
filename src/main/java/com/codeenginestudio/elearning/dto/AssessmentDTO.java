@@ -14,7 +14,7 @@ public class AssessmentDTO {
 
 	private Date expireddate;
 
-	private String status;
+	private Boolean status;
 
 	private int totalquestion;
 
@@ -23,7 +23,7 @@ public class AssessmentDTO {
 	}
 
 	public AssessmentDTO(Long assessmentid, String assessmentname, Long classid, Date startdate, Date expireddate,
-			String status, int totalquestion) {
+			Boolean status, int totalquestion) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
@@ -74,11 +74,11 @@ public class AssessmentDTO {
 		this.expireddate = expireddate;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

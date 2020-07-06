@@ -30,7 +30,7 @@ public class AssessmentEntity {
 	private Date expireddate;
 
 	@Column
-	private String status;
+	private Boolean status;
 
 	@Column
 	private int totalquestion;
@@ -40,7 +40,7 @@ public class AssessmentEntity {
 	}
 
 	public AssessmentEntity(Long assessmentid, String assessmentname, Long classid, Date startdate, Date expireddate,
-			String status, int totalquestion) {
+			Boolean status, int totalquestion) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
@@ -91,11 +91,11 @@ public class AssessmentEntity {
 		this.expireddate = expireddate;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

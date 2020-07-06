@@ -60,10 +60,14 @@
 			       <tr>
 				       <td>${i}</td>
 				       <td>${assessment.assessmentname}</td>
+				       <c:if test="${assessment.classid == 0}">
+								<td></td>
+							</c:if>
 				       	<c:forEach items="${listClass}" var="class">
 							<c:if test="${class.classid == assessment.classid}">
 								<td>${class.classname}</td>
 							</c:if>
+							
 						</c:forEach>
 				       <td>${assessment.startdate}</td>
 				        <td>${assessment.expireddate}</td>

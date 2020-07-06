@@ -25,19 +25,19 @@ INSERT INTO classes (classid, classname, teacherid) VALUES (100, 'PNV20A', 10000
 INSERT INTO classes (classid, classname, teacherid) VALUES (200, 'PNV20B', 1000018);
 INSERT INTO classes (classid, classname, teacherid) VALUES (300, 'PNv20C', 1000018);
 
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (100, 'toan hoc', '100', '2020/6/10', '2020/6/15', 'active', 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (100, 'toan hoc', '100', '2020/6/10', '2020/6/15', true, 2);
 
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (105, 'van hoc', '100', '2020/6/10', '2020/6/15', 'active', 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (105, 'van hoc', '100', '2020/6/10', '2020/6/15', true, 2);
 
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (101, 'lop 1', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (102, 'lop 2', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (103, 'lop 3', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (104, 'lop 5', '100', '2020/6/10', '2020/6/15', 'active', 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (101, 'lop 1', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (102, 'lop 2', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (103, 'lop 3', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (104, 'lop 5', '100', '2020/6/10', '2020/6/15', true, 2);
 
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (107, 'lop 1', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (108, 'lop 2', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (109, 'lop 3', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (110, 'lop 5', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (111, 'lop 2', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (112, 'lop 3', '100', '2020/6/10', '2020/6/15', 'active', 2);
-INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (113, 'lop 5', '100', '2020/6/10', '2020/6/15', 'active', 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (107, 'lop 1', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (108, 'lop 2', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (109, 'lop 3', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (110, 'lop 5', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (111, 'lop 2', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (112, 'lop 3', '100', '2020/6/10', '2020/6/15', true, 2);
+INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (113, 'lop 5', '100', '2020/6/10', '2020/6/15', true, 2);

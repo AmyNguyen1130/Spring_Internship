@@ -43,6 +43,24 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	}
 
+	@Override
+	public void saveAssessment(AssessmentDTO assessmentDTO) {
+		assessmentDAO.saveAndFlush(AssessmentUtil.parseToEntity(assessmentDTO));
+
+	}
+
+	@Override
+	public AssessmentDTO findByAssessmentName(String assessmentname) {
+		List<AssessmentDTO> listAssessment = getListAssessment();
+		
+			for (AssessmentDTO existed : listAssessment) {
+				if (assessmentname.equals(existed.getAssessmentname())) {
+					return existed;
+				}
+			}
+		return null;
+	}
+
 	private static final int ITEM_PER_PAGE = 10;
 
 }
