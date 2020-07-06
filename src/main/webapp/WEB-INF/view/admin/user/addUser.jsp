@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-p{
-color: red
+p {
+	color: red
 }
 </style>
 <div>
@@ -12,20 +12,22 @@ color: red
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
-			
+
 			<div class="form-group row">
 				<label for="userName" class="col-sm-1 col-form-label">UserName</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="username" value="${userInf.getUsername()}">
-					<p id="errUsername"> ${error.errUsername}</p>
+					<input type="text" class="form-control" name="username"
+						value="${userInf.getUsername()}">
+					<p id="errUsername">${error.errUsername}</p>
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="password" class="col-sm-1 col-form-label">Password</label>
 				<div class="col-sm-4">
-					<input type="password" class="form-control" name="password" value="${userInf.getPassword()}"> 
-					<p id="errPassword"> ${error.errPassword} </p>
+					<input type="password" class="form-control" name="password"
+						value="${userInf.getPassword()}">
+					<p id="errPassword">${error.errPassword}</p>
 				</div>
 			</div>
 
@@ -34,23 +36,25 @@ color: red
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="firstname"
 						value="${userInf.getFirstname()}">
-						<p id="errFirstname"> ${error.errFirstname} </p>
+					<p id="errFirstname">${error.errFirstname}</p>
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="lastName" class="col-sm-1 col-form-label">LastName</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="lastname" value="${userInf.getLastname()}">
-					<p id="errLastname"> ${error.errLastname} </p>
+					<input type="text" class="form-control" name="lastname"
+						value="${userInf.getLastname()}">
+					<p id="errLastname">${error.errLastname}</p>
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="email" class="col-sm-1 col-form-label">Email</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="email" value="${userInf.getEmail()}">
-					<p id="errEmail"> ${error.errEmail} </p>
+					<input type="text" class="form-control" name="email"
+						value="${userInf.getEmail()}">
+					<p id="errEmail">${error.errEmail}</p>
 				</div>
 			</div>
 
@@ -58,8 +62,8 @@ color: red
 				<label for="gender" class="col-sm-1 col-form-label">Gender</label>
 				<div class="col-sm-4">
 					<input type="radio" name="gender" value="Male"
-						${userInf.getGender()  == 'Male' ? 'checked' : "" } checked >Male <input
-						type="radio" name="gender" value="Female"
+						${userInf.getGender()  == 'Male' ? 'checked' : "" } checked>Male
+					<input type="radio" name="gender" value="Female"
 						${userInf.getGender()  == 'Female' ? 'checked' : "" }>Female
 				</div>
 			</div>
@@ -67,19 +71,21 @@ color: red
 			<div class="form-group row">
 				<label for="role" class="col-sm-1 col-form-label">Role</label>
 				<div class="col-sm-4">
-					<select name ="roleid" class="form-control">
-					<c:forEach items="${listRole}" var="role">
+					<select name="roleid" class="form-control">
+						<c:forEach items="${listRole}" var="role">
 
-					  	<option value="${role.getRoleid()}" ${userInf.getRoleid() == role.getRoleid() ? 'selected' : "" }> ${role.getRolename()}</option>
-					  </c:forEach>
+							<option value="${role.getRoleid()}"
+								${userInf.getRoleid() == role.getRoleid() ? 'selected' : "" }>
+								${role.getRolename()}</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>
 
 			<input type="hidden" value="true" name="enabled" />
 			<button type="submit" class="btn btn-primary">Done</button>
-			<a href="/admin/user" ><button type="button" class="btn btn-danger">cancel</button></a>
+			<a href="/admin/user"><button type="button"
+					class="btn btn-danger">cancel</button></a>
 		</form>
 	</div>
 </div>
- 

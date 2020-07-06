@@ -4,42 +4,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>List student</title>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/fontawesome.min.css">
 </head>
 <%
 	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
-<style>
-.top-bar-container {
-	display: flex;
-	flex-wrap: nowrap;
-}
-</style>
 <body>
-
 	<div>
 		<div class="form-group row">
 			<form class="form-inline col-sm-7">
-				<i class="fa fa-search" aria-hidden="true"></i>
-				<input class="form-control mr-3 " type="text" placeholder="Search" aria-label="Search"> 
-				<i class="fa fa-" aria-hidden="true"></i>
+				<i class="fa fa-facebook" aria-hidden="true"></i> <input
+					class="form-control mr-3 " type="text" placeholder="Search"
+					aria-label="Search"> <i class="fa fa-facebook"
+					aria-hidden="true"></i>
 			</form>
 
-			<form class="form-inline col-sm-4" action="/admin/user/getUserByEnabledAndRoleid" method="get">
+			<form class="form-inline col-sm-4"
+				action="/admin/user/getUserByEnabledAndRoleid" method="get">
 				<div class="col-sm-5 form-inline">
-					<label class="col-sm-4 col-form-label">Status</label>
-					
-					<select name="enabled" class="form-control">
+					<label class="col-sm-4 col-form-label">Status</label> <select
+						name="enabled" class="form-control">
 						<option value="null" ${enabled == "all" ? 'selected' : ''}>All</option>
 						<option value="true" ${enabled == true ? 'selected' : ''}>Activated</option>
 						<option value="false" ${enabled == false ? 'selected' : ''}>Deactivated</option>
 					</select>
 				</div>
 				<div class="col-sm-5 form-inline">
-					<label class="col-sm-4 col-form-label">Role</label>
-					
-					<select name="roleid" class="form-control">
+					<label class="col-sm-4 col-form-label">Role</label> <select
+						name="roleid" class="form-control">
 						<option value="0" ${roleid == 0 ? 'selected' : ''}>All</option>
 						<c:forEach items="${listRole}" var="role">
 							<option value="${role.getRoleid()}"
@@ -52,15 +47,10 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 
 			<div class="col-sm-1">
 				<a href="/admin/user/addUser">
-				<button class="btn btn-primary">Add User</button>
-			</a>
+					<button class="btn btn-primary">Add User</button>
+				</a>
 			</div>
-
 		</div>
-
-
-
-
 
 		<table class="table table-bordered table-hover">
 			<thead>
