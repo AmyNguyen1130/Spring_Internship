@@ -32,9 +32,10 @@ public class ClassController {
 	private StudentInClassService studentInClassService;
 
 	@GetMapping("/admin/class")
-	public String showListClass(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
-
-		model.addAttribute("totalStudent", studentInClassService.getAllStudentInClass().size());
+	public String showListClass(ModelMap model, @RequestParam(name = "page", required = false) Integer page,
+			ClassDTO classDTO) {
+		model.addAttribute("totalStudent",
+				studentInClassService.getStudentInClassByClassid(classDTO.getClassid()).size());
 		model.addAttribute("classPage", classService.getClassPage(page));
 		return PREFIX + "listClass";
 	}

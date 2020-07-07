@@ -72,7 +72,8 @@
 					        <td>${assessment.totalquestion}</td>
 					        <td>${assessment.status}</td>
 					        <td><a href="/teacher/assessment/editAssessment?assessmentid=<c:out value='${assessment.assessmentid}' />">Edit</a> &emsp;
-					        <a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}' />">Delete</a> </td>
+					        <a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}' />">Delete</a>&emsp;
+					        <a href='/teacher/question/listQuestion?assessmentid=<c:out value='${assessment.assessmentid}'/>'><button class="btn btn-default" type="button">View questions</button></a></td>
 
 					   </tr>
 					   <c:set var="i" value="${i+1}" />

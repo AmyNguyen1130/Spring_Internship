@@ -26,7 +26,8 @@ public class UserController {
 	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("/admin/user")
-	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page, UserDTO userDTO) {
+	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page,
+			UserDTO userDTO) {
 		model.addAttribute("userPage", userService.getUserPage(page));
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "listUser";

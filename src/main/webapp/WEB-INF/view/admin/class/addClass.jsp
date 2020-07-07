@@ -5,34 +5,42 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<div style="margin: 5%">
-		<h1>Add Class Form</h1>
+<div class="container-fluid">
+	<div class="row = 12">
+	    <div class="col-sm-8">
 
-		<c:forEach items="${errors}" var="error">
-			<span style="color: red">${error}</span>
-		</c:forEach>
+		    <h1>Add Class Form</h1>
 
-		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveAddClass"
-			method="POST" style="width: 50%;">
-			Class Name: <input class="form-control" type="text" name="classname">
+			<c:forEach items="${errors}" var="error">
+				<span style="color: red">${error}</span>
+			</c:forEach>
 
-			 <br>
-			Teacher:
-			<select class="form-control" id="teacherid" name="teacherid">
-				<option value="">None</option>
-			 <c:forEach items="${data}" var="user">
-				   <option value="${user.userid}">${user.username}</option>
-		     </c:forEach>
-			</select>
-			<br>
-			<input type="hidden" value="true" name="status" />
+			<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveAddClass"
+				method="POST">
+				Class Name: <input class="form-control" type="text" name="classname">
 
-			<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
+				 <br>
+				Teacher:
+				<select class="form-control" id="teacherid" name="teacherid">
+					<option value="">None</option>
+				 <c:forEach items="${data}" var="user">
+					   <option value="${user.userid}">${user.username}</option>
+			     </c:forEach>
+				</select>
+				<br>
+				<input type="hidden" value="true" name="status" />
 
-			<input class="btn btn-success" type="submit" value="Save">
+				<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
 
-		</form>	
+				<input class="btn btn-default" type="submit" value="Save">
+
+			</form>	
+		</div>
+		<div class="col-sm-4">
+
+		</div>
 	</div>
+</div>
 
 </body>
 </html>

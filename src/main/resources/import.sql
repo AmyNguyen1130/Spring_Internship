@@ -5,12 +5,12 @@ INSERT INTO users (userid, username, password, firstname, email, enabled, roleid
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100004, 'admin4', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator5', 'admin@codeenginestudio.com', true, 1);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100005, 'admin5', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator6', 'admin@codeenginestudio.com', true, 1);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100006, 'admin6', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator7', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100007, 'admin7', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator8', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100008, 'admin8', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator9', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000010, 'admin10', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator10', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000011, 'admin11', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator12', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000012, 'admin12', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator13', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000013, 'admin13', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator14', 'admin@codeenginestudio.com', true, 1);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100007, 'admin7', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator8', 'admin@codeenginestudio.com', true, 3);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100008, 'admin8', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator9', 'admin@codeenginestudio.com', true, 3);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000010, 'admin10', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator10', 'admin@codeenginestudio.com', true, 3);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000011, 'admin11', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator12', 'admin@codeenginestudio.com', true, 3);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000012, 'admin12', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator13', 'admin@codeenginestudio.com', true, 3);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000013, 'admin13', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator14', 'admin@codeenginestudio.com', true, 3);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000014, 'admin14', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator15', 'admin@codeenginestudio.com', true, 1);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000015, 'admin15', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator16', 'admin@codeenginestudio.com', true, 2);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000016, 'admin16', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator17', 'admin@codeenginestudio.com', true, 2);
@@ -41,3 +41,10 @@ INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expir
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (111, 'lop 2', '100', '2020/6/10', '2020/6/15', true, 2);
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (112, 'lop 3', '100', '2020/6/10', '2020/6/15', true, 2);
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (113, 'lop 5', '100', '2020/6/10', '2020/6/15', true, 2);
+
+INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (100, 'PNV20A', 'A', 100);
+INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (200, 'PNV20B', 'B', 100);
+INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (300, 'PNv20C', 'A', 100);
+
+
+

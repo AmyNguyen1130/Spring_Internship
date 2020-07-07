@@ -3,18 +3,19 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
-<head>
-</head>
 <body>
-	<div style="margin: 5%">
-		<h1>Edit Class Form</h1>
+<div class="container-fluid">
+	<div class="row = 12">
+	    <div class="col-sm-8">
 
-		<c:forEach items="${errors}" var="error">
+		    <h1>Edit Class Form</h1>
+
+			<c:forEach items="${errors}" var="error">
 			<span style="color: red">${error}</span>
 		</c:forEach>
 
 		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveEditClass"
-			method="POST" style="width: 50%;">
+			method="POST">
 			<input class="form-control" type="hidden" name="classid" value="${data.classid}">
 			Class Name: <input class="form-control" type="text" name="classname" value="${data.classname}"> <br>
 			Teacher:
@@ -25,12 +26,16 @@
 			     </c:forEach>
 			</select><br>
 
-			<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
+			<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
 
-			<input class="btn btn-success" type="submit" value="Save">
+			<input class="btn btn-default" type="submit" value="Save">
 
 		</form>
-	</div>
+		</div>
+		<div class="col-sm-4">
 
+		</div>
+	</div>
+</div>
 </body>
 </html>

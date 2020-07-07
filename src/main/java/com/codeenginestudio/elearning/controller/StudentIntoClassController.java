@@ -1,6 +1,5 @@
 package com.codeenginestudio.elearning.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
-import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 
@@ -31,7 +29,7 @@ public class StudentIntoClassController {
 
 		model.addAttribute("classid", classid);
 		model.addAttribute("userPage", userService.getUserPageByRoleid(RoleConstant.ROLE_STUDENT, page));
-		model.addAttribute("studentChecked", listStudentCheckedByClass(classid));
+		model.addAttribute("studentChecked", studentInClassService.listStudentCheckedByClass(classid));
 
 		return PREFIX + "addStudentIntoClass";
 	}
@@ -51,28 +49,6 @@ public class StudentIntoClassController {
 		}
 
 		return "redirect:/admin/class";
-	}
-
-	public List<Long> listStudentCheckedByClass(Long classid) {
-		List<StudentInClassDTO> listChecked = studentInClassService.getStudentInClassByClassid(classid);
-		List<Long> listCheckedId = new ArrayList<>();
-
-		for (int i = 0; i < listChecked.size(); i++) {
-			listCheckedId.add(listChecked.get(i).getStudentid());
-
-		}
-		return listCheckedId;
-	}
-
-	public List<Long> listStudentChecked() {
-		List<StudentInClassDTO> listChecked = studentInClassService.getAllStudentInClass();
-		List<Long> listCheckedId = new ArrayList<>();
-
-		for (int i = 0; i < listChecked.size(); i++) {
-			listCheckedId.add(listChecked.get(i).getStudentid());
-
-		}
-		return listCheckedId;
 	}
 
 	private static final String PREFIX = "/admin/studentIntoClass/";

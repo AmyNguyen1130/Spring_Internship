@@ -18,4 +18,8 @@ public interface StudentInClassService {
 
 	List<StudentInClassDTO> getStudentInClassByClassid(Long classid);
 
+	List<Long> listStudentCheckedByClass(Long classid);
+
+	List<StudentInClassDTO> listStudentCheckedByClassid(Long classid);
+
 }

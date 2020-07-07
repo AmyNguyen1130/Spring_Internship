@@ -81,4 +81,27 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	}
 
+	@Override
+	public List<Long> listStudentCheckedByClass(Long classid) {
+		List<StudentInClassDTO> listChecked = getStudentInClassByClassid(classid);
+		List<Long> listCheckedId = new ArrayList<>();
+
+		for (int i = 0; i < listChecked.size(); i++) {
+			listCheckedId.add(listChecked.get(i).getStudentid());
+
+		}
+		return listCheckedId;
+	}
+
+	@Override
+	public List<StudentInClassDTO> listStudentCheckedByClassid(Long classid) {
+		List<StudentInClassDTO> listChecked = getStudentInClassByClassid(classid);
+		List<StudentInClassDTO> listCheckedId = new ArrayList<>();
+
+		for (int i = 0; i < listChecked.size(); i++) {
+			listCheckedId.add(listChecked.get(i));
+
+		}
+		return listCheckedId;
+	}
 }
