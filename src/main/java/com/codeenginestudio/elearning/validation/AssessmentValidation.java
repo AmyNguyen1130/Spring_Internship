@@ -42,12 +42,17 @@ public class AssessmentValidation {
 		return "";
 	}
 
-	public String checkAssessmentNameExisted(String assessmentname, AssessmentService assessmentService) {
+	public String checkAssessmentNameExisted(Long assessmentid, String assessmentname,
+			AssessmentService assessmentService) {
 		if (assessmentname == "") {
 			return "Assessment name could not be null";
 		} else {
 			if (assessmentService.findByAssessmentName(assessmentname) != null) {
-				return "Assessment name already exists !";
+				if (assessmentService.findByAssessmentName(assessmentname).getAssessmentid() == assessmentid) {
+					return "";
+				} else {
+					return "Assessment name already exists !";
+				}
 			}
 		}
 		return "";
@@ -55,16 +60,15 @@ public class AssessmentValidation {
 
 	public String checkExpiredDate(Date startDate, Date expiredDate) {
 		if (expiredDate.before(startDate)) {
-			return "expired date must be after start date";
+			return "Expired date must be after start date";
 		}
 		return "";
 	}
 
 	public String checkStartDateWithCurrentDate(Date startDate) {
 		Date currentDate = new Date();
-
 		if (currentDate.after(startDate)) {
-			return "start date can not  before current date";
+			return "Start date cannot be less than the current date";
 		}
 
 		return "";
@@ -75,7 +79,8 @@ public class AssessmentValidation {
 
 		AssessmentValidation inValid = new AssessmentValidation();
 		inValid.errAssessmentName = checkEmpty(assessmentDTO.getAssessmentname(), "Assessment name could not be null");
-		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentname(), assessmentService);
+		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentid(),
+				assessmentDTO.getAssessmentname(), assessmentService);
 		inValid.errStartDate = checkStartDateWithCurrentDate(assessmentDTO.getStartdate());
 		inValid.errExpiredDate = checkExpiredDate(assessmentDTO.getStartdate(), assessmentDTO.getExpireddate());
 		return inValid;

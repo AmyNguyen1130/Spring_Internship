@@ -52,13 +52,33 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public AssessmentDTO findByAssessmentName(String assessmentname) {
 		List<AssessmentDTO> listAssessment = getListAssessment();
-		
-			for (AssessmentDTO existed : listAssessment) {
-				if (assessmentname.equals(existed.getAssessmentname())) {
-					return existed;
-				}
+
+		for (AssessmentDTO existed : listAssessment) {
+			if (assessmentname.equals(existed.getAssessmentname())) {
+				return existed;
 			}
+		}
 		return null;
+	}
+
+	@Override
+	public void deleteById(Long assessmentid) {
+		assessmentDAO.deleteById(assessmentid);
+
+	}
+
+	@Override
+	public AssessmentDTO showEditAssessment(Long assessmentid) {
+		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
+	}
+
+	@Override
+	public Page<AssessmentDTO> findAssessmentPageByAssessmentname(String inputSearch, Integer page) {
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+
+		Page<AssessmentEntity> listAssessment = assessmentDAO.getAssessmentPageByAssessmentname(inputSearch, pageable);
+
+		return listAssessment.map(x -> (AssessmentUtil.parseToDTO(x)));
 	}
 
 	private static final int ITEM_PER_PAGE = 10;

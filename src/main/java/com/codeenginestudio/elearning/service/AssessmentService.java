@@ -8,11 +8,18 @@ import com.codeenginestudio.elearning.dto.AssessmentDTO;
 
 public interface AssessmentService {
 
-	Page<AssessmentDTO> getPageListAssessment(Integer page);
-
-	List<AssessmentDTO> getListAssessment();
+	void deleteById(Long assessmentid);
 
 	void saveAssessment(AssessmentDTO assessmentDTO);
 
+	AssessmentDTO showEditAssessment(Long assessmentid);
+
 	AssessmentDTO findByAssessmentName(String assessmentname);
+
+	List<AssessmentDTO> getListAssessment();
+
+	Page<AssessmentDTO> getPageListAssessment(Integer page);
+
+	Page<AssessmentDTO> findAssessmentPageByAssessmentname(String inputSearch, Integer page);
+
 }
