@@ -9,28 +9,28 @@ import com.codeenginestudio.elearning.dto.UserDTO;
 
 public interface UserService {
 
-	List<UserDTO> getListUser();
-	
-	Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page);
-
-	Page<UserDTO> getUserPage(Integer page);
-	
 	void addUser(UserDTO user);
 
 	void deleteUser(long userId);
 
+	void editUser(UserDTO user);
+
+	void editUserStatus(long userId);
+
 	UserDTO getOneUser(long userId);
 
-	void editUser(UserDTO user);
-	
-	void editUserStatus(long userId);
+	List<UserDTO> getListUser();
 
 	List<UserEntity> findByUsername(String username);
 
 	List<UserEntity> findByEmail(String email);
 
 	List<UserDTO> getUsersByRoleid(Long roleid);
-	
+
+	Page<UserDTO> getUserPage(Integer page);
+
+	Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page);
+
 	Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page);
-	
+
 }

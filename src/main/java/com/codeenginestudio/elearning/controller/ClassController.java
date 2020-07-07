@@ -80,7 +80,7 @@ public class ClassController {
 			@RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("status", status);
-		model.addAttribute("classPage", classService.getClassByStatus(status, page));
+		model.addAttribute("classPage", classService.getClassPageByStatus(status, page));
 
 		return PREFIX + "listClass";
 	}

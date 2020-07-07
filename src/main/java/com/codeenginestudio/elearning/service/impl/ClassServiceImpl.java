@@ -81,7 +81,7 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassByStatus(Boolean status, Integer page) {
+	public Page<ClassDTO> getClassPageByStatus(Boolean status, Integer page) {
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
 
 		Page<ClassEntity> listClassEntity = classDAO.getClassByStatus(status, pageable);
@@ -90,6 +90,5 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
-
 
 }

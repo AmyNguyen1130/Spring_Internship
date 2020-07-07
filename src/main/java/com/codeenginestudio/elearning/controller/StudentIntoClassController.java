@@ -54,7 +54,7 @@ public class StudentIntoClassController {
 	}
 
 	public List<Long> listStudentCheckedByClass(Long classid) {
-		List<StudentInClassDTO> listChecked = studentInClassService.getAllStudentInClassByClassid(classid);
+		List<StudentInClassDTO> listChecked = studentInClassService.getStudentInClassByClassid(classid);
 		List<Long> listCheckedId = new ArrayList<>();
 
 		for (int i = 0; i < listChecked.size(); i++) {

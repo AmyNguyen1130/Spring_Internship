@@ -6,16 +6,16 @@ import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 
 public interface StudentInClassService {
 
-	void saveTeachersToClass(Long classid, Long userid);
+	void deleteByClassid(Long classid);
 
-	List<StudentInClassDTO> getAllStudentInClass();
+	void deleteById(Long id);
+
+	void saveTeachersToClass(Long classid, Long userid);
 
 	Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid);
 
-	void deleteByClassid(Long classid);
+	List<StudentInClassDTO> getAllStudentInClass();
 
-	List<StudentInClassDTO> getAllStudentInClassByClassid(Long classid);
-
-	void deleteStudentInClass(Long id);
+	List<StudentInClassDTO> getStudentInClassByClassid(Long classid);
 
 }

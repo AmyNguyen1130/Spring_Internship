@@ -64,7 +64,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	}
 
 	@Override
-	public List<StudentInClassDTO> getAllStudentInClassByClassid(Long classid) {
+	public List<StudentInClassDTO> getStudentInClassByClassid(Long classid) {
 		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassid(classid);
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
@@ -76,9 +76,9 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	}
 
 	@Override
-	public void deleteStudentInClass(Long id) {
+	public void deleteById(Long id) {
 		studentInClassDAO.deleteById(id);
-		
+
 	}
 
 }
