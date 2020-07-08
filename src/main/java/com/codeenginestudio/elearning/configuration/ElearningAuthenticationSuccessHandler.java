@@ -24,16 +24,23 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 			Authentication authentication) throws IOException, ServletException {
 
 		boolean hasAdminRole = false;
+		boolean hasTeacherRole = false;
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
 			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
 				hasAdminRole = true;
 				break;
 			}
+			if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+				hasTeacherRole = true;
+				break;
+			}
 		}
 
 		if (hasAdminRole) {
 			redirectStrategy.sendRedirect(request, response, "/admin/user");
+		} else if (hasTeacherRole) {
+			redirectStrategy.sendRedirect(request, response, "/teacher/assessment");
 		} else {
 			throw new IllegalStateException();
 		}
