@@ -17,6 +17,10 @@ INSERT INTO users (userid, username, password, firstname, email, enabled, roleid
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000017, 'admin17', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator18', 'admin@codeenginestudio.com', true, 2);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (1000018, 'admin18', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator19', 'admin@codeenginestudio.com', true, 2);
 
+INSERT INTO questiontypes (questiontypeid, questiontypename) VALUES (1, 'Multiple question');
+INSERT INTO questiontypes (questiontypeid, questiontypename) VALUES (2, 'Yes/No question');
+
+
 INSERT INTO roles (roleid, rolename) VALUES (1, 'Admin');
 INSERT INTO roles (roleid, rolename) VALUES (2, 'Teacher');
 INSERT INTO roles (roleid, rolename) VALUES (3, 'Student');
@@ -42,9 +46,9 @@ INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expir
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (112, 'lop 3', '100', '2020/6/10', '2020/6/15', true, 2);
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (113, 'lop 5', '100', '2020/6/10', '2020/6/15', true, 2);
 
-INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (100, 'PNV20A', 'A', 100);
-INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (200, 'PNV20B', 'B', 100);
-INSERT INTO questions (questionid, content, answer, assessmentid) VALUES (300, 'PNv20C', 'A', 100);
 
-
+INSERT INTO questions (questionid, numericalorder, questiontypeid, content, options, correctanswer, score, assessmentid) VALUES (100, 1, 1, 'what is the sound of one hand clap?','A: bop bop, B: ouch, C: Opps, D: Dau', 'A', 10, 101);
+INSERT INTO questions (questionid, numericalorder, questiontypeid, content, options, correctanswer, score, assessmentid) VALUES (104, 1, 1, 'what is the sound of one hand clap?','A: bop bop, B: ouch, C: Opps, D: Dau', 'A', 10, 101);
+INSERT INTO questions (questionid, numericalorder, questiontypeid, content, options, correctanswer, score, assessmentid) VALUES (102, 2, 1, 'what is the sound of one hand clap?','A: bop bop, B: ouch, C: Opps, D: Dau', 'A', 10, 102);
+INSERT INTO questions (questionid, numericalorder, questiontypeid, content, options, correctanswer, score, assessmentid) VALUES (103, 3, 1, 'what is the sound of one hand clap?','A: bop bop, B: ouch, C: Opps, D: Dau', 'A', 10, 103);
 

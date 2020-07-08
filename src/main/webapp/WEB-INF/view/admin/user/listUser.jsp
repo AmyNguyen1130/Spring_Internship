@@ -15,11 +15,9 @@
 <body>
 	<div>
 		<div class="form-group row">
-			<form class="form-inline col-sm-7">
-				<i class="fa fa-facebook" aria-hidden="true"></i> <input
-					class="form-control mr-3 " type="text" placeholder="Search"
-					aria-label="Search"> <i class="fa fa-facebook"
-					aria-hidden="true"></i>
+			<form class="form-inline col-sm-7" action="/admin/user/search" method="get">
+				<input class="form-control mr-3 " type="text" placeholder="Search" name="search">
+				<button type="submit" class="btn btn-large btn-primary" > Search</button>
 			</form>
 
 			<form class="form-inline col-sm-4"

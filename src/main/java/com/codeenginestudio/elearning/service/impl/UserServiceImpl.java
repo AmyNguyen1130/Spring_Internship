@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 		for (UserEntity userEntity : listUserEntity) {
 			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 		}
+		
 		return listUserDTO;
 	}
 
@@ -46,7 +47,6 @@ public class UserServiceImpl implements UserService {
 	public Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page) {
 
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
 		Page<UserEntity> listUserEntity = userDAO.getUserPageByEnabledAndRoleid(enabled, roleid, pageable);
 
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
@@ -103,17 +103,27 @@ public class UserServiceImpl implements UserService {
 		for (UserEntity userEntity : listUserEntity) {
 			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 		}
+		
 		return listUserDTO;
 	}
 
 	@Override
 	public Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page) {
+		
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
 		Page<UserEntity> listUserEntity = userDAO.getUserPageByRoleid(roleid, pageable);
+		
+		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
+	}
+	
+	@Override
+	public Page<UserDTO> getUserPageByUsername(String username, Integer page) {
+		
+		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+		Page<UserEntity> listUserEntity = userDAO.getUserPageByUsername(username, pageable);
+		
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
-
 }

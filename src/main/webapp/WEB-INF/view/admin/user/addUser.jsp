@@ -73,7 +73,6 @@ p {
 				<div class="col-sm-4">
 					<select name="roleid" class="form-control">
 						<c:forEach items="${listRole}" var="role">
-
 							<option value="${role.getRoleid()}"
 								${userInf.getRoleid() == role.getRoleid() ? 'selected' : "" }>
 								${role.getRolename()}</option>
@@ -82,7 +81,7 @@ p {
 				</div>
 			</div>
 
-			<input type="hidden" value="true" name="enabled" />
+			<input type="hidden" value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}" name="enabled" />
 			<button type="submit" class="btn btn-primary">Done</button>
 			<a href="/admin/user"><button type="button"
 					class="btn btn-danger">cancel</button></a>

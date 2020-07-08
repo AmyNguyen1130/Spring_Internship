@@ -3,6 +3,7 @@ package com.codeenginestudio.elearning.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -108,6 +109,15 @@ public class UserController {
 		model.addAttribute("enabled", enabled);
 		model.addAttribute("roleid", roleid);
 		model.addAttribute("userPage", userService.getUserPageByEnabledAndRoleid(enabled, roleid, page));
+		model.addAttribute("listRole", roleService.getListRole());
+		return PREFIX + "listUser";
+	}
+	
+	@GetMapping("/admin/user/search")
+	public String SearchByClassName(ModelMap model, @ModelAttribute("search") String username,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		model.addAttribute("userPage", userService.getUserPageByUsername(username, page));
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "listUser";
 	}

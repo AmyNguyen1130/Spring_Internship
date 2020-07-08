@@ -16,6 +16,7 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	/**
 	 * META-INF/jpa/user.orm.xml
 	 */
+	
 	UserEntity getUserByUsername(@Param("username") String username);
 
 	List<UserEntity> findByUsername(String username);
@@ -30,5 +31,5 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 
 	Page<UserEntity> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Pageable pageable);
 
-
+	Page<UserEntity> getUserPageByUsername(String username, Pageable pageable);
 }
