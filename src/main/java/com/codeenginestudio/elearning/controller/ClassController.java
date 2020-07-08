@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,11 +33,13 @@ public class ClassController {
 	private StudentInClassService studentInClassService;
 
 	@GetMapping("/admin/class")
-	public String showListClass(ModelMap model, @RequestParam(name = "page", required = false) Integer page,
-			ClassDTO classDTO) {
-		model.addAttribute("totalStudent",
-				studentInClassService.getStudentInClassByClassid(classDTO.getClassid()).size());
-		model.addAttribute("classPage", classService.getClassPage(page));
+	public String showListClass(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
+
+		Page<ClassDTO> classess = classService.getClassPage(page);
+		for (ClassDTO classDTO : classess) {
+			classDTO.setTotalStudents(studentInClassService.listStudentCheckedByClass(classDTO.getClassid()).size());
+		}
+		model.addAttribute("classPage", classess);
 		return PREFIX + "listClass";
 	}
 
@@ -69,11 +72,27 @@ public class ClassController {
 	}
 
 	@GetMapping("/admin/class/search")
-	public String SearchByClassName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
+	public String adminSearchClassByClassName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
 			@RequestParam(name = "page", required = false) Integer page) {
-
-		model.addAttribute("classPage", classService.getClassPageByClassname(inputSearch, page));
+		Page<ClassDTO> SearchResult = classService.getClassPageByClassname(inputSearch, page);
+		if (SearchResult.getTotalElements() == 0) {
+			model.addAttribute("noResult", "Don't have any class with:  " + inputSearch);
+			return PREFIX + "listClass";
+		}
+		model.addAttribute("classPage", SearchResult);
 		return PREFIX + "listClass";
+	}
+
+	@GetMapping("/teacher/class/search")
+	public String teacherSearchClassByClassName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
+			@RequestParam(name = "page", required = false) Integer page) {
+		Page<ClassDTO> SearchResult = classService.getClassPageByClassname(inputSearch, page);
+		if (SearchResult.getTotalElements() == 0) {
+			model.addAttribute("noResult", "Don't have any class with:  " + inputSearch);
+			return "teacher/class/listClass";
+		}
+		model.addAttribute("classPage", SearchResult);
+		return "teacher/class/listClass";
 	}
 
 	@GetMapping("/admin/class/getClassByStatus")
@@ -113,6 +132,18 @@ public class ClassController {
 		}
 		classService.saveClass(classDTO);
 		return "redirect:/admin/class";
+	}
+
+	@GetMapping("/teacher/class")
+	public String showListClassWithTeacherRole(ModelMap model,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		Page<ClassDTO> classess = classService.getClassPage(page);
+		for (ClassDTO classDTO : classess) {
+			classDTO.setTotalStudents(studentInClassService.listStudentCheckedByClass(classDTO.getClassid()).size());
+		}
+		model.addAttribute("classPage", classess);
+		return "teacher/class/listClass";
 	}
 
 	public List<String> validationClass(ClassDTO classDTO) {

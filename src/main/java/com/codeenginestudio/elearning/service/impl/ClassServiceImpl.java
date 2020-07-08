@@ -75,7 +75,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void editStatusClass(Long classid) {
-		boolean status = classDAO.getOne(classid).getStatus();
+		Boolean status = classDAO.getOne(classid).getStatus();
 		classDAO.getOne(classid).setStatus(!status);
 		classDAO.saveAndFlush(classDAO.getOne(classid));
 	}

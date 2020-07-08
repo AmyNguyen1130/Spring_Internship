@@ -1,5 +1,5 @@
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (10000, 'admin', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator1', 'admin@codeenginestudio.com', true, 1);
-INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100001, 'admin1', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator2', 'admin@codeenginestudio.com', true, 1);
+INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100001, 'teacher', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator2', 'admin@codeenginestudio.com', true, 2);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100002, 'admin2', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator3', 'admin@codeenginestudio.com', true, 1);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100003, 'admin3', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator4', 'admin@codeenginestudio.com', true, 1);
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (100004, 'admin4', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator5', 'admin@codeenginestudio.com', true, 1);
@@ -25,9 +25,9 @@ INSERT INTO roles (roleid, rolename) VALUES (1, 'Admin');
 INSERT INTO roles (roleid, rolename) VALUES (2, 'Teacher');
 INSERT INTO roles (roleid, rolename) VALUES (3, 'Student');
 
-INSERT INTO classes (classid, classname, teacherid) VALUES (100, 'PNV20A', 1000018);
-INSERT INTO classes (classid, classname, teacherid) VALUES (200, 'PNV20B', 1000018);
-INSERT INTO classes (classid, classname, teacherid) VALUES (300, 'PNv20C', 1000018);
+INSERT INTO classes (classid, classname, teacherid, status) VALUES (100, 'PNV20A', 1000018, true);
+INSERT INTO classes (classid, classname, teacherid, status) VALUES (200, 'PNV20B', 1000018, true);
+INSERT INTO classes (classid, classname, teacherid, status) VALUES (300, 'PNv20C', 1000018, true);
 
 INSERT INTO assessments (assessmentid, assessmentname, classid, startdate, expireddate, status, totalquestion) VALUES (100, 'toan hoc', '100', '2020/6/10', '2020/6/15', true, 2);
 

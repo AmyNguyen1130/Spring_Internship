@@ -74,3 +74,9 @@ img {
     width: 100%;
     color: black;
 }
+
+.noResult{
+	color: red;
+    margin-left: 30%;
+    margin-top: 50px;
+}

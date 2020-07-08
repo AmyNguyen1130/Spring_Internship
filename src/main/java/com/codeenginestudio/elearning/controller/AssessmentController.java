@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,12 @@ public class AssessmentController {
 		return "redirect:/teacher/assessment";
 	}
 
+	@GetMapping("/teacher/class/editClassStatus")
+	public String editStatusClass(@ModelAttribute("classid") Long classid) {
+		classService.editStatusClass(classid);
+		return "redirect:/teacher/class";
+	}
+
 	@GetMapping("/teacher/assessment/editAssessment")
 	public String editAssessment(ModelMap model, @ModelAttribute("assessmentid") Long assessmentid) {
 		model.addAttribute("listClass", classService.getAllClass());
@@ -54,10 +61,16 @@ public class AssessmentController {
 	}
 
 	@GetMapping("/teacher/assessment/search")
-	public String SearchByAssessmentName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch, Integer page) {
+	public String SearchByAssessmentName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
+			Integer page) {
 
+		Page<AssessmentDTO> SearchResult = assessmentService.findAssessmentPageByAssessmentname(inputSearch, page);
+		if (SearchResult.getTotalElements() == 0) {
+			model.addAttribute("noResult", "Don't have any class with:  " + inputSearch);
+			return PREFIX + "listAssessment";
+		}
 		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("assessmentPage", assessmentService.findAssessmentPageByAssessmentname(inputSearch, page));
+		model.addAttribute("assessmentPage", SearchResult);
 		return PREFIX + "listAssessment";
 	}
 
@@ -65,8 +78,7 @@ public class AssessmentController {
 	public String saveAddAssessment(ModelMap model, AssessmentDTO assessmentDTO) {
 
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
-		if (inValid.getErrAssessmentName() == "" && inValid.getErrStartDate() == ""
-				&& inValid.getErrExpiredDate() == "") {
+		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAssessment(assessmentDTO);
 			return "redirect:/teacher/assessment";
 		} else {
@@ -80,8 +92,7 @@ public class AssessmentController {
 	public String saveEditAssessment(ModelMap model, AssessmentDTO assessmentDTO) {
 
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
-		if (inValid.getErrAssessmentName() == "" && inValid.getErrStartDate() == ""
-				&& inValid.getErrExpiredDate() == "") {
+		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAssessment(assessmentDTO);
 			return "redirect:/teacher/assessment";
 		} else {

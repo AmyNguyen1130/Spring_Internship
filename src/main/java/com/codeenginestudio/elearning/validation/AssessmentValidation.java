@@ -8,7 +8,6 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 public class AssessmentValidation {
 
 	private String errAssessmentName;
-	private String errStartDate = "";
 	private String errExpiredDate = "";
 
 	public String getErrAssessmentName() {
@@ -17,14 +16,6 @@ public class AssessmentValidation {
 
 	public void setErrAssessmentName(String errAssessmentName) {
 		this.errAssessmentName = errAssessmentName;
-	}
-
-	public String getErrStartDate() {
-		return errStartDate;
-	}
-
-	public void setErrStartDate(String errStartDate) {
-		this.errStartDate = errStartDate;
 	}
 
 	public String getErrExpiredDate() {
@@ -65,15 +56,6 @@ public class AssessmentValidation {
 		return "";
 	}
 
-	public String checkStartDateWithCurrentDate(Date startDate) {
-		Date currentDate = new Date();
-		if (currentDate.after(startDate)) {
-			return "Start date cannot be less than the current date";
-		}
-
-		return "";
-	}
-
 	public AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
 			AssessmentService assessmentService) {
 
@@ -81,7 +63,6 @@ public class AssessmentValidation {
 		inValid.errAssessmentName = checkEmpty(assessmentDTO.getAssessmentname(), "Assessment name could not be null");
 		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentid(),
 				assessmentDTO.getAssessmentname(), assessmentService);
-		inValid.errStartDate = checkStartDateWithCurrentDate(assessmentDTO.getStartdate());
 		inValid.errExpiredDate = checkExpiredDate(assessmentDTO.getStartdate(), assessmentDTO.getExpireddate());
 		return inValid;
 	}
