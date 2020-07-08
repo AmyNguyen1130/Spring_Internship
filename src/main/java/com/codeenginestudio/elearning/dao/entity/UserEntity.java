@@ -34,25 +34,28 @@ public class UserEntity {
 	@Column
 	private String avartar;
 
-	@Column
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleid", referencedColumnName = "roleid")
+	private RoleEntity role;
+
+	@Column(name="role_id")
 	private Long roleid;
 
 	public UserEntity() {
-		super();
+
 	}
 
-	public UserEntity(String username, String password, String firstname, String lastname, String email, String gender,
-			String avartar, Long roleid, Boolean enabled) {
-		super();
+	public UserEntity(Long userid, String username, String password, String firstname, String lastname, String email, String gender,
+			Boolean enabled, Long roleid) {
+		this.userid = userid;
 		this.username = username;
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.gender = gender;
-		this.avartar = avartar;
-		this.roleid = roleid;
 		this.enabled = enabled;
+		this.roleid = roleid;
 	}
 
 	public Long getUserid() {
@@ -120,12 +123,16 @@ public class UserEntity {
 		this.avartar = avartar;
 	}
 
-	public Long getRoleid() {
-		return roleid;
+	public RoleEntity getRole() {
+		return role;
 	}
 
-	public void setRoleid(Long roleid) {
-		this.roleid = roleid;
+	public void setRole(RoleEntity role) {
+		this.role = role;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public Boolean isEnabled() {
@@ -134,6 +141,14 @@ public class UserEntity {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Long getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(Long roleid) {
+		this.roleid = roleid;
 	}
 
 }

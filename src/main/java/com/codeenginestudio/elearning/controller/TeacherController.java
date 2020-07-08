@@ -23,7 +23,7 @@ public class TeacherController {
 	@Autowired
 	private StudentInClassService studentInClassService;
 
-	@GetMapping("/teacher/class")
+	@GetMapping("/teacher/class1")
 	public String showListClassWithTeacherRole(ModelMap model,
 			@RequestParam(name = "page", required = false) Integer page) {
 

@@ -19,7 +19,7 @@
 		</constructor-result>
 	</sql-result-set-mapping>
 
-	<named-native-query name="getUserByUsername" result-set-mapping="userEntity">
+	<named-native-query name="UserEntity.getUserByUsername1111" result-set-mapping="userEntity">
 		<query>
 			<![CDATA[
 				SELECT
@@ -57,7 +57,7 @@
 		</query>
 	</named-native-query>
 	
-	<named-native-query name=getUserByEnabledAndRoleid result-set-mapping="userEntity">
+	<named-native-query name="getUserByEnabledAndRoleid" result-set-mapping="userEntity">
 		<query>
 			<![CDATA[
 				SELECT 
@@ -72,6 +72,27 @@
 					u.roleid AS roleid
 				FROM users u
 				WHERE u.enabled = :enabled AND u.roleid = :roleid
+			]]>
+		</query>
+	</named-native-query>
+
+	<named-native-query name="UserEntity.getUsersByRole" result-set-mapping="userEntity">
+		<query>
+			<![CDATA[
+				SELECT
+					u.userid AS userid,
+					u.username AS username,
+					u.password AS password,
+					u.firstname AS firstname,
+					u.lastname AS lastname,
+					u.email AS email,
+					u.gender AS gender,
+					u.enabled AS enabled,
+					u.roleid AS roleid
+				FROM users u
+				WHERE (u.roleid = :roleid OR 0 = :roleid)
+				LIMIT :limit
+				OFFSET :offset
 			]]>
 		</query>
 	</named-native-query>

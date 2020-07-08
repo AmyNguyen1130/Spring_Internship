@@ -14,6 +14,8 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.codeenginestudio.elearning.constant.RoleConstant;
+
 @Component
 public class ElearningAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -25,13 +27,14 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 
 		boolean hasAdminRole = false;
 		boolean hasTeacherRole = false;
+
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+			if (grantedAuthority.getAuthority().equals(RoleConstant.getRoleAdmin())) {
 				hasAdminRole = true;
 				break;
 			}
-			if (grantedAuthority.getAuthority().equals("ROLE_TEACHER")) {
+			if (grantedAuthority.getAuthority().equals(RoleConstant.getRoleTeacher())) {
 				hasTeacherRole = true;
 				break;
 			}

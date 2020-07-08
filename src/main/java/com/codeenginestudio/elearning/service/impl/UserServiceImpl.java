@@ -126,4 +126,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
+
+	@Override
+	public Page<UserDTO> queryUsersByRoleid(Long roleid, Integer page) {
+		List<UserEntity> userEntities = userDAO.getUsersByRole(roleid, ITEM_PER_PAGE, page * ITEM_PER_PAGE);
+		return null;
+	}
 }

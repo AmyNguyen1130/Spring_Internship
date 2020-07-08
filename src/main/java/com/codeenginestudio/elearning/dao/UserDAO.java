@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,6 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	/**
 	 * META-INF/jpa/user.orm.xml
 	 */
-	
 	UserEntity getUserByUsername(@Param("username") String username);
 
 	List<UserEntity> findByUsername(String username);
@@ -32,4 +32,10 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	Page<UserEntity> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Pageable pageable);
 
 	Page<UserEntity> getUserPageByUsername(String username, Pageable pageable);
+
+	@Query
+	List<UserEntity> getUsersByRole(
+		@Param("roleid") Long roleid,
+		@Param("limit") Integer limit,
+		@Param("offset") Integer offset);
 }

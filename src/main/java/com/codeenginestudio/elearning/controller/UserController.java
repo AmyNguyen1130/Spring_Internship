@@ -85,30 +85,27 @@ public class UserController {
 	@PostMapping("admin/user/saveEditUser")
 	public String saveEditUser(UserDTO userDTO, Model model) {
 
-		UserValidator inValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
+		UserValidator userInValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
 
-		if (inValid.getErrUsername() == "" && inValid.getErrPassword() == "" && inValid.getErrFirstname() == ""
-				&& inValid.getErrLastname() == "" && inValid.getErrEmail() == "") {
-
+		if (userInValid.noError(userInValid)) {
 			userService.editUser(userDTO);
 			return "redirect:/admin/user";
-		} else {
-
-			model.addAttribute("error", inValid);
-			model.addAttribute("userInf", userDTO);
-			model.addAttribute("url", "/admin/user/saveEditUser");
-			model.addAttribute("listRole", roleService.getListRole());
-			return PREFIX + "addUser";
 		}
+
+		model.addAttribute("error", userInValid);
+		model.addAttribute("userInf", userDTO);
+		model.addAttribute("url", "/admin/user/saveEditUser");
+		model.addAttribute("listRole", roleService.getListRole());
+		return PREFIX + "addUser";
 	}
 
-	@GetMapping("/admin/user/getUserByEnabledAndRoleid")
-	public String getUserByEnabledAndRoleid(Model model, @ModelAttribute("enabled") Boolean enabled,
-			@ModelAttribute("roleid") Long roleid, @RequestParam(name = "page", required = false) Integer page) {
+	@PostMapping("/admin/user/getUserByEnabledAndRoleid")
+	public String getUserByEnabledAndRoleid(Model model,
+			@ModelAttribute("roleid") Long roleid,
+			@ModelAttribute(name = "curpage") Integer curpage) {
 
-		model.addAttribute("enabled", enabled);
 		model.addAttribute("roleid", roleid);
-		model.addAttribute("userPage", userService.getUserPageByEnabledAndRoleid(enabled, roleid, page));
+		model.addAttribute("userPage", userService.queryUsersByRoleid(roleid, curpage));
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "listUser";
 	}

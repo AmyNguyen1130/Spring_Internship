@@ -15,6 +15,5 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
 		builder.addDecoratorPath("/admin/**", callDecorator("administrator/decorator"));
 		builder.addDecoratorPath("/teacher/**", callDecorator("teacher/decorator"));
-
 	}
 }

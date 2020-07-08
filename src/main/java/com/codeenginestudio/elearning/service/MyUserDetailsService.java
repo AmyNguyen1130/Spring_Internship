@@ -12,9 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.codeenginestudio.elearning.dao.RoleDAO;
+import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dao.UserDAO;
-import com.codeenginestudio.elearning.dao.entity.RoleEntity;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 
 @Service
@@ -22,9 +21,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserDAO userDAO;
-
-	@Autowired
-	private RoleDAO roleDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,15 +31,11 @@ public class MyUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Can not found user");
 		}
 
-		Long roleId = user.getRoleid();
-		RoleEntity role = roleDAO.getRoleNameByRoleid(roleId);
-		String roleName = role.getRolename();
-
-		// List Roles should get from role table
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-		authorities.add(new SimpleGrantedAuthority("ROLE_"+ roleName.toUpperCase()));
+		authorities.add(new SimpleGrantedAuthority(RoleConstant.DEFAULT_ROLE));
+		authorities.add(
+				new SimpleGrantedAuthority(
+						RoleConstant.PREFIX_ROLE.concat(user.getRole().getRolename().toUpperCase())));
 
 		return new User(username, user.getPassword(), authorities);
 	}

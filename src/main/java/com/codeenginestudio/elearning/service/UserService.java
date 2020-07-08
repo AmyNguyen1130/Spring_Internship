@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
-import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.dto.UserDTO;
 
 public interface UserService {
@@ -36,4 +35,5 @@ public interface UserService {
 	
 	Page<UserDTO> getUserPageByUsername(String username, Integer page);
 
+	Page<UserDTO> queryUsersByRoleid(Long roleid, Integer page);
 }

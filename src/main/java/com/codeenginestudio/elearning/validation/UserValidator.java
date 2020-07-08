@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.validation;
 
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
@@ -128,6 +129,11 @@ public class UserValidator{
 		return inValid;
 	}
 	
-
-
+	public boolean noError(UserValidator userValidator) {
+		return StringUtils.isEmpty(userValidator.getErrUsername())
+				&& StringUtils.isEmpty(userValidator.getErrPassword())
+				&& StringUtils.isEmpty(userValidator.getErrFirstname())
+				&& StringUtils.isEmpty(userValidator.getErrLastname())
+				&& StringUtils.isEmpty(userValidator.getErrEmail());
+	}
 }
