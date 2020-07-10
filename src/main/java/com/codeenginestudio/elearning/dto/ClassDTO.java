@@ -6,11 +6,11 @@ public class ClassDTO {
 
 	private String classname;
 
-	private Long teacherid;
-
 	private int totalStudents;
 
 	private Boolean status;
+
+	private UserDTO user;
 
 	public Long getClassid() {
 		return classid;
@@ -28,12 +28,12 @@ public class ClassDTO {
 		this.classname = classname;
 	}
 
-	public Long getTeacherid() {
-		return teacherid;
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setTeacherid(Long teacherid) {
-		this.teacherid = teacherid;
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 
 	public Boolean getStatus() {

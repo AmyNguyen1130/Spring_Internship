@@ -9,4 +9,6 @@ import com.codeenginestudio.elearning.dao.entity.RoleEntity;
 public interface RoleDAO extends JpaRepository<RoleEntity, Long> {
 
 	RoleEntity getRoleNameByRoleid(Long roleid);
+
+	RoleEntity getRoleIdByRolename(String rolename);
 }

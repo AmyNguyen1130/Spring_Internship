@@ -6,31 +6,32 @@
 <body>
 <div class="container-fluid">
 	<div class="row = 12">
-	    <div class="col-sm-8">
+		<div class="col-sm-8">
 
-		    <h1>Edit Class Form</h1>
+			<h1>Edit Class Form</h1>
 
 			<c:forEach items="${errors}" var="error">
-			<span style="color: red">${error}</span>
-		</c:forEach>
+				<span style="color: red">${error}</span>
+			</c:forEach>
 
-		<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveEditClass"
-			method="POST">
-			<input class="form-control" type="hidden" name="classid" value="${data.classid}">
-			Class Name: <input class="form-control" type="text" name="classname" value="${data.classname}"> <br>
-			Teacher:
-			<select class="form-control" id="teacherid" name="teacherid">
-				<option value="" ${data.teacherid == null ? 'selected="selected"' : ''}>None</option>
-				 <c:forEach items="${user}" var="user">
-					<option value="${user.userid}" ${user.userid == data.teacherid ? 'selected="selected"' : ''}>${user.getUsername()}</option>
-			     </c:forEach>
-			</select><br>
+			<form class="form-group" action="<%=request.getContextPath()%>/admin/class/saveEditClass"
+				method="POST">
+				<input class="form-control" type="hidden" name="classid" value="${classEdit.classid}">
+				Class Name: <input class="form-control" type="text" name="classname" value="${classEdit.classname}"> <br>
+				Teacher:
+				<select class="form-control" id="user.userid" name="user.userid">
+					<option value="" ${classEdit.getUser().getUserid() == null ? 'selected="selected"' : ''}>None</option>
+					 <c:forEach items="${users}" var="user">
+						<option value="${user.userid}" ${user.userid == classEdit.getUser().getUserid() ? 'selected="selected"' : ''}>${user.getUsername()}</option>
+					</c:forEach>
+				</select><br>
+				<input class="form-control" type="hidden" name="status" value="${classEdit.status}"> <br>
 
-			<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
+				<input class="btn btn-default" type="submit" value="Save">
 
-			<input class="btn btn-default" type="submit" value="Save">
+				<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
 
-		</form>
+			</form>
 		</div>
 		<div class="col-sm-4">
 

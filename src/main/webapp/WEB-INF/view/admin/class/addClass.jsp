@@ -7,9 +7,9 @@
 <body>
 <div class="container-fluid">
 	<div class="row = 12">
-	    <div class="col-sm-8">
+		<div class="col-sm-8">
 
-		    <h1>Add Class Form</h1>
+			<h1>Add Class Form</h1>
 
 			<c:forEach items="${errors}" var="error">
 				<span style="color: red">${error}</span>
@@ -21,18 +21,18 @@
 
 				 <br>
 				Teacher:
-				<select class="form-control" id="teacherid" name="teacherid">
+				<select class="form-control" name="user.userid">
 					<option value="">None</option>
-				 <c:forEach items="${data}" var="user">
-					   <option value="${user.userid}">${user.username}</option>
+				 <c:forEach items="${users}" var="user">
+					<option value="${user.userid}">${user.username}</option>
 			     </c:forEach>
 				</select>
 				<br>
 				<input type="hidden" value="true" name="status" />
 
-				<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
-
 				<input class="btn btn-default" type="submit" value="Save">
+
+				<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
 
 			</form>	
 		</div>

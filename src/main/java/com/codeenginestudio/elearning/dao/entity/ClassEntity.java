@@ -1,10 +1,13 @@
 package com.codeenginestudio.elearning.dao.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,20 +22,20 @@ public class ClassEntity {
 	private String classname;
 
 	@Column
-	private Long teacherid;
-
-	@Column
 	private Boolean status;
+
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "user_id", referencedColumnName = "userid")
+	private UserEntity user;
 
 	public ClassEntity() {
 
 	}
 
-	public ClassEntity(Long classid, String classname, Long teacherid, Boolean status) {
+	public ClassEntity(Long classid, String classname, Boolean status) {
 		super();
 		this.classid = classid;
 		this.classname = classname;
-		this.teacherid = teacherid;
 		this.status = status;
 	}
 
@@ -52,12 +55,12 @@ public class ClassEntity {
 		this.classname = classname;
 	}
 
-	public Long getTeacherid() {
-		return teacherid;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setTeacherid(Long teacherid) {
-		this.teacherid = teacherid;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public Boolean getStatus() {

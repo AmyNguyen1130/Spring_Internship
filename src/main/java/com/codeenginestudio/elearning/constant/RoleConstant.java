@@ -2,17 +2,11 @@ package com.codeenginestudio.elearning.constant;
 
 public class RoleConstant {
 
-	public static final String ADMIN = "Admin";
-
 	public static final String DEFAULT_ROLE = "ROLE_USER";
 
 	public static final String PREFIX_ROLE = "ROLE_";
 
-	public static final Long ROLE_ADMIN = (long) 1;
-
-	public static final Long ROLE_STUDENT = (long) 3;
-
-	public static final Long ROLE_TEACHER = (long) 2;
+	public static final String ADMIN = "Admin";
 
 	public static final String STUDENT = "Student";
 

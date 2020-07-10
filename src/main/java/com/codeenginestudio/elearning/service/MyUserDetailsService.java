@@ -33,9 +33,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(RoleConstant.DEFAULT_ROLE));
-		authorities.add(
-				new SimpleGrantedAuthority(
-						RoleConstant.PREFIX_ROLE.concat(user.getRole().getRolename().toUpperCase())));
+//		authorities.add(
+//				new SimpleGrantedAuthority(
+//						RoleConstant.PREFIX_ROLE.concat(user.getRole().getRolename().toUpperCase())));
+
+		authorities.add(new SimpleGrantedAuthority(RoleConstant.getRoleAdmin()));
 
 		return new User(username, user.getPassword(), authorities);
 	}

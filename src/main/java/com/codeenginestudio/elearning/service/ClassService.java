@@ -20,8 +20,4 @@ public interface ClassService {
 
 	Page<ClassDTO> getClassPage(Integer page);
 
-	Page<ClassDTO> getClassPageByClassname(String inputSearch, Integer page);
-
-	Page<ClassDTO> getClassPageByStatus(Boolean status, Integer page);
-
 }

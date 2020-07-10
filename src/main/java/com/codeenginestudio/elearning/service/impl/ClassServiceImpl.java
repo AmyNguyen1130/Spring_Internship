@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
@@ -55,7 +56,7 @@ public class ClassServiceImpl implements ClassService {
 	@Override
 	public Page<ClassDTO> getClassPage(Integer page) {
 
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
 
@@ -64,31 +65,10 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassPageByClassname(String inputSearch, Integer page) {
-
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
-		Page<ClassEntity> listClassEntity = classDAO.getClassPageByClassname(inputSearch, pageable);
-
-		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
-	}
-
-	@Override
 	public void editStatusClass(Long classid) {
 		Boolean status = classDAO.getOne(classid).getStatus();
 		classDAO.getOne(classid).setStatus(!status);
 		classDAO.saveAndFlush(classDAO.getOne(classid));
 	}
-
-	@Override
-	public Page<ClassDTO> getClassPageByStatus(Boolean status, Integer page) {
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
-		Page<ClassEntity> listClassEntity = classDAO.getClassByStatus(status, pageable);
-
-		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
-	}
-
-	private static final int ITEM_PER_PAGE = 10;
 
 }
