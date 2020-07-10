@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
+import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.StudentInClassService;
+import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.StudentInClassUtil;
-
-import org.springframework.data.domain.Sort;
+import com.codeenginestudio.elearning.util.UserUtil;
 
 @Service
 public class StudentInClassServiceImpl implements StudentInClassService {
@@ -21,51 +23,31 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	private StudentInClassDAO studentInClassDAO;
 
 	@Override
-	public List<StudentInClassDTO> getAllStudentInClass() {
-
-		List<StudentInClassEntity> studentInClassEntity = (List<StudentInClassEntity>) studentInClassDAO
-				.findAll(Sort.by("studentid"));
-
-		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
-		for (StudentInClassEntity word : studentInClassEntity) {
-			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
-		}
-		return studentInClassDTO;
-
-	}
-
-	@Override
-	public void saveTeachersToClass(Long classid, Long userid) {
-
+	public void saveStudentInClass(ClassDTO classid, UserDTO userid) {
 		StudentInClassEntity studentInClassEntity = new StudentInClassEntity();
-		studentInClassEntity.setClassid(classid);
-		studentInClassEntity.setStudentid(userid);
+		studentInClassEntity.setClassid(ClassUtil.parseToEntity(classid));
+		studentInClassEntity.setStudent(UserUtil.parseToUserEntity(userid));
 		studentInClassDAO.save(studentInClassEntity);
 
 	}
 
-	@Override
-	public Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid) {
+	public List<Long> listStudentByClassid(ClassDTO classDTO) {
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findAll();
 
-		for (StudentInClassDTO student : studentInClassDTO) {
-			if (student.getStudentid().equals(userid)) {
-				return student.getIdrow();
+		List<Long> listChecked = new ArrayList<>();
+
+		for (StudentInClassEntity word : studentInClassEntity) {
+			if (classDTO.getClassid() == word.getClassid().getClassid()) {
+				listChecked.add(word.getClassid().getClassid());
 			}
+
 		}
-		return null;
-
+		return listChecked;
 	}
 
 	@Override
-	public void deleteByClassid(Long classid) {
-		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassid(classid);
-
-		studentInClassDAO.deleteAll(studentInClassEntity);
-	}
-
-	@Override
-	public List<StudentInClassDTO> getStudentInClassByClassid(Long classid) {
-		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassid(classid);
+	public List<StudentInClassDTO> getListByClassid(Long classid) {
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.getListByClassid(classid);
 
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 		for (StudentInClassEntity word : studentInClassEntity) {
@@ -75,33 +57,4 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		return studentInClassDTO;
 	}
 
-	@Override
-	public void deleteById(Long id) {
-		studentInClassDAO.deleteById(id);
-
-	}
-
-	@Override
-	public List<Long> listStudentCheckedByClass(Long classid) {
-		List<StudentInClassDTO> listChecked = getStudentInClassByClassid(classid);
-		List<Long> listCheckedId = new ArrayList<>();
-
-		for (int i = 0; i < listChecked.size(); i++) {
-			listCheckedId.add(listChecked.get(i).getStudentid());
-
-		}
-		return listCheckedId;
-	}
-
-	@Override
-	public List<StudentInClassDTO> listStudentCheckedByClassid(Long classid) {
-		List<StudentInClassDTO> listChecked = getStudentInClassByClassid(classid);
-		List<StudentInClassDTO> listCheckedId = new ArrayList<>();
-
-		for (int i = 0; i < listChecked.size(); i++) {
-			listCheckedId.add(listChecked.get(i));
-
-		}
-		return listCheckedId;
-	}
 }

@@ -8,5 +8,6 @@ import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 
 public interface StudentInClassDAO extends JpaRepository<StudentInClassEntity, Long> {
 
-	List<StudentInClassEntity> findByClassid(Long classid);
+	List<StudentInClassEntity> getListByClassid(Long classid);
+
 }

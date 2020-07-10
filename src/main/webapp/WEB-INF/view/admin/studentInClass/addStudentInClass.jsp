@@ -31,7 +31,7 @@
 	<br><br>
 	<div class="container-fluid">
 			<form class="form-group"
-				action="<%=request.getContextPath()%>/admin/saveStudentsToClass?classid=<c:out value='${classid}'/>"
+				action="<%=request.getContextPath()%>/admin/saveStudentInClass?classid=<c:out value='${classid}'/>"
 				method="POST">
 				<table class="table table-bordered table-hover">
 					<thead>
@@ -65,7 +65,7 @@
 <util:pagination
 	count="${userPage.getTotalElements()}"
 	totalPages="${userPage.getTotalPages()}" 
-	url="${pageContext.request.contextPath}/admin/getTeacherAddToClass"
+	url="${pageContext.request.contextPath}/admin/getStudentInClass"
 	curpage="${userPage.getNumber()}" />
 <script type="text/javascript">
 $(document).ready(function(){

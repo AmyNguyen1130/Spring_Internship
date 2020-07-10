@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
+import com.codeenginestudio.elearning.dto.StudentInClassDTO;
+import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 
@@ -21,46 +24,56 @@ public class StudentInClassController {
 	private UserService userService;
 
 	@Autowired
+	private RoleService roleService;
+
+	@Autowired
+	private ClassService classService;
+
+	@Autowired
 	private StudentInClassService studentInClassService;
 
-	@GetMapping("/admin/getTeacherAddToClass")
-	public String getTeacherAddToClass(ModelMap model, @ModelAttribute("classid") Long classid,
+	@GetMapping("/admin/getStudentInClass")
+	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid,
 			@RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("userPage", userService.getUserPageByRoleid(RoleConstant.ROLE_STUDENT, page));
-		model.addAttribute("studentChecked", studentInClassService.listStudentCheckedByClass(classid));
+		model.addAttribute("userPage",
+				userService.getUserPageByRoleid(roleService.getUserIdByUsername(RoleConstant.STUDENT), page));
 
-		return PREFIX + "addStudentIntoClass";
+		return PREFIX + "addStudentInClass";
 	}
 
-	@GetMapping("/teacher/getTeacherInClass")
-	public String getTeacherInClass(ModelMap model, @ModelAttribute("classid") Long classid,
-			@RequestParam(name = "page", required = false) Integer page) {
+	@PostMapping("/admin/saveStudentInClass")
+	public String saveStudentsInClass(ModelMap model, @ModelAttribute("classid") Long classid,
+			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
-		model.addAttribute("userPage", userService.getUserPageByRoleid(RoleConstant.ROLE_STUDENT, page));
-		model.addAttribute("studentChecked", studentInClassService.listStudentCheckedByClass(classid));
+		if (listCheckedId != null) {
 
-		return "teacher/class/listStudentInClass";
-	}
+			for (Long userid : listCheckedId) {
 
-	@PostMapping("/admin/saveStudentsToClass")
-	public String saveStudentsToClass(ModelMap model, @ModelAttribute("classid") Long classid,
-			@RequestParam(required = false, name = "checkSelected") List<Long> listUserId) {
+				if (checkDuplicateInClass(classid, userid)) {
 
-		studentInClassService.deleteByClassid(classid);
-
-		if (listUserId != null) {
-
-			for (Long userid : listUserId) {
-
-				studentInClassService.saveTeachersToClass(classid, userid);
+					studentInClassService.saveStudentInClass(classService.showClassByclassId(classid),
+							userService.showUserByUserId(userid));
+				} else {
+					System.out.println("helllo");
+				}
 			}
 		}
-
 		return "redirect:/admin/class";
 	}
 
-	private static final String PREFIX = "/admin/studentIntoClass/";
+	public Boolean checkDuplicateInClass(Long check, Long classid) {
+
+		List<StudentInClassDTO> list = studentInClassService.getListByClassid(classid);
+		for (StudentInClassDTO word : list) {
+			if (word.getClassid().getClassid() == check) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static final String PREFIX = "/admin/studentInClass/";
 
 }

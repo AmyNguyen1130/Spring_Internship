@@ -1,59 +1,56 @@
 package com.codeenginestudio.elearning.dao.entity;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "class_student")
+@Table(name = "class_students")
 public class StudentInClassEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idrow;
 
-	@Column
-	private Long classid;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "studentid", referencedColumnName = "userid")
+	private UserEntity student;
 
-	@Column
-	private Long studentid;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "classid", referencedColumnName = "classid")
+	private ClassEntity classid;
 
 	public StudentInClassEntity() {
 		super();
 	}
 
-	public StudentInClassEntity(Long idrow, Long classid, Long studentid) {
-		super();
-		this.idrow = idrow;
-		this.classid = classid;
-		this.studentid = studentid;
+	public UserEntity getStudent() {
+		return student;
 	}
 
-	public Long getIdrow() {
-		return idrow;
+	public void setStudent(UserEntity student) {
+		this.student = student;
+	}
+
+	public ClassEntity getClassid() {
+		return classid;
+	}
+
+	public void setClassid(ClassEntity classid) {
+		this.classid = classid;
 	}
 
 	public void setIdrow(Long idrow) {
 		this.idrow = idrow;
 	}
 
-	public Long getClassid() {
-		return classid;
-	}
-
-	public void setClassid(Long classid) {
-		this.classid = classid;
-	}
-
-	public Long getStudentid() {
-		return studentid;
-	}
-
-	public void setStudentid(Long studentid) {
-		this.studentid = studentid;
+	public Long getIdrow() {
+		return idrow;
 	}
 
 }

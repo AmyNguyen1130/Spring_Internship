@@ -52,9 +52,10 @@
 									<button class="btn btn-default">${class.getStatus() == true ? 'Active' : 'Inactive'}</button>
 							</a></td>
 							<td>${class.totalStudents}</td>
-							<td><a href="/admin/class/editClass?classid=<c:out value='${class.classid}' />">Edit</a>&emsp; 
-								<a href="/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>"
-								id="delete-button">Delete</a> &emsp;</td>
+							<td><a href="/admin/class/editClass/${class.classid}">Edit</a>&emsp; 
+								<a href="/admin/class/deleteClass/${class.classid}"
+								id="delete-button">Delete</a> &emsp;
+								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button class="btn btn-default">Assign</button></a></td>
 
 						</tr>
 						<c:set var="i" value="${i+1}" />

@@ -4,19 +4,12 @@ public class StudentInClassDTO {
 
 	private Long idrow;
 
-	private Long classid;
-
-	private Long studentid;
+	private ClassDTO classid;
+	
+	private UserDTO student;
 
 	public StudentInClassDTO() {
 		super();
-	}
-
-	public StudentInClassDTO(Long idrow, Long classid, Long studentid) {
-		super();
-		this.idrow = idrow;
-		this.classid = classid;
-		this.studentid = studentid;
 	}
 
 	public Long getIdrow() {
@@ -27,20 +20,20 @@ public class StudentInClassDTO {
 		this.idrow = idrow;
 	}
 
-	public Long getClassid() {
+	public ClassDTO getClassid() {
 		return classid;
 	}
 
-	public void setClassid(Long classid) {
+	public void setClassid(ClassDTO classid) {
 		this.classid = classid;
 	}
 
-	public Long getStudentid() {
-		return studentid;
+	public UserDTO getStudent() {
+		return student;
 	}
 
-	public void setStudentid(Long studentid) {
-		this.studentid = studentid;
+	public void setStudent(UserDTO student) {
+		this.student = student;
 	}
 
 }
