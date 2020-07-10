@@ -1,7 +1,5 @@
 package com.codeenginestudio.elearning.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,41 +19,38 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	private QuestionOfAssessmentDAO questionOfAssignmentDAO;
 
 	@Override
-	public Page<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessmentid(Integer page, Long assessmentid) {
+	public Page<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page, Long assessmentid) {
 
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-		Page<QuestionOfAssessmentEntity> listQuestionOfAssignmentEntity = questionOfAssignmentDAO.getListQuestionOfAssessmentByAssessmentid(pageable,assessmentid);
+		Page<QuestionOfAssessmentEntity> listQuestionOfAssignmentEntity = questionOfAssignmentDAO
+				.getListQuestionOfAssessmentByAssessment(pageable, assessmentid);
 		return listQuestionOfAssignmentEntity.map(x -> (QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(x)));
-	}
-
-	private static final int ITEM_PER_PAGE = 10;
-
-	@Override
-	public List<QuestionOfAssessmentDTO> getListQuestionbyAssessmentid(Long assessmentId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
-		questionOfAssignmentDAO.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
-		
+		questionOfAssignmentDAO
+				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
+
 	}
 
 	@Override
 	public void deleteQuestionOfAssessment(Long questionId) {
 		questionOfAssignmentDAO.deleteById(questionId);
-		
+
 	}
 
 	@Override
 	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
-		questionOfAssignmentDAO.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
+		questionOfAssignmentDAO
+				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
 	}
 
 	@Override
 	public QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId) {
-		
+
 		return QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssignmentDAO.getOne(questionId));
 	}
+
+	private static final int ITEM_PER_PAGE = 10;
 }

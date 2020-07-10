@@ -3,19 +3,18 @@ package com.codeenginestudio.elearning.dao.entity;
 import javax.persistence.Entity;
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "questiontypes")
 public class QuestionTypeEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "questiontypeid")
 	private Long questionTypeId;
-	
+
 	@Column(name = "questiontypename")
 	private String questionTypeName;
-	
+
 	public QuestionTypeEntity(Long questionTypeId, String questionTypeName) {
 		super();
 		this.questionTypeId = questionTypeId;

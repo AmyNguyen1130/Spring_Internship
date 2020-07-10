@@ -13,8 +13,8 @@ import com.codeenginestudio.elearning.service.QuestionTypeService;
 import com.codeenginestudio.elearning.util.QuestionTypeUtil;
 
 @Service
-public class QuestionTypeServiceImpl implements QuestionTypeService{
-	
+public class QuestionTypeServiceImpl implements QuestionTypeService {
+
 	@Autowired
 	QuestionTypeDAO questionTypeDAO;
 
@@ -25,7 +25,7 @@ public class QuestionTypeServiceImpl implements QuestionTypeService{
 		for (QuestionTypeEntity questionTypeEntity : listQuestionTypeEntity) {
 			listQuestionTypeDTO.add(QuestionTypeUtil.parseToQuestionTypeDTO(questionTypeEntity));
 		}
-		
+
 		return listQuestionTypeDTO;
 	}
 

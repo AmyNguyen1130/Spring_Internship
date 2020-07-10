@@ -2,33 +2,32 @@ package com.codeenginestudio.elearning.dto;
 
 public class RoleDTO {
 
-		private Long roleid;
+	private Long roleid;
 
-		private String rolename;
-		
-		public RoleDTO(Long roleid, String rolename) {
-			this.roleid = roleid;
-			this.rolename = rolename;
-		}
+	private String rolename;
 
-		public RoleDTO() {
-			super();
-		}
+	public RoleDTO(Long roleid, String rolename) {
+		this.roleid = roleid;
+		this.rolename = rolename;
+	}
 
-		public Long getRoleid() {
-			return roleid;
-		}
+	public RoleDTO() {
+		super();
+	}
 
-		public void setRoleid(Long roleid) {
-			this.roleid = roleid;
-		}
+	public Long getRoleid() {
+		return roleid;
+	}
 
-		public String getRolename() {
-			return rolename;
-		}
+	public void setRoleid(Long roleid) {
+		this.roleid = roleid;
+	}
 
-		public void setRolename(String rolename) {
-			this.rolename = rolename;
-		}
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
 }
-

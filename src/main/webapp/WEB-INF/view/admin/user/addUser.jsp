@@ -81,7 +81,9 @@ p {
 				</div>
 			</div>
 			<div class="form-group row">
-				<input type="hidden" value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}" name="enabled" />
+				<input type="hidden"
+					value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
+					name="enabled" />
 				<button type="submit" class="btn btn-primary">Save</button>
 				<a href="/admin/user">
 					<button type="button" class="btn btn-danger">Cancel</button>

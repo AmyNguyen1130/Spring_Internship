@@ -6,7 +6,7 @@ public class QuestionOfAssessmentDTO {
 
 	private int numericalorder;
 
-	private Long questiontypeid;
+	private QuestionTypeDTO questionType;
 
 	private String content;
 
@@ -15,20 +15,20 @@ public class QuestionOfAssessmentDTO {
 	private String correctanswer;
 
 	private float score;
-	
-	private Long assessmentid;
 
-	public QuestionOfAssessmentDTO(Long questionid, int numericalorder, Long questiontypeid, String content,
-			String options, String correctanswer, float score, Long assessmentid) {
+	private AssessmentDTO assessment;
+
+	public QuestionOfAssessmentDTO(Long questionid, int numericalorder, QuestionTypeDTO questionType, String content,
+			String options, String correctanswer, float score, AssessmentDTO assessment) {
 		super();
 		this.questionid = questionid;
 		this.numericalorder = numericalorder;
-		this.questiontypeid = questiontypeid;
+		this.questionType = questionType;
 		this.content = content;
 		this.options = options;
 		this.correctanswer = correctanswer;
 		this.score = score;
-		this.assessmentid = assessmentid;
+		this.assessment = assessment;
 	}
 
 	public QuestionOfAssessmentDTO() {
@@ -51,12 +51,12 @@ public class QuestionOfAssessmentDTO {
 		this.numericalorder = numericalorder;
 	}
 
-	public Long getQuestiontypeid() {
-		return questiontypeid;
+	public QuestionTypeDTO getQuestionType() {
+		return questionType;
 	}
 
-	public void setQuestiontypeid(Long questiontypeid) {
-		this.questiontypeid = questiontypeid;
+	public void setQuestionType(QuestionTypeDTO questionType) {
+		this.questionType = questionType;
 	}
 
 	public String getContent() {
@@ -91,11 +91,11 @@ public class QuestionOfAssessmentDTO {
 		this.score = score;
 	}
 
-	public Long getAssessmentid() {
-		return assessmentid;
+	public AssessmentDTO getAssessment() {
+		return assessment;
 	}
 
-	public void setAssessmentid(Long assessmentid) {
-		this.assessmentid = assessmentid;
+	public void setAssessment(AssessmentDTO assessment) {
+		this.assessment = assessment;
 	}
 }

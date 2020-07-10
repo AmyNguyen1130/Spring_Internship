@@ -1,9 +1,9 @@
 package com.codeenginestudio.elearning.dto;
 
 public class QuestionTypeDTO {
-	
+
 	private Long questionTypeId;
-	
+
 	private String questionTypeName;
 
 	public QuestionTypeDTO(Long questionTypeId, String questionTypeName) {

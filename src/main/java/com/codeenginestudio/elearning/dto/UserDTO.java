@@ -23,11 +23,11 @@ public class UserDTO {
 	private RoleDTO role;
 
 	public UserDTO() {
-		
+
 	}
 
 	public UserDTO(String username, String password, String firstName, String lastname, String email, String gender,
-			String avartar, Boolean enabled) {
+			String avartar, Boolean enabled, RoleDTO role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -37,6 +37,7 @@ public class UserDTO {
 		this.gender = gender;
 		this.avartar = avartar;
 		this.enabled = enabled;
+		this.role = role;
 	}
 
 	public Long getUserid() {
@@ -71,7 +72,6 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	
 	public String getEmail() {
 		return email;
 	}
@@ -123,5 +123,5 @@ public class UserDTO {
 	public Boolean getEnabled() {
 		return enabled;
 	}
-	
+
 }

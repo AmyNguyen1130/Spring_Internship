@@ -9,4 +9,7 @@ public interface RoleService {
 	void addRole(RoleDTO user);
 
 	List<RoleDTO> getListRole();
+
+	Long getRoleIdByRolename(String rolename);
+
 }

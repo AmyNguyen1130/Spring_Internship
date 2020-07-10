@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
+import com.codeenginestudio.elearning.dto.UserDTO;
 
 @Repository
 public interface UserDAO extends JpaRepository<UserEntity, Long> {
@@ -23,19 +23,9 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 
 	List<UserEntity> findByEmail(String email);
 
-	List<UserEntity> getUsersByRoleid(@Param("roleid") Long roleid);
-	
-	List<UserEntity> getUserPageByRoleid(@Param("roleid") Long roleid);
+	List<UserEntity> getUserByRole(@Param("roleid") Long roleid);
 
-	Page<UserEntity> getUserPageByRoleid(Long roleid, Pageable pageable);
+	Page<UserEntity> getUserPageByRole(Long roleid, Pageable pageable);
 
-	Page<UserEntity> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Pageable pageable);
-
-	Page<UserEntity> getUserPageByUsername(String username, Pageable pageable);
-
-	@Query
-	List<UserEntity> getUsersByRole(
-		@Param("roleid") Long roleid,
-		@Param("limit") Integer limit,
-		@Param("offset") Integer offset);
+	UserEntity getUserByUserid(Long userid);
 }

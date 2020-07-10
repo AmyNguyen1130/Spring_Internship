@@ -29,25 +29,21 @@ public class UserEntity {
 	private String gender;
 
 	@Column
-	private boolean enabled;
+	private Boolean enabled;
 
 	@Column
 	private String avartar;
 
 	@OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "role_id", referencedColumnName = "roleid")
+	@JoinColumn(name = "roleid", referencedColumnName = "roleid")
 	private RoleEntity role;
-
-	// remove this column after revise
-	@Column
-	private Long roleid;
 
 	public UserEntity() {
 
 	}
 
-	public UserEntity(Long userid, String username, String password, String firstname, String lastname, String email, String gender,
-			Boolean enabled) {
+	public UserEntity(Long userid, String username, String password, String firstname, String lastname, String email,
+			String gender, Boolean enabled) {
 		this.userid = userid;
 		this.username = username;
 		this.password = password;
@@ -98,7 +94,6 @@ public class UserEntity {
 		this.password = password;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
@@ -129,10 +124,6 @@ public class UserEntity {
 
 	public void setRole(RoleEntity role) {
 		this.role = role;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public Boolean isEnabled() {

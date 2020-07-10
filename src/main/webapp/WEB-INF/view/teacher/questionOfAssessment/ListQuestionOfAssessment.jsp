@@ -10,7 +10,7 @@
 </head>
 <%
 	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
 <body>
 	<div class="col-sm-6">
@@ -24,7 +24,7 @@
 			<thead>
 				<tr>
 					<th scope="col">Numerical Order</th>
-					<th scope="col">Question Type </th>
+					<th scope="col">Question Type</th>
 					<th scope="col">Content</th>
 					<th scope="col">Options</th>
 					<th scope="col">Correct Answer</th>
@@ -37,23 +37,16 @@
 				<c:forEach items="${listQuestionOfAssessment.getContent()}"
 					var="question">
 					<tr>
-						<td>${question.numericalorder}</td> 
-						<c:forEach items="${listQuestionType}" var="questionType">
-							<c:if test="${questionType.questionTypeId == question.questiontypeid}">
-								<td>${questionType.questionTypeName}</td>
-							</c:if>
-						</c:forEach>
+						<td>${question.numericalorder}</td>
+						<td>${question.getQuestionType().getQuestionTypeName()}</td>
 						<td>${question.content}</td>
 						<td>${question.options}</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
-						<c:forEach items="${listAssessment}" var="assessment">
-							<c:if test="${assessment.assessmentid == question.assessmentid}">
-								<td>${assessment.assessmentname}</td>
-							</c:if>
-						</c:forEach>
-						<td><a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${question.questionid}"> <img alt="edit"
-								src="<%=editImageAddress%>" />
+						<td>${assessment.getAssessment().getAssessmentname()}</td>
+						<td><a
+							href="/teacher/questionOfAssessment/editQuestionOfAssessment/${question.questionid}">
+								<img alt="edit" src="<%=editImageAddress%>" />
 						</a> <a
 							href="/teacher/questionOfAssessment/deleteQuestionOfAssessment/${question.questionid}"
 							onclick="return confirm('Are you sure?')"> <img alt="delete"

@@ -1,10 +1,6 @@
 package com.codeenginestudio.elearning.dao.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "questions")
@@ -17,8 +13,9 @@ public class QuestionOfAssessmentEntity {
 	@Column
 	private int numericalorder;
 
-	@Column
-	private Long questiontypeid;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "questiontypeid", referencedColumnName = "questiontypeid")
+	private QuestionTypeEntity questionType;
 
 	@Column
 	private String content;
@@ -31,21 +28,22 @@ public class QuestionOfAssessmentEntity {
 
 	@Column
 	private float score;
-	
-	@Column
-	private Long assessmentid;
 
-	public QuestionOfAssessmentEntity(Long questionid, int numericalorder, Long questiontypeid, String content,
-			String options, String correctanswer, float score, Long assessmentid) {
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "assessmentid", referencedColumnName = "assessmentid")
+	private AssessmentEntity assessment;
+
+	public QuestionOfAssessmentEntity(Long questionid, int numericalorder, QuestionTypeEntity questionType,
+			String content, String options, String correctanswer, float score, AssessmentEntity assessment) {
 		super();
 		this.questionid = questionid;
 		this.numericalorder = numericalorder;
-		this.questiontypeid = questiontypeid;
+		this.questionType = questionType;
 		this.content = content;
 		this.options = options;
 		this.correctanswer = correctanswer;
 		this.score = score;
-		this.assessmentid = assessmentid;
+		this.assessment = assessment;
 	}
 
 	public QuestionOfAssessmentEntity() {
@@ -68,12 +66,12 @@ public class QuestionOfAssessmentEntity {
 		this.numericalorder = numericalorder;
 	}
 
-	public Long getQuestiontypeid() {
-		return questiontypeid;
+	public QuestionTypeEntity getQuestiontypeid() {
+		return questionType;
 	}
 
-	public void setQuestiontypeid(Long questiontypeid) {
-		this.questiontypeid = questiontypeid;
+	public void setQuestiontypeid(QuestionTypeEntity questionType) {
+		this.questionType = questionType;
 	}
 
 	public String getContent() {
@@ -108,11 +106,11 @@ public class QuestionOfAssessmentEntity {
 		this.score = score;
 	}
 
-	public Long getAssessmentid() {
-		return assessmentid;
+	public AssessmentEntity getAssessment() {
+		return assessment;
 	}
 
-	public void setAssessmentid(Long assessmentid) {
-		this.assessmentid = assessmentid;
+	public void setAssessment(AssessmentEntity assessment) {
+		this.assessment = assessment;
 	}
 }

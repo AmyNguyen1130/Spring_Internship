@@ -23,9 +23,12 @@ public interface UserService {
 
 	List<UserEntity> findByEmail(String email);
 
-	List<UserDTO> getUsersByRoleid(Long roleid);
+	List<UserDTO> getUserByRole(Long roleid);
 
 	Page<UserDTO> getUserPage(Integer page);
 
-	Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page);
+	Page<UserDTO> getUserPageByRole(Long roleid, Integer page);
+
+	UserDTO showUserByUserId(Long userid);
+
 }

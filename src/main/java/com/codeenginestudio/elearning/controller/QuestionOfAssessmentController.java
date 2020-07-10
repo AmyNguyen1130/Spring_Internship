@@ -22,28 +22,26 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private AssessmentService assessmentService;
-	
+
 	@Autowired
 	private QuestionTypeService questionTypeService;
-	
+
 	@GetMapping("/teacher/questionOfAssessment")
 	public String showListQuestionPage(Model model, @RequestParam(name = "page", required = false) Integer page,
 			@ModelAttribute("assessmentid") Long assessmentid) {
 		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessmentid(page, assessmentid));
-		model.addAttribute("listAssessment", assessmentService.getListAssessment());
-		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(page, assessmentid));
 		return PREFIX + "ListQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment")
-		public String addQuestionOfAssignment(Model model) {
-			
-			model.addAttribute("listAssessment", assessmentService.getListAssessment());
-			model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment");
-			model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-			return PREFIX + "AddAndEditQuestionOfAssessment";
-		}
+	public String addQuestionOfAssignment(Model model) {
+
+		model.addAttribute("listAssessment", assessmentService.getListAssessment());
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment");
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+		return PREFIX + "AddAndEditQuestionOfAssessment";
+	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment")
 	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model) {
@@ -56,23 +54,23 @@ public class QuestionOfAssessmentController {
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
 		return "redirect:/teacher/questionOfAssessment";
 	}
-	
+
 	@GetMapping("/teacher/questionOfAssessment/editQuestionOfAssessment/{questionId}")
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId, Model model) {
-				
+
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment");
 		return PREFIX + "AddAndEditQuestionOfAssessment";
 	}
-	
+
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment")
 	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model) {
-		
+
 		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
 		return "redirect:/teacher/questionOfAssessment";
 	}
-	
+
 	private final String PREFIX = "/teacher/questionOfAssessment/";
 }

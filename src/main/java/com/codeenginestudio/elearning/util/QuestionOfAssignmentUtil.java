@@ -6,18 +6,22 @@ import com.codeenginestudio.elearning.util.general.UtilGeneral;
 
 public class QuestionOfAssignmentUtil {
 
-	public static QuestionOfAssessmentDTO parseToQuestionOfAssignmentDTO(QuestionOfAssessmentEntity questionOfAssignmentEntity) {
+	public static QuestionOfAssessmentDTO parseToQuestionOfAssignmentDTO(
+			QuestionOfAssessmentEntity questionOfAssignmentEntity) {
 
-		QuestionOfAssessmentDTO questionOfAssignmentDTO = UtilGeneral.modelMapper.map(questionOfAssignmentEntity, QuestionOfAssessmentDTO.class);
+		QuestionOfAssessmentDTO questionOfAssignmentDTO = UtilGeneral.modelMapper.map(questionOfAssignmentEntity,
+				QuestionOfAssessmentDTO.class);
 
 		return questionOfAssignmentDTO;
 	}
 
-	public static QuestionOfAssessmentEntity parseToQuestionOfAssignmentEntity(QuestionOfAssessmentDTO questionOfAssignmentDTO) {
+	public static QuestionOfAssessmentEntity parseToQuestionOfAssignmentEntity(
+			QuestionOfAssessmentDTO questionOfAssignmentDTO) {
 
-		QuestionOfAssessmentEntity questionOfAssignmentEntity = UtilGeneral.modelMapper.map(questionOfAssignmentDTO, QuestionOfAssessmentEntity.class);
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = UtilGeneral.modelMapper.map(questionOfAssignmentDTO,
+				QuestionOfAssessmentEntity.class);
 
 		return questionOfAssignmentEntity;
 	}
-	
+
 }

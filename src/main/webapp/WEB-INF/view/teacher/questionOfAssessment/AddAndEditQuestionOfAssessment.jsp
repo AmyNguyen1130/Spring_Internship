@@ -13,10 +13,12 @@ p {
 		<h3>Enter assessment's informations here</h3>
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
-			<input type="hidden" name="questionid" value="${questionInf.questionid}" />
+			<input type="hidden" name="questionid"
+				value="${questionInf.questionid}" />
 
 			<div class="form-group row">
-				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical Order</label>
+				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical
+					Order</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="numericalorder"
 						value="${questionInf.numericalorder}">
@@ -25,12 +27,13 @@ p {
 			</div>
 
 			<div class="form-group row">
-				<label for="questiontypeid" class="col-sm-1 col-form-label">Question Type ID</label>
+				<label for="questiontypeid" class="col-sm-1 col-form-label">Question
+					Type ID</label>
 				<div class="col-sm-4">
-					<select name="questiontypeid" class="form-control">
+					<select name="questionType.questionTypeId" class="form-control">
 						<c:forEach items="${listQuestionType}" var="questionType">
 							<option value="${questionType.questionTypeId}"
-								${questionInf.questiontypeid == questionType.questionTypeId ? 'selected' : ''}>
+								${questionInf.getQuestionType().getQuestionTypeId() == questionType.questionTypeId ? 'selected' : ''}>
 								${questionType.questionTypeName}</option>
 						</c:forEach>
 					</select>
@@ -56,7 +59,8 @@ p {
 			</div>
 
 			<div class="form-group row">
-				<label for="correctanswer" class="col-sm-1 col-form-label">Corrected Answer</label>
+				<label for="correctanswer" class="col-sm-1 col-form-label">Corrected
+					Answer</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="correctanswer"
 						value="${questionInf.correctanswer}">
@@ -65,20 +69,20 @@ p {
 			</div>
 
 			<div class="form-group row">
-				<label for="assignmentid" class="col-sm-1 col-form-label">Assignment ID</label>
+				<label for="assignmentid" class="col-sm-1 col-form-label">Assignment
+					ID</label>
 				<div class="col-sm-4">
-					<select name="assessmentid" class="form-control">
+					<select name="assessment.assessmentid" class="form-control">
 						<c:forEach items="${listAssessment}" var="assessment">
 							<option value="${assessment.assessmentid}"
-								${questionInf.questiontypeid == assessment.assessmentid ? 'selected' : ''}>
+								${questionInf.getAssessment().getAssessmentid() == assessment.assessmentid ? 'selected' : ''}>
 								${assessment.assessmentname}</option>
 						</c:forEach>
 					</select>
 				</div>
 			</div>
 
-			<input type="hidden" name="score"
-						value="10">
+			<input type="hidden" name="score" value="10">
 			<button type="submit" class="btn btn-primary">Done</button>
 			<a href="/teacher/questionOfAssessment"><button type="button"
 					class="btn btn-danger">cancel</button></a>
