@@ -71,20 +71,22 @@ p {
 			<div class="form-group row">
 				<label for="role" class="col-sm-1 col-form-label">Role</label>
 				<div class="col-sm-4">
-					<select name="roleid" class="form-control">
+					<select name="role.roleid" class="form-control">
 						<c:forEach items="${listRole}" var="role">
 							<option value="${role.getRoleid()}"
-								${userInf.getRoleid() == role.getRoleid() ? 'selected' : "" }>
+								${userInf.getRole().getRoleid() == role.getRoleid() ? 'selected' : "" }>
 								${role.getRolename()}</option>
 						</c:forEach>
 					</select>
 				</div>
 			</div>
-
-			<input type="hidden" value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}" name="enabled" />
-			<button type="submit" class="btn btn-primary">Done</button>
-			<a href="/admin/user"><button type="button"
-					class="btn btn-danger">cancel</button></a>
+			<div class="form-group row">
+				<input type="hidden" value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}" name="enabled" />
+				<button type="submit" class="btn btn-primary">Save</button>
+				<a href="/admin/user">
+					<button type="button" class="btn btn-danger">Cancel</button>
+				</a>
+			</div>
 		</form>
 	</div>
 </div>

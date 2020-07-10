@@ -20,14 +20,14 @@ public class UserDTO {
 
 	private String avartar;
 
-	private Long roleid;
+	private RoleDTO role;
 
 	public UserDTO() {
 		
 	}
 
 	public UserDTO(String username, String password, String firstName, String lastname, String email, String gender,
-			String avartar, Long roleid, Boolean enabled) {
+			String avartar, Boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -36,7 +36,6 @@ public class UserDTO {
 		this.email = email;
 		this.gender = gender;
 		this.avartar = avartar;
-		this.roleid = roleid;
 		this.enabled = enabled;
 	}
 
@@ -113,11 +112,16 @@ public class UserDTO {
 		this.lastname = lastname;
 	}
 
-	public Long getRoleid() {
-		return roleid;
+	public RoleDTO getRole() {
+		return role;
 	}
 
-	public void setRoleid(Long roleid) {
-		this.roleid = roleid;
+	public void setRole(RoleDTO role) {
+		this.role = role;
 	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+	
 }

@@ -19,8 +19,6 @@ public interface UserService {
 
 	UserDTO getOneUser(long userId);
 
-	List<UserDTO> getListUser();
-
 	List<UserEntity> findByUsername(String username);
 
 	List<UserEntity> findByEmail(String email);
@@ -29,11 +27,5 @@ public interface UserService {
 
 	Page<UserDTO> getUserPage(Integer page);
 
-	Page<UserDTO> getUserPageByEnabledAndRoleid(Boolean enabled, Long roleid, Integer page);
-
 	Page<UserDTO> getUserPageByRoleid(Long roleid, Integer page);
-	
-	Page<UserDTO> getUserPageByUsername(String username, Integer page);
-
-	Page<UserDTO> queryUsersByRoleid(Long roleid, Integer page);
 }

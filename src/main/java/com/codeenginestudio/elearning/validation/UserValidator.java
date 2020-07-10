@@ -129,11 +129,11 @@ public class UserValidator{
 		return inValid;
 	}
 	
-	public boolean noError(UserValidator userValidator) {
-		return StringUtils.isEmpty(userValidator.getErrUsername())
-				&& StringUtils.isEmpty(userValidator.getErrPassword())
-				&& StringUtils.isEmpty(userValidator.getErrFirstname())
-				&& StringUtils.isEmpty(userValidator.getErrLastname())
-				&& StringUtils.isEmpty(userValidator.getErrEmail());
+	public boolean noError() {
+		return StringUtils.isEmpty(this.getErrUsername())
+				&& StringUtils.isEmpty(this.getErrPassword())
+				&& StringUtils.isEmpty(this.getErrFirstname())
+				&& StringUtils.isEmpty(this.getErrLastname())
+				&& StringUtils.isEmpty(this.getErrEmail());
 	}
 }

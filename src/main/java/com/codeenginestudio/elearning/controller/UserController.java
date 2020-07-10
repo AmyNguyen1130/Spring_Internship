@@ -27,10 +27,9 @@ public class UserController {
 	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("/admin/user")
-	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page,
-			UserDTO userDTO) {
+	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
+
 		model.addAttribute("userPage", userService.getUserPage(page));
-		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "listUser";
 	}
 
@@ -53,17 +52,16 @@ public class UserController {
 
 		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
 
-		if (inValid.getErrUsername() == "" && inValid.getErrPassword() == "" && inValid.getErrFirstname() == ""
-				&& inValid.getErrLastname() == "" && inValid.getErrEmail() == "") {
+		if (inValid.noError()) {
 			userService.addUser(userDTO);
 			return "redirect:/admin/user";
-		} else {
-			model.addAttribute("error", inValid);
-			model.addAttribute("userInf", userDTO);
-			model.addAttribute("url", "/admin/user/saveAddUser");
-			model.addAttribute("listRole", roleService.getListRole());
-			return PREFIX + "addUser";
 		}
+
+		model.addAttribute("error", inValid);
+		model.addAttribute("userInf", userDTO);
+		model.addAttribute("url", "/admin/user/saveAddUser");
+		model.addAttribute("listRole", roleService.getListRole());
+		return PREFIX + "addUser";
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
@@ -87,7 +85,7 @@ public class UserController {
 
 		UserValidator userInValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
 
-		if (userInValid.noError(userInValid)) {
+		if (userInValid.noError()) {
 			userService.editUser(userDTO);
 			return "redirect:/admin/user";
 		}
@@ -97,26 +95,6 @@ public class UserController {
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "addUser";
-	}
-
-	@PostMapping("/admin/user/getUserByEnabledAndRoleid")
-	public String getUserByEnabledAndRoleid(Model model,
-			@ModelAttribute("roleid") Long roleid,
-			@ModelAttribute(name = "curpage") Integer curpage) {
-
-		model.addAttribute("roleid", roleid);
-		model.addAttribute("userPage", userService.queryUsersByRoleid(roleid, curpage));
-		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "listUser";
-	}
-	
-	@GetMapping("/admin/user/search")
-	public String SearchByClassName(ModelMap model, @ModelAttribute("search") String username,
-			@RequestParam(name = "page", required = false) Integer page) {
-
-		model.addAttribute("userPage", userService.getUserPageByUsername(username, page));
-		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "listUser";
 	}
 
 	private final String PREFIX = "/admin/user/";

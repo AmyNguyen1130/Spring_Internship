@@ -15,11 +15,10 @@
 			<column name="email" class="java.lang.String" />
 			<column name="gender" class="java.lang.String" />
 			<column name="enabled" class="java.lang.Boolean" />
-			<column name="roleid" class="java.lang.Long" />
 		</constructor-result>
 	</sql-result-set-mapping>
 
-	<named-native-query name="UserEntity.getUserByUsername1111" result-set-mapping="userEntity">
+	<named-native-query name="UserEntity.getUserByUsername" result-set-mapping="userEntity">
 		<query>
 			<![CDATA[
 				SELECT

@@ -15,33 +15,6 @@
 <body>
 	<div>
 		<div class="form-group row">
-			<form class="form-inline col-sm-7" action="/admin/user/search" method="get">
-				<input class="form-control mr-3 " type="text" placeholder="Search" name="search">
-				<button type="submit" class="btn btn-large btn-primary" > Search</button>
-			</form>
-
-			<form class="form-inline col-sm-4"
-				action="/admin/user/getUserByEnabledAndRoleid" method="get">
-				<div class="col-sm-5 form-inline">
-					<label class="col-sm-4 col-form-label">Status</label> <select
-						name="enabled" class="form-control">
-						<option value="null" ${enabled == "all" ? 'selected' : ''}>All</option>
-						<option value="true" ${enabled == true ? 'selected' : ''}>Activated</option>
-						<option value="false" ${enabled == false ? 'selected' : ''}>Deactivated</option>
-					</select>
-				</div>
-				<div class="col-sm-5 form-inline">
-					<label class="col-sm-4 col-form-label">Role</label> <select
-						name="roleid" class="form-control">
-						<option value="0" ${roleid == 0 ? 'selected' : ''}>All</option>
-						<c:forEach items="${listRole}" var="role">
-							<option value="${role.getRoleid()}"
-								${roleid == role.getRoleid() ? 'selected' : ''}>${role.getRolename()}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-large">Filter</button>
-			</form>
 
 			<div class="col-sm-1">
 				<a href="/admin/user/addUser">
@@ -69,11 +42,7 @@
 						<td>${user.getFirstname()}</td>
 						<td>${user.getLastname()}</td>
 						<td>${user.getEmail()}</td>
-						<c:forEach items="${listRole}" var="role">
-							<c:if test="${role.roleid == user.getRoleid()}">
-								<td>${role.getRolename()}</td>
-							</c:if>
-						</c:forEach>
+						<td>${user.getRole().getRolename()}</td>
 						<td><a href="/admin/user/editUserEnabled/${user.getUserid()}"
 							onclick="return confirm('Are you sure?')"><button>${user.isEnabled() == true ? 'Active' : 'Deactivated'}</button></a></td>
 						<td><a href="/admin/user/editUser/${user.getUserid()}"> <img
