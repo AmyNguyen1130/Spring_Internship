@@ -39,7 +39,7 @@ public class ExampleController {
 
 	@PostMapping(value = "add")
 	public String add(@Validated ExampleDTO exampleDTO, BindingResult bindingResult, Model model) {
-		
+
 		if (bindingResult.hasErrors()) {
 			return "example/add";
 		}

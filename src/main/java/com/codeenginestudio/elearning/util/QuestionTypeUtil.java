@@ -6,7 +6,6 @@ import com.codeenginestudio.elearning.util.general.UtilGeneral;
 
 public class QuestionTypeUtil {
 
-	
 	public static QuestionTypeDTO parseToQuestionTypeDTO(QuestionTypeEntity questionTypeEntity) {
 
 		QuestionTypeDTO questionTypeDTO = UtilGeneral.modelMapper.map(questionTypeEntity, QuestionTypeDTO.class);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,21 +38,21 @@ public class ClassController {
 
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
-
 		Page<ClassDTO> classess = classService.getClassPage(page);
 		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.listStudentCheckedByClass(classDTO.getClassid()).size());
+			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO).size());
 		}
+
 		model.addAttribute("classPage", classess);
+
 		return PREFIX + "listClass";
 	}
 
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
-
-		model.addAttribute("users",
-				userService.getUsersByRoleid(roleService.getUserIdByUsername(RoleConstant.TEACHER)));
-		return PREFIX + "addClass";
+		model.addAttribute("url", "/admin/class/saveAddClass");
+		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+		return PREFIX + "addAndEditClass";
 	}
 
 	@GetMapping("/admin/class/deleteClass")
@@ -61,13 +62,14 @@ public class ClassController {
 		return "redirect:/admin/class";
 	}
 
-	@GetMapping("/admin/class/editClass")
-	public String editClass(Model model, @ModelAttribute("classid") Long id) {
+	@GetMapping("/admin/class/editClass/{classid}")
+	public String editClass(Model model, @PathVariable(name = "classid") Long classid) {
 
-		model.addAttribute("classEdit", classService.showEditClass(id));
-		model.addAttribute("users",
-				userService.getUsersByRoleid(roleService.getUserIdByUsername(RoleConstant.TEACHER)));
-		return PREFIX + "editClass";
+		model.addAttribute("url", "/admin/class/saveEditClass");
+
+		model.addAttribute("editClass", classService.showClassByclassId(classid));
+		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+		return PREFIX + "addAndEditClass";
 	}
 
 	@GetMapping("/admin/class/editClassStatus")
@@ -81,11 +83,11 @@ public class ClassController {
 
 		List<String> errors = validationClass(classDTO);
 		if (errors.size() > 0) {
-
+			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("data",
-					userService.getUsersByRoleid(roleService.getUserIdByUsername(RoleConstant.TEACHER)));
-			return PREFIX + "addClass";
+			model.addAttribute("users",
+					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			return PREFIX + "addAndEditClass";
 		}
 		classService.saveClass(classDTO);
 		return "redirect:/admin/class";
@@ -97,11 +99,12 @@ public class ClassController {
 		List<String> errors = validationClass(classDTO);
 		if (errors.size() > 0) {
 
+			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("data", classService.showEditClass(classDTO.getClassid()));
-			model.addAttribute("user",
-					userService.getUsersByRoleid(roleService.getUserIdByUsername(RoleConstant.TEACHER)));
-			return PREFIX + "editClass";
+			model.addAttribute("editClass", classService.showClassByclassId(classDTO.getClassid()));
+			model.addAttribute("users",
+					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			return PREFIX + "addAndEditClass";
 		}
 		classService.saveClass(classDTO);
 		return "redirect:/admin/class";

@@ -43,7 +43,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${userPage.getContent()}" var="user">
+						<c:forEach items="${userPage}" var="user">
 							<tr>
 								<td>
 									<input type="checkbox" name="checkSelected"
@@ -62,11 +62,7 @@
 				<a href="/admin/class"><button type="button" class="btn btn-default">Cancel</button></a>
 			</form>
 		</div>
-<util:pagination
-	count="${userPage.getTotalElements()}"
-	totalPages="${userPage.getTotalPages()}" 
-	url="${pageContext.request.contextPath}/admin/getStudentInClass"
-	curpage="${userPage.getNumber()}" />
+
 <script type="text/javascript">
 $(document).ready(function(){
 	

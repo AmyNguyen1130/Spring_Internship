@@ -48,9 +48,9 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public ClassDTO showEditClass(Long id) {
+	public ClassDTO showClassByclassId(Long classid) {
 
-		return ClassUtil.parseToDTO(classDAO.getOne(id));
+		return ClassUtil.parseToDTO(classDAO.getOne(classid));
 	}
 
 	@Override
@@ -69,6 +69,12 @@ public class ClassServiceImpl implements ClassService {
 		Boolean status = classDAO.getOne(classid).getStatus();
 		classDAO.getOne(classid).setStatus(!status);
 		classDAO.saveAndFlush(classDAO.getOne(classid));
+	}
+
+	@Override
+	public ClassDTO showClassByclassId(Long classid) {
+
+		return ClassUtil.parseToDTO(classDAO.getClassByClassid(classid));
 	}
 
 }

@@ -36,17 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/", "/js/**", "/css/**").permitAll()
-			.antMatchers("/teacher/**").hasAnyRole("TEACHER")
-			.antMatchers("/admin/**").hasAnyRole("ADMIN")
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
-			.successHandler(elearningAuthenticationSuccessHandler)
-			.loginPage("/login").permitAll()
-			.and()
-			.logout().permitAll();
+		http.authorizeRequests().antMatchers("/", "/js/**", "/css/**").permitAll().antMatchers("/teacher/**")
+				.hasAnyRole("TEACHER").antMatchers("/admin/**").hasAnyRole("ADMIN").anyRequest().authenticated().and()
+				.formLogin().successHandler(elearningAuthenticationSuccessHandler).loginPage("/login").permitAll().and()
+				.logout().permitAll();
 
 		http.csrf().disable();
 	}

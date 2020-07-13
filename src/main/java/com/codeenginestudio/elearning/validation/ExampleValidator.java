@@ -23,7 +23,7 @@ public class ExampleValidator implements Validator {
 
 			errors.rejectValue("name", "name-should-not-be-example");
 		}
-		
+
 	}
 
 }

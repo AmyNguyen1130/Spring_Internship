@@ -68,19 +68,7 @@ p {
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="assignmentid" class="col-sm-1 col-form-label">Assignment
-					ID</label>
-				<div class="col-sm-4">
-					<select name="assessment.assessmentid" class="form-control">
-						<c:forEach items="${listAssessment}" var="assessment">
-							<option value="${assessment.assessmentid}"
-								${questionInf.getAssessment().getAssessmentid() == assessment.assessmentid ? 'selected' : ''}>
-								${assessment.assessmentname}</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
+			<input type="hidden" name="assessment.assessmentid" value="${assessmentid}"> 
 
 			<input type="hidden" name="score" value="10">
 			<button type="submit" class="btn btn-primary">Done</button>

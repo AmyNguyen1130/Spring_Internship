@@ -31,30 +31,45 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	}
 
-	public List<Long> listStudentByClassid(ClassDTO classDTO) {
+	@Override
+	public List<Long> getListStudentByClassid(ClassDTO classDTO) {
 		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findAll();
-
-		List<Long> listChecked = new ArrayList<>();
+		List<Long> studentInClassDTO = new ArrayList<>();
 
 		for (StudentInClassEntity word : studentInClassEntity) {
-			if (classDTO.getClassid() == word.getClassid().getClassid()) {
-				listChecked.add(word.getClassid().getClassid());
+			if (word.getClassid().getClassid() == classDTO.getClassid()) {
+				studentInClassDTO.add(word.getStudent().getUserid());
 			}
-
 		}
-		return listChecked;
+		return studentInClassDTO;
 	}
 
 	@Override
-	public List<StudentInClassDTO> getListByClassid(Long classid) {
-		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.getListByClassid(classid);
+	public void deleteStudentInClass(Long id) {
+		studentInClassDAO.deleteById(id);
+	}
 
+	@Override
+	public List<StudentInClassDTO> getAllStudentInClass() {
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findAll();
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
-		for (StudentInClassEntity word : studentInClassEntity) {
 
+		for (StudentInClassEntity word : studentInClassEntity) {
 			studentInClassDTO.add(StudentInClassUtil.parseToDTO(word));
 		}
 		return studentInClassDTO;
+	}
+
+	@Override
+	public Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid) {
+
+		for (StudentInClassDTO student : studentInClassDTO) {
+			if (student.getStudent().getUserid().equals(userid)) {
+				return student.getIdrow();
+			}
+		}
+		return null;
+
 	}
 
 }

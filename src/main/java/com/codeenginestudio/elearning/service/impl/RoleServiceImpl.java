@@ -17,7 +17,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleDAO roleDAO;
-	
+
 	@Override
 	public void addRole(RoleDTO role) {
 		roleDAO.saveAndFlush(RoleUtil.parseToRoleEntity(role));
@@ -25,12 +25,19 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public List<RoleDTO> getListRole() {
-	
+
 		List<RoleEntity> listRoleEntity = roleDAO.findAll();
 		List<RoleDTO> listRoleDTO = new ArrayList<>();
 		for (RoleEntity roleEntity : listRoleEntity) {
 			listRoleDTO.add(RoleUtil.parseToRoleDTO(roleEntity));
 		}
 		return listRoleDTO;
+	}
+
+	@Override
+	public Long getRoleIdByRolename(String rolename) {
+		RoleDTO roleDTO = RoleUtil.parseToRoleDTO(roleDAO.getRoleIdByRolename(rolename));
+		return roleDTO.getRoleid();
+
 	}
 }

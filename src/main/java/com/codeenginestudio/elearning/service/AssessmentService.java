@@ -22,4 +22,6 @@ public interface AssessmentService {
 
 	Page<AssessmentDTO> findAssessmentPageByAssessmentname(String inputSearch, Integer page);
 
+	AssessmentDTO getAssessmentById(Long assessmentid);
+
 }

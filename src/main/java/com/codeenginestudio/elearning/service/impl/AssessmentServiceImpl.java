@@ -83,4 +83,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	private static final int ITEM_PER_PAGE = 10;
 
+	@Override
+	public AssessmentDTO getAssessmentById(Long assessmentid) {
+		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
+	}
+
 }

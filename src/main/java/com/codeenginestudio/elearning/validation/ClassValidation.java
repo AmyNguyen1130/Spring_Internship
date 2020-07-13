@@ -28,8 +28,7 @@ public class ClassValidation {
 				if (classname.equals(existed.getClassname())) {
 					if (classid == existed.getClassid()) {
 						return true;
-					}
-					else {
+					} else {
 						errClassname = "class name already exists !";
 						return false;
 					}

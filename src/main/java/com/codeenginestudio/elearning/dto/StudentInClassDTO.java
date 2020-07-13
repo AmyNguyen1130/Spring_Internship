@@ -5,7 +5,7 @@ public class StudentInClassDTO {
 	private Long idrow;
 
 	private ClassDTO classid;
-	
+
 	private UserDTO student;
 
 	public StudentInClassDTO() {

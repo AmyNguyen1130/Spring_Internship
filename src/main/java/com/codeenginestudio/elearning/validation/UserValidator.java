@@ -111,7 +111,7 @@ public class UserValidator {
 	public UserValidator validateEditUser(UserDTO userDTO, UserService userService, long userId) {
 		UserValidator inValid = new UserValidator();
 
-		UserDTO originUser = userService.getOneUser(userId);
+		UserDTO originUser = userService.showUserByUserId(userId);
 
 		if (!originUser.getUsername().equals(userDTO.getUsername())) {
 			inValid.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);

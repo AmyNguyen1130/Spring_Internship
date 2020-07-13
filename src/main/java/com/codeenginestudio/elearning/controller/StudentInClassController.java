@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
-import com.codeenginestudio.elearning.dto.StudentInClassDTO;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
@@ -33,12 +33,13 @@ public class StudentInClassController {
 	private StudentInClassService studentInClassService;
 
 	@GetMapping("/admin/getStudentInClass")
-	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid,
-			@RequestParam(name = "page", required = false) Integer page) {
+	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
 		model.addAttribute("userPage",
-				userService.getUserPageByRoleid(roleService.getUserIdByUsername(RoleConstant.STUDENT), page));
+				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
+		model.addAttribute("studentChecked",
+				studentInClassService.getListStudentByClassid(classService.showClassByclassId(classid)));
 
 		return PREFIX + "addStudentInClass";
 	}
@@ -47,29 +48,34 @@ public class StudentInClassController {
 	public String saveStudentsInClass(ModelMap model, @ModelAttribute("classid") Long classid,
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
+		List<Long> listStudentIdInClass = studentInClassService
+				.getListStudentByClassid(classService.showClassByclassId(classid));
 		if (listCheckedId != null) {
 
 			for (Long userid : listCheckedId) {
-
-				if (checkDuplicateInClass(classid, userid)) {
-
+				if (!checkDuplicateStudentInClass(userid, classService.showClassByclassId(classid))) {
 					studentInClassService.saveStudentInClass(classService.showClassByclassId(classid),
 							userService.showUserByUserId(userid));
-				} else {
-					System.out.println("helllo");
 				}
 			}
+
+			for (Long check : listStudentIdInClass) {
+
+				if (!listCheckedId.contains(check)) {
+					Long id = studentInClassService.findIdByValue(studentInClassService.getAllStudentInClass(), check);
+					studentInClassService.deleteStudentInClass(id);
+				}
+			}
+
 		}
 		return "redirect:/admin/class";
 	}
 
-	public Boolean checkDuplicateInClass(Long check, Long classid) {
+	public Boolean checkDuplicateStudentInClass(Long check, ClassDTO classDTO) {
 
-		List<StudentInClassDTO> list = studentInClassService.getListByClassid(classid);
-		for (StudentInClassDTO word : list) {
-			if (word.getClassid().getClassid() == check) {
-				return true;
-			}
+		List<Long> list = studentInClassService.getListStudentByClassid(classDTO);
+		if (list.contains(check)) {
+			return true;
 		}
 		return false;
 	}

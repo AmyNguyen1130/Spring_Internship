@@ -15,7 +15,7 @@ public class QuestionOfAssessmentEntity {
 
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "questiontypeid", referencedColumnName = "questiontypeid")
-	private QuestionTypeEntity questionType;
+	private QuestionTypeEntity questiontype;
 
 	@Column
 	private String content;
@@ -33,12 +33,12 @@ public class QuestionOfAssessmentEntity {
 	@JoinColumn(name = "assessmentid", referencedColumnName = "assessmentid")
 	private AssessmentEntity assessment;
 
-	public QuestionOfAssessmentEntity(Long questionid, int numericalorder, QuestionTypeEntity questionType,
+	public QuestionOfAssessmentEntity(Long questionid, int numericalorder, QuestionTypeEntity questiontype,
 			String content, String options, String correctanswer, float score, AssessmentEntity assessment) {
 		super();
 		this.questionid = questionid;
 		this.numericalorder = numericalorder;
-		this.questionType = questionType;
+		this.questiontype = questiontype;
 		this.content = content;
 		this.options = options;
 		this.correctanswer = correctanswer;
@@ -64,14 +64,6 @@ public class QuestionOfAssessmentEntity {
 
 	public void setNumericalorder(int numericalorder) {
 		this.numericalorder = numericalorder;
-	}
-
-	public QuestionTypeEntity getQuestiontypeid() {
-		return questionType;
-	}
-
-	public void setQuestiontypeid(QuestionTypeEntity questionType) {
-		this.questionType = questionType;
 	}
 
 	public String getContent() {
@@ -106,6 +98,14 @@ public class QuestionOfAssessmentEntity {
 		this.score = score;
 	}
 
+	public QuestionTypeEntity getQuestiontype() {
+		return questiontype;
+	}
+
+	public void setQuestiontype(QuestionTypeEntity questiontype) {
+		this.questiontype = questiontype;
+	}
+
 	public AssessmentEntity getAssessment() {
 		return assessment;
 	}
@@ -113,4 +113,5 @@ public class QuestionOfAssessmentEntity {
 	public void setAssessment(AssessmentEntity assessment) {
 		this.assessment = assessment;
 	}
+
 }

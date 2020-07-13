@@ -10,6 +10,12 @@ public interface StudentInClassService {
 
 	void saveStudentInClass(ClassDTO classId, UserDTO UserId);
 
-	List<StudentInClassDTO> getListByClassid(Long classid);
+	List<Long> getListStudentByClassid(ClassDTO classDTO);
+
+	void deleteStudentInClass(Long id);
+
+	List<StudentInClassDTO> getAllStudentInClass();
+
+	Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long check);
 
 }

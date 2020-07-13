@@ -46,11 +46,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getOneUser(long userId) {
-		return UserUtil.parseToUserDTO(userDAO.getOne(userId));
-	}
-
-	@Override
 	public void editUser(UserDTO user) {
 		UserEntity userEntity = UserUtil.parseToUserEntity(user);
 		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
@@ -78,10 +73,12 @@ public class UserServiceImpl implements UserService {
 
 	public List<UserDTO> getUserByRole(Long roleid) {
 
-		List<UserEntity> listUserEntity = userDAO.getUserByRole(roleid);
+		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<UserDTO> listUserDTO = new ArrayList<>();
 		for (UserEntity userEntity : listUserEntity) {
-			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+			if (userEntity.getRole().getRoleid() == roleid) {
+				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+			}
 		}
 
 		return listUserDTO;
@@ -98,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO showUserByUserId(Long userid) {
-		
-		return UserUtil.parseToUserDTO(userDAO.getUserByUserid(userid));
+		return UserUtil.parseToUserDTO(userDAO.getOne(userid));
 	}
+
 }

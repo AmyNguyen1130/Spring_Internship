@@ -10,11 +10,11 @@
 </head>
 <%
 	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
 <body>
 	<div class="col-sm-6">
-		<a href="/teacher/questionOfAssessment/addQuestionOfAssessment">
+		<a href="/teacher/questionOfAssessment/addQuestionOfAssessment/${assessmentid}">
 			<button class="btn btn-primary">Add New Question</button>
 		</a>
 	</div>
@@ -34,7 +34,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${listQuestionOfAssessment.getContent()}"
+				<c:forEach items="${listQuestionOfAssessment}"
 					var="question">
 					<tr>
 						<td>${question.numericalorder}</td>
@@ -43,12 +43,12 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 						<td>${question.options}</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
-						<td>${assessment.getAssessment().getAssessmentname()}</td>
+						<td>${question.getAssessment().getAssessmentname()}</td>
 						<td><a
-							href="/teacher/questionOfAssessment/editQuestionOfAssessment/${question.questionid}">
+							href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessmentid}/${question.questionid}">
 								<img alt="edit" src="<%=editImageAddress%>" />
 						</a> <a
-							href="/teacher/questionOfAssessment/deleteQuestionOfAssessment/${question.questionid}"
+							href="/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessmentid}/${question.questionid}"
 							onclick="return confirm('Are you sure?')"> <img alt="delete"
 								src="<%=deleteImageAddress%>" />
 						</a></td>

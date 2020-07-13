@@ -1,5 +1,8 @@
 package com.codeenginestudio.elearning.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
+import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.util.CommonUtil;
@@ -16,41 +20,48 @@ import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
 public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentService {
 
 	@Autowired
-	private QuestionOfAssessmentDAO questionOfAssignmentDAO;
+	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
 
 	@Override
-	public Page<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page, Long assessmentid) {
+	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page,
+			AssessmentDTO assessment) {
+		List<QuestionOfAssessmentEntity> listQuestionEntity = questionOfAssessmentDAO.findAll();
+		List<QuestionOfAssessmentDTO> listQuestionDTO = new ArrayList<>();
+		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntity) {
+			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessment.getAssessmentid()) {
+				listQuestionDTO
+						.add(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity));
+			}
+		}
 
-		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-		Page<QuestionOfAssessmentEntity> listQuestionOfAssignmentEntity = questionOfAssignmentDAO
-				.getListQuestionOfAssessmentByAssessment(pageable, assessmentid);
-		return listQuestionOfAssignmentEntity.map(x -> (QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(x)));
+		return listQuestionDTO;
 	}
 
 	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
-		questionOfAssignmentDAO
+		questionOfAssessmentDAO
 				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
 
 	}
 
 	@Override
 	public void deleteQuestionOfAssessment(Long questionId) {
-		questionOfAssignmentDAO.deleteById(questionId);
+		questionOfAssessmentDAO.deleteById(questionId);
 
 	}
 
 	@Override
 	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
-		questionOfAssignmentDAO
+		questionOfAssessmentDAO
 				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
 	}
 
 	@Override
 	public QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId) {
 
-		return QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssignmentDAO.getOne(questionId));
+		return QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentDAO.getOne(questionId));
 	}
 
 	private static final int ITEM_PER_PAGE = 10;
+
 }

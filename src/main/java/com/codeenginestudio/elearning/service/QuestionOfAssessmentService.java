@@ -1,14 +1,17 @@
 package com.codeenginestudio.elearning.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 
 @Service
 public interface QuestionOfAssessmentService {
 
-	Page<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page, Long assessmentid);
+	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page, AssessmentDTO assessmentid);
 
 	void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
 

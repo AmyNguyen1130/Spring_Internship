@@ -7,7 +7,7 @@ public class ExampleDTO {
 
 	@Email(message = "Email is invalid")
 	private String email;
-	@NotBlank(message =  "Please enter name")
+	@NotBlank(message = "Please enter name")
 	private String name;
 
 	public String getEmail() {
