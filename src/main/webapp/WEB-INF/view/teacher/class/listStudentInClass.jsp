@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-					<c:forEach items="${userPage.getContent()}" var="student">
+					<c:forEach items="${userPage}" var="student">
 					<c:if test="${studentChecked.contains(student.getUserid())}">
 						<tr>
 							<td>${student.getUsername()}</td>
@@ -36,11 +36,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-	<util:pagination
-	count="${userPage.getTotalElements()}"
-	totalPages="${userPage.getTotalPages()}" 
-	url="${pageContext.request.contextPath}/teacher/getTeacherAddToClass"
-	curpage="${userPage.getNumber()}" />
 
 	</div>
 </body>

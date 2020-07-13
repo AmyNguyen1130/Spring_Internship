@@ -4,7 +4,7 @@ public class StudentInClassDTO {
 
 	private Long idrow;
 
-	private ClassDTO classid;
+	private ClassDTO classForeign;
 
 	private UserDTO student;
 
@@ -20,12 +20,12 @@ public class StudentInClassDTO {
 		this.idrow = idrow;
 	}
 
-	public ClassDTO getClassid() {
-		return classid;
+	public ClassDTO getClassForeign() {
+		return classForeign;
 	}
 
-	public void setClassid(ClassDTO classid) {
-		this.classid = classid;
+	public void setClassForeign(ClassDTO classForeign) {
+		this.classForeign = classForeign;
 	}
 
 	public UserDTO getStudent() {

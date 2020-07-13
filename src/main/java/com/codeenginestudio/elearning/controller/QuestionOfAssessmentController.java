@@ -28,12 +28,11 @@ public class QuestionOfAssessmentController {
 	private QuestionTypeService questionTypeService;
 
 	@GetMapping("/teacher/questionOfAssessment")
-	public String showListQuestionPage(Model model, @RequestParam(name = "page", required = false) Integer page,
-			@ModelAttribute("assessmentid") Long assessmentid) {
+	public String showListQuestionPage(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
 		AssessmentDTO assessment = assessmentService.getAssessmentById(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(page, assessment));
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessmentid", assessmentid);
 		return PREFIX + "ListQuestionOfAssessment";
 	}

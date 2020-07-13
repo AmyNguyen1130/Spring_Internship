@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.validation.AssessmentValidation;
 
 @Controller
@@ -23,21 +25,29 @@ public class AssessmentController {
 	@Autowired
 	private ClassService classService;
 
+	@Autowired
+	private QuestionOfAssessmentService questionOfAssessmentService;
+
 	AssessmentValidation assessmentValidation = new AssessmentValidation();
 
 	@GetMapping("/teacher/assessment")
 	public String showListAssessment(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("assessmentPage", assessmentService.getPageListAssessment(page));
+		Page<AssessmentDTO> listAssessments = assessmentService.getPageListAssessment(page);
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+		}
+		model.addAttribute("assessmentPage", listAssessments);
 		return PREFIX + "listAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/addAssessment")
 	public String addAssessment(ModelMap model) {
 
+		model.addAttribute("url", "/teacher/assessment/saveAddAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
-		return PREFIX + "addAssessment";
+		return PREFIX + "addAndEditAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/deleteAssessment")
@@ -53,25 +63,13 @@ public class AssessmentController {
 		return "redirect:/teacher/class";
 	}
 
-	@GetMapping("/teacher/assessment/editAssessment")
-	public String editAssessment(ModelMap model, @ModelAttribute("assessmentid") Long assessmentid) {
+	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
+	public String editAssessment(ModelMap model, @PathVariable(name = "assessmentid") Long assessmentid) {
+
+		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("assessmentEdit", assessmentService.showEditAssessment(assessmentid));
-		return PREFIX + "editAssessment";
-	}
-
-	@GetMapping("/teacher/assessment/search")
-	public String SearchByAssessmentName(ModelMap model, @ModelAttribute("inputSearch") String inputSearch,
-			Integer page) {
-
-		Page<AssessmentDTO> SearchResult = assessmentService.findAssessmentPageByAssessmentname(inputSearch, page);
-		if (SearchResult.getTotalElements() == 0) {
-			model.addAttribute("noResult", "Don't have any class with:  " + inputSearch);
-			return PREFIX + "listAssessment";
-		}
-		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("assessmentPage", SearchResult);
-		return PREFIX + "listAssessment";
+		return PREFIX + "addAndEditAssessment";
 	}
 
 	@PostMapping("/teacher/assessment/saveAddAssessment")
@@ -84,7 +82,7 @@ public class AssessmentController {
 		} else {
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
-			return PREFIX + "addAssessment";
+			return PREFIX + "addAndEditAssessment";
 		}
 	}
 
@@ -99,7 +97,7 @@ public class AssessmentController {
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
 			model.addAttribute("assessmentEdit", assessmentService.showEditAssessment(assessmentDTO.getAssessmentid()));
-			return PREFIX + "editAssessment";
+			return PREFIX + "addAndEditAssessment";
 		}
 	}
 

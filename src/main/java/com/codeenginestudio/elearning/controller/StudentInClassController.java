@@ -44,6 +44,18 @@ public class StudentInClassController {
 		return PREFIX + "addStudentInClass";
 	}
 
+	@GetMapping("/teacher/getStudentInClass")
+	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
+
+		model.addAttribute("classid", classid);
+		model.addAttribute("userPage",
+				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
+		model.addAttribute("studentChecked",
+				studentInClassService.getListStudentByClassid(classService.showClassByclassId(classid)));
+
+		return "/teacher/class/listStudentInClass";
+	}
+
 	@PostMapping("/admin/saveStudentInClass")
 	public String saveStudentsInClass(ModelMap model, @ModelAttribute("classid") Long classid,
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {

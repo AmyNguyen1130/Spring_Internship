@@ -23,7 +23,7 @@ public class StudentInClassEntity {
 
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "classid", referencedColumnName = "classid")
-	private ClassEntity classid;
+	private ClassEntity classForeign;
 
 	public StudentInClassEntity() {
 		super();
@@ -37,12 +37,12 @@ public class StudentInClassEntity {
 		this.student = student;
 	}
 
-	public ClassEntity getClassid() {
-		return classid;
+	public ClassEntity getClassForeign() {
+		return classForeign;
 	}
 
-	public void setClassid(ClassEntity classid) {
-		this.classid = classid;
+	public void setClassForeign(ClassEntity classForeign) {
+		this.classForeign = classForeign;
 	}
 
 	public void setIdrow(Long idrow) {

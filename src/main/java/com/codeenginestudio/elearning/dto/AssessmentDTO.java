@@ -8,7 +8,7 @@ public class AssessmentDTO {
 
 	private String assessmentname;
 
-	private Long classid;
+	private ClassDTO classForeign;
 
 	private Date startdate;
 
@@ -22,12 +22,11 @@ public class AssessmentDTO {
 		super();
 	}
 
-	public AssessmentDTO(Long assessmentid, String assessmentname, Long classid, Date startdate, Date expireddate,
-			Boolean status, int totalquestion) {
+	public AssessmentDTO(Long assessmentid, String assessmentname, Date startdate, Date expireddate, Boolean status,
+			int totalquestion) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
-		this.classid = classid;
 		this.startdate = startdate;
 		this.expireddate = expireddate;
 		this.status = status;
@@ -50,12 +49,12 @@ public class AssessmentDTO {
 		this.assessmentname = assessmentname;
 	}
 
-	public Long getClassid() {
-		return classid;
+	public ClassDTO getClassForeign() {
+		return classForeign;
 	}
 
-	public void setClassid(Long classid) {
-		this.classid = classid;
+	public void setClassForeign(ClassDTO classForeign) {
+		this.classForeign = classForeign;
 	}
 
 	public Date getStartdate() {

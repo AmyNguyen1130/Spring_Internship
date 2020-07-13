@@ -25,7 +25,7 @@ public class ClassEntity {
 	private Boolean status;
 
 	@OneToOne(cascade = CascadeType.DETACH)
-	@JoinColumn(name = "user_id", referencedColumnName = "userid")
+	@JoinColumn(name = "teacherid", referencedColumnName = "userid")
 	private UserEntity user;
 
 	public ClassEntity() {

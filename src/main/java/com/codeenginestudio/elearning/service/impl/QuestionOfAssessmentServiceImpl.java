@@ -23,8 +23,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
 
 	@Override
-	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page,
-			AssessmentDTO assessment) {
+	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessment) {
 		List<QuestionOfAssessmentEntity> listQuestionEntity = questionOfAssessmentDAO.findAll();
 		List<QuestionOfAssessmentDTO> listQuestionDTO = new ArrayList<>();
 		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntity) {

@@ -2,11 +2,14 @@ package com.codeenginestudio.elearning.dao.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,8 +23,9 @@ public class AssessmentEntity {
 	@Column
 	private String assessmentname;
 
-	@Column
-	private Long classid;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "classid", referencedColumnName = "classid")
+	private ClassEntity classForeign;
 
 	@Column
 	private Date startdate;
@@ -32,23 +36,18 @@ public class AssessmentEntity {
 	@Column
 	private Boolean status;
 
-	@Column
-	private int totalquestion;
-
 	public AssessmentEntity() {
 		super();
 	}
 
-	public AssessmentEntity(Long assessmentid, String assessmentname, Long classid, Date startdate, Date expireddate,
-			Boolean status, int totalquestion) {
+	public AssessmentEntity(Long assessmentid, String assessmentname, Date startdate, Date expireddate,
+			Boolean status) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
-		this.classid = classid;
 		this.startdate = startdate;
 		this.expireddate = expireddate;
 		this.status = status;
-		this.totalquestion = totalquestion;
 	}
 
 	public Long getAssessmentid() {
@@ -65,14 +64,6 @@ public class AssessmentEntity {
 
 	public void setAssessmentname(String assessmentname) {
 		this.assessmentname = assessmentname;
-	}
-
-	public Long getClassid() {
-		return classid;
-	}
-
-	public void setClassid(Long classid) {
-		this.classid = classid;
 	}
 
 	public Date getStartdate() {
@@ -99,12 +90,12 @@ public class AssessmentEntity {
 		this.status = status;
 	}
 
-	public int getTotalquestion() {
-		return totalquestion;
+	public ClassEntity getClassForeign() {
+		return classForeign;
 	}
 
-	public void setTotalquestion(int totalquestion) {
-		this.totalquestion = totalquestion;
+	public void setClassForeign(ClassEntity classForeign) {
+		this.classForeign = classForeign;
 	}
 
 }

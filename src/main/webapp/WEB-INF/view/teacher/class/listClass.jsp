@@ -8,17 +8,7 @@
 	<div class="container-fluid">
 		<div class="row = 12">
 			<div class="col-sm-7">
-				<form action="/teacher/class/search" method="get">
-					<div class="row">
-						<div class="col-sm-6">
-							<input class="form-control" type="text" name="inputSearch"
-								placeholder="Search" aria-label="Search">
-						</div>
-						<div class="col-sm-6">
-							<button type="submit" class="btn btn-default">Search</button>
-						</div>
-					</div>
-				</form>
+
 			</div>
 		</div>
 	</div>
@@ -43,11 +33,11 @@
 						<tr>
 							<td>${i}</td>
 							<td>${class.classname}</td>
-							<td>${class.teacherid}</td>
+							<td>${class.getUser().getUserid()}</td>
 							<td>${class.status}</td>
 							<td>${class.totalStudents}</td>
 							<td><a
-								href="/teacher/getTeacherInClass?classid=<c:out value='${class.classid}'/>"><button
+								href="/teacher/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button
 										class="btn btn-default">View Students In Class</button></a></td>
 
 						</tr>
@@ -56,7 +46,7 @@
 
 				</tbody>
 			</table>
-			<h1 class="noResult">${noResult}</h1>
+		
 		</div>
 	</div>
 	<util:pagination count="${classPage.getTotalElements()}"

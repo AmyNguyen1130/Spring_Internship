@@ -11,7 +11,7 @@ import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 @Service
 public interface QuestionOfAssessmentService {
 
-	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Integer page, AssessmentDTO assessmentid);
+	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessmentid);
 
 	void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
 

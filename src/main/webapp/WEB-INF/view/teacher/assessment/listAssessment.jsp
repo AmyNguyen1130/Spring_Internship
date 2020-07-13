@@ -12,17 +12,7 @@
 	 <div class="container-fluid">
 	  <div class="row = 12">
 		   <div class="col-sm-7">
-		    <form action="/teacher/assessment/search" method="get">
-		    	<div class="row">
-				    <div class="col-sm-6">
-				    	<input class="form-control" type="text" name="inputSearch" placeholder="Search"
-				    	aria-label="Search">
-				    </div>
-				    <div class="col-sm-6">
-				    	<button type="submit" class="btn btn-default" >Search</button>
-				    </div>
-				</div>
-			</form>
+
 			</div>
 			 <div class="col-sm-5">
 			  <div class="row = 12">
@@ -55,32 +45,30 @@
 			<tbody>
 				<c:set var="i" value="1" />
 					<c:forEach items="${assessmentPage.getContent()}" var="assessment">
-				       <tr>
-					       <td>${i}</td>
-					       <td>${assessment.assessmentname}</td>
-					       <c:if test="${assessment.classid == null}">
-									<td></td>
-								</c:if>
-					       	<c:forEach items="${listClass}" var="class">
-								<c:if test="${class.classid == assessment.classid}">
-									<td>${class.classname}</td>
-								</c:if>
+					<tr>
+						<td>${i}</td>
+						<td>${assessment.assessmentname}</td>
+						<c:if test="${assessment.getClassForeign().getClassid() == null}">
+							<td></td>
+						</c:if>
+						<c:forEach items="${listClass}" var="class">
+							<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
+								<td>${class.classname}</td>
+							</c:if>
+						</c:forEach>
+						<td>${assessment.startdate}</td>
+						<td>${assessment.expireddate}</td>
+						<td>${assessment.getTotalquestion()}</td>
+						<td>${assessment.status}</td>
+						<td><a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">Edit</a> &emsp;
+						<a href="/teacher/assessment/deleteAssessment/${assessment.assessmentid}">Delete</a>&emsp;
+						<a href='/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>'><button class="btn btn-default" type="button">View questions</button></a></td>
 
-							</c:forEach>
-					       <td>${assessment.startdate}</td>
-					        <td>${assessment.expireddate}</td>
-					        <td>${assessment.totalquestion}</td>
-					        <td>${assessment.status}</td>
-					        <td><a href="/teacher/assessment/editAssessment?assessmentid=<c:out value='${assessment.assessmentid}' />">Edit</a> &emsp;
-					        <a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}' />">Delete</a>&emsp;
-					        <a href='/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>'><button class="btn btn-default" type="button">View questions</button></a></td>
-
-					   </tr>
-					   <c:set var="i" value="${i+1}" />
-			     	</c:forEach>
+						</tr>
+						<c:set var="i" value="${i+1}" />
+					</c:forEach>
 				</tbody>
 			</table>
-			<h1 class="noResult">${noResult}</h1>
 			</div>
 		</div>
 <util:pagination

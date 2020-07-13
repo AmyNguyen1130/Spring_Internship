@@ -46,7 +46,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 	@Override
 	public void saveAssessment(AssessmentDTO assessmentDTO) {
 		assessmentDAO.saveAndFlush(AssessmentUtil.parseToEntity(assessmentDTO));
-
 	}
 
 	@Override

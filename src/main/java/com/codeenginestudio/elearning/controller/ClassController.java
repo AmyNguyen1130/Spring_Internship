@@ -48,6 +48,19 @@ public class ClassController {
 		return PREFIX + "listClass";
 	}
 
+	@GetMapping("/teacher/class")
+	public String showListClassWithTeacherRole(Model model,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		Page<ClassDTO> classess = classService.getClassPage(page);
+		for (ClassDTO classDTO : classess) {
+			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO).size());
+		}
+
+		model.addAttribute("classPage", classess);
+		return "teacher/class/listClass";
+	}
+
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
 		model.addAttribute("url", "/admin/class/saveAddClass");

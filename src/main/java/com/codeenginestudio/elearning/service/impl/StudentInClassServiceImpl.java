@@ -25,7 +25,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public void saveStudentInClass(ClassDTO classid, UserDTO userid) {
 		StudentInClassEntity studentInClassEntity = new StudentInClassEntity();
-		studentInClassEntity.setClassid(ClassUtil.parseToEntity(classid));
+		studentInClassEntity.setClassForeign(ClassUtil.parseToEntity(classid));
 		studentInClassEntity.setStudent(UserUtil.parseToUserEntity(userid));
 		studentInClassDAO.save(studentInClassEntity);
 
@@ -37,7 +37,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<Long> studentInClassDTO = new ArrayList<>();
 
 		for (StudentInClassEntity word : studentInClassEntity) {
-			if (word.getClassid().getClassid() == classDTO.getClassid()) {
+			if (word.getClassForeign().getClassid() == classDTO.getClassid()) {
 				studentInClassDTO.add(word.getStudent().getUserid());
 			}
 		}
