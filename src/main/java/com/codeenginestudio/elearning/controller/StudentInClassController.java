@@ -39,7 +39,7 @@ public class StudentInClassController {
 		model.addAttribute("userPage",
 				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
 		model.addAttribute("studentChecked",
-				studentInClassService.getListStudentByClassid(classService.showClassByclassId(classid)));
+				studentInClassService.getListStudentByClassid(classService.showClassByClassid(classid)));
 
 		return PREFIX + "addStudentInClass";
 	}
@@ -51,7 +51,7 @@ public class StudentInClassController {
 		model.addAttribute("userPage",
 				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
 		model.addAttribute("studentChecked",
-				studentInClassService.getListStudentByClassid(classService.showClassByclassId(classid)));
+				studentInClassService.getListStudentByClassid(classService.showClassByClassid(classid)));
 
 		return "/teacher/class/listStudentInClass";
 	}
@@ -61,12 +61,12 @@ public class StudentInClassController {
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
 		List<Long> listStudentIdInClass = studentInClassService
-				.getListStudentByClassid(classService.showClassByclassId(classid));
+				.getListStudentByClassid(classService.showClassByClassid(classid));
 		if (listCheckedId != null) {
 
 			for (Long userid : listCheckedId) {
-				if (!checkDuplicateStudentInClass(userid, classService.showClassByclassId(classid))) {
-					studentInClassService.saveStudentInClass(classService.showClassByclassId(classid),
+				if (!checkDuplicateStudentInClass(userid, classService.showClassByClassid(classid))) {
+					studentInClassService.saveStudentInClass(classService.showClassByClassid(classid),
 							userService.showUserByUserId(userid));
 				}
 			}

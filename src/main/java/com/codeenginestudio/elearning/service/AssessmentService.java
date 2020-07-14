@@ -12,16 +12,14 @@ public interface AssessmentService {
 
 	void saveAssessment(AssessmentDTO assessmentDTO);
 
-	AssessmentDTO showEditAssessment(Long assessmentid);
+	void editAssessmentStatus(Long assessmentid);
+
+	AssessmentDTO getAssessmentByAssessmentid(Long assessmentid);
 
 	AssessmentDTO findByAssessmentName(String assessmentname);
 
 	List<AssessmentDTO> getListAssessment();
 
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
-
-	Page<AssessmentDTO> findAssessmentPageByAssessmentname(String inputSearch, Integer page);
-
-	AssessmentDTO getAssessmentById(Long assessmentid);
 
 }

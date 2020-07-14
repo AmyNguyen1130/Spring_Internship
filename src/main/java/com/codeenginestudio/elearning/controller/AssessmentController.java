@@ -36,7 +36,8 @@ public class AssessmentController {
 		model.addAttribute("listClass", classService.getAllClass());
 		Page<AssessmentDTO> listAssessments = assessmentService.getPageListAssessment(page);
 		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+			assessmentDTO.setTotalquestion(
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
 		}
 		model.addAttribute("assessmentPage", listAssessments);
 		return PREFIX + "listAssessment";
@@ -57,10 +58,10 @@ public class AssessmentController {
 		return "redirect:/teacher/assessment";
 	}
 
-	@GetMapping("/teacher/class/editClassStatus")
-	public String editStatusClass(@ModelAttribute("classid") Long classid) {
-		classService.editStatusClass(classid);
-		return "redirect:/teacher/class";
+	@GetMapping("/teacher/assessment/editAssessmentStatus/{assessmentid}")
+	public String editAssessmentStatus(@PathVariable(name = "assessmentid") Long assessmentid) {
+		assessmentService.editAssessmentStatus(assessmentid);
+		return "redirect:/teacher/assessment";
 	}
 
 	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
@@ -68,7 +69,7 @@ public class AssessmentController {
 
 		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("assessmentEdit", assessmentService.showEditAssessment(assessmentid));
+		model.addAttribute("assessmentEdit", assessmentService.getAssessmentByAssessmentid(assessmentid));
 		return PREFIX + "addAndEditAssessment";
 	}
 
@@ -96,7 +97,8 @@ public class AssessmentController {
 		} else {
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
-			model.addAttribute("assessmentEdit", assessmentService.showEditAssessment(assessmentDTO.getAssessmentid()));
+			model.addAttribute("assessmentEdit",
+					assessmentService.getAssessmentByAssessmentid(assessmentDTO.getAssessmentid()));
 			return PREFIX + "addAndEditAssessment";
 		}
 	}

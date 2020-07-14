@@ -33,12 +33,12 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Name</th>
+					<th scope="col">Assessment Name</th>
 					<th scope="col">Class Name</th>
 					<th scope="col">Start Date</th>
 					<th scope="col">Expired Date</th>
-					<th scope="col">Total Question</th>
 					<th scope="col">Status</th>
+					<th scope="col">Total Question</th>
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>
@@ -58,11 +58,15 @@
 						</c:forEach>
 						<td>${assessment.startdate}</td>
 						<td>${assessment.expireddate}</td>
+						<td><a href="/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}"
+								onclick="return confirm('Are you sure?')">
+									<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
+							</a></td>
 						<td>${assessment.getTotalquestion()}</td>
-						<td>${assessment.status}</td>
+
 						<td><a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">Edit</a> &emsp;
-						<a href="/teacher/assessment/deleteAssessment/${assessment.assessmentid}">Delete</a>&emsp;
-						<a href='/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>'><button class="btn btn-default" type="button">View questions</button></a></td>
+						<a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>" id="delete-button">Delete</a>&emsp;
+						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">View questions</button></a></td>
 
 						</tr>
 						<c:set var="i" value="${i+1}" />
@@ -72,9 +76,22 @@
 			</div>
 		</div>
 <util:pagination
-			count="${assessmentPage.getTotalElements()}"
-			totalPages="${assessmentPage.getTotalPages()}" 
-			url="${pageContext.request.contextPath}/teacher/assessment"
-			curpage="${assessmentPage.getNumber()}" />
+	count="${assessmentPage.getTotalElements()}"
+	totalPages="${assessmentPage.getTotalPages()}" 
+	url="${pageContext.request.contextPath}/teacher/assessment"
+	curpage="${assessmentPage.getNumber()}" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#delete-button").click(function() {
+			if (confirm("Are you sure you want to delete this assessment?")) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
 </body>
 </html>

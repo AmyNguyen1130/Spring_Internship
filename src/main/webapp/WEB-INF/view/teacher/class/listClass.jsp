@@ -21,7 +21,7 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Class Name</th>
-						<th scope="col">Teacher ID</th>
+						<th scope="col">Teacher</th>
 						<th scope="col">Status</th>
 						<th scope="col">Total Student</th>
 						<th scope="col">Actions</th>
@@ -29,16 +29,17 @@
 				</thead>
 				<tbody>
 					<c:set var="i" value="1" />
-					<c:forEach items="${classPage.getContent()}" var="class">
+					<c:forEach items="${classPage.getContent()}" var="class" varStatus="i">
 						<tr>
 							<td>${i}</td>
 							<td>${class.classname}</td>
-							<td>${class.getUser().getUserid()}</td>
-							<td>${class.status}</td>
+							<td>${class.getUser().getUsername()}</td>
+							<td>${class.getStatus() == true ? 'Active' : 'Inactive'}</td>
 							<td>${class.totalStudents}</td>
-							<td><a
-								href="/teacher/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button
-										class="btn btn-default">View Students In Class</button></a></td>
+							<td>
+								<a href="/teacher/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button
+										class="btn btn-default">View Students In Class</button></a>
+							</td>
 
 						</tr>
 						<c:set var="i" value="${i+1}" />

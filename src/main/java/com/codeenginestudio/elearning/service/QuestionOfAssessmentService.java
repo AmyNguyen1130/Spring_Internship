@@ -10,8 +10,6 @@ import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 @Service
 public interface QuestionOfAssessmentService {
 
-	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessmentid);
-
 	void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
 
 	void deleteQuestionOfAssessment(Long questionId);
@@ -19,4 +17,6 @@ public interface QuestionOfAssessmentService {
 	void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
 
 	QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId);
+
+	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessmentid);
 }

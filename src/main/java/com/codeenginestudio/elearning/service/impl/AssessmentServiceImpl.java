@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
@@ -35,7 +36,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public Page<AssessmentDTO> getPageListAssessment(Integer page) {
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
 		Page<AssessmentEntity> listAssessment = assessmentDAO.findAll(pageable);
 
@@ -49,6 +50,25 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
+	public void deleteById(Long assessmentid) {
+		assessmentDAO.deleteById(assessmentid);
+
+	}
+
+	@Override
+	public AssessmentDTO getAssessmentByAssessmentid(Long assessmentid) {
+		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
+	}
+
+	@Override
+	public void editAssessmentStatus(Long assessmentid) {
+		Boolean status = assessmentDAO.getOne(assessmentid).getStatus();
+		assessmentDAO.getOne(assessmentid).setStatus(!status);
+		assessmentDAO.saveAndFlush(assessmentDAO.getOne(assessmentid));
+
+	}
+
+	@Override
 	public AssessmentDTO findByAssessmentName(String assessmentname) {
 		List<AssessmentDTO> listAssessment = getListAssessment();
 
@@ -58,33 +78,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public void deleteById(Long assessmentid) {
-		assessmentDAO.deleteById(assessmentid);
-
-	}
-
-	@Override
-	public AssessmentDTO showEditAssessment(Long assessmentid) {
-		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
-	}
-
-	@Override
-	public Page<AssessmentDTO> findAssessmentPageByAssessmentname(String inputSearch, Integer page) {
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), ITEM_PER_PAGE);
-
-		Page<AssessmentEntity> listAssessment = assessmentDAO.getAssessmentPageByAssessmentname(inputSearch, pageable);
-
-		return listAssessment.map(x -> (AssessmentUtil.parseToDTO(x)));
-	}
-
-	private static final int ITEM_PER_PAGE = 10;
-
-	@Override
-	public AssessmentDTO getAssessmentById(Long assessmentid) {
-		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
 	}
 
 }

@@ -32,12 +32,12 @@
 							<option value="${class.classid}" ${class.classid == assessmentEdit.getClassForeign().getClassid() ? 'selected="selected"' : ''}>${class.getClassname()}</option>
 						</c:forEach>
 					</select>
-
+					<br>
 					Start Date: <input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate">
-
+					<br>
 					Expired Date: <input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
 					<p class="error">${error.errExpiredDate}</p> 
-					
+					<br>
 					<input type="hidden" value="${url == '/teacher/assessment/saveAddAssessment' ? 'true' : assessmentEdit.status}"  name="status" />
 					<br>
 					<input class="btn btn-default" type="submit" value="Save">

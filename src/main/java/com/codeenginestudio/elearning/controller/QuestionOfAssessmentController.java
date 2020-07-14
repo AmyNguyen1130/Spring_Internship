@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
@@ -30,7 +29,7 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment")
 	public String showListQuestionPage(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
-		AssessmentDTO assessment = assessmentService.getAssessmentById(assessmentid);
+		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessmentid", assessmentid);

@@ -48,7 +48,7 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public ClassDTO showClassByclassId(Long classid) {
+	public ClassDTO showClassByClassid(Long classid) {
 
 		return ClassUtil.parseToDTO(classDAO.getOne(classid));
 	}

@@ -15,14 +15,13 @@
 <body>
 	<div>
 		<div class="form-group row">
-
 			<div class="col-sm-1">
 				<a href="/admin/user/addUser">
 					<button class="btn btn-primary">Add User</button>
 				</a>
 			</div>
 		</div>
-
+		<br><br>
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>

@@ -10,22 +10,10 @@
 <body>
 	<div class="container-fluid">
 		<div class="row = 12">
-		    <div class="col-sm-7">
-			    <form action="/admin/class/search" method="get">
-			    	<div class="row">
-					    <div class="col-sm-6">
-					    	<input class="form-control" type="text" name="inputSearch" placeholder="Search"
-					    	aria-label="Search">
-					    </div>
-					    <div class="col-sm-6">
-					    	<button type="submit" class="btn btn-default" >Search</button>
-					    </div>
-					  </div>
-	
-				</form>
+			<div class="col-sm-7">
 			</div>
-		    <div class="col-sm-5"> 
-		    </div>
+			<div class="col-sm-5"> 
+			</div>
 		</div>
 	</div>
 	<br><br>
@@ -37,9 +25,10 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">UserID</th>
-							<th scope="col">User Name</th>
-							<th scope="col">RoleId</th>
+							<th scope="col">First Name</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Total assignment</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -51,30 +40,19 @@
 										value="${user.getUserid()}"
 										${studentChecked.contains(user.getUserid()) ? 'checked' : ''}>
 								</td>
-								<td>${user.getUsername()}</td>
+								<td>${user.getFirstname()}</td>
+								<td>${user.getLastname()}</td>
 								<td>${user.getEmail()}</td>
-								<td>${user.isEnabled()}</td>
+								<td>****************</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>	
+				<br>
 				<button type="submit" id="assign_buton" class="btn btn-default">Save</button>
 				<a href="/admin/class"><button type="button" class="btn btn-default">Cancel</button></a>
 			</form>
 		</div>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	$("#assign_buton").click(function(){
-	    if(confirm("Are you sure you want to assign students?")){
-	    	 return true;
-	    }
-	    else{
-	        return false;
-	    }
-	});
-});
-</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.codeenginestudio.elearning.util.SecurityUtil" %>
 <!-- Custom styles for this template-->
 
 <nav class="navbar border-bottom navbar-expand">
@@ -25,7 +26,7 @@
 		<li class="nav-item dropdown"><a
 			class="nav-link dropdown-toggle" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> Account </a>
+			aria-expanded="false"> ${SecurityUtil.getUserPrincipal().getUsername()} </a>
 			<div class="dropdown-menu dropdown-menu-right"
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/logout">Logout</a>

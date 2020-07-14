@@ -32,7 +32,7 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Class Name</th>
-						<th scope="col">Teacher ID</th>
+						<th scope="col">Teacher</th>
 						<th scope="col">Status</th>
 						<th scope="col">Total Student</th>
 						<th scope="col">Actions</th>
@@ -47,13 +47,13 @@
 							<td>${class.classname}</td>
 							<td>${class.getUser().getUsername()}</td>
 							<td><a
-								href="/admin/class/editClassStatus?classid=<c:out value='${class.classid}' />"
+								href="/admin/class/editClassStatus/${class.classid}"
 								onclick="return confirm('Are you sure?')">
 									<button class="btn btn-default">${class.getStatus() == true ? 'Active' : 'Inactive'}</button>
 							</a></td>
 							<td>${class.totalStudents}</td>
 							<td><a href="/admin/class/editClass/${class.classid}">Edit</a>&emsp; 
-								<a href="/admin/class/deleteClass/${class.classid}"
+								<a href="/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>"
 								id="delete-button">Delete</a> &emsp;
 								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button class="btn btn-default">Assign</button></a></td>
 

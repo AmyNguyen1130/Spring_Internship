@@ -14,10 +14,10 @@ public interface ClassService {
 
 	void saveClass(ClassDTO classDTO);
 
+	ClassDTO showClassByClassid(Long classid);
+
 	List<ClassDTO> getAllClass();
 
 	Page<ClassDTO> getClassPage(Integer page);
-
-	ClassDTO showClassByclassId(Long classid);
 
 }

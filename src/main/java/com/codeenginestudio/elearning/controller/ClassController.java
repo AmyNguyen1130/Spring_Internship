@@ -80,13 +80,13 @@ public class ClassController {
 
 		model.addAttribute("url", "/admin/class/saveEditClass");
 
-		model.addAttribute("editClass", classService.showClassByclassId(classid));
+		model.addAttribute("editClass", classService.showClassByClassid(classid));
 		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 		return PREFIX + "addAndEditClass";
 	}
 
-	@GetMapping("/admin/class/editClassStatus")
-	public String editStatusClass(@ModelAttribute("classid") Long classid) {
+	@GetMapping("/admin/class/editClassStatus/{classid}")
+	public String editStatusClass(@PathVariable(name = "classid") Long classid) {
 		classService.editStatusClass(classid);
 		return "redirect:/admin/class";
 	}
@@ -114,7 +114,7 @@ public class ClassController {
 
 			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("editClass", classService.showClassByclassId(classDTO.getClassid()));
+			model.addAttribute("editClass", classService.showClassByClassid(classDTO.getClassid()));
 			model.addAttribute("users",
 					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 			return PREFIX + "addAndEditClass";
