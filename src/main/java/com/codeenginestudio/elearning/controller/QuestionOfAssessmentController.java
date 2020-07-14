@@ -26,7 +26,7 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
-	
+
 	QuestionValidator questionValidator = new QuestionValidator();
 
 	@GetMapping("/teacher/questionOfAssessment")
@@ -49,16 +49,18 @@ public class QuestionOfAssessmentController {
 	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
-	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
+			@PathVariable(name = "assessmentid") Long assessmentid) {
 		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumbericalOrder());
 
 		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
-		
+
 		if (invalid.noError()) {
 			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
-		
+
+		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder());
 		model.addAttribute("error", invalid);
 		model.addAttribute("questionInf", questionOfAssessmentDTO);
 		model.addAttribute("assessmentid", assessmentid);
@@ -88,14 +90,15 @@ public class QuestionOfAssessmentController {
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
 	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
 			@PathVariable(name = "assessmentid") Long assessmentid) {
-		
+
 		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
-		
+
 		if (invalid.noError()) {
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
-		
+
+		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder());
 		model.addAttribute("error", invalid);
 		model.addAttribute("questionInf", questionOfAssessmentDTO);
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());

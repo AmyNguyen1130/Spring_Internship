@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
+	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+%>
 <body>
 	 <div class="container-fluid">
 	  <div class="row = 12">
@@ -64,8 +68,8 @@
 							</a></td>
 						<td>${assessment.getTotalquestion()}</td>
 
-						<td><a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">Edit</a> &emsp;
-						<a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>" id="delete-button">Delete</a>&emsp;
+						<td><a href="/teacher/assessment/editAssessment/${assessment.assessmentid}"><img alt="edit" src="<%=editImageAddress%>" class="optionSize" /></a> 
+						<a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>" class="delete-button"><img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" /></a>&emsp;
 						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">View questions</button></a></td>
 
 						</tr>
@@ -84,7 +88,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$("#delete-button").click(function() {
+		$(".delete-button").click(function() {
 			if (confirm("Are you sure you want to delete this assessment?")) {
 				return true;
 			} else {

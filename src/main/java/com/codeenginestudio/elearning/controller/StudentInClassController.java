@@ -80,6 +80,9 @@ public class StudentInClassController {
 			}
 
 		}
+		if(listCheckedId == null) {
+			studentInClassService.deleteAllByClass(classService.showClassByClassid(classid));
+		}
 		return "redirect:/admin/class";
 	}
 

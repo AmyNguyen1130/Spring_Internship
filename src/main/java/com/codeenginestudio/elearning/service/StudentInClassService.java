@@ -12,6 +12,8 @@ public interface StudentInClassService {
 
 	void deleteStudentInClass(Long id);
 
+	void deleteAllByClass(ClassDTO classDTO);
+
 	Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long check);
 
 	List<Long> getListStudentByClassid(ClassDTO classDTO);

@@ -12,40 +12,56 @@
 </style>
 </head>
 <body>
-
 	<div class="container-fluid">
-		<div class="row = 12">
-			<div class="col-sm-8">
+		<h1>Assessment Form</h1>
+	<br>
 
-			 	<h1>Add Class Form</h1>
+	<form action="<%=request.getContextPath()%>${url}" method="post">
 
-				<form class="form-group"
-					action="<%=request.getContextPath()%>${url}"
-					method="post">
-					<input class="form-control" value="${assessmentEdit.assessmentid}" type="hidden" name="assessmentid">
-					Assessment Name: <input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname">
-					<p class="error">${error.errAssessmentName}</p>
+		<input class="form-control" value="${assessmentEdit.assessmentid}" type="hidden" name="assessmentid">
 
-					Class: <select class="form-control" name="classForeign.classid">
-						<option value="" ${assessmentEdit.getClassForeign().getClassid() == null ? 'selected="selected"' : ''}>None</option>
-						<c:forEach items="${listClass}" var="class">
-							<option value="${class.classid}" ${class.classid == assessmentEdit.getClassForeign().getClassid() ? 'selected="selected"' : ''}>${class.getClassname()}</option>
-						</c:forEach>
-					</select>
-					<br>
-					Start Date: <input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate">
-					<br>
-					Expired Date: <input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
-					<p class="error">${error.errExpiredDate}</p> 
-					<br>
-					<input type="hidden" value="${url == '/teacher/assessment/saveAddAssessment' ? 'true' : assessmentEdit.status}"  name="status" />
-					<br>
-					<input class="btn btn-default" type="submit" value="Save">
-
-					<a href="/teacher/assessment"><input class="btn btn-default" type="button" value="Cancel"></a>
-				</form>
+		<div class="form-group row">
+			<label for="AssessmentName" class="col-sm-1 col-form-label">Name</label>
+			<div class="col-sm-4">
+				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname">
+				<p class="error">${error.errAssessmentName}</p>
 			</div>
 		</div>
+
+		<div class="form-group row">
+			<label for="className" class="col-sm-1 col-form-label">Class Name</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="classForeign.classid">
+					<option value="" ${assessmentEdit.getClassForeign().getClassid() == null ? 'selected="selected"' : ''}>None</option>
+					<c:forEach items="${listClass}" var="class">
+						<option value="${class.classid}" ${class.classid == assessmentEdit.getClassForeign().getClassid() ? 'selected="selected"' : ''}>${class.getClassname()}</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="startdate" class="col-sm-1 col-form-label">Start Date</label>
+			<div class="col-sm-4">
+				<input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="expireddate" class="col-sm-1 col-form-label">Expired Date</label>
+			<div class="col-sm-4">
+				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
+				<p class="error">${error.errExpiredDate}</p> 			</div>
+		</div>
+
+		<div class="form-group row">
+			<input type="hidden" value="${url == '/teacher/assessment/saveAddAssessment' ? 'true' : assessmentEdit.status}"  name="status" />
+		</div>
+
+		<input class="btn btn-default" type="submit" value="Save">
+		<a href="/teacher/assessment"><input class="btn btn-default" type="button" value="Cancel"></a>
+	</form>
+	
 	</div>
 	<script type="text/javascript">
 		// Set values

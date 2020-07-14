@@ -11,7 +11,7 @@ public class ClassValidation {
 
 	public static boolean checkEmpty(String classname) {
 		if (classname == "") {
-			errClassname = "class name could not be null";
+			errClassname = "Class name could not be null";
 			return false;
 		}
 		return true;
@@ -29,7 +29,7 @@ public class ClassValidation {
 					if (classid == existed.getClassid()) {
 						return true;
 					} else {
-						errClassname = "class name already exists !";
+						errClassname = "Class name already exists !";
 						return false;
 					}
 				}

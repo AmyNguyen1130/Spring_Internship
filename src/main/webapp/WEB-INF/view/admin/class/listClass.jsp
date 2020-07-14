@@ -4,8 +4,11 @@
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <!DOCTYPE html>
 <html>
+<%
+	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
+	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+%>
 <body>
-
 	<div class="container-fluid">
 		<div class="row = 12">
 			<div class="col-sm-7">
@@ -23,8 +26,7 @@
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
+	<br><br>
 	<div class="container-fluid">
 		<div class="row = 12">
 			<table class="table table-bordered table-hover">
@@ -52,9 +54,10 @@
 									<button class="btn btn-default">${class.getStatus() == true ? 'Active' : 'Inactive'}</button>
 							</a></td>
 							<td>${class.totalStudents}</td>
-							<td><a href="/admin/class/editClass/${class.classid}">Edit</a>&emsp; 
-								<a href="/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>"
-								id="delete-button">Delete</a> &emsp;
+							<td><a href="/admin/class/editClass/${class.classid}">
+									<img alt="edit" src="<%=editImageAddress%>" class="optionSize" /></a>
+								<a href="/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>" class="delete-button">
+									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" /></a>&emsp;
 								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button class="btn btn-default">Assign</button></a></td>
 
 						</tr>
@@ -75,7 +78,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			$("#delete-button").click(function() {
+			$(".delete-button").click(function() {
 				if (confirm("Are you sure you want to delete this class?")) {
 					return true;
 				} else {

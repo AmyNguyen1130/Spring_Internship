@@ -13,10 +13,22 @@
 	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
 <body>
-	<div class="col-sm-6">
-		<a href="/teacher/questionOfAssessment/addQuestionOfAssessment/${assessmentid}">
-			<button class="btn btn-primary">Add New Question</button>
-		</a>
+	<div class="container-fluid">
+		<div class="row = 12">
+			<div class="col-sm-7">
+			</div>
+			<div class="col-sm-5">
+				<div class="row = 12">
+					<div class="col-sm-8">
+
+					</div>
+					<div class="col-sm-4">
+						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessmentid}'><button
+								class="btn btn-default" type="button">Add new question</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<br><br>
 	<div>

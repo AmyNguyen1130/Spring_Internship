@@ -72,4 +72,12 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	}
 
+	@Override
+	public void deleteAllByClass(ClassDTO classDTO) {
+
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByClassForeign(ClassUtil.parseToEntity(classDTO));
+		studentInClassDAO.deleteAll(studentInClassEntity);
+
+	}
+
 }

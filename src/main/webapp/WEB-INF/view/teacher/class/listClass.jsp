@@ -29,7 +29,7 @@
 				</thead>
 				<tbody>
 					<c:set var="i" value="1" />
-					<c:forEach items="${classPage.getContent()}" var="class" varStatus="i">
+					<c:forEach items="${classPage.getContent()}" var="class">
 						<tr>
 							<td>${i}</td>
 							<td>${class.classname}</td>
