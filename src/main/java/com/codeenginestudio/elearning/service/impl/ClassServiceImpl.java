@@ -71,10 +71,4 @@ public class ClassServiceImpl implements ClassService {
 		classDAO.saveAndFlush(classDAO.getOne(classid));
 	}
 
-	@Override
-	public ClassDTO showClassByclassId(Long classid) {
-
-		return ClassUtil.parseToDTO(classDAO.getClassByClassid(classid));
-	}
-
 }
