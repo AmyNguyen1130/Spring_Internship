@@ -10,25 +10,15 @@ p {
 
 <div>
 	<div class="card-body">
-		<h3>Enter assessment's informations here</h3>
+		<h3>Enter question's informations here</h3>
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
 			<input type="hidden" name="questionid"
 				value="${questionInf.questionid}" />
 
 			<div class="form-group row">
-				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical
-					Order</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="numericalorder"
-						value="${questionInf.numericalorder}">
-					<p id="errNumericalorder"></p>
-				</div>
-			</div>
-
-			<div class="form-group row">
 				<label for="questiontypeid" class="col-sm-1 col-form-label">Question
-					Type ID</label>
+					Type</label>
 				<div class="col-sm-4">
 					<select name="questionType.questionTypeId" class="form-control">
 						<c:forEach items="${listQuestionType}" var="questionType">
@@ -70,9 +60,18 @@ p {
 
 			<input type="hidden" name="assessment.assessmentid" value="${assessmentid}"> 
 
-			<input type="hidden" name="score" value="10">
+			<div class="form-group row">
+				<label for="score" class="col-sm-1 col-form-label">Score</label>
+				<div class="col-sm-4">
+					<select name="score" class="form-control">
+					<% for(int i = 0; i < 10; i++) { %>
+			            <option value="<%= i + 1 %>"> <%= i + 1 %></option>
+			        <% } %>
+					</select>
+				</div>
+			</div>
 			<button type="submit" class="btn btn-primary">Done</button>
-			<a href="/teacher/questionOfAssessment"><button type="button"
+			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button type="button"
 					class="btn btn-danger">cancel</button></a>
 		</form>
 	</div>

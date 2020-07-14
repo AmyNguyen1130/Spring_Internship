@@ -33,6 +33,12 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	}
 
 	@Override
+	public int generateNumbericalOrder() {
+
+		return questionOfAssessmentDAO.findAll().size() + 1;
+	}
+
+	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
 		questionOfAssessmentDAO
 				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
@@ -56,5 +62,4 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		return QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentDAO.getOne(questionId));
 	}
-
 }

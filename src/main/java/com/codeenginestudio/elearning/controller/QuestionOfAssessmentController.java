@@ -3,7 +3,11 @@ package com.codeenginestudio.elearning.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +37,7 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessmentid", assessmentid);
-		return PREFIX + "ListQuestionOfAssessment";
+		return PREFIX + "listQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment/{assessmentid}")
@@ -42,12 +46,19 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("assessmentid", assessmentid);
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-		return PREFIX + "AddAndEditQuestionOfAssessment";
+		return PREFIX + "addAndEditQuestionOfAssessment";
 	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
-	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid) {
+	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO,
+			BindingResult bindingResult, Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumbericalOrder());
+
+		if (bindingResult.hasErrors()) {
+
+			return "redirect:/teacher/questionOfAssessment/addQuestionOfAssessment/" + assessmentid;
+		}
+
 		questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
@@ -67,7 +78,7 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
-		return PREFIX + "AddAndEditQuestionOfAssessment";
+		return PREFIX + "addAndEditQuestionOfAssessment";
 	}
 
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
