@@ -36,6 +36,11 @@ public class ExampleController {
 	public String displayRegister() {
 		return "example/add";
 	}
+	
+	@GetMapping(value = "error")
+	public String displayError() {
+		return "error";
+	}
 
 	@PostMapping(value = "add")
 	public String add(@Validated ExampleDTO exampleDTO, BindingResult bindingResult, Model model) {

@@ -8,9 +8,6 @@ public class SecurityUtil {
 
 	public static UserPrincipal getUserPrincipal() {
 
-		return (UserPrincipal) SecurityContextHolder
-					.getContext()
-					.getAuthentication()
-					.getPrincipal();
+		return (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 }

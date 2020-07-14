@@ -14,7 +14,15 @@ p {
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
 			<input type="hidden" name="questionid"
-				value="${questionInf.questionid}" />
+				value="${questionInf.questionid}" /> 
+				
+			<div class="form-group row">
+				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical Order</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="numericalorder"
+						value="${numericalorder}" disabled="disabled">
+				</div>
+			</div>
 
 			<div class="form-group row">
 				<label for="questiontypeid" class="col-sm-1 col-form-label">Question
