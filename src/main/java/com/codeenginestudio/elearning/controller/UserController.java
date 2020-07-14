@@ -36,7 +36,7 @@ public class UserController {
 
 		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "addUser";
+		return PREFIX + "addAndEditUser";
 	}
 
 	@GetMapping("/admin/user/editUserEnabled/{userId}")
@@ -59,7 +59,7 @@ public class UserController {
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "addUser";
+		return PREFIX + "addAndEditUser";
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
@@ -75,7 +75,7 @@ public class UserController {
 		model.addAttribute("userInf", userService.showUserByUserId(userId));
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "addUser";
+		return PREFIX + "addAndEditUser";
 	}
 
 	@PostMapping("admin/user/saveEditUser")
@@ -92,7 +92,7 @@ public class UserController {
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
-		return PREFIX + "addUser";
+		return PREFIX + "addAndEditUser";
 	}
 
 	private final String PREFIX = "/admin/user/";

@@ -84,9 +84,9 @@ p {
 				<input type="hidden"
 					value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
 					name="enabled" />
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="submit" class="btn">Save</button>
 				<a href="/admin/user">
-					<button type="button" class="btn btn-danger">Cancel</button>
+					<button type="button" class="btn">Cancel</button>
 				</a>
 			</div>
 		</form>

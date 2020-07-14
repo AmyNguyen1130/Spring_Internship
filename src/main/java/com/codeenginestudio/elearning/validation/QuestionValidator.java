@@ -1,37 +1,54 @@
 package com.codeenginestudio.elearning.validation;
 
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
+import com.codeenginestudio.elearning.service.UserService;
 
-@Component
-public class QuestionValidator implements Validator {
+public class QuestionValidator {
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return QuestionOfAssessmentDTO.class.isAssignableFrom(clazz);
+	private String errContent = "";
+	private String errOptions = "";
+	private String errCorrectAnswer = "";
+	public String getErrContent() {
+		return errContent;
+	}
+	public void setErrContent(String errContent) {
+		this.errContent = errContent;
+	}
+	public String getErrOptions() {
+		return errOptions;
+	}
+	public void setErrOptions(String errOptions) {
+		this.errOptions = errOptions;
+	}
+	public String getErrCorrectAnswer() {
+		return errCorrectAnswer;
+	}
+	public void setErrCorrectAnswer(String errCorrectAnswer) {
+		this.errCorrectAnswer = errCorrectAnswer;
+	}
+	
+	String checkNull(String value, String error) {
+		if (value == "") {
+			return error;
+		}
+		return "";
+	}
+	
+	public QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
+		QuestionValidator inValid = new QuestionValidator();
+
+		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
+		inValid.errOptions = checkNull(questionOfAssessmentDTO.getOptions(), "Options could not be null");
+		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(), "Correct answer could not be null");
+
+		return inValid;
 	}
 
-	@Override
-	public void validate(Object target, Errors errors) {
-		QuestionOfAssessmentDTO questionOfAssessmentDTO = (QuestionOfAssessmentDTO) target;
-
-		if (questionOfAssessmentDTO.getContent().equals("")) {
-
-			errors.rejectValue("content", "content-should-not-be-null");
-		}
-
-		if (questionOfAssessmentDTO.getOptions().equals("")) {
-
-			errors.rejectValue("options", "options-should-not-be-null");
-		}
-
-		if (questionOfAssessmentDTO.getCorrectanswer().equals("")) {
-
-			errors.rejectValue("correctAnswer", "correctAnswer-should-not-be-null");
-		}
+	
+	public boolean noError() {
+		return StringUtils.isEmpty(this.getErrContent()) && StringUtils.isEmpty(this.getErrOptions())
+				&& StringUtils.isEmpty(this.getErrCorrectAnswer());
 	}
-
 }

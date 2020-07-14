@@ -17,6 +17,7 @@ import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.QuestionTypeService;
+import com.codeenginestudio.elearning.validation.QuestionValidator;
 
 @Controller
 public class QuestionOfAssessmentController {
@@ -29,6 +30,8 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
+	
+	QuestionValidator questionValidator = new QuestionValidator();
 
 	@GetMapping("/teacher/questionOfAssessment")
 	public String showListQuestionPage(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
@@ -50,17 +53,22 @@ public class QuestionOfAssessmentController {
 	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
-	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO,
-			BindingResult bindingResult, Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumbericalOrder());
 
-		if (bindingResult.hasErrors()) {
-
-			return "redirect:/teacher/questionOfAssessment/addQuestionOfAssessment/" + assessmentid;
+		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+		
+		if (invalid.noError()) {
+			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
-
-		questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+		return PREFIX + "addAndEditQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
@@ -84,9 +92,20 @@ public class QuestionOfAssessmentController {
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
 	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
 			@PathVariable(name = "assessmentid") Long assessmentid) {
-
-		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		
+		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+		
+		if (invalid.noError()) {
+			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		}
+		
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("listAssessment", assessmentService.getListAssessment());
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
+		return PREFIX + "addAndEditQuestionOfAssessment";
 	}
 
 	private final String PREFIX = "/teacher/questionOfAssessment/";

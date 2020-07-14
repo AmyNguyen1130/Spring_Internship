@@ -35,7 +35,7 @@ p {
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="content"
 						value="${questionInf.content}">
-					<p id="errContent"></p>
+					<p id="errContent"> ${error.getErrContent()} </p>
 				</div>
 			</div>
 
@@ -44,7 +44,7 @@ p {
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="options"
 						value="${questionInf.options}">
-					<p id="errOptions"></p>
+					<p id="errOptions">${error.getErrOptions()}</p>
 				</div>
 			</div>
 
@@ -54,7 +54,7 @@ p {
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="correctanswer"
 						value="${questionInf.correctanswer}">
-					<p id="errCorrectanswer"></p>
+					<p id="errCorrectAnswer">${error.getErrCorrectAnswer()}</p>
 				</div>
 			</div>
 
@@ -70,9 +70,10 @@ p {
 					</select>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Done</button>
+			<button type="submit" class="btn">Done</button> 
+			
 			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button type="button"
-					class="btn btn-danger">cancel</button></a>
+					class="btn">Cancel</button></a>
 		</form>
 	</div>
 </div>
