@@ -27,6 +27,7 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 
 		boolean hasAdminRole = false;
 		boolean hasTeacherRole = false;
+		boolean hasStudentRole = false;
 
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority grantedAuthority : authorities) {
@@ -38,13 +39,19 @@ public class ElearningAuthenticationSuccessHandler implements AuthenticationSucc
 				hasTeacherRole = true;
 				break;
 			}
+			if (grantedAuthority.getAuthority().equals(RoleConstant.getRoleStudent())) {
+				hasStudentRole = true;
+				break;
+			}
 		}
 
 		if (hasAdminRole) {
 			redirectStrategy.sendRedirect(request, response, "/admin/user");
 		} else if (hasTeacherRole) {
 			redirectStrategy.sendRedirect(request, response, "/teacher/assessment");
-		} else {
+		} else if (hasStudentRole) {
+			redirectStrategy.sendRedirect(request, response, "/student/assessment");
+		}else {
 			throw new IllegalStateException();
 		}
 	}

@@ -20,4 +20,6 @@ public interface StudentInClassService {
 
 	List<StudentInClassDTO> getAllStudentInClass();
 
+	List<Long> getClassIdByStudentname(UserDTO userDTO);
+
 }

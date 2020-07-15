@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
+import com.codeenginestudio.elearning.service.StudentInClassService;
+import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.AssessmentValidation;
 
 @Controller
@@ -24,6 +29,12 @@ public class AssessmentController {
 
 	@Autowired
 	private ClassService classService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private StudentInClassService studentInClassService;
 
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
@@ -42,6 +53,26 @@ public class AssessmentController {
 		model.addAttribute("assessmentPage", listAssessments);
 		return PREFIX + "listAssessment";
 	}
+
+	@GetMapping("/student/assessment")
+	public String showListAssessmentWithStudentRole(ModelMap model,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		String username = SecurityUtil.getUserPrincipal().getUsername();
+		List<Long> listClassid = studentInClassService.getClassIdByStudentname(userService.getUserByUsername(username));
+
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessment();
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+		}
+		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClassid", listClassid);
+		model.addAttribute("assessmentPage", listAssessments);
+		return "/student/assessment/listAssessment";
+	}
+
 
 	@GetMapping("/teacher/assessment/addAssessment")
 	public String addAssessment(ModelMap model) {

@@ -13,8 +13,10 @@ import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.util.AssessmentUtil;
+import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
 
 @Service("assessmentService")
@@ -78,6 +80,15 @@ public class AssessmentServiceImpl implements AssessmentService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public Page<AssessmentDTO> getPageListAssessmentByClass(ClassDTO classDTO, Integer page) {
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
+
+		Page<AssessmentEntity> listAssessment = assessmentDAO.getAssessmentPageByClassForeign(ClassUtil.parseToEntity(classDTO),pageable);
+
+		return listAssessment.map(x -> (AssessmentUtil.parseToDTO(x)));
 	}
 
 }

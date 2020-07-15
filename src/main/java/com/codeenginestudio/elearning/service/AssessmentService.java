@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 
 public interface AssessmentService {
 
@@ -21,5 +22,7 @@ public interface AssessmentService {
 	List<AssessmentDTO> getListAssessment();
 
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
+
+	Page<AssessmentDTO> getPageListAssessmentByClass(ClassDTO classDTO, Integer page);
 
 }

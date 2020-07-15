@@ -17,6 +17,8 @@ public interface UserService {
 
 	void editUserStatus(long userId);
 
+	UserDTO getUserByUsername(String username);
+
 	UserDTO showUserByUserId(Long userid);
 
 	List<UserEntity> findByUsername(String username);
@@ -28,5 +30,7 @@ public interface UserService {
 	Page<UserDTO> getUserPage(Integer page);
 
 	Page<UserDTO> getUserPageByRole(Long roleid, Integer page);
+
+
 
 }

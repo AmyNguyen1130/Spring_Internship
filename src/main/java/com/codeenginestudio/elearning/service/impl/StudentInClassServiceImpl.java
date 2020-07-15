@@ -80,4 +80,16 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	}
 
+	@Override
+	public List<Long> getClassIdByStudentname(UserDTO userDTO) {
+
+		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO.findByStudent(UserUtil.parseToUserEntity(userDTO));
+		List<Long> listClass = new ArrayList<>();
+
+		for (StudentInClassEntity word : studentInClassEntity) {
+			listClass.add(word.getClassForeign().getClassid());
+		}
+		return listClass;
+	}
+
 }

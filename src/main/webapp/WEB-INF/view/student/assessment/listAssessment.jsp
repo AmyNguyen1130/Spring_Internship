@@ -1,0 +1,96 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<%
+	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
+	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
+%>
+<body>
+		<div class="container-fluid">
+		<div class="row = 12">
+			<div class="col-sm-7">
+
+			</div>
+			<div class="col-sm-5">
+				<div class="row = 12">
+					<div class="col-sm-8">
+					</div>
+					 <div class="col-sm-4">
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>	
+		<br><br>
+		<div class="container-fluid">
+		  <div class="row = 12">
+		  	<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Assessment Name</th>
+					<th scope="col">Class Name</th>
+					<th scope="col">Start Date</th>
+					<th scope="col">Expired Date</th>
+					<th scope="col">Status</th>
+					<th scope="col">Total Question</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:set var="i" value="1" />
+					<c:forEach items="${assessmentPage}" var="assessment">
+					<c:if test="${listClassid.contains(assessment.getClassForeign().getClassid()) }">
+						<tr>
+						<td>${i}</td>
+						<td>${assessment.assessmentname}</td>
+						<c:if test="${assessment.getClassForeign().getClassid() == null}">
+							<td></td>
+						</c:if>
+						<c:forEach items="${listClass}" var="class">
+							<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
+								<td>${class.classname}</td>
+							</c:if>
+						</c:forEach>
+						<td>${assessment.startdate}</td>
+						<td>${assessment.expireddate}</td>
+						<td><a href="/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}"
+								onclick="return confirm('Are you sure?')">
+									<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
+							</a></td>
+						<td>${assessment.getTotalquestion()}</td>
+						<td>
+							<a href="/student/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">View questions</button></a>
+						</td>
+
+						</tr>
+					</c:if>
+
+						<c:set var="i" value="${i+1}" />
+					</c:forEach>
+				</tbody>
+			</table>
+			</div>
+		</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$(".delete-button").click(function() {
+			if (confirm("Are you sure you want to delete this assessment?")) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
+</body>
+</html>

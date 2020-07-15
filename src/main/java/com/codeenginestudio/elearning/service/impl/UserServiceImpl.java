@@ -98,4 +98,9 @@ public class UserServiceImpl implements UserService {
 		return UserUtil.parseToUserDTO(userDAO.getOne(userid));
 	}
 
+	@Override
+	public UserDTO getUserByUsername(String username) {
+		return UserUtil.parseToUserDTO(userDAO.getUserByUsername(username));
+	}
+
 }
