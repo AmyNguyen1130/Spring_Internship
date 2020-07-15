@@ -1,6 +1,6 @@
 package com.codeenginestudio.elearning.dao.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,10 +28,10 @@ public class AssessmentEntity {
 	private ClassEntity classForeign;
 
 	@Column
-	private Date startdate;
+	private LocalDate startdate;
 
 	@Column
-	private Date expireddate;
+	private LocalDate expireddate;
 
 	@Column
 	private Boolean status;
@@ -40,7 +40,7 @@ public class AssessmentEntity {
 		super();
 	}
 
-	public AssessmentEntity(Long assessmentid, String assessmentname, Date startdate, Date expireddate,
+	public AssessmentEntity(Long assessmentid, String assessmentname, LocalDate startdate, LocalDate expireddate,
 			Boolean status) {
 		super();
 		this.assessmentid = assessmentid;
@@ -66,19 +66,19 @@ public class AssessmentEntity {
 		this.assessmentname = assessmentname;
 	}
 
-	public Date getStartdate() {
+	public LocalDate getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(Date startdate) {
+	public void setStartdate(LocalDate startdate) {
 		this.startdate = startdate;
 	}
 
-	public Date getExpireddate() {
+	public LocalDate getExpireddate() {
 		return expireddate;
 	}
 
-	public void setExpireddate(Date expireddate) {
+	public void setExpireddate(LocalDate expireddate) {
 		this.expireddate = expireddate;
 	}
 

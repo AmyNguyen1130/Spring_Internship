@@ -1,6 +1,6 @@
 package com.codeenginestudio.elearning.validation;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
@@ -49,8 +49,8 @@ public class AssessmentValidation {
 		return "";
 	}
 
-	public String checkExpiredDate(Date startDate, Date expiredDate) {
-		if (expiredDate.before(startDate)) {
+	public String checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
+		if (expiredDate.isBefore(startDate)) {
 			return "Expired date must be after start date";
 		}
 		return "";

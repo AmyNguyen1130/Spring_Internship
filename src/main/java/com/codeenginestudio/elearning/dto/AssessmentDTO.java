@@ -1,6 +1,6 @@
 package com.codeenginestudio.elearning.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class AssessmentDTO {
 
@@ -10,9 +10,9 @@ public class AssessmentDTO {
 
 	private ClassDTO classForeign;
 
-	private Date startdate;
+	private LocalDate startdate;
 
-	private Date expireddate;
+	private LocalDate expireddate;
 
 	private Boolean status;
 
@@ -22,8 +22,8 @@ public class AssessmentDTO {
 		super();
 	}
 
-	public AssessmentDTO(Long assessmentid, String assessmentname, Date startdate, Date expireddate, Boolean status,
-			int totalquestion) {
+	public AssessmentDTO(Long assessmentid, String assessmentname, LocalDate startdate, LocalDate expireddate,
+			Boolean status, int totalquestion) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
@@ -57,19 +57,19 @@ public class AssessmentDTO {
 		this.classForeign = classForeign;
 	}
 
-	public Date getStartdate() {
+	public LocalDate getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(Date startdate) {
+	public void setStartdate(LocalDate startdate) {
 		this.startdate = startdate;
 	}
 
-	public Date getExpireddate() {
+	public LocalDate getExpireddate() {
 		return expireddate;
 	}
 
-	public void setExpireddate(Date expireddate) {
+	public void setExpireddate(LocalDate expireddate) {
 		this.expireddate = expireddate;
 	}
 

@@ -55,24 +55,40 @@ public class AssessmentController {
 	}
 
 	@GetMapping("/student/assessment")
-	public String showListAssessmentWithStudentRole(ModelMap model,
-			@RequestParam(name = "page", required = false) Integer page) {
+	public String showListAssessmentWithStudentRole(ModelMap model) {
 
 		String username = SecurityUtil.getUserPrincipal().getUsername();
 		List<Long> listClassid = studentInClassService.getClassIdByStudentname(userService.getUserByUsername(username));
 
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessment();
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired();
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(
 					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
 		}
 		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("listClassid", listClassid);
+		model.addAttribute("listClassAssigned", listClassid);
 		model.addAttribute("assessmentPage", listAssessments);
 		return "/student/assessment/listAssessment";
 	}
 
+	@GetMapping("/student/assessment/history")
+	public String showHistoryWithStudentRole(ModelMap model) {
+
+		String username = SecurityUtil.getUserPrincipal().getUsername();
+		List<Long> listClassid = studentInClassService.getClassIdByStudentname(userService.getUserByUsername(username));
+
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired();
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+		}
+		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClassAssigned", listClassid);
+		model.addAttribute("assessmentPage", listAssessments);
+		return "/student/assessment/listAssessment";
+	}
 
 	@GetMapping("/teacher/assessment/addAssessment")
 	public String addAssessment(ModelMap model) {

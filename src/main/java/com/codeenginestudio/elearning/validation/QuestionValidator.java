@@ -3,7 +3,6 @@ package com.codeenginestudio.elearning.validation;
 import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
-import com.codeenginestudio.elearning.service.UserService;
 
 public class QuestionValidator {
 

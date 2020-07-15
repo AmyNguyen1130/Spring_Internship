@@ -1,5 +1,6 @@
 package com.codeenginestudio.elearning.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,9 +87,40 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public Page<AssessmentDTO> getPageListAssessmentByClass(ClassDTO classDTO, Integer page) {
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
-		Page<AssessmentEntity> listAssessment = assessmentDAO.getAssessmentPageByClassForeign(ClassUtil.parseToEntity(classDTO),pageable);
+		Page<AssessmentEntity> listAssessment = assessmentDAO
+				.getAssessmentPageByClassForeign(ClassUtil.parseToEntity(classDTO), pageable);
 
 		return listAssessment.map(x -> (AssessmentUtil.parseToDTO(x)));
+	}
+
+	@Override
+	public List<AssessmentDTO> getListAssessmentByUnExpired() {
+
+		LocalDate currentDate = LocalDate.now();
+		List<AssessmentDTO> listAssessment = getListAssessment();
+		List<AssessmentDTO> listAssessmentUnExpired = new ArrayList<>();
+
+		for (AssessmentDTO assessment : listAssessment) {
+			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
+				listAssessmentUnExpired.add(assessment);
+			}
+		}
+		return listAssessmentUnExpired;
+	}
+
+	@Override
+	public List<AssessmentDTO> getListAssessmentByExpired() {
+
+		LocalDate currentDate = LocalDate.now();
+		List<AssessmentDTO> listAssessment = getListAssessment();
+		List<AssessmentDTO> listAssessmentExpired = new ArrayList<>();
+
+		for (AssessmentDTO assessment : listAssessment) {
+			if (assessment.getExpireddate().isBefore(currentDate)) {
+				listAssessmentExpired.add(assessment);
+			}
+		}
+		return listAssessmentExpired;
 	}
 
 }

@@ -21,6 +21,10 @@ public interface AssessmentService {
 
 	List<AssessmentDTO> getListAssessment();
 
+	List<AssessmentDTO> getListAssessmentByUnExpired();
+
+	List<AssessmentDTO> getListAssessmentByExpired();
+
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
 
 	Page<AssessmentDTO> getPageListAssessmentByClass(ClassDTO classDTO, Integer page);

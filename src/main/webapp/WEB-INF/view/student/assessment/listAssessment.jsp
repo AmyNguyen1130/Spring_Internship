@@ -47,29 +47,25 @@
 			<tbody>
 				<c:set var="i" value="1" />
 					<c:forEach items="${assessmentPage}" var="assessment">
-					<c:if test="${listClassid.contains(assessment.getClassForeign().getClassid()) }">
+					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
 						<tr>
-						<td>${i}</td>
-						<td>${assessment.assessmentname}</td>
-						<c:if test="${assessment.getClassForeign().getClassid() == null}">
-							<td></td>
-						</c:if>
-						<c:forEach items="${listClass}" var="class">
-							<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
-								<td>${class.classname}</td>
+							<td>${i}</td>
+							<td>${assessment.assessmentname}</td>
+							<c:if test="${assessment.getClassForeign().getClassid() == null}">
+								<td></td>
 							</c:if>
-						</c:forEach>
-						<td>${assessment.startdate}</td>
-						<td>${assessment.expireddate}</td>
-						<td><a href="/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}"
-								onclick="return confirm('Are you sure?')">
-									<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
-							</a></td>
-						<td>${assessment.getTotalquestion()}</td>
-						<td>
-							<a href="/student/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">View questions</button></a>
-						</td>
-
+							<c:forEach items="${listClass}" var="class">
+								<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
+									<td>${class.classname}</td>
+								</c:if>
+							</c:forEach>
+							<td>${assessment.startdate}</td>
+							<td>${assessment.expireddate}</td>
+							<td>${assessment.getStatus() == true ? 'Active' : 'Inactive'}</td>
+							<td>${assessment.getTotalquestion()}</td>
+							<td>
+								<a href="/student/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">Do Exercise</button></a>
+							</td>
 						</tr>
 					</c:if>
 
