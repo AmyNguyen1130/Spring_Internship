@@ -6,6 +6,16 @@
 p {
 	color: red
 }
+
+.optionItem {
+	display: flex;
+	flex-flow: row;
+	margin: 5px;
+}
+
+.radioOption {
+	margin: 15px;
+}
 </style>
 
 <div>
@@ -14,10 +24,11 @@ p {
 
 		<form action="<%=request.getContextPath()%>${url}" method="post">
 			<input type="hidden" name="questionid"
-				value="${questionInf.questionid}" /> 
-				
+				value="${questionInf.questionid}" />
+
 			<div class="form-group row">
-				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical Order</label>
+				<label for="numericalorder" class="col-sm-1 col-form-label">Numerical
+					Order</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" name="numericalorder"
 						value="${numericalorder}" disabled="disabled">
@@ -41,17 +52,41 @@ p {
 			<div class="form-group row">
 				<label for="content" class="col-sm-1 col-form-label">Content</label>
 				<div class="col-sm-4">
+
 					<input type="text" class="form-control" name="content"
 						value="${questionInf.content}">
-					<p id="errContent"> ${error.getErrContent()} </p>
+
+					<p id="errContent">${error.getErrContent()}</p>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="options" class="col-sm-1 col-form-label">Options</label>
+				<label for="options" class="col-sm-1 col-form-label">Options: </label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="options"
-						value="${questionInf.options}">
+
+					<div class="optionItem">
+						<label for="A" class="col-sm-1 col-form-label">A: </label>
+						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
+						<input type="radio" id="female" name="correctanswer" value="A" class="radioOption">
+					</div>
+
+					<div class="optionItem">
+						<label for="B" class="col-sm-1 col-form-label">B: </label>
+						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
+						<input type="radio" id="female" name="correctanswer" value="B" class="radioOption">
+					</div>
+
+					<div class="optionItem">
+						<label for="C" class="col-sm-1 col-form-label">C: </label>
+						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
+						<input type="radio" id="female" name="correctanswer" value="C" class="radioOption">
+					</div>
+
+					<div class="optionItem">
+						<label for="D" class="col-sm-1 col-form-label">D: </label>
+						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
+						<input type="radio" id="female" name="correctanswer" value="D" class="radioOption">
+					</div>
 					<p id="errOptions">${error.getErrOptions()}</p>
 				</div>
 			</div>
@@ -66,22 +101,27 @@ p {
 				</div>
 			</div>
 
-			<input type="hidden" name="assessment.assessmentid" value="${assessmentid}"> 
+			<input type="hidden" name="assessment.assessmentid"
+				value="${assessmentid}">
 
 			<div class="form-group row">
 				<label for="score" class="col-sm-1 col-form-label">Score</label>
-				<div class="col-sm-4">
+				<div class="col-sm-4"> 
 					<select name="score" class="form-control">
-					<% for(int i = 0; i < 10; i++) { %>
-			            <option value="<%= i + 1 %>"> <%= i + 1 %></option>
-			        <% } %>
+						<%
+							for (int i = 0; i < 10; i++) {
+						%>
+						<option value="<%=i + 1%>"><%=i + 1%></option>
+						<%
+							}
+						%>
 					</select>
 				</div>
 			</div>
-			<button type="submit" class="btn">Done</button> 
-			
-			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button type="button"
-					class="btn">Cancel</button></a>
+			<button type="submit" class="btn">Done</button>
+
+			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
+					type="button" class="btn">Cancel</button></a>
 
 		</form>
 	</div>
