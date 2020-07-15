@@ -53,6 +53,5 @@
 				<a href="/admin/class"><button type="button" class="btn btn-default">Cancel</button></a>
 			</form>
 		</div>
-
 </body>
 </html>

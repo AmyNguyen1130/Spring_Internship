@@ -79,18 +79,5 @@
 			</table>
 			</div>
 		</div>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-
-		$(".delete-button").click(function() {
-			if (confirm("Are you sure you want to delete this assessment?")) {
-				return true;
-			} else {
-				return false;
-			}
-		});
-	});
-</script>
 </body>
 </html>

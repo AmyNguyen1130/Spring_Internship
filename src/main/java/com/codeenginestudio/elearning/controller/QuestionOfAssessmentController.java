@@ -29,30 +29,34 @@ public class QuestionOfAssessmentController {
 
 	QuestionValidator questionValidator = new QuestionValidator();
 
+	// Teacher
+
 	@GetMapping("/teacher/questionOfAssessment")
-	public String showListQuestionPage(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
+	public String getListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessmentid", assessmentid);
-		return PREFIX + "listQuestionOfAssessment";
+		return PREFIX_TEACHER + "listQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment/{assessmentid}")
 	public String addQuestionOfAssignment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
-		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder());
+
+		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder(assessmentid));
 		model.addAttribute("assessmentid", assessmentid);
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-		return PREFIX + "addAndEditQuestionOfAssessment";
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
 	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
 			@PathVariable(name = "assessmentid") Long assessmentid) {
-		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumbericalOrder());
 
+		questionOfAssessmentDTO.setNumericalorder(
+				questionOfAssessmentService.generateNumbericalOrder(questionOfAssessmentDTO.getQuestionid()));
 		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
 
 		if (invalid.noError()) {
@@ -60,13 +64,13 @@ public class QuestionOfAssessmentController {
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
-		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder());
+		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder(assessmentid));
 		model.addAttribute("error", invalid);
 		model.addAttribute("questionInf", questionOfAssessmentDTO);
 		model.addAttribute("assessmentid", assessmentid);
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-		return PREFIX + "addAndEditQuestionOfAssessment";
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
@@ -80,32 +84,49 @@ public class QuestionOfAssessmentController {
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId,
 			@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
 
+		model.addAttribute("numericalorder",
+				questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder());
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
-		return PREFIX + "addAndEditQuestionOfAssessment";
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
 	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid) {
+			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId) {
 
 		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+		int numericalOrder = questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder();
 
 		if (invalid.noError()) {
+			questionOfAssessmentDTO.setNumericalorder(numericalOrder);
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
-		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder());
+		model.addAttribute("numericalorder", numericalOrder);
 		model.addAttribute("error", invalid);
 		model.addAttribute("questionInf", questionOfAssessmentDTO);
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
-		return PREFIX + "addAndEditQuestionOfAssessment";
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
-	private final String PREFIX = "/teacher/questionOfAssessment/";
+	// Student
+
+	@GetMapping("/student/questionOfAssessment")
+	public String viewListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
+
+		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
+		model.addAttribute("listQuestionOfAssessment",
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
+		model.addAttribute("assessment", assessment);
+		return PREFIX_STUDENT + "listQuestionOfAssignment";
+	}
+
+	private final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
+	private final String PREFIX_STUDENT = "/student/questionOfAssignment/";
 }

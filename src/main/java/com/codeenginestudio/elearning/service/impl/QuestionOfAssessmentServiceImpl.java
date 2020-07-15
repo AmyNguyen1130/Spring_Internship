@@ -20,10 +20,14 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 	@Override
 	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessment) {
+		return finfQuestionByAssessment(assessment.getAssessmentid());
+	}
+
+	List<QuestionOfAssessmentDTO> finfQuestionByAssessment(Long assessmentid){
 		List<QuestionOfAssessmentEntity> listQuestionEntity = questionOfAssessmentDAO.findAll();
 		List<QuestionOfAssessmentDTO> listQuestionDTO = new ArrayList<>();
 		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntity) {
-			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessment.getAssessmentid()) {
+			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
 				listQuestionDTO
 						.add(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity));
 			}
@@ -31,11 +35,11 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		return listQuestionDTO;
 	}
-
+	
 	@Override
-	public int generateNumbericalOrder() {
+	public int generateNumbericalOrder(Long assessmentid) {
 
-		return questionOfAssessmentDAO.findAll().size() + 1;
+		return finfQuestionByAssessment(assessmentid).size() + 1;
 	}
 
 	@Override
