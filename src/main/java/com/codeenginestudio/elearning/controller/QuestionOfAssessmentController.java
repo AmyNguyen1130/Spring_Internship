@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,12 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.QuestionTypeService;
+import com.codeenginestudio.elearning.service.ResultService;
+import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.QuestionValidator;
 
 @Controller
@@ -26,6 +32,12 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private ResultService resultService;
 
 	QuestionValidator questionValidator = new QuestionValidator();
 
@@ -124,6 +136,26 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessment", assessment);
+		return PREFIX_STUDENT + "listQuestionOfAssignment";
+	}
+
+	@PostMapping("student/submitAssessment/{assessmentid}")
+	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
+			@RequestParam Map<String, String> allParams) {
+
+		String username = SecurityUtil.getUserPrincipal().getUsername();
+
+		Long questionid = 0L;
+		String answerChoice = "";
+		for (Map.Entry<String, String> answer : allParams.entrySet()) {
+			questionid = Long.parseLong(answer.getKey());
+			answerChoice = answer.getValue();
+
+			resultService.saveSubmitAssessment(userService.getUserByUsername(username),
+					assessmentService.getAssessmentByAssessmentid(assessmentid),
+					questionOfAssessmentService.getOneQuestionOfAssessment(questionid), answerChoice);
+		}
+
 		return PREFIX_STUDENT + "listQuestionOfAssignment";
 	}
 
