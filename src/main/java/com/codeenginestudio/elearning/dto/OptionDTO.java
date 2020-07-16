@@ -4,16 +4,16 @@ public class OptionDTO {
 
 	private String name;
 	
-	private String optionValue;
+	private String value;
 	
 	public OptionDTO() {
 		super();
 	}
 
-	public OptionDTO(String name, String optionValue) {
+	public OptionDTO(String name, String value) {
 		super();
 		this.name = name;
-		this.optionValue = optionValue;
+		this.value = value;
 	}
 
 	public String getName() {
@@ -25,11 +25,11 @@ public class OptionDTO {
 	}
 
 	public String getOptionValue() {
-		return optionValue;
+		return value;
 	}
 
-	public void setOptionValue(String optionValue) {
-		this.optionValue = optionValue;
+	public void setOptionValue(String value) {
+		this.value = value;
 	}
 	
 	

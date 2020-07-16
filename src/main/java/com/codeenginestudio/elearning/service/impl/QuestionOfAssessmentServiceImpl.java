@@ -11,6 +11,7 @@ import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentService {
@@ -43,7 +44,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	}
 
 	@Override
-	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
+	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException {
 		questionOfAssessmentDAO
 				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
 
@@ -56,7 +57,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	}
 
 	@Override
-	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
+	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException {
 		questionOfAssessmentDAO
 				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
 	}

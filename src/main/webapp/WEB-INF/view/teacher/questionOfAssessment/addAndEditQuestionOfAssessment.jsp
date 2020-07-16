@@ -65,41 +65,37 @@ p {
 				<div class="col-sm-4">
 
 					<div class="optionItem">
-						<label for="A" class="col-sm-1 col-form-label">A: </label>
-						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
-						<input type="radio" id="female" name="correctanswer" value="A" class="radioOption">
+						<label for="A" class="col-sm-1 col-form-label" >A: </label>
+						<input type="hidden" name="optionName" value="A">
+						<input type="text" class="form-control" name="optionValue" value="${questionInf.options}"> 
+						<input type="radio" name="correctanswer" value="A" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="B" class="col-sm-1 col-form-label">B: </label>
-						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
-						<input type="radio" id="female" name="correctanswer" value="B" class="radioOption">
+						<input type="hidden" name="optionName" value="B">
+						<input type="text" class="form-control" name="optionValue" value="${questionInf.options}"> 
+						<input type="radio" name="correctanswer" value="B" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="C" class="col-sm-1 col-form-label">C: </label>
-						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
-						<input type="radio" id="female" name="correctanswer" value="C" class="radioOption">
+						<input type="hidden" name="optionName" value="C">
+						<input type="text" class="form-control" name="optionValue" value="${questionInf.options}"> 
+						<input type="radio" name="correctanswer" value="C" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="D" class="col-sm-1 col-form-label">D: </label>
-						<input type="text" class="form-control" name="options" value="${questionInf.options}"> 
-						<input type="radio" id="female" name="correctanswer" value="D" class="radioOption">
+						<input type="hidden" name="optionName" value="D">
+						<input type="text" class="form-control" name="optionValue" value="${questionInf.options}"> 
+						<input type="radio" name="correctanswer" value="D" class="radioOption">
 					</div>
 					<p id="errOptions">${error.getErrOptions()}</p>
 				</div>
 			</div>
-
-			<div class="form-group row">
-				<label for="correctanswer" class="col-sm-1 col-form-label">Corrected
-					Answer</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="correctanswer"
-						value="${questionInf.correctanswer}">
-					<p id="errCorrectAnswer">${error.getErrCorrectAnswer()}</p>
-				</div>
-			</div>
+			
+	
 
 			<input type="hidden" name="assessment.assessmentid"
 				value="${assessmentid}">

@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.dto;
 
+import java.util.List;
+
 public class QuestionOfAssessmentDTO {
 
 	private Long questionid;
@@ -10,7 +12,11 @@ public class QuestionOfAssessmentDTO {
 
 	private String content;
 
-	private String options;
+	private String[] optionName;
+	
+	private String[] optionValue;
+	
+	private List<OptionDTO> options;
 
 	private String correctanswer;
 
@@ -19,7 +25,7 @@ public class QuestionOfAssessmentDTO {
 	private AssessmentDTO assessment;
 
 	public QuestionOfAssessmentDTO(Long questionid, int numericalorder, QuestionTypeDTO questionType, String content,
-			String options, String correctanswer, float score, AssessmentDTO assessment) {
+			List<OptionDTO> options, String correctanswer, float score, AssessmentDTO assessment) {
 		super();
 		this.questionid = questionid;
 		this.numericalorder = numericalorder;
@@ -33,6 +39,23 @@ public class QuestionOfAssessmentDTO {
 
 	public QuestionOfAssessmentDTO() {
 		super();
+	}
+	
+	
+	public String[] getOptionValue() {
+		return optionValue;
+	}
+
+	public void setOptionValue(String[] optionValue) {
+		this.optionValue = optionValue;
+	}
+
+	public String[] getOptionName() {
+		return optionName;
+	}
+
+	public void setOptionName(String[] optionName) {
+		this.optionName = optionName;
 	}
 
 	public Long getQuestionid() {
@@ -67,11 +90,11 @@ public class QuestionOfAssessmentDTO {
 		this.content = content;
 	}
 
-	public String getOptions() {
+	public List<OptionDTO> getOptions() {
 		return options;
 	}
 
-	public void setOptions(String options) {
+	public void setOptions(List<OptionDTO> options) {
 		this.options = options;
 	}
 

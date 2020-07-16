@@ -61,29 +61,14 @@
 							<div class="form-group row">
 								<div class="col-sm-4">
 
-									<div class="optionItem">
-										<label for="A" class="col-sm-1 col-form-label">A: </label> <input
-											type="radio" name="${question.questionid}" value="A"
-											class="radioOption"> <span>${question.options}</span>
-									</div>
+									<c:forEach items="${question.options}" var="option">
+										<div class="optionItem">
+											<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label> 
+											<input type="radio" name="${question.questionid}" value="${option.getName()}" class="radioOption"> 
+											<span>${option.getOptionValue()}</span>
+										</div>
 
-									<div class="optionItem">
-										<label for="B" class="col-sm-1 col-form-label">B: </label> <input
-											type="radio" name="${question.questionid}" value="B"
-											class="radioOption"> <span>${question.options}</span>
-									</div>
-
-									<div class="optionItem">
-										<label for="C" class="col-sm-1 col-form-label">C: </label> <input
-											type="radio" name="${question.questionid}" value="C"
-											class="radioOption"> <span>${question.options}</span>
-									</div>
-
-									<div class="optionItem">
-										<label for="D" class="col-sm-1 col-form-label">D: </label> <input
-											type="radio" name="${question.questionid}" value="D"
-											class="radioOption"> <span>${question.options}</span>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>

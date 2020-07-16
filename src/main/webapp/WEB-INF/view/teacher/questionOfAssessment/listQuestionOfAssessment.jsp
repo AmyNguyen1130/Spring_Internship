@@ -50,9 +50,13 @@
 					var="question">
 					<tr>
 						<td>${question.numericalorder}</td>
-						<td>${question.getQuestionType().getQuestionTypeName()}</td>
+						<td>${question.getQuestionType()}</td>
 						<td>${question.content}</td>
-						<td>${question.options}</td>
+						<td>
+							<c:forEach items="${question.getOptions()}" var="option">
+								${option.getOptionValue()}
+							</c:forEach>
+						</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
 						<td>${question.getAssessment().getAssessmentname()}</td>

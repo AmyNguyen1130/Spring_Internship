@@ -6,15 +6,16 @@ import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public interface QuestionOfAssessmentService {
 
-	void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
+	void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException;
 
 	void deleteQuestionOfAssessment(Long questionId);
 
-	void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO);
+	void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException;
 
 	QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId);
 
