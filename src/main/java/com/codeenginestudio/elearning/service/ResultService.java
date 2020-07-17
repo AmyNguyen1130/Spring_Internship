@@ -1,12 +1,16 @@
 package com.codeenginestudio.elearning.service;
 
-import com.codeenginestudio.elearning.dto.AssessmentDTO;
-import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
-import com.codeenginestudio.elearning.dto.UserDTO;
+import java.time.LocalDate;
+import java.util.List;
+
+import com.codeenginestudio.elearning.dto.ResultDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface ResultService {
 
-	void saveSubmitAssessment(UserDTO userByUsername, AssessmentDTO assessmentByAssessmentid,
-			QuestionOfAssessmentDTO oneQuestionOfAssessment, String answerChoice);
+	void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice, LocalDate currentDate, LocalDate updateDate)
+			throws JsonProcessingException;
+
+	List<ResultDTO> getAssessmentByAssessmentId(Long assessmentid);
 
 }

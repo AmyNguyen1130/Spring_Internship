@@ -1,17 +1,21 @@
 package com.codeenginestudio.elearning.service.impl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.codeenginestudio.elearning.dao.AssessmentDAO;
+import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.ResultDAO;
+import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.ResultEntity;
-import com.codeenginestudio.elearning.dto.AssessmentDTO;
-import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
-import com.codeenginestudio.elearning.dto.UserDTO;
+import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.service.ResultService;
-import com.codeenginestudio.elearning.util.AssessmentUtil;
-import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
-import com.codeenginestudio.elearning.util.UserUtil;
+import com.codeenginestudio.elearning.util.ResultUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public class ResultServiceImpl implements ResultService {
@@ -19,16 +23,37 @@ public class ResultServiceImpl implements ResultService {
 	@Autowired
 	private ResultDAO resultDAO;
 
-	@Override
-	public void saveSubmitAssessment(UserDTO userDTO, AssessmentDTO assessmentDTO,
-			QuestionOfAssessmentDTO questionOfAssignmentDTO, String answerChoice) {
+	@Autowired
+	private UserDAO userDAO;
 
+	@Autowired
+	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
+
+	@Autowired
+	private AssessmentDAO assessmentDAO;
+
+	@Override
+	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice,LocalDate currentDate, LocalDate updateDate)
+			throws JsonProcessingException {
 		ResultEntity resultEntity = new ResultEntity();
+		resultEntity.setStudent(userDAO.getUserByUserid(userId));
+		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
+		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));
 		resultEntity.setAnswerChoice(answerChoice);
-		resultEntity.setAssessment(AssessmentUtil.parseToEntity(assessmentDTO));
-		resultEntity.setQuestion(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssignmentDTO));
-		resultEntity.setStudent(UserUtil.parseToUserEntity(userDTO));
+		resultEntity.setStartdate(currentDate);
+		resultEntity.setUpdatedate(updateDate);
 		resultDAO.save(resultEntity);
+
+	}
+
+	@Override
+	public List<ResultDTO> getAssessmentByAssessmentId(Long assessmentid) {
+		List<ResultEntity> listResult = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
+		List<ResultDTO> resultDTO = new ArrayList<>();
+		for (ResultEntity result : listResult) {
+			resultDTO.add(ResultUtil.parseToDTO(result));
+		}
+		return resultDTO;
 	}
 
 }

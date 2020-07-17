@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.dao.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +33,29 @@ public class ResultEntity {
 	private AssessmentEntity assessment;
 
 	@Column
-	private String answerChoice;
+	private String answerchoice;
+
+	@Column
+	private LocalDate startdate;
+
+	@Column
+	private LocalDate updatedate;
+
+	public LocalDate getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(LocalDate startdate) {
+		this.startdate = startdate;
+	}
+
+	public LocalDate getUpdatedate() {
+		return updatedate;
+	}
+
+	public void setUpdatedate(LocalDate updatedate) {
+		this.updatedate = updatedate;
+	}
 
 	public ResultEntity() {
 		super();
@@ -43,7 +67,7 @@ public class ResultEntity {
 		this.student = student;
 		this.question = question;
 		this.assessment = assessment;
-		this.answerChoice = answerChoice;
+		this.answerchoice = answerChoice;
 	}
 
 	public Long getId() {
@@ -79,11 +103,11 @@ public class ResultEntity {
 	}
 
 	public String getAnswerChoice() {
-		return answerChoice;
+		return answerchoice;
 	}
 
 	public void setAnswerChoice(String answerChoice) {
-		this.answerChoice = answerChoice;
+		this.answerchoice = answerChoice;
 	}
 
 }

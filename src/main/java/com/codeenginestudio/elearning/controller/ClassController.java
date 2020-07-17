@@ -36,11 +36,13 @@ public class ClassController {
 	@Autowired
 	private StudentInClassService studentInClassService;
 
+	// Admin role
+
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
 		Page<ClassDTO> classess = classService.getClassPage(page);
 		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO).size());
+			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO.getClassid()).size());
 		}
 
 		model.addAttribute("classPage", classess);
@@ -48,30 +50,18 @@ public class ClassController {
 		return PREFIX + "listClass";
 	}
 
-	@GetMapping("/teacher/class")
-	public String showListClassWithTeacherRole(Model model,
-			@RequestParam(name = "page", required = false) Integer page) {
-
-		Page<ClassDTO> classess = classService.getClassPage(page);
-		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO).size());
-		}
-
-		model.addAttribute("classPage", classess);
-		return "teacher/class/listClass";
-	}
-
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
 		model.addAttribute("url", "/admin/class/saveAddClass");
 		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+
 		return PREFIX + "addAndEditClass";
 	}
 
 	@GetMapping("/admin/class/deleteClass")
 	public String deleteClass(@ModelAttribute("classid") Long id) {
-
 		classService.deleteClass(id);
+
 		return "redirect:/admin/class";
 	}
 
@@ -79,15 +69,16 @@ public class ClassController {
 	public String editClass(Model model, @PathVariable(name = "classid") Long classid) {
 
 		model.addAttribute("url", "/admin/class/saveEditClass");
-
 		model.addAttribute("editClass", classService.showClassByClassid(classid));
 		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+
 		return PREFIX + "addAndEditClass";
 	}
 
 	@GetMapping("/admin/class/editClassStatus/{classid}")
 	public String editStatusClass(@PathVariable(name = "classid") Long classid) {
 		classService.editStatusClass(classid);
+
 		return "redirect:/admin/class";
 	}
 
@@ -98,11 +89,12 @@ public class ClassController {
 		if (errors.size() > 0) {
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("users",
-					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+
 			return PREFIX + "addAndEditClass";
 		}
 		classService.saveClass(classDTO);
+
 		return "redirect:/admin/class";
 	}
 
@@ -115,12 +107,28 @@ public class ClassController {
 			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
 			model.addAttribute("editClass", classService.showClassByClassid(classDTO.getClassid()));
-			model.addAttribute("users",
-					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+
 			return PREFIX + "addAndEditClass";
 		}
 		classService.saveClass(classDTO);
+
 		return "redirect:/admin/class";
+	}
+
+	// Teacher role
+	@GetMapping("/teacher/class")
+	public String showListClassWithTeacherRole(Model model,
+			@RequestParam(name = "page", required = false) Integer page) {
+
+		Page<ClassDTO> classess = classService.getClassPage(page);
+		for (ClassDTO classDTO : classess) {
+			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO.getClassid()).size());
+		}
+
+		model.addAttribute("classPage", classess);
+
+		return "teacher/class/listClass";
 	}
 
 	public List<String> validationClass(ClassDTO classDTO) {

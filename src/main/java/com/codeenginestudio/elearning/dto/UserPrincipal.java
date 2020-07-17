@@ -11,6 +11,8 @@ public class UserPrincipal extends User {
 
 	private RoleDTO role;
 
+	private Long userid;
+
 	public UserPrincipal(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 	}
@@ -21,6 +23,14 @@ public class UserPrincipal extends User {
 
 	public void setRole(RoleDTO role) {
 		this.role = role;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 }

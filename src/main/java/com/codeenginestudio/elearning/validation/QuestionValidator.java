@@ -39,7 +39,7 @@ public class QuestionValidator {
 		QuestionValidator inValid = new QuestionValidator();
 
 		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
-		inValid.errOptions = checkNull(questionOfAssessmentDTO.getOptions(), "Options could not be null");
+//		inValid.errOptions = checkNull(questionOfAssessmentDTO.getOptions(), "Options could not be null");
 		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(), "Correct answer could not be null");
 
 		return inValid;

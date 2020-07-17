@@ -25,18 +25,21 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		return findQuestionByAssessment(assessment.getAssessmentid());
 	}
 
-	private List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
+
+	List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
 
 		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO.findAll();
 		List<QuestionOfAssessmentDTO> listQuestionDTOs = new ArrayList<>();
 		QuestionOfAssessmentDTO questionOfAssignmentDTO = new QuestionOfAssessmentDTO();
 
 		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntities) {
+
 			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
 
 				questionOfAssignmentDTO = QuestionOfAssignmentUtil
 						.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity);
 				questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
+
 				listQuestionDTOs.add(questionOfAssignmentDTO);
 			}
 		}

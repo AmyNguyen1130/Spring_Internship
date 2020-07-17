@@ -40,10 +40,11 @@
 
 			<div class="col-sm-6" id="borderTest">
 				<form
-					action="<%=request.getContextPath()%>/student/submitAssessment/${assessment.getAssessmentid()}"
+					action="<%=request.getContextPath()%>${url}"
 					method="post">
 					<div class="description">
 						<div class="title">
+
 							<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
 							<p class="dateTime">(${assessment.getStartdate()} -
 								${assessment.getExpireddate()})</p>
@@ -58,13 +59,14 @@
 								<span> Question ${question.numericalorder}:
 									${question.content} (score: ${question.score})</span>
 							</div>
+
 							<div class="form-group row">
 								<div class="col-sm-4">
 
 									<c:forEach items="${question.options}" var="option">
 										<div class="optionItem">
 											<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label> 
-											<input type="radio" name="${question.questionid}" value="${option.getName()}" class="radioOption"> 
+											<input type="radio" name="${question.getQuestionid()}" value="${option.getName()}" class="radioOption"> 
 											<span>${option.getOptionValue()}</span>
 										</div>
 
@@ -80,8 +82,7 @@
 				<div class="row = 12">
 					<div class="col-sm-8"></div>
 					<div class="col-sm-4">
-						<a href='#'><button class="btn btn-default" type="button">Edit
-								Your Answer</button></a>
+
 					</div>
 				</div>
 			</div>

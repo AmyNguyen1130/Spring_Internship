@@ -49,5 +49,8 @@ public class MyUserDetailsService implements UserDetailsService {
 		if (user.getRole() != null) {
 			userPrincipal.setRole(RoleUtil.parseToRoleDTO(user.getRole()));
 		}
+		if (user.getUserid() != null) {
+			userPrincipal.setUserid(user.getUserid());
+		}
 	}
 }

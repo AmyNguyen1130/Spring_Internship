@@ -2,24 +2,22 @@ package com.codeenginestudio.elearning.service;
 
 import java.util.List;
 
-import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
-import com.codeenginestudio.elearning.dto.UserDTO;
 
 public interface StudentInClassService {
 
-	void saveStudentInClass(ClassDTO classId, UserDTO UserId);
+	void saveStudentInClass(Long classid, Long userid);
 
 	void deleteStudentInClass(Long id);
 
-	void deleteAllByClass(ClassDTO classDTO);
+	void deleteAllByClass(Long classid);
 
 	Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long check);
 
-	List<Long> getListStudentByClassid(ClassDTO classDTO);
+	List<Long> getListStudentByClassid(Long classid);
 
 	List<StudentInClassDTO> getAllStudentInClass();
 
-	List<Long> getClassIdByStudentname(UserDTO userDTO);
+	List<Long> getClassIdByStudent(String username);
 
 }

@@ -45,11 +45,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:set var="i" value="1" />
-					<c:forEach items="${assessmentPage}" var="assessment">
+				<c:forEach items="${assessmentPage}" var="assessment" varStatus="count">
 					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
 						<tr>
-							<td>${i}</td>
+							<td>${count.index + 1}</td>
 							<td>${assessment.assessmentname}</td>
 							<c:if test="${assessment.getClassForeign().getClassid() == null}">
 								<td></td>
@@ -64,14 +63,14 @@
 							<td>${assessment.getStatus() == true ? 'Active' : 'Inactive'}</td>
 							<td>${assessment.getTotalquestion()}</td>
 							<td>
-								<a href="/student/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">Do Exercise</button></a>
+								<a href="/student/questionOfAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Do Exercise</button></a>
+								<a href="/student/editAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Edit Exercise</button></a>
 							</td>
 						</tr>
 					</c:if>
 
-						<c:set var="i" value="${i+1}" />
-					</c:forEach>
-				</tbody>
+				</c:forEach>
+			</tbody>
 			</table>
 			</div>
 		</div>

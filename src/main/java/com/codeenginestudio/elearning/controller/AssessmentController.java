@@ -17,7 +17,6 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
-import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.AssessmentValidation;
 
@@ -31,9 +30,6 @@ public class AssessmentController {
 	private ClassService classService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private StudentInClassService studentInClassService;
 
 	@Autowired
@@ -41,6 +37,7 @@ public class AssessmentController {
 
 	AssessmentValidation assessmentValidation = new AssessmentValidation();
 
+	// Teacher role
 	@GetMapping("/teacher/assessment")
 	public String showListAssessment(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
 
@@ -51,43 +48,7 @@ public class AssessmentController {
 					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
 		}
 		model.addAttribute("assessmentPage", listAssessments);
-		return PREFIX + "listAssessment";
-	}
-
-	@GetMapping("/student/assessment")
-	public String showListAssessmentWithStudentRole(ModelMap model) {
-
-		String username = SecurityUtil.getUserPrincipal().getUsername();
-		List<Long> listClassid = studentInClassService.getClassIdByStudentname(userService.getUserByUsername(username));
-
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired();
-
-		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
-		}
-		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("listClassAssigned", listClassid);
-		model.addAttribute("assessmentPage", listAssessments);
-		return "/student/assessment/listAssessment";
-	}
-
-	@GetMapping("/student/assessment/history")
-	public String showHistoryWithStudentRole(ModelMap model) {
-
-		String username = SecurityUtil.getUserPrincipal().getUsername();
-		List<Long> listClassid = studentInClassService.getClassIdByStudentname(userService.getUserByUsername(username));
-
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired();
-
-		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
-		}
-		model.addAttribute("listClass", classService.getAllClass());
-		model.addAttribute("listClassAssigned", listClassid);
-		model.addAttribute("assessmentPage", listAssessments);
-		return "/student/assessment/listAssessment";
+		return PREFIX_TEACHER + "listAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/addAssessment")
@@ -95,7 +56,7 @@ public class AssessmentController {
 
 		model.addAttribute("url", "/teacher/assessment/saveAddAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
-		return PREFIX + "addAndEditAssessment";
+		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/deleteAssessment")
@@ -117,7 +78,7 @@ public class AssessmentController {
 		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("assessmentEdit", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		return PREFIX + "addAndEditAssessment";
+		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
 	@PostMapping("/teacher/assessment/saveAddAssessment")
@@ -130,7 +91,7 @@ public class AssessmentController {
 		} else {
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
-			return PREFIX + "addAndEditAssessment";
+			return PREFIX_TEACHER + "addAndEditAssessment";
 		}
 	}
 
@@ -146,9 +107,48 @@ public class AssessmentController {
 			model.addAttribute("listClass", classService.getAllClass());
 			model.addAttribute("assessmentEdit",
 					assessmentService.getAssessmentByAssessmentid(assessmentDTO.getAssessmentid()));
-			return PREFIX + "addAndEditAssessment";
+			return PREFIX_TEACHER + "addAndEditAssessment";
 		}
 	}
 
-	private static final String PREFIX = "/teacher/assessment/";
+	// Student role
+	@GetMapping("/student/assessment")
+	public String showListAssessmentWithStudentRole(ModelMap model) {
+
+		String username = SecurityUtil.getUserPrincipal().getUsername();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(username);
+
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired();
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+		}
+		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClassAssigned", listClassid);
+		model.addAttribute("assessmentPage", listAssessments);
+
+		return PREFIX_STUDENT + "listAssessment";
+	}
+
+	@GetMapping("/student/assessment/history")
+	public String showHistoryWithStudentRole(ModelMap model) {
+
+		String username = SecurityUtil.getUserPrincipal().getUsername();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(username);
+
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired();
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+		}
+		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClassAssigned", listClassid);
+		model.addAttribute("assessmentPage", listAssessments);
+		return PREFIX_STUDENT + "listAssessment";
+	}
+
+	private static final String PREFIX_TEACHER = "/teacher/assessment/";
+	private static final String PREFIX_STUDENT = "/student/assessment/";
 }

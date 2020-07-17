@@ -1,8 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
 import java.util.Map;
-
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +18,8 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.QuestionTypeService;
 import com.codeenginestudio.elearning.service.ResultService;
-import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.QuestionValidator;
-import com.codeenginestudio.elearning.util.OptionUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
@@ -36,9 +33,6 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private ResultService resultService;
@@ -114,15 +108,24 @@ public class QuestionOfAssessmentController {
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
-	// Student
+	// Student role
 
-	@GetMapping("/student/questionOfAssessment")
-	public String viewListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
+	@GetMapping("/student/questionOfAssessment/{assessmentid}")
+	public String viewListQuestion(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessment", assessment);
+
+		model.addAttribute("url", "/student/submitAssessment/" + assessmentid);
+		return PREFIX_STUDENT + "listQuestionOfAssignment";
+	}
+
+	@GetMapping("/student/editAssessment/{assessmentid}")
+	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+
+		model.addAttribute("url", "/student/editAssessment/" + assessmentid);
 
 		return PREFIX_STUDENT + "listQuestionOfAssignment";
 	}
@@ -131,21 +134,21 @@ public class QuestionOfAssessmentController {
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@RequestParam Map<String, String> allParams) throws JsonProcessingException {
 
-		String username = SecurityUtil.getUserPrincipal().getUsername();
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 
-		Long questionid = 0L;
+		Long questionId = 0L;
 		String answerChoice = "";
+		final LocalDate currentDate = LocalDate.now();
+		LocalDate updateDate = LocalDate.now();
 
 		for (Map.Entry<String, String> answer : allParams.entrySet()) {
-			questionid = Long.parseLong(answer.getKey());
+			questionId = Long.parseLong(answer.getKey());
 			answerChoice = answer.getValue();
 
-			resultService.saveSubmitAssessment(userService.getUserByUsername(username),
-					assessmentService.getAssessmentByAssessmentid(assessmentid),
-					questionOfAssessmentService.getOneQuestionOfAssessment(questionid), answerChoice);
+			resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, currentDate, updateDate);
 		}
 
-		return PREFIX_STUDENT + "listQuestionOfAssignment";
+		return "redirect:/student/assessment";
 	}
 
 	private final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
