@@ -10,6 +10,7 @@ import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
+import com.codeenginestudio.elearning.util.OptionUtil;
 import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -21,33 +22,43 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 	@Override
 	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessment) {
-		return finfQuestionByAssessment(assessment.getAssessmentid());
+		return findQuestionByAssessment(assessment.getAssessmentid());
 	}
 
-	List<QuestionOfAssessmentDTO> finfQuestionByAssessment(Long assessmentid){
-		List<QuestionOfAssessmentEntity> listQuestionEntity = questionOfAssessmentDAO.findAll();
-		List<QuestionOfAssessmentDTO> listQuestionDTO = new ArrayList<>();
-		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntity) {
+	private List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
+
+		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO.findAll();
+		List<QuestionOfAssessmentDTO> listQuestionDTOs = new ArrayList<>();
+		QuestionOfAssessmentDTO questionOfAssignmentDTO = new QuestionOfAssessmentDTO();
+
+		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntities) {
 			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
-				listQuestionDTO
-						.add(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity));
+
+				questionOfAssignmentDTO = QuestionOfAssignmentUtil
+						.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity);
+				questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
+				listQuestionDTOs.add(questionOfAssignmentDTO);
 			}
 		}
 
-		return listQuestionDTO;
-	}
-	
-	@Override
-	public int generateNumbericalOrder(Long assessmentid) {
-
-		return finfQuestionByAssessment(assessmentid).size() + 1;
+		return listQuestionDTOs;
 	}
 
 	@Override
-	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException {
-		questionOfAssessmentDAO
-				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
+	public int generateNumericalOrder(Long assessmentid) {
 
+		return findQuestionByAssessment(assessmentid).size() + 1;
+	}
+
+	@Override
+	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
+			throws JsonProcessingException {
+
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
+				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
+		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
+
+		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
 	@Override
@@ -57,14 +68,23 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	}
 
 	@Override
-	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException {
-		questionOfAssessmentDAO
-				.saveAndFlush(QuestionOfAssignmentUtil.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO));
+	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
+			throws JsonProcessingException {
+
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
+				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
+		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
+		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
 	@Override
 	public QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId) {
 
-		return QuestionOfAssignmentUtil.parseToQuestionOfAssignmentDTO(questionOfAssessmentDAO.getOne(questionId));
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO.getOne(questionId);
+		QuestionOfAssessmentDTO questionOfAssignmentDTO = QuestionOfAssignmentUtil
+				.parseToQuestionOfAssignmentDTO(questionOfAssignmentEntity);
+		questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssignmentEntity.getOptions()));
+
+		return questionOfAssignmentDTO;
 	}
 }

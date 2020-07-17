@@ -12,10 +12,6 @@ public class QuestionOfAssessmentDTO {
 
 	private String content;
 
-	private String[] optionName;
-	
-	private String[] optionValue;
-	
 	private List<OptionDTO> options;
 
 	private String correctanswer;
@@ -39,23 +35,6 @@ public class QuestionOfAssessmentDTO {
 
 	public QuestionOfAssessmentDTO() {
 		super();
-	}
-	
-	
-	public String[] getOptionValue() {
-		return optionValue;
-	}
-
-	public void setOptionValue(String[] optionValue) {
-		this.optionValue = optionValue;
-	}
-
-	public String[] getOptionName() {
-		return optionName;
-	}
-
-	public void setOptionName(String[] optionName) {
-		this.optionName = optionName;
 	}
 
 	public Long getQuestionid() {

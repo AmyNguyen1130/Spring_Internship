@@ -1,10 +1,8 @@
 package com.codeenginestudio.elearning.controller;
 
-
 import java.util.Map;
 
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,16 +54,18 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessmentid", assessmentid);
+
 		return PREFIX_TEACHER + "listQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment/{assessmentid}")
 	public String addQuestionOfAssignment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumbericalOrder(assessmentid));
+		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumericalOrder(assessmentid));
 		model.addAttribute("assessmentid", assessmentid);
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
@@ -73,9 +73,7 @@ public class QuestionOfAssessmentController {
 	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
 			@PathVariable(name = "assessmentid") Long assessmentid) throws JsonProcessingException {
 
-		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumbericalOrder(assessmentid));
-		questionOfAssessmentDTO.setOptions(OptionUtil.generateListOption(questionOfAssessmentDTO.getOptionName(),
-				questionOfAssessmentDTO.getOptionValue()));
+		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumericalOrder(assessmentid));
 		questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
 
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
@@ -84,7 +82,9 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String deleteQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid,
 			@PathVariable(name = "questionId") Long questionId) {
+
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
+
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
@@ -98,6 +98,7 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
+
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
@@ -106,22 +107,11 @@ public class QuestionOfAssessmentController {
 			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId)
 			throws JsonProcessingException {
 
-		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
 		int numericalOrder = questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder();
+		questionOfAssessmentDTO.setNumericalorder(numericalOrder);
+		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
 
-		if (invalid.noError()) {
-			questionOfAssessmentDTO.setNumericalorder(numericalOrder);
-			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
-		}
-
-		model.addAttribute("numericalorder", numericalOrder);
-		model.addAttribute("error", invalid);
-		model.addAttribute("questionInf", questionOfAssessmentDTO);
-		model.addAttribute("listAssessment", assessmentService.getListAssessment());
-		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-		model.addAttribute("url", "/teacher/questionOfAssessment/saveEditQuestionOfAssessment/" + assessmentid);
-		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
+		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
 	// Student
@@ -133,17 +123,19 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
 		model.addAttribute("assessment", assessment);
+
 		return PREFIX_STUDENT + "listQuestionOfAssignment";
 	}
 
 	@PostMapping("student/submitAssessment/{assessmentid}")
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
-			@RequestParam Map<String, String> allParams) {
+			@RequestParam Map<String, String> allParams) throws JsonProcessingException {
 
 		String username = SecurityUtil.getUserPrincipal().getUsername();
 
 		Long questionid = 0L;
 		String answerChoice = "";
+
 		for (Map.Entry<String, String> answer : allParams.entrySet()) {
 			questionid = Long.parseLong(answer.getKey());
 			answerChoice = answer.getValue();

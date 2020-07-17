@@ -21,5 +21,5 @@ public interface QuestionOfAssessmentService {
 
 	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessmentid);
 
-	int generateNumbericalOrder(Long assessmentid);
+	int generateNumericalOrder(Long assessmentid);
 }

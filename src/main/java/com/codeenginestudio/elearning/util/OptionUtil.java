@@ -12,17 +12,6 @@ public class OptionUtil {
 	
 	private static ObjectMapper mapper = new ObjectMapper();
 	
-	public static List<OptionDTO> generateListOption(String[] name, String[] value) {
-			
-			List<OptionDTO> options = new ArrayList<>();
-			
-			for (int i = 0; i < name.length; i++) {
-				options.add(new OptionDTO(name[i], value[i]));
-			}
-			
-		return options;
-	}
-
 	public static String parseToJson (List<OptionDTO> allOptions) throws JsonProcessingException {
 		
 		String newStringJSON = mapper.writeValueAsString(allOptions);

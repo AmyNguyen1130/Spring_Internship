@@ -49,8 +49,8 @@
 				<c:forEach items="${listQuestionOfAssessment}"
 					var="question">
 					<tr>
-						<td>${question.numericalorder}</td>
-						<td>${question.getQuestionType()}</td>
+						<td>${question.getNumericalorder()}</td>
+						<td>${question.getQuestionType().getQuestionTypeName()}</td>
 						<td>${question.content}</td>
 						<td>
 							<c:forEach items="${question.getOptions()}" var="option">

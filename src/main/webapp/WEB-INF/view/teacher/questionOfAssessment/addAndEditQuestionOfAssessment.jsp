@@ -65,30 +65,30 @@ p {
 				<div class="col-sm-4">
 
 					<div class="optionItem">
-						<label for="A" class="col-sm-1 col-form-label" >A: </label>
+						<label for="A" class="col-sm-1 col-form-label"> A: </label>
 						<input type="hidden" name="options[0].name" value="A">
-						<input type="text" class="form-control" name="options[0].optionValue" value="${questionInf.options}"> 
+						<input type="text" class="form-control" name="options[0].optionValue" value="${questionInf.getOptions().get(0).getOptionValue()}">
 						<input type="radio" name="correctanswer" value="A" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="B" class="col-sm-1 col-form-label">B: </label>
 						<input type="hidden" name="options[1].name" value="B">
-						<input type="text" class="form-control" name="options[1].optionValue" value="${questionInf.options}"> 
+						<input type="text" class="form-control" name="options[1].optionValue" value="${questionInf.getOptions().get(1).getOptionValue()}">
 						<input type="radio" name="correctanswer" value="B" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="C" class="col-sm-1 col-form-label">C: </label>
 						<input type="hidden" name="options[2].name" value="C">
-						<input type="text" class="form-control" name="options[2].optionValue" value="${questionInf.options}"> 
+						<input type="text" class="form-control" name="options[2].optionValue" value="${questionInf.getOptions().get(2).getOptionValue()}"> 
 						<input type="radio" name="correctanswer" value="C" class="radioOption">
 					</div>
 
 					<div class="optionItem">
 						<label for="D" class="col-sm-1 col-form-label">D: </label>
 						<input type="hidden" name="options[3].name" value="D">
-						<input type="text" class="form-control" name="options[4].optionValue" value="${questionInf.options}"> 
+						<input type="text" class="form-control" name="options[3].optionValue" value="${questionInf.getOptions().get(3).getOptionValue()}"> 
 						<input type="radio" name="correctanswer" value="D" class="radioOption">
 					</div>
 					<p id="errOptions">${error.getErrOptions()}</p>
