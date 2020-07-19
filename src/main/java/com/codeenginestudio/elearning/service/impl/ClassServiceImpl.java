@@ -37,7 +37,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void saveClass(ClassDTO classDTO) {
-
+		// TODO: Don't use util in here
 		classDAO.saveAndFlush(ClassUtil.parseToEntity(classDTO));
 	}
 
@@ -61,14 +61,14 @@ public class ClassServiceImpl implements ClassService {
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
-
 	}
 
 	@Override
 	public void editStatusClass(Long classid) {
-		Boolean status = classDAO.getOne(classid).getStatus();
-		classDAO.getOne(classid).setStatus(!status);
-		classDAO.saveAndFlush(classDAO.getOne(classid));
+		
+		ClassEntity classEntity = classDAO.getOne(classid);
+		classEntity.setStatus(!classEntity.getStatus());
+		classDAO.saveAndFlush(classEntity);
 	}
 
 }

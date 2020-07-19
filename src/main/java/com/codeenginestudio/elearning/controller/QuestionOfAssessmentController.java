@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
@@ -98,13 +99,13 @@ public class QuestionOfAssessmentController {
 
 	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
 	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId)
+			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId, RedirectAttributes redirectAttributes)
 			throws JsonProcessingException {
 
 		int numericalOrder = questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder();
 		questionOfAssessmentDTO.setNumericalorder(numericalOrder);
 		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-
+		redirectAttributes.addAllAttributes("msgSuccess", "");
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 

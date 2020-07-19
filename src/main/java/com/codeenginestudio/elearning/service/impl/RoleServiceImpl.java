@@ -20,6 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void addRole(RoleDTO role) {
+		// TODO: don't use util in here
 		roleDAO.saveAndFlush(RoleUtil.parseToRoleEntity(role));
 	}
 
@@ -36,8 +37,8 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Long getRoleIdByRolename(String rolename) {
+
 		RoleDTO roleDTO = RoleUtil.parseToRoleDTO(roleDAO.getRoleIdByRolename(rolename));
 		return roleDTO.getRoleid();
-
 	}
 }

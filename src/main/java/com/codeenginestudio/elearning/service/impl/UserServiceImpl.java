@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(UserDTO user) {
+		// TODO: don't use util in here
 		UserEntity userEntity = UserUtil.parseToUserEntity(user);
 		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
 
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUser(UserDTO user) {
+		// TODO: don't use util in here
 		UserEntity userEntity = UserUtil.parseToUserEntity(user);
 		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
 		userDAO.saveAndFlush(userEntity);
@@ -54,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUserStatus(long userId) {
+		// TODO: why ?
 		boolean status = userDAO.getOne(userId).isEnabled();
 		userDAO.getOne(userId).setEnabled(!status);
 		userDAO.saveAndFlush(userDAO.getOne(userId));
@@ -95,12 +98,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO showUserByUserId(Long userid) {
+
 		return UserUtil.parseToUserDTO(userDAO.getOne(userid));
 	}
 
 	@Override
 	public UserDTO getUserByUsername(String username) {
+
 		return UserUtil.parseToUserDTO(userDAO.getUserByUsername(username));
 	}
-
 }

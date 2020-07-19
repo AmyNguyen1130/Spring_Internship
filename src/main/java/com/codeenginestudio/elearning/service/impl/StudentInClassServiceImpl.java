@@ -70,6 +70,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public Long findIdByValue(List<StudentInClassDTO> studentInClassDTO, Long userid) {
 
+		// TODOL : only list id of student, not list StudentInClassDTO
 		for (StudentInClassDTO student : studentInClassDTO) {
 			if (student.getStudent().getUserid().equals(userid)) {
 				return student.getIdrow();

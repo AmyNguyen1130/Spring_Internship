@@ -33,8 +33,9 @@ public class ResultServiceImpl implements ResultService {
 	private AssessmentDAO assessmentDAO;
 
 	@Override
-	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice,LocalDate currentDate, LocalDate updateDate)
-			throws JsonProcessingException {
+	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice,
+			LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException {
+
 		ResultEntity resultEntity = new ResultEntity();
 		resultEntity.setStudent(userDAO.getUserByUserid(userId));
 		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
@@ -43,7 +44,6 @@ public class ResultServiceImpl implements ResultService {
 		resultEntity.setStartdate(currentDate);
 		resultEntity.setUpdatedate(updateDate);
 		resultDAO.save(resultEntity);
-
 	}
 
 	@Override
@@ -55,5 +55,4 @@ public class ResultServiceImpl implements ResultService {
 		}
 		return resultDTO;
 	}
-
 }

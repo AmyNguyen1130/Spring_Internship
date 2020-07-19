@@ -49,6 +49,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public void saveAssessment(AssessmentDTO assessmentDTO) {
+		// TODO: Don't use util in here
 		assessmentDAO.saveAndFlush(AssessmentUtil.parseToEntity(assessmentDTO));
 	}
 
@@ -85,6 +86,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public Page<AssessmentDTO> getPageListAssessmentByClass(ClassDTO classDTO, Integer page) {
+		
+		// TODO: no need class DTO, only classId
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
 		Page<AssessmentEntity> listAssessment = assessmentDAO

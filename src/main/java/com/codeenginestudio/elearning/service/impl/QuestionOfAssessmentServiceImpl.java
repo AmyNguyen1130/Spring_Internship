@@ -25,8 +25,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		return findQuestionByAssessment(assessment.getAssessmentid());
 	}
 
-
-	List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
+	private List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
 
 		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO.findAll();
 		List<QuestionOfAssessmentDTO> listQuestionDTOs = new ArrayList<>();
@@ -56,7 +55,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
 			throws JsonProcessingException {
-
+		// TODO: Don't use util in here
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
@@ -67,13 +66,13 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	@Override
 	public void deleteQuestionOfAssessment(Long questionId) {
 		questionOfAssessmentDAO.deleteById(questionId);
-
 	}
 
 	@Override
 	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
 			throws JsonProcessingException {
 
+		// TODO: need fix here, don't user util in here
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
