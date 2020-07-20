@@ -9,15 +9,6 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row = 12">
-			<div class="col-sm-7">
-			</div>
-			<div class="col-sm-5"> 
-			</div>
-		</div>
-	</div>
-	<br><br>
-	<div class="container-fluid">
 			<form class="form-group"
 				action="<%=request.getContextPath()%>/admin/saveStudentInClass?classid=<c:out value='${classid}'/>"
 				method="POST">

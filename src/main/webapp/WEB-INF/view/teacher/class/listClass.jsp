@@ -6,7 +6,7 @@
 <html>
 <body>
 	<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<div class="col-sm-7">
 
 			</div>
@@ -15,7 +15,7 @@
 	<br>
 	<br>
 	<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>

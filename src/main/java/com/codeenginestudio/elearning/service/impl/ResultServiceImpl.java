@@ -55,4 +55,41 @@ public class ResultServiceImpl implements ResultService {
 		}
 		return resultDTO;
 	}
+
+	@Override
+	public List<ResultDTO> findByAssessmentAndStudent(Long assessmentid, Long userId) {
+		List<ResultEntity> listResult = resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessmentid),
+				userDAO.getUserByUserid(userId));
+		List<ResultDTO> resultDTO = new ArrayList<>();
+		for (ResultEntity result : listResult) {
+			resultDTO.add(ResultUtil.parseToDTO(result));
+		}
+		return resultDTO;
+	}
+
+	@Override
+	public void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,
+			String answerChoice, LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException {
+
+		ResultEntity resultEntity = resultDAO.getOne(idEdit);
+		resultEntity.setStudent(userDAO.getUserByUserid(userId));
+		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
+		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));
+		resultEntity.setAnswerChoice(answerChoice);
+		resultEntity.setStartdate(currentDate);
+		resultEntity.setUpdatedate(updateDate);
+		resultDAO.save(resultEntity);
+
+	}
+
+	@Override
+	public Boolean checkDuplicateQuestionInAssessment(Long assessmentId, Long studentId, Long questionCheck) {
+		List<ResultDTO> listResult = findByAssessmentAndStudent(assessmentId, studentId);
+		for (ResultDTO ResultDTO : listResult) {
+			if (ResultDTO.getQuestion().getQuestionid() == questionCheck) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

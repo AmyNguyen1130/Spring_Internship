@@ -55,11 +55,11 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
 			throws JsonProcessingException {
-		// TODO: Don't use util in here
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
 
+		questionOfAssignmentEntity.setNumericalorder(1);
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
@@ -76,6 +76,11 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
+
+		QuestionOfAssessmentEntity questionOfAssessmentEntity = questionOfAssessmentDAO
+				.getOne(questionOfAssessmentDTO.getQuestionid());
+//		questionOfAssessmentEntity.setOptions(options);
+
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 

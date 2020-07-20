@@ -24,7 +24,6 @@ public class StudentInClassController {
 	@Autowired
 	private RoleService roleService;
 
-
 	@Autowired
 	private StudentInClassService studentInClassService;
 
@@ -56,25 +55,16 @@ public class StudentInClassController {
 			for (Long check : listStudentIdInClass) {
 
 				if (!listCheckedId.contains(check)) {
-					Long id = studentInClassService.findIdByValue(studentInClassService.getAllStudentInClass(), check);
+					Long id = studentInClassService.findIdByValue(check);
 					studentInClassService.deleteStudentInClass(id);
 				}
 			}
 
 		}
-		if(listCheckedId == null) {
+		if (listCheckedId == null) {
 			studentInClassService.deleteAllByClass(classid);
 		}
 		return "redirect:/admin/class";
-	}
-
-	public Boolean checkDuplicateStudentInClass(Long check, Long classid) {
-
-		List<Long> list = studentInClassService.getListStudentByClassid(classid);
-		if (list.contains(check)) {
-			return true;
-		}
-		return false;
 	}
 
 	// Teacher role
@@ -87,6 +77,15 @@ public class StudentInClassController {
 		model.addAttribute("studentChecked", studentInClassService.getListStudentByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";
+	}
+
+	public Boolean checkDuplicateStudentInClass(Long check, Long classid) {
+
+		List<Long> list = studentInClassService.getListStudentByClassid(classid);
+		if (list.contains(check)) {
+			return true;
+		}
+		return false;
 	}
 
 	private static final String PREFIX = "/admin/studentInClass/";

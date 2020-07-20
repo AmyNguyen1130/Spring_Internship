@@ -8,10 +8,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface ResultService {
 
-	void saveSubmitAssessment(
-			Long userId, Long assessmentid, Long questionId, String answerChoice, LocalDate currentDate, LocalDate updateDate)
-			throws JsonProcessingException;
+	void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice,
+			LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException;
 
 	List<ResultDTO> getAssessmentByAssessmentId(Long assessmentid);
 
+	List<ResultDTO> findByAssessmentAndStudent(Long assessmentid, Long userId);
+
+	void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,String answerChoice,
+			LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException;
+
+	Boolean checkDuplicateQuestionInAssessment(Long assessmentId, Long studentId, Long questionCheck);
 }

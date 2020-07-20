@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.ClassDAO;
+import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
@@ -22,6 +23,9 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private ClassDAO classDAO;
+
+	@Autowired
+	private UserDAO userDAO;
 
 	@Override
 	public List<ClassDTO> getAllClass() {
@@ -37,8 +41,13 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void saveClass(ClassDTO classDTO) {
-		// TODO: Don't use util in here
-		classDAO.saveAndFlush(ClassUtil.parseToEntity(classDTO));
+		ClassEntity classEntity = new ClassEntity();
+
+		classEntity.setClassname(classDTO.getClassname());
+		classEntity.setStatus(classDTO.getStatus());
+		classEntity.setUser(userDAO.getOne(classDTO.getUser().getUserid()));
+
+		classDAO.saveAndFlush(classEntity);
 	}
 
 	@Override
@@ -65,7 +74,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void editStatusClass(Long classid) {
-		
+
 		ClassEntity classEntity = classDAO.getOne(classid);
 		classEntity.setStatus(!classEntity.getStatus());
 		classDAO.saveAndFlush(classEntity);
