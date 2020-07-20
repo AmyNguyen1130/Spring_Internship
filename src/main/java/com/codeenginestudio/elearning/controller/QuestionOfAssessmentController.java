@@ -45,9 +45,8 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment")
 	public String getListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
-		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessmentid", assessmentid);
 
 		return PREFIX_TEACHER + "listQuestionOfAssessment";
@@ -70,7 +69,6 @@ public class QuestionOfAssessmentController {
 
 		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumericalOrder(assessmentid));
 		questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
@@ -117,7 +115,7 @@ public class QuestionOfAssessmentController {
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 
 		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessment);
 
 		model.addAttribute("url", "/student/submitAssessment/" + assessmentid);
@@ -128,16 +126,11 @@ public class QuestionOfAssessmentController {
 	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-
 		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
-
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
-
 		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessment));
-
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessment);
-
 		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
 
 		return PREFIX_STUDENT + "listQuestionOfAssignment";
@@ -170,6 +163,7 @@ public class QuestionOfAssessmentController {
 				}
 			}
 		}
+		
 		if (allParams == null) {
 			model.addAttribute("errors", "Errors");
 			return PREFIX_STUDENT + "listQuestionOfAssignment";

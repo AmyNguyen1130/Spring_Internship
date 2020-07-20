@@ -11,6 +11,20 @@ img {
     margin: 4px;
 }
 
+.err {
+	color: red
+}
+
+.optionItem {
+	display: flex;
+	flex-flow: row;
+	margin: 5px;
+}
+
+.radioOption {
+	margin: 15px;
+}
+
 .logo-right {
 	border-radius: 50px;
 	margin: 5% 10% 5% 5%;
@@ -79,4 +93,38 @@ img {
 	color: red;
     margin-left: 30%;
     margin-top: 50px;
+}
+
+.no-background {
+	background-image:
+		url("https://lyrictheatre.co.uk/wp-content/uploads/2018/12/Dark-of-the-Moon-Event.png");
+}
+
+.title {
+	font-size: 100px;
+	font-weight: bold;
+}
+
+.grey {
+	color: grey;
+}
+
+.content {
+	text-align: center;
+	margin: auto;
+	padding-top: 15%;
+}
+.textTitle{
+	font-size: 100px;
+	font-weight: bold;
+}
+
+.description{
+	font-size: 20px;
+}
+
+.btnBack{
+	border-radius: 40%;
+	height: 30px;
+	width : 80px;
 }

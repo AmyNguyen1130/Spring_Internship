@@ -1,46 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-<style>
-body {
-	background-image:
-		url("https://lyrictheatre.co.uk/wp-content/uploads/2018/12/Dark-of-the-Moon-Event.png");
-}
-
-.no-background {
-	background-image:
-		url("https://lyrictheatre.co.uk/wp-content/uploads/2018/12/Dark-of-the-Moon-Event.png");
-}
-
-.title {
-	font-size: 100px;
-	font-weight: bold;
-}
-
-.grey {
-	color: grey;
-}
-
-.content {
-	text-align: center;
-	margin: auto;
-	padding-top: 15%;
-}
-.textTitle{
-	font-size: 100px;
-	font-weight: bold;
-}
-
-.description{
-	font-size: 20px;
-}
-
-.btn{
-	border-radius: 40%;
-	height: 30px;
-	width : 80px;
-}
-
-</style>
+	<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="content">
@@ -52,7 +14,7 @@ body {
 		</div>
 		<span class="description grey">We are not sure what you
 				looking for.</span>
-		<span class="description grey">Try returning to the <a> <button class="btn" >LogIn</button></a>
+		<span class="description grey">Try returning to the <a> <button class="btnBack" >LogIn</button></a>
 			and starting over
 		</span>
 

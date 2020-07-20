@@ -47,7 +47,7 @@ public class AssessmentController {
 		Page<AssessmentDTO> listAssessments = assessmentService.getPageListAssessment(page);
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("assessmentPage", listAssessments);
 		return PREFIX_TEACHER + "listAssessment";
@@ -126,7 +126,7 @@ public class AssessmentController {
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("listClassAssigned", listClassid);
@@ -145,7 +145,7 @@ public class AssessmentController {
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO).size());
+					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("listClassAssigned", listClassid);

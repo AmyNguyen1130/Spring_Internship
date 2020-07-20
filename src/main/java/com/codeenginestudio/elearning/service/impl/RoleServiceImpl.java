@@ -19,12 +19,6 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDAO roleDAO;
 
 	@Override
-	public void addRole(RoleDTO role) {
-		// TODO: don't use util in here
-		roleDAO.saveAndFlush(RoleUtil.parseToRoleEntity(role));
-	}
-
-	@Override
 	public List<RoleDTO> getListRole() {
 
 		List<RoleEntity> listRoleEntity = roleDAO.findAll();

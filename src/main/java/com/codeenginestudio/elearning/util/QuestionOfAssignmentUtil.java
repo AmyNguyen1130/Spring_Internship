@@ -14,14 +14,4 @@ public class QuestionOfAssignmentUtil {
 
 		return questionOfAssignmentDTO;
 	}
-
-	public static QuestionOfAssessmentEntity parseToQuestionOfAssignmentEntity(
-			QuestionOfAssessmentDTO questionOfAssignmentDTO) {
-
-		QuestionOfAssessmentEntity questionOfAssignmentEntity = UtilGeneral.modelMapper.map(questionOfAssignmentDTO,
-				QuestionOfAssessmentEntity.class);
-
-		return questionOfAssignmentEntity;
-	}
-
 }

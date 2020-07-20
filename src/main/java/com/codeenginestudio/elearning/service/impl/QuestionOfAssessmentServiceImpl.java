@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
-import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
+import com.codeenginestudio.elearning.util.AssessmentUtil;
 import com.codeenginestudio.elearning.util.OptionUtil;
 import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
+import com.codeenginestudio.elearning.util.QuestionTypeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
@@ -21,11 +22,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
 
 	@Override
-	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessment) {
-		return findQuestionByAssessment(assessment.getAssessmentid());
-	}
-
-	private List<QuestionOfAssessmentDTO> findQuestionByAssessment(Long assessmentid) {
+	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid) {
 
 		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO.findAll();
 		List<QuestionOfAssessmentDTO> listQuestionDTOs = new ArrayList<>();
@@ -49,14 +46,22 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	@Override
 	public int generateNumericalOrder(Long assessmentid) {
 
-		return findQuestionByAssessment(assessmentid).size() + 1;
+		return getListQuestionOfAssessmentByAssessment(assessmentid).size() + 1;
 	}
 
 	@Override
 	public void addQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
 			throws JsonProcessingException {
-		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
-				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
+
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = new QuestionOfAssessmentEntity();
+
+		questionOfAssignmentEntity
+				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
+		questionOfAssignmentEntity.setNumericalorder(questionOfAssessmentDTO.getNumericalorder());
+		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
+		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
+		questionOfAssignmentEntity.setAssessment(AssessmentUtil.parseToEntity(questionOfAssessmentDTO.getAssessment()));
+		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssignmentEntity.setNumericalorder(1);
@@ -72,14 +77,15 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	public void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO)
 			throws JsonProcessingException {
 
-		// TODO: need fix here, don't user util in here
-		QuestionOfAssessmentEntity questionOfAssignmentEntity = QuestionOfAssignmentUtil
-				.parseToQuestionOfAssignmentEntity(questionOfAssessmentDTO);
-		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
-
-		QuestionOfAssessmentEntity questionOfAssessmentEntity = questionOfAssessmentDAO
+		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO
 				.getOne(questionOfAssessmentDTO.getQuestionid());
-//		questionOfAssessmentEntity.setOptions(options);
+
+		questionOfAssignmentEntity
+				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
+		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
+		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
+		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
+		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}

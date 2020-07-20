@@ -16,6 +16,7 @@ import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.CommonUtil;
 import com.codeenginestudio.elearning.util.PasswordUtil;
+import com.codeenginestudio.elearning.util.RoleUtil;
 import com.codeenginestudio.elearning.util.UserUtil;
 
 @Service
@@ -34,9 +35,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(UserDTO user) {
-		// TODO: don't use util in here
-		UserEntity userEntity = UserUtil.parseToUserEntity(user);
-		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
+		
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUsername(user.getUsername());
+		userEntity.setEmail(user.getEmail());
+		userEntity.setPassword(PasswordUtil.encode(user.getPassword()));
+		userEntity.setFirstname(user.getFirstname());
+		userEntity.setLastname(user.getLastname());
+		userEntity.setGender(user.getGender());
+		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
+		userEntity.setAvartar(user.getAvartar());
+		userEntity.setEnabled(user.getEnabled());		
 
 		userDAO.saveAndFlush(userEntity);
 	}
@@ -48,18 +57,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUser(UserDTO user) {
-		// TODO: don't use util in here
-		UserEntity userEntity = UserUtil.parseToUserEntity(user);
-		userEntity.setPassword(PasswordUtil.encode(userEntity.getPassword()));
+		
+		UserEntity userEntity = userDAO.getOne(user.getUserid());
+		userEntity.setUsername(user.getUsername());
+		userEntity.setEmail(user.getEmail());
+		userEntity.setPassword(PasswordUtil.encode(user.getPassword()));
+		userEntity.setFirstname(user.getFirstname());
+		userEntity.setLastname(user.getLastname());
+		userEntity.setGender(user.getGender());
+		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
+		userEntity.setAvartar(user.getAvartar());
+		userEntity.setEnabled(user.getEnabled());	
+
 		userDAO.saveAndFlush(userEntity);
 	}
 
 	@Override
 	public void editUserStatus(long userId) {
-		// TODO: why ?
-		boolean status = userDAO.getOne(userId).isEnabled();
-		userDAO.getOne(userId).setEnabled(!status);
-		userDAO.saveAndFlush(userDAO.getOne(userId));
+		
+		UserEntity userEntity = userDAO.getOne(userId);
+		userEntity.setEnabled(!userEntity.isEnabled());
+		userDAO.saveAndFlush(userEntity);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public interface QuestionOfAssessmentService {
 
 	QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId);
 
-	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(AssessmentDTO assessmentid);
+	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid);
 
 	int generateNumericalOrder(Long assessmentid);
 }
