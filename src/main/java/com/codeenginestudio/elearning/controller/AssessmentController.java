@@ -119,6 +119,7 @@ public class AssessmentController {
 	@GetMapping("/student/assessment")
 	public String showListAssessmentWithStudentRole(ModelMap model) {
 
+		// TODO: should not fetch by username
 		String username = SecurityUtil.getUserPrincipal().getUsername();
 		List<Long> listClassid = studentInClassService.getClassIdByStudent(username);
 

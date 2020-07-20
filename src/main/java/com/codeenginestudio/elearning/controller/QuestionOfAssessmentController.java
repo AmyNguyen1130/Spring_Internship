@@ -85,6 +85,7 @@ public class QuestionOfAssessmentController {
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId,
 			@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
 
+		// TODO: which purpose when only fetch numericalOrder ?
 		model.addAttribute("numericalorder",
 				questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder());
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
@@ -100,6 +101,7 @@ public class QuestionOfAssessmentController {
 			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId,
 			RedirectAttributes redirectAttributes) throws JsonProcessingException {
 
+		// TODO: which purpose when only fetch numericalOrder ?
 		int numericalOrder = questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder();
 		questionOfAssessmentDTO.setNumericalorder(numericalOrder);
 		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
@@ -125,9 +127,10 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/student/editSubmitAssessment/{assessmentid}")
 	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		Long userId = SecurityUtil.getUserPrincipal().getUserid(); 
 		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
+		// TODO: should order list questions following the numerical order
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessment);
@@ -140,6 +143,7 @@ public class QuestionOfAssessmentController {
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@RequestParam Map<String, String> allParams) throws JsonProcessingException {
 
+		// TODO : Revise this method
 		if (allParams != null) {
 			Long userId = SecurityUtil.getUserPrincipal().getUserid();
 			Long questionId = 0L;
@@ -183,6 +187,7 @@ public class QuestionOfAssessmentController {
 		final LocalDate currentDate = LocalDate.now();
 		LocalDate updateDate = LocalDate.now();
 
+		// TODO: Revise here
 		for (Map.Entry<String, String> answer : allParams.entrySet()) {
 
 			if (!answer.getKey().equals("id")) {

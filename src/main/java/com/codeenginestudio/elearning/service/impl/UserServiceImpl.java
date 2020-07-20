@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setFirstname(user.getFirstname());
 		userEntity.setLastname(user.getLastname());
 		userEntity.setGender(user.getGender());
+		// TODO: user RoleDAO to get RoleEntity
 		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
 		userEntity.setAvartar(user.getAvartar());
 		userEntity.setEnabled(user.getEnabled());		
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setFirstname(user.getFirstname());
 		userEntity.setLastname(user.getLastname());
 		userEntity.setGender(user.getGender());
+		// TODO: user RoleDAO to get RoleEntity
 		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
 		userEntity.setAvartar(user.getAvartar());
 		userEntity.setEnabled(user.getEnabled());	

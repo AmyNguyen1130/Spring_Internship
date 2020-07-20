@@ -55,15 +55,18 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = new QuestionOfAssessmentEntity();
 
+		// TODO: use QuestionTypeDAO to get QuestionTypeEntity
 		questionOfAssignmentEntity
 				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
 		questionOfAssignmentEntity.setNumericalorder(questionOfAssessmentDTO.getNumericalorder());
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
+		// TODO: use AssessmentDAO to get AssessmentEntity
 		questionOfAssignmentEntity.setAssessment(AssessmentUtil.parseToEntity(questionOfAssessmentDTO.getAssessment()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
 
+		// TODO: Why 1 ?
 		questionOfAssignmentEntity.setNumericalorder(1);
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
@@ -80,6 +83,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO
 				.getOne(questionOfAssessmentDTO.getQuestionid());
 
+		// TODO: use QuestionTypeDAO to get QuestionTypeEntity
 		questionOfAssignmentEntity
 				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());

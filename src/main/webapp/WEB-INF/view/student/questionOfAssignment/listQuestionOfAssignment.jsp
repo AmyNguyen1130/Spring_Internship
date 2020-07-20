@@ -59,9 +59,17 @@
 									<div class="col-sm-4">
 
 									<c:forEach items="${question.options}" var="option">
+									<%-- TODO: Need revise here.
+										Should has a hidden input to store question id
+										Should seperate the student's answer such as using jquery to fill in their answer.
+									--%>
 											<div class="optionItem">
 												<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label> 
-												<input type="radio" name="${question.getQuestionid()}" value="${option.getName()}_${listSubmitEdit[status.index].id}" class="radioOption" ${listSubmitEdit[status.index].question.questionid == question.getQuestionid() && listSubmitEdit[status.index].getAnswerChoice() == option.getName() ? 'checked' : ''}> 
+												<input type="radio" 
+													name="${question.getQuestionid()}"
+													value="${option.getName()}_${listSubmitEdit[status.index].id}"
+													class="radioOption"
+													${listSubmitEdit[status.index].question.questionid == question.getQuestionid() && listSubmitEdit[status.index].getAnswerChoice() == option.getName() ? 'checked' : ''}> 
 												<span>${option.getOptionValue()}</span>
 											</div>
 									</c:forEach>

@@ -58,7 +58,7 @@
 
 			<div class="form-group row">
 				<label for="options" class="col-sm-1 col-form-label">Options: </label>
-				
+				<!-- TODO: user class, not id -->
 				<div id="yesNoQuestion" hidden="true">
 					<div class="optionItem">
 						
@@ -78,6 +78,7 @@
 							<input type="text" class="form-control" name="options[0].optionValue" value="${questionInf.getOptions().get(0).getOptionValue()}">
 							<input type="radio" name="correctanswer" value="A" class="radioOption" ${questionInf.getCorrectanswer() == 'A' ? 'checked' : '' }>
 						</div>
+						<!-- TODO: Revise here, duplicate id -->
 						<p id="errOptions" class="err">${error.getErrOptions().get(0)}</p>
 					</div>
 
@@ -121,7 +122,9 @@
 		</form>
 	</div>
 
+	<!-- TODO: missing type="text/javascripts" -->
 	<script>
+	<!-- TODO: When do we call them ? -->
 		function numltipleSlected() {
 	        $('#multipleQuestion').show();
 	    }

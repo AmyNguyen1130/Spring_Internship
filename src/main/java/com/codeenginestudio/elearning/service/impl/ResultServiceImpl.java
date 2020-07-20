@@ -72,6 +72,7 @@ public class ResultServiceImpl implements ResultService {
 			String answerChoice, LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException {
 
 		ResultEntity resultEntity = resultDAO.getOne(idEdit);
+		// TODO: Do we need update student, question, assessment, startdate
 		resultEntity.setStudent(userDAO.getUserByUserid(userId));
 		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
 		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));

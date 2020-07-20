@@ -50,6 +50,7 @@
 						<tr>
 							<td>${count.index + 1}</td>
 							<td>${assessment.assessmentname}</td>
+							<!-- TODO : Revise from line 54 to line 61 -->
 							<c:if test="${assessment.getClassForeign().getClassid() == null}">
 								<td></td>
 							</c:if>
