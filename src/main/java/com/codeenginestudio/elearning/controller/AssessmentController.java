@@ -2,6 +2,8 @@ package com.codeenginestudio.elearning.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -81,10 +83,12 @@ public class AssessmentController {
 		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
+	@Transactional
 	@PostMapping("/teacher/assessment/saveAddAssessment")
 	public String saveAddAssessment(ModelMap model, AssessmentDTO assessmentDTO) {
 
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
+
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAssessment(assessmentDTO);
 			return "redirect:/teacher/assessment";

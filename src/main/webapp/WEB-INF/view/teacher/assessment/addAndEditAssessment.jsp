@@ -51,7 +51,8 @@
 			<label for="expireddate" class="col-sm-1 col-form-label">Expired Date</label>
 			<div class="col-sm-4">
 				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
-				<p class="error">${error.errExpiredDate}</p> 			</div>
+				<p class="error">${error.errExpiredDate}</p>
+			</div>
 		</div>
 
 		<div class="form-group row">

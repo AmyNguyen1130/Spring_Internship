@@ -14,25 +14,25 @@
 %>
 <body>
 	 <div class="container-fluid">
-	  <div class="row = 12">
-		   <div class="col-sm-7">
+	  <div class="row">
+		<div class="col-sm-7">
 
 			</div>
-			 <div class="col-sm-5">
-			  <div class="row = 12">
-			   <div class="col-sm-8">
+			<div class="col-sm-5">
+			<div class="row">
+				<div class="col-sm-8">
 
+				</div>
+				 <div class="col-sm-4">
+					<a href='/teacher/assessment/addAssessment'><button class="btn btn-default" type="button">Add new assessment</button></a>
+				</div>
 			</div>
-			 <div class="col-sm-4">
-				<a href='/teacher/assessment/addAssessment'><button class="btn btn-default" type="button">Add new assessment</button></a>
 			</div>
-			 	</div>
-			 </div>
 		</div>
 		</div>	
 		<br><br>
 		<div class="container-fluid">
-		  <div class="row = 12">
+		  <div class="row">
 		  	<table class="table table-bordered table-hover">
 			<thead>
 				<tr>

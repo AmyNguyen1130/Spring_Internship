@@ -35,58 +35,45 @@
 
 <body>
 	<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<div class="col-sm-3"></div>
 
 			<div class="col-sm-6" id="borderTest">
-				<form
-					action="<%=request.getContextPath()%>${url}"
+				<form action="<%=request.getContextPath()%>${url}"
 					method="post">
 					<div class="description">
 						<div class="title">
-
 							<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
 							<p class="dateTime">(${assessment.getStartdate()} -
 								${assessment.getExpireddate()})</p>
 						</div>
-
 					</div>
 
-					<c:forEach items="${listQuestionOfAssessment}" var="question"
-						varStatus="status">
-						<div>
-							<div class="questionName">
-								<span> Question ${question.numericalorder}:
-									${question.content} (score: ${question.score})</span>
-							</div>
-
-							<div class="form-group row">
-								<div class="col-sm-4">
+					<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
+							<div>
+								<div class="questionName">
+									<span> Question ${question.numericalorder}:
+										${question.content} (score: ${question.score})</span>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-4">
 
 									<c:forEach items="${question.options}" var="option">
-										<div class="optionItem">
-											<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label> 
-											<input type="radio" name="${question.getQuestionid()}" value="${option.getName()}" class="radioOption"> 
-											<span>${option.getOptionValue()}</span>
-										</div>
-
+											<div class="optionItem">
+												<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label> 
+												<input type="radio" name="${question.getQuestionid()}" value="${option.getName()}_${listSubmitEdit[status.index].id}" class="radioOption" ${listSubmitEdit[status.index].question.questionid == question.getQuestionid() && listSubmitEdit[status.index].getAnswerChoice() == option.getName() ? 'checked' : ''}> 
+												<span>${option.getOptionValue()}</span>
+											</div>
 									</c:forEach>
+									</div>
 								</div>
 							</div>
-						</div>
 					</c:forEach>
+
 					<button type="submit" class="btn">Submit</button>
+					<a href="/student/assessment"><input class="btn btn-default" type="button" value="Cancel"></a>
 				</form>
 			</div>
-			<div class="col-sm-2">
-				<div class="row = 12">
-					<div class="col-sm-8"></div>
-					<div class="col-sm-4">
-
-					</div>
-				</div>
-			</div>
-
 
 		</div>
 	</div>

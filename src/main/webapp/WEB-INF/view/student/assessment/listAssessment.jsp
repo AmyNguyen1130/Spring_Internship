@@ -14,12 +14,12 @@
 %>
 <body>
 		<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<div class="col-sm-7">
 
 			</div>
 			<div class="col-sm-5">
-				<div class="row = 12">
+				<div class="row">
 					<div class="col-sm-8">
 					</div>
 					 <div class="col-sm-4">
@@ -30,7 +30,7 @@
 		</div>	
 		<br><br>
 		<div class="container-fluid">
-		  <div class="row = 12">
+		  <div class="row">
 		  	<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
@@ -64,7 +64,7 @@
 							<td>${assessment.getTotalquestion()}</td>
 							<td>
 								<a href="/student/questionOfAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Do Exercise</button></a>
-								<a href="/student/editAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Edit Exercise</button></a>
+								<a href="/student/editSubmitAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Edit Exercise</button></a>
 							</td>
 						</tr>
 					</c:if>

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "assessments")
 public class AssessmentEntity {
@@ -23,14 +25,16 @@ public class AssessmentEntity {
 	@Column
 	private String assessmentname;
 
-	@OneToOne(cascade = CascadeType.DETACH)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "classid", referencedColumnName = "classid")
 	private ClassEntity classForeign;
 
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate startdate;
 
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate expireddate;
 
 	@Column
@@ -40,11 +44,12 @@ public class AssessmentEntity {
 		super();
 	}
 
-	public AssessmentEntity(Long assessmentid, String assessmentname, LocalDate startdate, LocalDate expireddate,
-			Boolean status) {
+	public AssessmentEntity(Long assessmentid, String assessmentname, ClassEntity classForeign, LocalDate startdate,
+			LocalDate expireddate, Boolean status) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
+		this.classForeign = classForeign;
 		this.startdate = startdate;
 		this.expireddate = expireddate;
 		this.status = status;
@@ -64,6 +69,14 @@ public class AssessmentEntity {
 
 	public void setAssessmentname(String assessmentname) {
 		this.assessmentname = assessmentname;
+	}
+
+	public ClassEntity getClassForeign() {
+		return classForeign;
+	}
+
+	public void setClassForeign(ClassEntity classForeign) {
+		this.classForeign = classForeign;
 	}
 
 	public LocalDate getStartdate() {
@@ -88,14 +101,6 @@ public class AssessmentEntity {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
-	}
-
-	public ClassEntity getClassForeign() {
-		return classForeign;
-	}
-
-	public void setClassForeign(ClassEntity classForeign) {
-		this.classForeign = classForeign;
 	}
 
 }

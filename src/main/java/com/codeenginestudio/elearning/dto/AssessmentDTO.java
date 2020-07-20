@@ -2,6 +2,8 @@ package com.codeenginestudio.elearning.dto;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class AssessmentDTO {
 
 	private Long assessmentid;
@@ -10,8 +12,10 @@ public class AssessmentDTO {
 
 	private ClassDTO classForeign;
 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate startdate;
 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate expireddate;
 
 	private Boolean status;
@@ -22,11 +26,12 @@ public class AssessmentDTO {
 		super();
 	}
 
-	public AssessmentDTO(Long assessmentid, String assessmentname, LocalDate startdate, LocalDate expireddate,
-			Boolean status, int totalquestion) {
+	public AssessmentDTO(Long assessmentid, String assessmentname, ClassDTO classForeign, LocalDate startdate,
+			LocalDate expireddate, Boolean status, int totalquestion) {
 		super();
 		this.assessmentid = assessmentid;
 		this.assessmentname = assessmentname;
+		this.classForeign = classForeign;
 		this.startdate = startdate;
 		this.expireddate = expireddate;
 		this.status = status;
