@@ -12,6 +12,10 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-7">
+				<div class="alert success" style="display:none">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong id="message">${messageSuccess}</strong> 
+				</div>
 			</div>
 			<div class="col-sm-5">
 				<div class="row">
@@ -85,7 +89,13 @@
 					return false;
 				}
 			});
+
+			if($("#message").html() != ""){
+				$(".alert").css("display", "block");
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+			}
 		});
+
 	</script>
 </body>
 </html>

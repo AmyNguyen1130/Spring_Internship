@@ -87,12 +87,10 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	}
 
 	@Override
-	public List<Long> getClassIdByStudent(String username) {
-
+	public List<Long> getClassIdByStudent(Long userid) {
 		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO
-				.findByStudent(userDAO.getUserByUsername(username));
+				.findByStudent(userDAO.getUserByUserid(userid));
 		List<Long> listClass = new ArrayList<>();
-
 		for (StudentInClassEntity student : studentInClassEntity) {
 			listClass.add(student.getClassForeign().getClassid());
 		}

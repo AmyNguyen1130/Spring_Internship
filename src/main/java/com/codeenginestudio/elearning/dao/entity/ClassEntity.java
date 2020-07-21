@@ -24,7 +24,7 @@ public class ClassEntity {
 	@Column
 	private Boolean status;
 
-	@OneToOne(cascade = CascadeType.DETACH)
+	@OneToOne(cascade = { CascadeType.ALL, CascadeType.REMOVE })
 	@JoinColumn(name = "teacherid", referencedColumnName = "userid")
 	private UserEntity user;
 
@@ -32,11 +32,12 @@ public class ClassEntity {
 
 	}
 
-	public ClassEntity(Long classid, String classname, Boolean status) {
+	public ClassEntity(Long classid, String classname, Boolean status, UserEntity user) {
 		super();
 		this.classid = classid;
 		this.classname = classname;
 		this.status = status;
+		this.user = user;
 	}
 
 	public Long getClassid() {
@@ -55,20 +56,20 @@ public class ClassEntity {
 		this.classname = classname;
 	}
 
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
 	public Boolean getStatus() {
 		return status;
 	}
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 }

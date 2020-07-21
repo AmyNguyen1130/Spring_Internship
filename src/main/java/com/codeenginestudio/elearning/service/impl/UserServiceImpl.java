@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(UserDTO user) {
-		
+
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername(user.getUsername());
 		userEntity.setEmail(user.getEmail());
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setGender(user.getGender());
 		userEntity.setRole(roleDAO.getRoleNameByRoleid(user.getRole().getRoleid()));
 		userEntity.setAvartar(user.getAvartar());
-		userEntity.setEnabled(user.getEnabled());		
+		userEntity.setEnabled(user.getEnabled());
 
 		userDAO.saveAndFlush(userEntity);
 	}
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void editUser(UserDTO user) {
-		
+
 		UserEntity userEntity = userDAO.getOne(user.getUserid());
 		userEntity.setUsername(user.getUsername());
 		userEntity.setEmail(user.getEmail());
@@ -70,14 +70,14 @@ public class UserServiceImpl implements UserService {
 		userEntity.setGender(user.getGender());
 		userEntity.setRole(roleDAO.getRoleNameByRoleid(user.getRole().getRoleid()));
 		userEntity.setAvartar(user.getAvartar());
-		userEntity.setEnabled(user.getEnabled());	
+		userEntity.setEnabled(user.getEnabled());
 
 		userDAO.saveAndFlush(userEntity);
 	}
 
 	@Override
 	public void editUserStatus(long userId) {
-		
+
 		UserEntity userEntity = userDAO.getOne(userId);
 		userEntity.setEnabled(!userEntity.isEnabled());
 		userDAO.saveAndFlush(userEntity);

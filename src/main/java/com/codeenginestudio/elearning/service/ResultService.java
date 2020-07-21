@@ -15,8 +15,7 @@ public interface ResultService {
 
 	List<ResultDTO> findByAssessmentAndStudent(Long assessmentid, Long userId);
 
-	void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,String answerChoice,
-			LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException;
+	void saveEditSubmitAssessment(Long idEdit, Long userId, String answerChoice,
+			LocalDate currentDate) throws JsonProcessingException;
 
-	Boolean checkDuplicateQuestionInAssessment(Long assessmentId, Long studentId, Long questionCheck);
 }

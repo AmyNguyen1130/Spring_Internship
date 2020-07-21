@@ -16,7 +16,10 @@
 		<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-7">
-
+				<div class="alert success" style="display:none">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong id="message">${messageSuccess}</strong> 
+				</div>
 			</div>
 			<div class="col-sm-5">
 				<div class="row">
@@ -50,15 +53,7 @@
 						<tr>
 							<td>${count.index + 1}</td>
 							<td>${assessment.assessmentname}</td>
-							<!-- TODO : Revise from line 54 to line 61 -->
-							<c:if test="${assessment.getClassForeign().getClassid() == null}">
-								<td></td>
-							</c:if>
-							<c:forEach items="${listClass}" var="class">
-								<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
-									<td>${class.classname}</td>
-								</c:if>
-							</c:forEach>
+							<td>${assessment.getClassForeign().getClassname()}</td>
 							<td>${assessment.startdate}</td>
 							<td>${assessment.expireddate}</td>
 							<td>${assessment.getStatus() == true ? 'Active' : 'Inactive'}</td>
@@ -75,5 +70,14 @@
 			</table>
 			</div>
 		</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	
+			if($("#message").html() != ""){
+				$(".alert").css("display", "block");
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+			}
+		});
+	</script>
 </body>
 </html>

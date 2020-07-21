@@ -1,5 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
 
@@ -22,6 +24,7 @@ import com.codeenginestudio.elearning.service.QuestionTypeService;
 import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.QuestionValidator;
+import com.codeenginestudio.elearning.validation.SubmitAssessmentValidation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
@@ -53,8 +56,11 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentDTO);
-		model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
-
+		if(assessmentDTO.getClassForeign() == null) {
+			model.addAttribute("classNull","Haven't assigned to any class yet");
+		}else {
+			model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
+		}
 		return PREFIX_TEACHER + "listQuestionOfAssessment";
 	}
 
@@ -70,12 +76,13 @@ public class QuestionOfAssessmentController {
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
 	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid) throws JsonProcessingException {
+			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes) throws JsonProcessingException {
 
 		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Add question Successfully!!! ");
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
@@ -91,10 +98,10 @@ public class QuestionOfAssessmentController {
 
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String deleteQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid,
-			@PathVariable(name = "questionId") Long questionId) {
+			@PathVariable(name = "questionId") Long questionId, RedirectAttributes redirectAttributes) {
 
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
-
+		redirectAttributes.addFlashAttribute("messageSuccess", "Delete question Successfully!!! ");
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
@@ -119,7 +126,7 @@ public class QuestionOfAssessmentController {
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addAttribute("msgSuccess", "");
+			redirectAttributes.addFlashAttribute("messageSuccess", "Edit question Successfully!!! ");
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
@@ -137,14 +144,14 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/student/questionOfAssessment/{assessmentid}")
 	public String viewListQuestion(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
-
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
-		model.addAttribute("assessment", assessment);
-
+		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
+		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
 		model.addAttribute("url", "/student/submitAssessment/" + assessmentid);
-		return PREFIX_STUDENT + "listQuestionOfAssignment";
+
+		return PREFIX_STUDENT + "assessmentForm";
 	}
 
 	@GetMapping("/student/editSubmitAssessment/{assessmentid}")
@@ -158,72 +165,93 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("assessment", assessment);
 		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
 
-		return PREFIX_STUDENT + "listQuestionOfAssignment";
+		return PREFIX_STUDENT + "assessmentForm";
 	}
 
 	@PostMapping("student/submitAssessment/{assessmentid}")
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
-			@RequestParam Map<String, String> allParams) throws JsonProcessingException {
+			@RequestParam Map<String, String> allParams, RedirectAttributes redirectAttributes)
+			throws JsonProcessingException {
 
-		// TODO : Revise this method
+		List<String> errors = validationSubmitAssessment(allParams, assessmentid);
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		Long questionId = 0L;
+		String answerChoice = "";
+		final LocalDate startDate = LocalDate.now();
+		LocalDate updateDate = LocalDate.now();
+
 		if (allParams != null) {
-			Long userId = SecurityUtil.getUserPrincipal().getUserid();
-			Long questionId = 0L;
-			String answerChoice = "";
-			final LocalDate currentDate = LocalDate.now();
-			LocalDate updateDate = LocalDate.now();
-
 			for (Map.Entry<String, String> answer : allParams.entrySet()) {
-				if (!answer.getKey().equals("id")) {
-					questionId = Long.parseLong(answer.getKey());
 
-					String[] StrValue = answer.getValue().split("_", 2);
+				questionId = Long.parseLong(answer.getKey());
+				String[] StrValue = answer.getValue().split("_", 2);
+				answerChoice = StrValue[0];
 
-					answerChoice = StrValue[0];
-					if (!resultService.checkDuplicateQuestionInAssessment(assessmentid, userId, questionId)) {
-						resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, currentDate,
-								updateDate);
-					} else {
-						System.out.println("hello");
-					}
+				if (errors.size() > 0) {
+
+					model.addAttribute("listQuestionOfAssessment",
+							questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
+					model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
+					model.addAttribute("url", "/student/submitAssessment/" + assessmentid);
+					model.addAttribute("errors", errors);
+
+					return PREFIX_STUDENT + "assessmentForm";
+				} else {
+					resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, startDate,
+							updateDate);
+					redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");
 				}
+
 			}
 		}
 
-		if (allParams == null) {
-			model.addAttribute("errors", "Errors");
-			return PREFIX_STUDENT + "listQuestionOfAssignment";
-		}
 		return "redirect:/student/assessment";
 	}
 
 	@PostMapping("student/saveEditSubmitAssessment/{assessmentid}")
-	public String editSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
-			@RequestParam Map<String, String> allParams) throws JsonProcessingException {
+	public String editSubmitAssessment(Model model, @RequestParam Map<String, String> allParams,
+			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
+			throws JsonProcessingException {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-
+		List<String> errors = validationSubmitAssessment(allParams, assessmentid);
 		Long questionId = 0L;
 		String answerChoice = "";
 		Long idEdit = 0L;
-		final LocalDate currentDate = LocalDate.now();
 		LocalDate updateDate = LocalDate.now();
 
-		// TODO: Revise here
 		for (Map.Entry<String, String> answer : allParams.entrySet()) {
 
-			if (!answer.getKey().equals("id")) {
-				questionId = Long.parseLong(answer.getKey());
-				answerChoice = answer.getValue();
-				String[] StrValue = answer.getValue().split("_", 2);
+			questionId = Long.parseLong(answer.getKey());
+			String[] StrValue = answer.getValue().split("_", 2);
+			answerChoice = StrValue[0];
+			idEdit = Long.parseLong(StrValue[1]);
 
-				answerChoice = StrValue[0];
-				idEdit = Long.parseLong(StrValue[1]);
+			if (errors.size() > 0) {
+
+				model.addAttribute("listQuestionOfAssessment",
+						questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
+				model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
+				model.addAttribute("url", "/student/submitAssessment/" + assessmentid);
+				model.addAttribute("errors", errors);
+
+				return PREFIX_STUDENT + "assessmentForm";
+			} else {
+				resultService.saveEditSubmitAssessment(idEdit, questionId, answerChoice, updateDate);
+				redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");
 			}
-			resultService.saveEditSubmitAssessment(idEdit, userId, assessmentid, questionId, answerChoice, currentDate,
-					updateDate);
 		}
 		return "redirect:/student/assessment";
+	}
+
+	public List<String> validationSubmitAssessment(Map<String, String> allParams, Long assessmentid) {
+		List<String> errors = new ArrayList<>();
+
+		if (!SubmitAssessmentValidation.checkQuantityQuestionSubmit(allParams, assessmentid,
+				questionOfAssessmentService)) {
+			errors.add(SubmitAssessmentValidation.errQuestion);
+		}
+
+		return errors;
 	}
 
 	private final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";

@@ -10,7 +10,9 @@ public interface AssessmentService {
 
 	void deleteById(Long assessmentid);
 
-	void saveAssessment(AssessmentDTO assessmentDTO);
+	void saveAddAssessment(AssessmentDTO assessmentDTO);
+
+	void saveEditAssessment(AssessmentDTO assessmentDTO);
 
 	void editAssessmentStatus(Long assessmentid);
 

@@ -50,9 +50,24 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public void saveAssessment(AssessmentDTO assessmentDTO) {
-
+	public void saveAddAssessment(AssessmentDTO assessmentDTO) {
 		AssessmentEntity assessmentEntity = new AssessmentEntity();
+
+		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
+		assessmentEntity.setClassForeign(classDAO.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
+		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
+		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
+		assessmentEntity.setStatus(assessmentDTO.getStatus());
+
+		assessmentDAO.saveAndFlush(assessmentEntity);
+
+	}
+
+	@Override
+	public void saveEditAssessment(AssessmentDTO assessmentDTO) {
+		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentDTO.getAssessmentid());
+
+		assessmentEntity.setAssessmentid(assessmentDTO.getAssessmentid());
 		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
 		assessmentEntity.setClassForeign(classDAO.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
 		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
@@ -70,7 +85,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public AssessmentDTO getAssessmentByAssessmentid(Long assessmentid) {
-		return AssessmentUtil.parseToDTO(assessmentDAO.getOne(assessmentid));
+		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentid);
+		return AssessmentUtil.parseToDTO(assessmentEntity);
 	}
 
 	@Override

@@ -12,7 +12,9 @@ public interface ClassService {
 
 	void editStatusClass(Long classid);
 
-	void saveClass(ClassDTO classDTO);
+	void saveAddClass(ClassDTO classDTO);
+
+	void saveEditClass(ClassDTO classDTO);
 
 	ClassDTO getClassByClassid(Long classid);
 

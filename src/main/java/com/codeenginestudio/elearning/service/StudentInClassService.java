@@ -18,6 +18,6 @@ public interface StudentInClassService {
 
 	List<StudentInClassDTO> getAllStudentInClass();
 
-	List<Long> getClassIdByStudent(String username);
+	List<Long> getClassIdByStudent(Long userid);
 
 }

@@ -68,29 +68,13 @@ public class ResultServiceImpl implements ResultService {
 	}
 
 	@Override
-	public void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,
-			String answerChoice, LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException {
-
+	public void saveEditSubmitAssessment(Long idEdit, Long questionId, String answerChoice,LocalDate updateDate) throws JsonProcessingException {
 		ResultEntity resultEntity = resultDAO.getOne(idEdit);
-		// TODO: Do we need update student, question, assessment, startdate
-		resultEntity.setStudent(userDAO.getUserByUserid(userId));
-		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
-		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));
+
 		resultEntity.setAnswerChoice(answerChoice);
-		resultEntity.setStartdate(currentDate);
 		resultEntity.setUpdatedate(updateDate);
 		resultDAO.save(resultEntity);
 
 	}
 
-	@Override
-	public Boolean checkDuplicateQuestionInAssessment(Long assessmentId, Long studentId, Long questionCheck) {
-		List<ResultDTO> listResult = findByAssessmentAndStudent(assessmentId, studentId);
-		for (ResultDTO ResultDTO : listResult) {
-			if (ResultDTO.getQuestion().getQuestionid() == questionCheck) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

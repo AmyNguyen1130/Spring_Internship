@@ -12,6 +12,19 @@ public class ClassDTO {
 
 	private UserDTO user;
 
+	public ClassDTO() {
+		super();
+	}
+
+	public ClassDTO(Long classid, String classname, int totalStudents, Boolean status, UserDTO user) {
+		super();
+		this.classid = classid;
+		this.classname = classname;
+		this.totalStudents = totalStudents;
+		this.status = status;
+		this.user = user;
+	}
+
 	public Long getClassid() {
 		return classid;
 	}
@@ -28,12 +41,12 @@ public class ClassDTO {
 		this.classname = classname;
 	}
 
-	public UserDTO getUser() {
-		return user;
+	public int getTotalStudents() {
+		return totalStudents;
 	}
 
-	public void setUser(UserDTO user) {
-		this.user = user;
+	public void setTotalStudents(int totalStudents) {
+		this.totalStudents = totalStudents;
 	}
 
 	public Boolean getStatus() {
@@ -44,12 +57,12 @@ public class ClassDTO {
 		this.status = status;
 	}
 
-	public int getTotalStudents() {
-		return totalStudents;
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setTotalStudents(int totalStudents) {
-		this.totalStudents = totalStudents;
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 
 }

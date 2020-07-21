@@ -65,24 +65,28 @@
 	
 	</div>
 	<script type="text/javascript">
-		// Set values
-		$("#startdate").val(getFormattedDate(today()));
+		var url = window.location.href;
+		if(url == "http://localhost:8080/teacher/assessment/addAssessment"){
 
-		$("#expireddate").val(getFormattedDate(tomorrow()));
+			$("#startdate").val(getFormattedDate(today()));
 
-		function today() {
-			return new Date();
+			$("#expireddate").val(getFormattedDate(tomorrow()));
+
+			function today() {
+				return new Date();
+			}
+
+			function tomorrow() {
+				return new Date(today().getTime() + 24 * 60 * 60 * 1000);
+			}
+
+			function getFormattedDate(date) {
+				return date.getFullYear() + "-"
+						+ ("0" + (date.getMonth() + 1)).slice(-2) + "-"
+						+ ("0" + date.getDate()).slice(-2);
+			}
 		}
 
-		function tomorrow() {
-			return new Date(today().getTime() + 24 * 60 * 60 * 1000);
-		}
-
-		function getFormattedDate(date) {
-			return date.getFullYear() + "-"
-					+ ("0" + (date.getMonth() + 1)).slice(-2) + "-"
-					+ ("0" + date.getDate()).slice(-2);
-		}
 	</script>
 </body>
 </html>

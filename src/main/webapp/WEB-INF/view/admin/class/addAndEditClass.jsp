@@ -29,6 +29,7 @@
 	<div class="form-group row">
 		<label for="Teacher" class="col-sm-1 col-form-label">Teacher</label>
 		<div class="col-sm-4">
+
 			<select class="form-control" name="user.userid">
 				<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}>None</option>
 				<c:forEach items="${users}" var="user">

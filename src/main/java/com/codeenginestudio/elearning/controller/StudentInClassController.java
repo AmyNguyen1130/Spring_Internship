@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.service.RoleService;
@@ -40,7 +41,8 @@ public class StudentInClassController {
 	}
 
 	@PostMapping("/admin/saveStudentInClass")
-	public String saveStudentsInClass(ModelMap model, @ModelAttribute("classid") Long classid,
+	public String saveStudentsInClass(RedirectAttributes redirectAttributes, ModelMap model,
+			@ModelAttribute("classid") Long classid,
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
 		List<Long> listStudentIdInClass = studentInClassService.getListStudentByClassid(classid);
@@ -49,6 +51,7 @@ public class StudentInClassController {
 			for (Long userid : listCheckedId) {
 				if (!checkDuplicateStudentInClass(userid, classid)) {
 					studentInClassService.saveStudentInClass(classid, userid);
+					redirectAttributes.addFlashAttribute("messageSuccess", "Assign Students to Class Successfully!!! ");
 				}
 			}
 
@@ -57,12 +60,14 @@ public class StudentInClassController {
 				if (!listCheckedId.contains(check)) {
 					Long id = studentInClassService.findIdByValue(check);
 					studentInClassService.deleteStudentInClass(id);
+					redirectAttributes.addFlashAttribute("messageSuccess", "Delete Students to Class Successfully!!! ");
 				}
 			}
 
 		}
 		if (listCheckedId == null) {
 			studentInClassService.deleteAllByClass(classid);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Delete Students to Class Successfully!!! ");
 		}
 		return "redirect:/admin/class";
 	}

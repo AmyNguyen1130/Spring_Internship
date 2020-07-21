@@ -40,14 +40,35 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public void saveClass(ClassDTO classDTO) {
+	public void saveAddClass(ClassDTO classDTO) {
 		ClassEntity classEntity = new ClassEntity();
 
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
-		classEntity.setUser(userDAO.getOne(classDTO.getUser().getUserid()));
+		Long userid = classDTO.getUser().getUserid();
+		if (userid == null) {
+			classEntity.setUser(null);
+		} else {
+			classEntity.setUser(userDAO.getOne(userid));
+		}
+		classDAO.saveAndFlush(classEntity);
+	}
+
+	@Override
+	public void saveEditClass(ClassDTO classDTO) {
+		ClassEntity classEntity = classDAO.getClassByClassid(classDTO.getClassid());
+
+		classEntity.setClassname(classDTO.getClassname());
+		classEntity.setStatus(classDTO.getStatus());
+		Long userid = classDTO.getUser().getUserid();
+		if (userid == null) {
+			classEntity.setUser(null);
+		} else {
+			classEntity.setUser(userDAO.getOne(userid));
+		}
 
 		classDAO.saveAndFlush(classEntity);
+
 	}
 
 	@Override

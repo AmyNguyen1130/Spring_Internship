@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dto.ClassDTO;
@@ -44,7 +45,6 @@ public class ClassController {
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO.getClassid()).size());
 		}
-
 		model.addAttribute("classPage", classess);
 
 		return PREFIX + "listClass";
@@ -59,9 +59,10 @@ public class ClassController {
 	}
 
 	@GetMapping("/admin/class/deleteClass")
-	public String deleteClass(@ModelAttribute("classid") Long id) {
+	public String deleteClass(@ModelAttribute("classid") Long id, RedirectAttributes redirectAttributes) {
 		classService.deleteClass(id);
 
+		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Class Successfully!!! ");
 		return "redirect:/admin/class";
 	}
 
@@ -76,30 +77,34 @@ public class ClassController {
 	}
 
 	@GetMapping("/admin/class/editClassStatus/{classid}")
-	public String editStatusClass(@PathVariable(name = "classid") Long classid) {
+	public String editStatusClass(@PathVariable(name = "classid") Long classid, RedirectAttributes redirectAttributes) {
 		classService.editStatusClass(classid);
 
+		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
 		return "redirect:/admin/class";
 	}
 
 	@PostMapping("/admin/class/saveAddClass")
-	public String saveAddClass(Model model, ClassDTO classDTO) {
+	public String saveAddClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
 		List<String> errors = validationClass(classDTO);
 		if (errors.size() > 0) {
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users",
+					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 
 			return PREFIX + "addAndEditClass";
+		} else {
+			classService.saveAddClass(classDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Add Class Successfully!!! ");
 		}
-		classService.saveClass(classDTO);
 
 		return "redirect:/admin/class";
 	}
 
 	@PostMapping("/admin/class/saveEditClass")
-	public String saveEditClass(Model model, ClassDTO classDTO) {
+	public String saveEditClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
 		List<String> errors = validationClass(classDTO);
 		if (errors.size() > 0) {
@@ -107,11 +112,14 @@ public class ClassController {
 			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
 			model.addAttribute("editClass", classService.getClassByClassid(classDTO.getClassid()));
-			model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users",
+					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 
 			return PREFIX + "addAndEditClass";
+		} else {
+			classService.saveEditClass(classDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Class Successfully!!! ");
 		}
-		classService.saveClass(classDTO);
 
 		return "redirect:/admin/class";
 	}

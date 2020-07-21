@@ -36,7 +36,7 @@ public class ExampleController {
 	public String displayRegister() {
 		return "example/add";
 	}
-	
+
 	@GetMapping(value = "error")
 	public String displayError() {
 		return "error";

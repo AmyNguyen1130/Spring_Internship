@@ -2,17 +2,16 @@ package com.codeenginestudio.elearning.controller;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
@@ -41,20 +40,20 @@ public class AssessmentController {
 
 	// Teacher role
 	@GetMapping("/teacher/assessment")
-	public String showListAssessment(ModelMap model, @RequestParam(name = "page", required = false) Integer page) {
+	public String showListAssessment(Model model, @RequestParam(name = "page", required = false) Integer page) {
 
 		model.addAttribute("listClass", classService.getAllClass());
 		Page<AssessmentDTO> listAssessments = assessmentService.getPageListAssessment(page);
 		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("assessmentPage", listAssessments);
 		return PREFIX_TEACHER + "listAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/addAssessment")
-	public String addAssessment(ModelMap model) {
+	public String addAssessment(Model model) {
 
 		model.addAttribute("url", "/teacher/assessment/saveAddAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
@@ -62,20 +61,24 @@ public class AssessmentController {
 	}
 
 	@GetMapping("/teacher/assessment/deleteAssessment")
-	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid) {
-
+	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid, RedirectAttributes redirectAttributes) {
 		assessmentService.deleteById(assessmentid);
+		
+		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Assessment Successfully!!! ");
 		return "redirect:/teacher/assessment";
 	}
 
 	@GetMapping("/teacher/assessment/editAssessmentStatus/{assessmentid}")
-	public String editAssessmentStatus(@PathVariable(name = "assessmentid") Long assessmentid) {
+	public String editAssessmentStatus(@PathVariable(name = "assessmentid") Long assessmentid,
+			RedirectAttributes redirectAttributes) {
 		assessmentService.editAssessmentStatus(assessmentid);
+		
+		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
 		return "redirect:/teacher/assessment";
 	}
 
 	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
-	public String editAssessment(ModelMap model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
 		model.addAttribute("listClass", classService.getAllClass());
@@ -83,14 +86,14 @@ public class AssessmentController {
 		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
-	@Transactional
 	@PostMapping("/teacher/assessment/saveAddAssessment")
-	public String saveAddAssessment(ModelMap model, AssessmentDTO assessmentDTO) {
+	public String saveAddAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
-			assessmentService.saveAssessment(assessmentDTO);
+			assessmentService.saveAddAssessment(assessmentDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Add Assessment Successfully!!! ");
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -100,11 +103,12 @@ public class AssessmentController {
 	}
 
 	@PostMapping("/teacher/assessment/saveEditAssessment")
-	public String saveEditAssessment(ModelMap model, AssessmentDTO assessmentDTO) {
+	public String saveEditAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
-			assessmentService.saveAssessment(assessmentDTO);
+			assessmentService.saveEditAssessment(assessmentDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!! ");
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -117,17 +121,16 @@ public class AssessmentController {
 
 	// Student role
 	@GetMapping("/student/assessment")
-	public String showListAssessmentWithStudentRole(ModelMap model) {
+	public String showListAssessmentWithStudentRole(Model model) {
 
-		// TODO: should not fetch by username
-		String username = SecurityUtil.getUserPrincipal().getUsername();
-		List<Long> listClassid = studentInClassService.getClassIdByStudent(username);
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
 
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired();
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("listClassAssigned", listClassid);
@@ -137,16 +140,16 @@ public class AssessmentController {
 	}
 
 	@GetMapping("/student/assessment/history")
-	public String showHistoryWithStudentRole(ModelMap model) {
+	public String showHistoryWithStudentRole(Model model) {
 
-		String username = SecurityUtil.getUserPrincipal().getUsername();
-		List<Long> listClassid = studentInClassService.getClassIdByStudent(username);
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
 
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired();
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(
-					questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("listClassAssigned", listClassid);

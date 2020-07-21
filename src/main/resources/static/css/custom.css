@@ -6,9 +6,9 @@ div.dataTables_paginate ul.pagination {
 }
 
 img {
-    width: 30px;
-    height: 30px;
-    margin: 4px;
+	width: 30px;
+	height: 30px;
+	margin: 4px;
 }
 
 .err {
@@ -22,7 +22,10 @@ img {
 }
 
 .radioOption {
-	margin: 15px;
+	margin-top: 12px;
+}
+.optionName{
+	margin-top: 7px;
 }
 
 .logo-right {
@@ -73,36 +76,33 @@ img {
 	color: #040404de;
 	border-bottom: 4px solid black;
 }
+
 .sticky-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    color: black;
-}
-#pagination{
-	  position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: black;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	color: black;
 }
 
-.noResult{
+#pagination {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: black;
+}
+
+.noResult {
 	color: red;
-    margin-left: 30%;
-    margin-top: 50px;
+	margin-left: 30%;
+	margin-top: 50px;
 }
 
 .no-background {
 	background-image:
 		url("https://lyrictheatre.co.uk/wp-content/uploads/2018/12/Dark-of-the-Moon-Event.png");
-}
-
-.title {
-	font-size: 100px;
-	font-weight: bold;
 }
 
 .grey {
@@ -114,17 +114,53 @@ img {
 	margin: auto;
 	padding-top: 15%;
 }
-.textTitle{
-	font-size: 100px;
+
+.descriptionAssessment {
+	text-align: center;
 	font-weight: bold;
 }
 
-.description{
-	font-size: 20px;
+.assignmentTitle {
+	font-size: 50px;
 }
 
-.btnBack{
+.btnBack {
 	border-radius: 40%;
 	height: 30px;
-	width : 80px;
+	width: 80px;
+}
+
+.alert {
+	padding: 20px;
+	color: white;
+	opacity: 1;
+	transition: opacity 0.6s;
+	margin-bottom: 15px;
+}
+
+.alert.success {
+	background-color: #4CAF50;
+}
+
+.alert.danger {
+	background-color: #f44336;
+}
+
+.closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.closebtn:hover {
+	color: black;
+}
+
+.questionName{
+	font-weight: bold;
 }

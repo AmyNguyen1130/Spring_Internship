@@ -14,14 +14,18 @@
 %>
 <body>
 	<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<div class="col-sm-7">
-				<h5> Class Name: ${class.getClassname() }</h5>
+				<h5> Class Name: ${class.getClassname()} ${classNull} </h5> 
 				<h5> Assessment Name: ${assessment.getAssessmentname()}</h5>
 				<h5>( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h5>
+				<div class="alert success" style="display:none">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong id="message">${messageSuccess}</strong> 
+				</div>
 			</div>
 			<div class="col-sm-5">
-				<div class="row = 12">
+				<div class="row">
 					<div class="col-sm-8">
 
 					</div>
@@ -76,5 +80,14 @@
 			url="${pageContext.request.contextPath}/teacher/questionOfAssignment"
 			curpage="${listQuestionOfAssignment.getNumber()}" />
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			if($("#message").html() != ""){
+				$(".alert").css("display", "block");
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+			}
+		});
+	</script>
 </body>
 </html>
