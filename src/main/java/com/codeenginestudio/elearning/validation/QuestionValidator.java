@@ -1,8 +1,5 @@
 package com.codeenginestudio.elearning.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
@@ -10,7 +7,7 @@ import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 public class QuestionValidator {
 
 	private String errContent = "";
-	private List<String> errOptions = new ArrayList<>();
+	private String errNumericalOrder = "";
 	private String errCorrectAnswer = "";
 
 	public String getErrContent() {
@@ -21,12 +18,12 @@ public class QuestionValidator {
 		this.errContent = errContent;
 	}
 
-	public List<String> getErrOptions() {
-		return errOptions;
+	public String getErrNumericalOrder() {
+		return errNumericalOrder;
 	}
 
-	public void setErrOptions(List<String> errOptions) {
-		this.errOptions = errOptions;
+	public void setErrNumericalOrder(String errNumericalOrder) {
+		this.errNumericalOrder = errNumericalOrder;
 	}
 
 	public String getErrCorrectAnswer() {
@@ -48,30 +45,36 @@ public class QuestionValidator {
 		QuestionValidator inValid = new QuestionValidator();
 
 		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
-
-		for (int i = 0; i < questionOfAssessmentDTO.getOptions().size(); i++) {
-			inValid.errOptions.add(i, checkNull(questionOfAssessmentDTO.getOptions().get(i).getOptionValue(),
-					"Option could not be null"));
-		}
-
+		inValid.errNumericalOrder = checkNumericalOrder(questionOfAssessmentDTO.getNumericalorder());
 		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(),
 				"Correct answer could not be null");
 
 		return inValid;
 	}
-
+	
+	public boolean checkOnlyDigital (String data) {
+		String regex = "\\p{Digit}+";
+		return data.matches(regex);
+	}
+	
+	public String checkNumericalOrder(String numerical) {
+		if(numerical.equals("")) {
+			return "Numerical Order should not be null";
+		}else {
+			if(!checkOnlyDigital(numerical)) {
+				return "Numerical Order should be only digital";
+			}else {
+				if(Integer.parseInt(numerical) <= 0) {
+					return "Numerical Order should be more than 0";
+				}
+			}
+			
+		}
+		return "";
+	}
+	
 	public boolean noError() {
 
-		boolean checkNotNullOption = true;
-
-		for (int i = 0; i < this.getErrOptions().size(); i++) {
-			if (!StringUtils.isEmpty(this.getErrOptions().get(i))) {
-				checkNotNullOption = false;
-				break;
-			}
-		}
-
-		return StringUtils.isEmpty(this.getErrContent()) && StringUtils.isEmpty(this.getErrOptions())
-				&& StringUtils.isEmpty(this.getErrCorrectAnswer()) && checkNotNullOption;
+		return StringUtils.isEmpty(this.getErrContent()) && StringUtils.isEmpty(this.getErrCorrectAnswer()) && StringUtils.isEmpty(this.getErrNumericalOrder());
 	}
 }

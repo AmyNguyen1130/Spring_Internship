@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
+import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.QuestionTypeService;
 import com.codeenginestudio.elearning.service.ResultService;
@@ -33,6 +34,9 @@ public class QuestionOfAssessmentController {
 	private AssessmentService assessmentService;
 
 	@Autowired
+	private ClassService classService;
+
+	@Autowired
 	private QuestionTypeService questionTypeService;
 
 	@Autowired
@@ -45,9 +49,11 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment")
 	public String getListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
+		AssessmentDTO assessmentDTO = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
-		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("assessment", assessmentDTO);
+		model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
 
 		return PREFIX_TEACHER + "listQuestionOfAssessment";
 	}
@@ -55,7 +61,6 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment/{assessmentid}")
 	public String addQuestionOfAssignment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		model.addAttribute("numericalorder", questionOfAssessmentService.generateNumericalOrder(assessmentid));
 		model.addAttribute("assessmentid", assessmentid);
 		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
@@ -67,9 +72,21 @@ public class QuestionOfAssessmentController {
 	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
 			@PathVariable(name = "assessmentid") Long assessmentid) throws JsonProcessingException {
 
-		questionOfAssessmentDTO.setNumericalorder(questionOfAssessmentService.generateNumericalOrder(assessmentid));
-		questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+
+		if (invalid.noError()) {
+			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		}
+
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
+
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
@@ -85,9 +102,6 @@ public class QuestionOfAssessmentController {
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId,
 			@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
 
-		// TODO: which purpose when only fetch numericalOrder ?
-		model.addAttribute("numericalorder",
-				questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder());
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
@@ -101,12 +115,21 @@ public class QuestionOfAssessmentController {
 			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId,
 			RedirectAttributes redirectAttributes) throws JsonProcessingException {
 
-		// TODO: which purpose when only fetch numericalOrder ?
-		int numericalOrder = questionOfAssessmentService.getOneQuestionOfAssessment(questionId).getNumericalorder();
-		questionOfAssessmentDTO.setNumericalorder(numericalOrder);
-		questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-		redirectAttributes.addAttribute("msgSuccess", "");
-		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+
+		if (invalid.noError()) {
+			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
+			redirectAttributes.addAttribute("msgSuccess", "");
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		}
+
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
 	// Student role
@@ -125,12 +148,11 @@ public class QuestionOfAssessmentController {
 	}
 
 	@GetMapping("/student/editSubmitAssessment/{assessmentid}")
-	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	public String editSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid(); 
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
-		// TODO: should order list questions following the numerical order
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessment);
@@ -167,7 +189,7 @@ public class QuestionOfAssessmentController {
 				}
 			}
 		}
-		
+
 		if (allParams == null) {
 			model.addAttribute("errors", "Errors");
 			return PREFIX_STUDENT + "listQuestionOfAssignment";

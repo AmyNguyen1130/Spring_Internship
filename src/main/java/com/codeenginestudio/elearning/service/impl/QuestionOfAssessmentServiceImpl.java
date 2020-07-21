@@ -5,15 +5,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
+import com.codeenginestudio.elearning.dao.QuestionTypeDAO;
 import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
+import com.codeenginestudio.elearning.dto.OptionDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
-import com.codeenginestudio.elearning.util.AssessmentUtil;
 import com.codeenginestudio.elearning.util.OptionUtil;
 import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
-import com.codeenginestudio.elearning.util.QuestionTypeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.springframework.data.domain.Sort;
 
 @Service
 public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentService {
@@ -21,10 +25,17 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	@Autowired
 	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
 
+	@Autowired
+	private AssessmentDAO assessmentDAO;
+
+	@Autowired
+	private QuestionTypeDAO questionTypeDAO;
+
 	@Override
 	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid) {
 
-		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO.findAll();
+		List<QuestionOfAssessmentEntity> listQuestionEntities = questionOfAssessmentDAO
+				.findAll(Sort.by(Sort.Direction.ASC, "numericalorder"));
 		List<QuestionOfAssessmentDTO> listQuestionDTOs = new ArrayList<>();
 		QuestionOfAssessmentDTO questionOfAssignmentDTO = new QuestionOfAssessmentDTO();
 
@@ -55,20 +66,30 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = new QuestionOfAssessmentEntity();
 
-		// TODO: use QuestionTypeDAO to get QuestionTypeEntity
 		questionOfAssignmentEntity
-				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
-		questionOfAssignmentEntity.setNumericalorder(questionOfAssessmentDTO.getNumericalorder());
+				.setQuestiontype(questionTypeDAO.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId()));
+		questionOfAssignmentEntity.setNumericalorder(Integer.parseInt(questionOfAssessmentDTO.getNumericalorder()));
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
-		// TODO: use AssessmentDAO to get AssessmentEntity
-		questionOfAssignmentEntity.setAssessment(AssessmentUtil.parseToEntity(questionOfAssessmentDTO.getAssessment()));
+		questionOfAssignmentEntity
+				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
+//		List<OptionDTO> revisedOption = removeNullOption(questionOfAssessmentDTO.getOptions());
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
-
-		// TODO: Why 1 ?
-		questionOfAssignmentEntity.setNumericalorder(1);
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
+	}
+
+	public List<OptionDTO> removeNullOption(List<OptionDTO> options) {
+
+		List<OptionDTO> newOptions = new ArrayList<>();
+
+		for (OptionDTO optionDTO : options) {
+			if (!optionDTO.getOptionValue().equals("")) {
+				newOptions.add(optionDTO);
+			}
+		}
+
+		return newOptions;
 	}
 
 	@Override
@@ -83,9 +104,9 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO
 				.getOne(questionOfAssessmentDTO.getQuestionid());
 
-		// TODO: use QuestionTypeDAO to get QuestionTypeEntity
+		questionOfAssignmentEntity.setNumericalorder(Integer.parseInt(questionOfAssessmentDTO.getNumericalorder()));
 		questionOfAssignmentEntity
-				.setQuestiontype(QuestionTypeUtil.parseToQuestionTypeEntity(questionOfAssessmentDTO.getQuestionType()));
+				.setQuestiontype(questionTypeDAO.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId()));
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
@@ -104,4 +125,5 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		return questionOfAssignmentDTO;
 	}
+
 }

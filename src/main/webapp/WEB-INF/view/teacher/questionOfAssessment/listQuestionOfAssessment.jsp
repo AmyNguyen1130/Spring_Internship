@@ -16,6 +16,9 @@
 	<div class="container-fluid">
 		<div class="row = 12">
 			<div class="col-sm-7">
+				<h5> Class Name: ${class.getClassname() }</h5>
+				<h5> Assessment Name: ${assessment.getAssessmentname()}</h5>
+				<h5>( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h5>
 			</div>
 			<div class="col-sm-5">
 				<div class="row = 12">
@@ -23,8 +26,9 @@
 
 					</div>
 					<div class="col-sm-4">
-						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessmentid}'><button
-								class="btn btn-default" type="button">Add new question</button></a>
+						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
+							<button class="btn btn-default" type="button">Add new question</button>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -38,7 +42,6 @@
 					<th scope="col">Numerical Order</th>
 					<th scope="col">Question Type</th>
 					<th scope="col">Content</th>
-					<th scope="col">Options</th>
 					<th scope="col">Correct Answer</th>
 					<th scope="col">Score</th>
 					<th scope="col">Assignment</th>
@@ -52,19 +55,14 @@
 						<td>${question.getNumericalorder()}</td>
 						<td>${question.getQuestionType().getQuestionTypeName()}</td>
 						<td>${question.content}</td>
-						<td>
-							<c:forEach items="${question.getOptions()}" var="option">
-								${option.getOptionValue()}
-							</c:forEach>
-						</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
 						<td>${question.getAssessment().getAssessmentname()}</td>
 						<td><a
-							href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessmentid}/${question.questionid}">
+							href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
 								<img alt="edit" src="<%=editImageAddress%>" />
 						</a> <a
-							href="/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessmentid}/${question.questionid}"
+							href="/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}"
 							onclick="return confirm('Are you sure?')"> <img alt="delete"
 								src="<%=deleteImageAddress%>" />
 						</a></td>

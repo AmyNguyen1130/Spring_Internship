@@ -6,7 +6,7 @@ public class QuestionOfAssessmentDTO {
 
 	private Long questionid;
 
-	private int numericalorder;
+	private String numericalorder;
 
 	private QuestionTypeDTO questionType;
 
@@ -20,7 +20,7 @@ public class QuestionOfAssessmentDTO {
 
 	private AssessmentDTO assessment;
 
-	public QuestionOfAssessmentDTO(Long questionid, int numericalorder, QuestionTypeDTO questionType, String content,
+	public QuestionOfAssessmentDTO(Long questionid, String numericalorder, QuestionTypeDTO questionType, String content,
 			List<OptionDTO> options, String correctanswer, float score, AssessmentDTO assessment) {
 		super();
 		this.questionid = questionid;
@@ -45,11 +45,11 @@ public class QuestionOfAssessmentDTO {
 		this.questionid = questionid;
 	}
 
-	public int getNumericalorder() {
+	public String getNumericalorder() {
 		return numericalorder;
 	}
 
-	public void setNumericalorder(int numericalorder) {
+	public void setNumericalorder(String numericalorder) {
 		this.numericalorder = numericalorder;
 	}
 

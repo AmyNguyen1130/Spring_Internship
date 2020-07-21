@@ -37,12 +37,11 @@
 							<input type="password" name="password" id="password"
 								class="form-control">
 						</div>
-						<div class="form-group">
-							<input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+
+						<div class="text-right">
+							<input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
 						</div>
-						<div id="register-link" class="text-right">
-							<a href="#" class="text-info">Forgot password</a>
-						</div>
+
 					</form>
 				</div>
 			</div>

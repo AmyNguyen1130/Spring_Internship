@@ -69,7 +69,7 @@ public class ClassController {
 	public String editClass(Model model, @PathVariable(name = "classid") Long classid) {
 
 		model.addAttribute("url", "/admin/class/saveEditClass");
-		model.addAttribute("editClass", classService.showClassByClassid(classid));
+		model.addAttribute("editClass", classService.getClassByClassid(classid));
 		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 
 		return PREFIX + "addAndEditClass";
@@ -106,7 +106,7 @@ public class ClassController {
 
 			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("editClass", classService.showClassByClassid(classDTO.getClassid()));
+			model.addAttribute("editClass", classService.getClassByClassid(classDTO.getClassid()));
 			model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
 
 			return PREFIX + "addAndEditClass";

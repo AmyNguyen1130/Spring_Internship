@@ -10,13 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.constant.Constant;
+import com.codeenginestudio.elearning.dao.RoleDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.CommonUtil;
 import com.codeenginestudio.elearning.util.PasswordUtil;
-import com.codeenginestudio.elearning.util.RoleUtil;
 import com.codeenginestudio.elearning.util.UserUtil;
 
 @Service
@@ -24,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private RoleDAO roleDAO;
 
 	@Override
 	public Page<UserDTO> getUserPage(Integer page) {
@@ -43,8 +46,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setFirstname(user.getFirstname());
 		userEntity.setLastname(user.getLastname());
 		userEntity.setGender(user.getGender());
-		// TODO: user RoleDAO to get RoleEntity
-		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
+		userEntity.setRole(roleDAO.getRoleNameByRoleid(user.getRole().getRoleid()));
 		userEntity.setAvartar(user.getAvartar());
 		userEntity.setEnabled(user.getEnabled());		
 
@@ -66,8 +68,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setFirstname(user.getFirstname());
 		userEntity.setLastname(user.getLastname());
 		userEntity.setGender(user.getGender());
-		// TODO: user RoleDAO to get RoleEntity
-		userEntity.setRole(RoleUtil.parseToRoleEntity(user.getRole()));
+		userEntity.setRole(roleDAO.getRoleNameByRoleid(user.getRole().getRoleid()));
 		userEntity.setAvartar(user.getAvartar());
 		userEntity.setEnabled(user.getEnabled());	
 

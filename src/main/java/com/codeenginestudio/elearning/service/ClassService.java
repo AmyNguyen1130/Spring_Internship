@@ -14,7 +14,7 @@ public interface ClassService {
 
 	void saveClass(ClassDTO classDTO);
 
-	ClassDTO showClassByClassid(Long classid);
+	ClassDTO getClassByClassid(Long classid);
 
 	List<ClassDTO> getAllClass();
 
