@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.codeenginestudio.elearning.dto.ResultDTO"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -17,11 +19,6 @@
 						<p class="dateTime">(${assessment.getStartdate()} -
 							${assessment.getExpireddate()})</p>
 					</div>
-					<div class="alert danger" style="display: none">
-						<span class="closebtn"
-							onclick="this.parentElement.style.display='none';">&times;</span>
-						<strong id="messageError">${errors}</strong>
-					</div>
 					<br>
 
 					<c:forEach items="${listQuestionOfAssessment}" var="question"
@@ -35,6 +32,8 @@
 								<div class="col-sm-6">
 
 									<c:forEach items="${question.options}" var="option">
+
+									<c:set var="check" value='${option.getName() eq listSubmitEdit[status.index].answerchoice &&  question.questionid == listSubmitEdit[status.index].getQuestion().getQuestionid() ? "checked" : ""}' />
 										<%-- TODO: Need revise here.
 										Should has a hidden input to store question id
 										Should seperate the student's answer such as using jquery to fill in their answer.
@@ -48,8 +47,8 @@
 											<div class="col-sm-1">
 												<input type="radio" name="${question.getQuestionid()}"
 													value="${option.getName()}_${listSubmitEdit[status.index].id}"
-													class="radioOption"
-													${listSubmitEdit[status.index].question.questionid == question.getQuestionid() && listSubmitEdit[status.index].getAnswerChoice() == option.getName() ? 'checked' : ''}>
+													class="inputRadioOption"
+													${check} >
 											</div>
 											<div class="col-sm-6">
 												<label class="optionName">${option.getOptionValue()}</label>

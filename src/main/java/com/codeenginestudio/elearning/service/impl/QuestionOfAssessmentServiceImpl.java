@@ -126,4 +126,14 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		return questionOfAssignmentDTO;
 	}
 
+	@Override
+	public Float getTotalScoreByAssessment(Long assessmentid) {
+		List<QuestionOfAssessmentDTO> listQuestions = getListQuestionOfAssessmentByAssessment(assessmentid);
+		Float totalScore = (float) 0;
+		for(QuestionOfAssessmentDTO question: listQuestions) {
+			totalScore += question.getScore();
+		}
+		return totalScore;
+	}
+
 }

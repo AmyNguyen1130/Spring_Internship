@@ -33,14 +33,15 @@ public class ResultServiceImpl implements ResultService {
 	private AssessmentDAO assessmentDAO;
 
 	@Override
-	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice,
+	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice, Float score,
 			LocalDate currentDate, LocalDate updateDate) throws JsonProcessingException {
 
 		ResultEntity resultEntity = new ResultEntity();
 		resultEntity.setStudent(userDAO.getUserByUserid(userId));
 		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
 		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));
-		resultEntity.setAnswerChoice(answerChoice);
+		resultEntity.setAnswerchoice(answerChoice);
+		resultEntity.setScore(score);
 		resultEntity.setStartdate(currentDate);
 		resultEntity.setUpdatedate(updateDate);
 		resultDAO.save(resultEntity);
@@ -68,13 +69,33 @@ public class ResultServiceImpl implements ResultService {
 	}
 
 	@Override
-	public void saveEditSubmitAssessment(Long idEdit, Long questionId, String answerChoice,LocalDate updateDate) throws JsonProcessingException {
-		ResultEntity resultEntity = resultDAO.getOne(idEdit);
+	public void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,
+			String answerChoice, Float score, LocalDate currentDate, LocalDate updateDate)
+			throws JsonProcessingException {
 
-		resultEntity.setAnswerChoice(answerChoice);
-		resultEntity.setUpdatedate(updateDate);
-		resultDAO.save(resultEntity);
+		if (idEdit == 0) {
+			saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score, currentDate, updateDate);
+		} else {
+			ResultEntity resultEntity = resultDAO.getOne(idEdit);
 
+			resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
+			resultEntity.setAnswerchoice(answerChoice);
+			resultEntity.setScore(score);
+			resultEntity.setUpdatedate(updateDate);
+			resultDAO.save(resultEntity);
+		}
+
+	}
+
+	@Override
+	public Float getUserScoreByAssessment(Long assessmentid) {
+
+		List<ResultDTO> listResult = getAssessmentByAssessmentId(assessmentid);
+		Float totalScore = (float) 0;
+		for (ResultDTO result : listResult) {
+			totalScore += result.getScore();
+		}
+		return totalScore;
 	}
 
 }

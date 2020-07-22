@@ -41,6 +41,9 @@ public class ResultEntity {
 	@Column
 	private LocalDate updatedate;
 
+	@Column
+	private Float score;
+
 	public LocalDate getStartdate() {
 		return startdate;
 	}
@@ -102,12 +105,20 @@ public class ResultEntity {
 		this.assessment = assessment;
 	}
 
-	public String getAnswerChoice() {
+	public String getAnswerchoice() {
 		return answerchoice;
 	}
 
-	public void setAnswerChoice(String answerChoice) {
-		this.answerchoice = answerChoice;
+	public void setAnswerchoice(String answerchoice) {
+		this.answerchoice = answerchoice;
+	}
+
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
 	}
 
 }

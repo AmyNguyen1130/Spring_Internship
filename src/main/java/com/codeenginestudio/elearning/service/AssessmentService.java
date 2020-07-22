@@ -22,7 +22,7 @@ public interface AssessmentService {
 
 	List<AssessmentDTO> getListAssessment();
 
-	List<AssessmentDTO> getListAssessmentByUnExpired();
+	List<AssessmentDTO> getListAssessmentByUnExpired(Long userId);
 
 	List<AssessmentDTO> getListAssessmentByExpired();
 

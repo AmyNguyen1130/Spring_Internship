@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -22,4 +21,6 @@ public interface QuestionOfAssessmentService {
 	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid);
 
 	int generateNumericalOrder(Long assessmentid);
+
+	Float getTotalScoreByAssessment(Long assessmentid);
 }

@@ -22,12 +22,6 @@
 				</div>
 			</div>
 			<div class="col-sm-5">
-				<div class="row">
-					<div class="col-sm-8">
-					</div>
-					 <div class="col-sm-4">
-					</div>
-				</div>
 			</div>
 		</div>
 		</div>	
@@ -43,6 +37,7 @@
 					<th scope="col">Start Date</th>
 					<th scope="col">Expired Date</th>
 					<th scope="col">Status</th>
+					<th scope="col">Total Score</th>
 					<th scope="col">Total Question</th>
 					<th scope="col">Actions</th>
 				</tr>
@@ -50,29 +45,36 @@
 			<tbody>
 				<c:forEach items="${assessmentPage}" var="assessment" varStatus="count">
 					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
+
 						<tr>
 							<td>${count.index + 1}</td>
 							<td>${assessment.assessmentname}</td>
 							<td>${assessment.getClassForeign().getClassname()}</td>
 							<td>${assessment.startdate}</td>
 							<td>${assessment.expireddate}</td>
-							<td>${assessment.getStatus() == true ? 'Active' : 'Inactive'}</td>
+							<td>${assessment.getStatus() ? 'Active' : 'Inactive'}</td>
+							<td> ${assessment.getUserscore()} / ${assessment.getTotalscore()}</td>
 							<td>${assessment.getTotalquestion()}</td>
 							<td>
-								<a href="/student/questionOfAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Do Exercise</button></a>
-								<a href="/student/editSubmitAssessment/${assessment.assessmentid}"><button class="btn btn-default" type="button">Edit Exercise</button></a>
+								<c:choose>
+									<c:when test="${!assessment.isEdit()}">
+										<a class="href" href="/student/addSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-default" type="button">Do Exercise</button></a>			
+									</c:when>
+									<c:otherwise>
+										<a class="href" href="/student/editSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-default" type="button">Edit Exercise</button></a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 					</c:if>
-
 				</c:forEach>
 			</tbody>
 			</table>
 			</div>
 		</div>
-	<script type="text/javascript">
+	<script type="text/javascript">	
 		$(document).ready(function() {
-	
+
 			if($("#message").html() != ""){
 				$(".alert").css("display", "block");
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);

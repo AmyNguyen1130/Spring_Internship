@@ -18,6 +18,8 @@ public class ResultDTO {
 
 	private LocalDate updatedate;
 
+	private Float score;
+
 	public ResultDTO() {
 		super();
 	}
@@ -54,12 +56,12 @@ public class ResultDTO {
 		this.assessment = assessment;
 	}
 
-	public String getAnswerChoice() {
+	public String getAnswerchoice() {
 		return answerchoice;
 	}
 
-	public void setAnswerChoice(String answerChoice) {
-		this.answerchoice = answerChoice;
+	public void setAnswerchoice(String answerchoice) {
+		this.answerchoice = answerchoice;
 	}
 
 	public Long getId() {
@@ -84,6 +86,14 @@ public class ResultDTO {
 
 	public void setUpdatedate(LocalDate updatedate) {
 		this.updatedate = updatedate;
+	}
+
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
 	}
 
 }

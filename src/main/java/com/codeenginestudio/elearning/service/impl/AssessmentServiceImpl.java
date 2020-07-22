@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.ClassDAO;
+import com.codeenginestudio.elearning.dao.ResultDAO;
+import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
@@ -24,7 +26,10 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Autowired
 	private AssessmentDAO assessmentDAO;
-
+	@Autowired
+	private ResultDAO resultDAO;
+	@Autowired
+	private UserDAO userDAO;
 	@Autowired
 	private ClassDAO classDAO;
 
@@ -110,7 +115,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public List<AssessmentDTO> getListAssessmentByUnExpired() {
+	public List<AssessmentDTO> getListAssessmentByUnExpired(Long userId) {
 
 		LocalDate currentDate = LocalDate.now();
 		List<AssessmentDTO> listAssessment = getListAssessment();
@@ -119,6 +124,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 		for (AssessmentDTO assessment : listAssessment) {
 			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
 				listAssessmentUnExpired.add(assessment);
+				
+				assessment.setEdit(!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+						userDAO.getUserByUserid(userId)).isEmpty());
 			}
 		}
 		return listAssessmentUnExpired;

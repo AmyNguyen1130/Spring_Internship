@@ -20,7 +20,13 @@ public class AssessmentDTO {
 
 	private Boolean status;
 
+	private boolean isEdit;
+
 	private int totalquestion;
+
+	private Float totalscore;
+
+	private Float userscore;
 
 	public AssessmentDTO() {
 		super();
@@ -44,6 +50,14 @@ public class AssessmentDTO {
 
 	public void setAssessmentid(Long assessmentid) {
 		this.assessmentid = assessmentid;
+	}
+
+	public boolean isEdit() {
+		return isEdit;
+	}
+
+	public void setEdit(boolean isEdit) {
+		this.isEdit = isEdit;
 	}
 
 	public String getAssessmentname() {
@@ -92,6 +106,22 @@ public class AssessmentDTO {
 
 	public void setTotalquestion(int totalquestion) {
 		this.totalquestion = totalquestion;
+	}
+
+	public Float getTotalscore() {
+		return totalscore;
+	}
+
+	public void setTotalscore(Float totalscore) {
+		this.totalscore = totalscore;
+	}
+
+	public Float getUserscore() {
+		return userscore;
+	}
+
+	public void setUserscore(Float userscore) {
+		this.userscore = userscore;
 	}
 
 }
