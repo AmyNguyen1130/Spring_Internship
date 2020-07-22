@@ -13,10 +13,11 @@
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-brand grey tab-link"
-				href="<c:url value="/teacher/class"/>"> Class </a> 
-			<a class="navbar-brand grey tab-link"
-				href="<c:url value="/teacher/assessment"/>"> Assessment </a> 
+			<a class="navbar-brand"
+				href="<c:url value="/teacher/class"/>"> <button class="grey tablink" >Class</button></a>
+			<a class="navbar-brand"
+				href="<c:url value="/teacher/assessment"/>"> <button class="grey tablink" >Assessment</button></a>
+				
 		</div>
 	</div>
 

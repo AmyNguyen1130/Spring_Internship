@@ -65,15 +65,28 @@
 						</c:forEach>
 						<td>${assessment.startdate}</td>
 						<td>${assessment.expireddate}</td>
-						<td><a href="/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}"
-								onclick="return confirm('Are you sure?')">
-									<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
-							</a></td>
+						<td>
+							<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
+								<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
+							</a>
+						</td>
 						<td>${assessment.getTotalquestion()}</td>
 
-						<td><a href="/teacher/assessment/editAssessment/${assessment.assessmentid}"><img alt="edit" src="<%=editImageAddress%>" class="optionSize" /></a> 
-						<a href="/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>" class="delete-button"><img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" /></a>&emsp;
-						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>"><button class="btn btn-default" type="button">View questions</button></a></td>
+						<td>
+							<a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">
+								<img alt="edit" src="<%=editImageAddress%>" class="optionSize" />
+							</a> 
+							<a href="#" onclick="confirmation('/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>', 'delete')">
+								<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
+							</a>&emsp;
+							<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
+								<button class="btn btn-default" type="button">View questions</button>
+							</a>
+							
+							<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>">
+								<button class="btn btn-default" type="button">View result</button>
+							</a>
+						</td>
 
 						</tr>
 						<c:set var="i" value="${i+1}" />
@@ -82,28 +95,42 @@
 			</table>
 			</div>
 		</div>
-<util:pagination
-	count="${assessmentPage.getTotalElements()}"
-	totalPages="${assessmentPage.getTotalPages()}" 
-	url="${pageContext.request.contextPath}/teacher/assessment"
-	curpage="${assessmentPage.getNumber()}" />
-
+		<util:pagination
+			count="${assessmentPage.getTotalElements()}"
+			totalPages="${assessmentPage.getTotalPages()}" 
+			url="${pageContext.request.contextPath}/teacher/assessment"
+			curpage="${assessmentPage.getNumber()}" />
+	
+			<div id="confirm" class="modal">
+			  
+			  <form class="modal-content">
+			    <div class="container-model">
+			    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+			      <h1 id="title"></h1>
+			      <p id="ask"></p>
+			
+			      <div class="clearfix">
+			        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
+			        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
+			      </div>
+			    </div>
+			  </form>
+			</div>
 <script type="text/javascript">
 	$(document).ready(function() {
-
-		$(".delete-button").click(function() {
-			if (confirm("Are you sure you want to delete this assessment?")) {
-				return true;
-			} else {
-				return false;
-			}
-		});
 
 		if($("#message").html() != ""){
 			$(".alert").css("display", "block");
 			setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
 		}
 	});
+	function confirmation(success, action) {
+		
+		$('#acceptConfirm').attr("href", success);
+		$('#title').html(action + ' Item');
+		$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
+		$('#confirm').show();
+	}
 </script>
 </body>
 </html>

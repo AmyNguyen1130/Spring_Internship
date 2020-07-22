@@ -74,8 +74,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity
 				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
-//		List<OptionDTO> revisedOption = removeNullOption(questionOfAssessmentDTO.getOptions());
-		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
+		List<OptionDTO> revisedOption = removeNullOption(questionOfAssessmentDTO.getOptions());
+		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(revisedOption));
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 

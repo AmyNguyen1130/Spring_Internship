@@ -61,12 +61,18 @@
 							<td>${user.getLastname()}</td>
 							<td>${user.getEmail()}</td>
 							<td>${user.getRole().getRolename()}</td>
-							<td><a href="/admin/user/editUserEnabled/${user.getUserid()}"
-								onclick="return confirm('Are you sure?')"><button class="btn btn-default">${user.isEnabled() == true ? 'Active' : 'Inactive'}</button></a></td>
-							<td><a href="/admin/user/editUser/${user.getUserid()}"> 
-									<img alt="edit" src="<%=editImageAddress%>" class="optionSize" /></a> 
-								<a href="/admin/user/deleteUser/${user.getUserid()}" class="delete-button"> 
-									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" /></a>
+							<td>
+								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
+									<button class="btn btn-default">${user.isEnabled() == true ? 'Active' : 'Inactive'}</button>
+								</a>
+							</td>
+							<td>
+								<a href="/admin/user/editUser/${user.getUserid()}"> 
+									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
+								</a>
+								<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
+									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
+								</a>
 							</td>
 						</tr>
 						<c:set var="i" value="${i+1}" />
@@ -75,30 +81,44 @@
 				</tbody>
 			</table>
 
-	<util:pagination count="${userPage.getTotalElements()}"
-		totalPages="${userPage.getTotalPages()}"
-		url="${pageContext.request.contextPath}/admin/user"
-		curpage="${userPage.getNumber()}" />
+			<util:pagination count="${userPage.getTotalElements()}"
+				totalPages="${userPage.getTotalPages()}"
+				url="${pageContext.request.contextPath}/admin/user"
+				curpage="${userPage.getNumber()}" />
 	</div>
+	</div>
+	
+	<div id="confirm" class="modal">
+	  
+	  <form class="modal-content">
+	    <div class="container-model">
+	    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+	      <h1 id="title"></h1>
+	      <p id="ask"></p>
+	
+	      <div class="clearfix">
+	        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
+	        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
+	      </div>
+	    </div>
+	  </form>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-			$(".delete-button").click(function() {
-				if (confirm("Are you sure you want to delete this user?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
-		});
-
 
 			if($("#message").html() != ""){
 				$(".alert").css("display", "block");
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
 			}
 		});
+
+		function confirmation(success, action) {
+			
+			$('#acceptConfirm').attr("href", success);
+			$('#title').html(action + ' Item');
+			$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
+			$('#confirm').show();
+		}
 	</script>
 </body>
 </html>

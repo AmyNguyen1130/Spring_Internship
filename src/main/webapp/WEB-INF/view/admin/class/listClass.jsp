@@ -53,14 +53,15 @@
 							<td>${class.classname}</td>
 							<td>${class.getUser().getUsername()}</td>
 							<td><a
-								href="/admin/class/editClassStatus/${class.classid}"
-								onclick="return confirm('Are you sure?')">
+								href="#"
+								onclick="confirmation('/admin/class/editClassStatus/${class.classid}', 'update')">
 									<button class="btn btn-default">${class.getStatus() == true ? 'Active' : 'Inactive'}</button>
 							</a></td>
 							<td>${class.totalStudents}</td>
 							<td><a href="/admin/class/editClass/${class.classid}">
 									<img alt="edit" src="<%=editImageAddress%>" class="optionSize" /></a>
-								<a href="/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>" class="delete-button">
+									
+								<a href="#" onclick="confirmation('/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>', 'delete ')">
 									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" /></a>&emsp;
 								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button class="btn btn-default">Assign</button></a></td>
 
@@ -79,22 +80,38 @@
 		url="${pageContext.request.contextPath}/admin/class"
 		curpage="${classPage.getNumber()}" />
 
+		<div id="confirm" class="modal">
+		  
+		  <form class="modal-content">
+		    <div class="container-model">
+		    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+		      <h1 id="title"></h1>
+		      <p id="ask"></p>
+		
+		      <div class="clearfix">
+		        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
+		        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
+		      </div>
+		    </div>
+		  </form>
+		</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
-
-			$(".delete-button").click(function() {
-				if (confirm("Are you sure you want to delete this class?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
 
 			if($("#message").html() != ""){
 				$(".alert").css("display", "block");
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
 			}
 		});
+
+		function confirmation(success, action) {
+			
+			$('#acceptConfirm').attr("href", success);
+			$('#title').html(action + ' Item');
+			$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
+			$('#confirm').show();
+		}
 
 	</script>
 </body>

@@ -13,9 +13,9 @@
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-brand grey tab-link"
-				href="<c:url value="/student/assessment"/>"> Assessment </a>
-			<a class="navbar-brand grey tab-link" href="<c:url value="/student/assessment/history"/>">History</a>
+			<a class="navbar-brand"
+				href="<c:url value="/student/assessment"/>"> <button class="grey tablink" >Assessment</button> </a>
+			<a class="navbar-brand" href="<c:url value="/student/assessment/history"/>"> <button class="grey tablink"> History </button> </a>
 		</div>
 	</div>
 
