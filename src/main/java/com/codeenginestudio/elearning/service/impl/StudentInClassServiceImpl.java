@@ -46,6 +46,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public List<Long> getListStudentByClassid(Long classid) {
 		ClassDTO classDTO = ClassUtil.parseToDTO(classDAO.getClassByClassid(classid));
+		// TODO: Why not query by classId
 		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO.findAll();
 		List<Long> studentInClassDTOs = new ArrayList<>();
 
@@ -60,6 +61,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public List<StudentInClassDTO> getListStudentsByClassid(Long classid) {
 		ClassDTO classDTO = ClassUtil.parseToDTO(classDAO.getClassByClassid(classid));
+		// TODO: Why not query by classId
 		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO.findAll();
 		List<StudentInClassDTO> studentInClassDTOs = new ArrayList<>();
 

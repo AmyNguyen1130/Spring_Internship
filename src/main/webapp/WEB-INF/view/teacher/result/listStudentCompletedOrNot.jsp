@@ -24,6 +24,7 @@
 						<strong id="message">${messageSuccess}</strong>
 					</div>
 				</div>
+				<!-- TODO: remove here -->
 				<div class="col-sm-5">
 					<div class="row">
 						<div class="col-sm-8">

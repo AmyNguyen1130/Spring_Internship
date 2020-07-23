@@ -23,7 +23,7 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 						${assessment.getExpireddate()})</p>
 				</div>
 				<br>
-
+				<!-- TODO: revise here -->
 				<c:forEach items="${listQuestionOfAssessment}" var="question"
 					varStatus="status">
 

@@ -45,6 +45,7 @@ public class StudentInClassController {
 			@ModelAttribute("classid") Long classid,
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
+		// TODO: please revise here
 		List<Long> listStudentIdInClass = studentInClassService.getListStudentByClassid(classid);
 		if (listCheckedId != null) {
 

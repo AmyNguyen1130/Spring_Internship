@@ -194,6 +194,7 @@ public class AssessmentController {
 			for (Map.Entry<String, String> answer : allParams.entrySet()) {
 
 				questionId = Long.parseLong(answer.getKey());
+				// TODO: why split in here
 				String[] StrValue = answer.getValue().split("_", 2);
 				answerChoice = StrValue[0];
 				QuestionOfAssessmentDTO question = questionOfAssessmentService.getOneQuestionOfAssessment(questionId);
