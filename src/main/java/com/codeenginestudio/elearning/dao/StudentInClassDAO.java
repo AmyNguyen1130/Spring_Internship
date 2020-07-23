@@ -13,5 +13,4 @@ public interface StudentInClassDAO extends JpaRepository<StudentInClassEntity, L
 	List<StudentInClassEntity> findByClassForeign(ClassEntity classForeign);
 
 	List<StudentInClassEntity> findByStudent(UserEntity student);
-
 }

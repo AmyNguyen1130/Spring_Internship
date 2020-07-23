@@ -7,10 +7,22 @@ public class StudentInClassDTO {
 	private ClassDTO classForeign;
 
 	private UserDTO student;
+	
+	private Float score;
 
 	public StudentInClassDTO() {
 		super();
 	}
+
+	
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
+	}
+
 
 	public Long getIdrow() {
 		return idrow;

@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.dao.ClassDAO;
+import com.codeenginestudio.elearning.dao.ResultDAO;
 import com.codeenginestudio.elearning.dao.StudentInClassDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.StudentInClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
+import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
+import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.StudentInClassUtil;
@@ -27,6 +30,9 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private ResultService resultService;
 
 	@Override
 	public void saveStudentInClass(Long classid, Long userid) {
@@ -51,6 +57,20 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		return studentInClassDTOs;
 	}
 
+	@Override
+	public List<StudentInClassDTO> getListStudentsByClassid(Long classid) {
+		ClassDTO classDTO = ClassUtil.parseToDTO(classDAO.getClassByClassid(classid));
+		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO.findAll();
+		List<StudentInClassDTO> studentInClassDTOs = new ArrayList<>();
+
+		for (StudentInClassEntity student : studentInClassEntities) {
+			if (student.getClassForeign().getClassid() == classDTO.getClassid()) {
+				studentInClassDTOs.add(StudentInClassUtil.parseToDTO(student));
+			}
+		}
+		return studentInClassDTOs;
+	}
+	
 	@Override
 	public void deleteStudentInClass(Long id) {
 		studentInClassDAO.deleteById(id);
@@ -95,5 +115,18 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 			listClass.add(student.getClassForeign().getClassid());
 		}
 		return listClass;
+	}
+
+	@Override
+	public Float setScoreForStudent(Long assessmentId, Long studentId) {
+		
+		List<ResultDTO> listResult = resultService.findByAssessmentId(assessmentId);
+		Float userScore = (float) 0;
+		for (ResultDTO result : listResult) {
+			if(studentId == result.getStudent().getUserid()) {
+				userScore += result.getScore();
+			}
+		}
+		return userScore;
 	}
 }

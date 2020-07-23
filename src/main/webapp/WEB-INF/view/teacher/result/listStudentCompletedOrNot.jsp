@@ -13,6 +13,31 @@
 	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
 <body>
+	<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-7">
+					<h5> Class Name: ${class.getClassname()}</h5> 
+					<h5> Assessment Name: ${assessment.getAssessmentname()}</h5>
+					<h5>( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h5>
+					<div class="alert success" style="display:none">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+						<strong id="message">${messageSuccess}</strong>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="row">
+						<div class="col-sm-8">
+	
+						</div>
+						<div class="col-sm-4">
+							<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
+								<button class="btn btn-default" type="button">Add new question</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
 		<br><br>
 		<div class="container-fluid">
 		  <div class="row">
@@ -20,14 +45,33 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Student Name</th>
-					<th scope="col">Corrected Answer/total</th>
-					<th scope="col">Score</th>
+					<th scope="col">First Name</th>
+					<%-- <th scope="col">Last Name</th>--%>
+					<th scope="col">Score/Total</th>
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<%-- --%>
+				<c:forEach items="${listStudentInClass}" var="studentInClass" varStatus="num">
+					<tr>
+						<td>${num.index + 1}</td>
+						<td>${studentInClass.student.userid}</td>
+						<%-- <td>${studentInClass.student.lastname}</td>--%>
+						<td>${studentInClass.score} / ${assessment.totalscore}</td>
+						<td>
+							<c:choose>
+                                  <c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
+                                      <a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
+										<button class="btn">view detail</button>
+									</a>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <p>Haven't done the assignment yet</p>
+                                  </c:otherwise>
+                              </c:choose>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			</table>
 		</div>

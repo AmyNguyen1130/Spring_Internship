@@ -15,9 +15,12 @@ public interface StudentInClassService {
 	Long findIdByValue(Long check);
 
 	List<Long> getListStudentByClassid(Long classid);
+	
+	List<StudentInClassDTO> getListStudentsByClassid(Long classid);
 
 	List<StudentInClassDTO> getAllStudentInClass();
 
 	List<Long> getClassIdByStudent(Long userid);
 
+	Float setScoreForStudent(Long assessmentId, Long studentId);
 }

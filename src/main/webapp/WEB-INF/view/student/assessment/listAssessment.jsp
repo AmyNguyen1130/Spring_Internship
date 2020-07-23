@@ -42,8 +42,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${assessmentPage}" var="assessment" varStatus="count">
-					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
-
+					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid())}">
 						<tr>
 							<td>${count.index + 1}</td>
 							<td>${assessment.assessmentname}</td>
@@ -78,6 +77,7 @@
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
 			}
 		});
+
 	</script>
 </body>
 </html>

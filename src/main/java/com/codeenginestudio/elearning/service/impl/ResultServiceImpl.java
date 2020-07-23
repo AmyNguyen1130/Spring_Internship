@@ -49,6 +49,7 @@ public class ResultServiceImpl implements ResultService {
 
 	@Override
 	public List<ResultDTO> findByAssessmentId(Long assessmentid) {
+
 		List<ResultEntity> listResult = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
 		List<ResultDTO> resultDTO = new ArrayList<>();
 		for (ResultEntity result : listResult) {
@@ -96,6 +97,16 @@ public class ResultServiceImpl implements ResultService {
 			totalScore += result.getScore();
 		}
 		return totalScore;
+	}
+
+	@Override
+	public List<Long> getListStudentIdtByAssessmentId(Long assessmentid) {
+		List<Long> listIdOfStudent = new ArrayList<>();
+		List<ResultDTO> listResultDTOs = findByAssessmentId(assessmentid);
+		for (ResultDTO resultDTO : listResultDTOs) {
+			listIdOfStudent.add(resultDTO.getStudent().getUserid());
+		}
+		return listIdOfStudent;
 	}
 
 }

@@ -16,6 +16,8 @@ public interface ResultService {
 
 	Float getUserScoreByAssessment(Long assessmentid);
 
+	List<Long> getListStudentIdtByAssessmentId(Long assessmentid);
+
 	List<ResultDTO> findByAssessmentId(Long assessmentid);
 
 	List<ResultDTO> findByAssessmentAndStudent(Long assessmentid, Long userId);
