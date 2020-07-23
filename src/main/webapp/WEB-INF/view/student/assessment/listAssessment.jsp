@@ -15,14 +15,12 @@
 <body>
 		<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-7">
+
 				<div class="alert success" style="display:none">
 					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<strong id="message">${messageSuccess}</strong> 
 				</div>
-			</div>
-			<div class="col-sm-5">
-			</div>
+
 		</div>
 		</div>	
 		<br><br>
@@ -53,15 +51,15 @@
 							<td>${assessment.startdate}</td>
 							<td>${assessment.expireddate}</td>
 							<td>${assessment.getStatus() ? 'Active' : 'Inactive'}</td>
-							<td> ${assessment.getUserscore()} / ${assessment.getTotalscore()}</td>
+							<td>${assessment.getTotalscore()}</td>
 							<td>${assessment.getTotalquestion()}</td>
 							<td>
 								<c:choose>
 									<c:when test="${!assessment.isEdit()}">
-										<a class="href" href="/student/addSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-default" type="button">Do Exercise</button></a>			
+										<a class="href" href="/student/addSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-danger" type="button">Do Exercise</button></a>
 									</c:when>
 									<c:otherwise>
-										<a class="href" href="/student/editSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-default" type="button">Edit Exercise</button></a>
+										<a class="href" href="/student/editSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-warning" type="button">Edit Exercise</button></a>
 									</c:otherwise>
 								</c:choose>
 							</td>

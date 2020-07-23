@@ -230,4 +230,8 @@ img {
   display: table;
 }
 
+.correctAnswer{
+	margin-left: 5px;
+	color: #B43104;
+}
 

@@ -124,16 +124,17 @@ public class AssessmentServiceImpl implements AssessmentService {
 		for (AssessmentDTO assessment : listAssessment) {
 			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
 				listAssessmentUnExpired.add(assessment);
-				
-				assessment.setEdit(!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-						userDAO.getUserByUserid(userId)).isEmpty());
+
+				assessment.setEdit(
+						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+								userDAO.getUserByUserid(userId)).isEmpty());
 			}
 		}
 		return listAssessmentUnExpired;
 	}
 
 	@Override
-	public List<AssessmentDTO> getListAssessmentByExpired() {
+	public List<AssessmentDTO> getListAssessmentByExpired(Long userId) {
 
 		LocalDate currentDate = LocalDate.now();
 		List<AssessmentDTO> listAssessment = getListAssessment();
@@ -142,6 +143,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 		for (AssessmentDTO assessment : listAssessment) {
 			if (assessment.getExpireddate().isBefore(currentDate)) {
 				listAssessmentExpired.add(assessment);
+				assessment.setEdit(
+						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+								userDAO.getUserByUserid(userId)).isEmpty());
 			}
 		}
 		return listAssessmentExpired;

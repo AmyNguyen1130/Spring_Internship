@@ -40,9 +40,6 @@ public class AssessmentEntity {
 	@Column
 	private Boolean status;
 
-	@Column
-	private Float totalscore;
-
 	public AssessmentEntity() {
 		super();
 	}
@@ -104,14 +101,6 @@ public class AssessmentEntity {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
-	}
-
-	public Float getTotalscore() {
-		return totalscore;
-	}
-
-	public void setTotalscore(Float totalscore) {
-		this.totalscore = totalscore;
 	}
 
 }

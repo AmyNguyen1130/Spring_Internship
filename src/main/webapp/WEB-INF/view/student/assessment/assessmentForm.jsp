@@ -34,10 +34,7 @@
 									<c:forEach items="${question.options}" var="option">
 
 									<c:set var="check" value='${option.getName() eq listSubmitEdit[status.index].answerchoice &&  question.questionid == listSubmitEdit[status.index].getQuestion().getQuestionid() ? "checked" : ""}' />
-										<%-- TODO: Need revise here.
-										Should has a hidden input to store question id
-										Should seperate the student's answer such as using jquery to fill in their answer.
-									--%>
+
 										<div class="row">
 											<div class="col-sm-1">
 												<label for="${option.getName()}"

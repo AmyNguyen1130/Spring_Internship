@@ -129,6 +129,7 @@ public class AssessmentController {
 	}
 
 	// Student role
+
 	@GetMapping("/student/assessment")
 	public String showListAssessmentWithStudentRole(Model model) {
 
@@ -141,7 +142,6 @@ public class AssessmentController {
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 
 			assessmentDTO.setTotalscore(questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
-			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
 
 		}
 
@@ -255,19 +255,24 @@ public class AssessmentController {
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
 
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired();
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired(userId);
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+
+			assessmentDTO.setTotalscore(questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
+			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
 		}
 		model.addAttribute("listClass", classService.getAllClass());
 		model.addAttribute("listClassAssigned", listClassid);
 		model.addAttribute("assessmentPage", listAssessments);
-		return PREFIX_STUDENT + "listAssessment";
+
+		return PREFIX_STUDENT + "history/listAssessmentExpired";
 	}
 
 	private static final String PREFIX_TEACHER = "/teacher/assessment/";
 	private static final String PREFIX_STUDENT = "/student/assessment/";
+
 
 }

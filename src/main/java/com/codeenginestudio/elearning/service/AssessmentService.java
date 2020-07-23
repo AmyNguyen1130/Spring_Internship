@@ -24,7 +24,7 @@ public interface AssessmentService {
 
 	List<AssessmentDTO> getListAssessmentByUnExpired(Long userId);
 
-	List<AssessmentDTO> getListAssessmentByExpired();
+	List<AssessmentDTO> getListAssessmentByExpired(Long userId);
 
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
 

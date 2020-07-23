@@ -48,7 +48,7 @@ public class ResultServiceImpl implements ResultService {
 	}
 
 	@Override
-	public List<ResultDTO> getAssessmentByAssessmentId(Long assessmentid) {
+	public List<ResultDTO> findByAssessmentId(Long assessmentid) {
 		List<ResultEntity> listResult = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
 		List<ResultDTO> resultDTO = new ArrayList<>();
 		for (ResultEntity result : listResult) {
@@ -90,7 +90,7 @@ public class ResultServiceImpl implements ResultService {
 	@Override
 	public Float getUserScoreByAssessment(Long assessmentid) {
 
-		List<ResultDTO> listResult = getAssessmentByAssessmentId(assessmentid);
+		List<ResultDTO> listResult = findByAssessmentId(assessmentid);
 		Float totalScore = (float) 0;
 		for (ResultDTO result : listResult) {
 			totalScore += result.getScore();
