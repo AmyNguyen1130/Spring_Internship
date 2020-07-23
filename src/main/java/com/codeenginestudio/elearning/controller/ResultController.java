@@ -39,24 +39,29 @@ public class ResultController {
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
+	// Student role
+
 	@GetMapping("/student/assessment/history/viewResult/{assessmentid}")
 	public String getResultWithStudentRole(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		String roleName = SecurityUtil.getUserPrincipal().getRole().getRolename();
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 
 		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
+		model.addAttribute("currentRole", roleName);
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
-	
+
 	// role Teacher
 
 	@GetMapping("/teacher/viewResultOfStudent/{assessmentid}/{userid}")
-	public String showStudentResult(Model model, @PathVariable(name = "assessmentid") Long assessmentid, @PathVariable(name = "userid") Long userid) {
-		
+	public String showStudentResult(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
+			@PathVariable(name = "userid") Long userid) {
+
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
@@ -65,7 +70,7 @@ public class ResultController {
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
-	
+
 	@GetMapping("/teacher/viewResult")
 	public String showListStudentCompletedTheTest(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 

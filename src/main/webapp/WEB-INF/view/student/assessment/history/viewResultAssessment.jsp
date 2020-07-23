@@ -70,7 +70,7 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 							</c:forEach>
 							<c:if
 								test="${question.correctanswer != listSubmitEdit[status.index].answerchoice}">
-								<div class="correctAnswer"">
+								<div class="correctAnswer">
 									<strong id="message">Correct answer is
 										${question.correctanswer}</strong>
 								</div>
@@ -80,8 +80,14 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 
 				</c:forEach>
 
-				<a href="/student/assessment/history"><input
-					class="btn btn-default" type="button" value="Cancel"></a>
+				<c:choose>
+					<c:when test="${currentRole == 'Student'}">
+						<a href="/student/assessment/history"><input class="btn btn-default" type="button" value="Cancel"></a>
+					</c:when>
+					<c:otherwise>
+						<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>"><input class="btn btn-default" type="button" value="Cancel"></a>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 		</div>
