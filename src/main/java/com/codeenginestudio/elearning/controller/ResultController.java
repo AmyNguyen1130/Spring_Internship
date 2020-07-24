@@ -45,13 +45,12 @@ public class ResultController {
 	public String getResultWithStudentRole(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-		String roleName = SecurityUtil.getUserPrincipal().getRole().getRolename();
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 
 		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
-		model.addAttribute("currentRole", roleName);
+		model.addAttribute("urlBack", "/student/assessment/history");
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
@@ -65,9 +64,8 @@ public class ResultController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-
 		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userid));
-
+		model.addAttribute("urlBack", "/teacher/viewResult?assessmentid=" + assessmentid);
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
 
@@ -93,6 +91,7 @@ public class ResultController {
 		model.addAttribute("listIdOfStudent", listIdOfStudentDTOs);
 		model.addAttribute("assessment", assessment);
 		model.addAttribute("class", classDTO);
+
 		return PREFIX_TEACHER + "listStudentCompletedOrNot";
 	}
 

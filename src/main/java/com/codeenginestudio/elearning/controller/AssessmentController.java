@@ -47,6 +47,7 @@ public class AssessmentController {
 	AssessmentValidation assessmentValidation = new AssessmentValidation();
 
 	// Teacher role
+
 	@GetMapping("/teacher/assessment")
 	public String showListAssessment(Model model, @RequestParam(name = "page", required = false) Integer page) {
 
@@ -204,8 +205,7 @@ public class AssessmentController {
 					score = (float) 0;
 				}
 
-				resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score, startDate,
-						updateDate);
+				resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score, startDate, updateDate);
 			}
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");

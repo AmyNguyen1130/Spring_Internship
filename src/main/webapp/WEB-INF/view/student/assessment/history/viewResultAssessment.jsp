@@ -8,7 +8,7 @@
 <head>
 <%
 	String wrongAnswerIcon = "https://p1.hiclipart.com/preview/972/429/230/windows-live-for-xp-red-x-illustration-png-clipart.jpg";
-String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparent-clipart-free-download-tilde-png-260_240.jpg";
+	String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparent-clipart-free-download-tilde-png-260_240.jpg";
 %>
 <meta charset="UTF-8">
 <body>
@@ -28,19 +28,20 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 					varStatus="status">
 
 					<div class="questionName">
-						<c:choose>
-							<c:when
-								test="${question.correctanswer eq listSubmitEdit[status.index].answerchoice}">
-								<img alt="correct" src="<%=correctAnswerIcon%>"
-									class="optionSize" />
-							</c:when>
-							<c:otherwise>
-								<img alt="incorrect" src="<%=wrongAnswerIcon%>"
-									class="optionSize" />
-							</c:otherwise>
-						</c:choose>
-						<span> Question ${question.numericalorder}:
-							${question.content}</span>
+						<c:if test="${!preview}">
+								<c:choose>
+									<c:when
+										test="${question.correctanswer eq listSubmitEdit[status.index].answerchoice}">
+										<img alt="correct" src="<%=correctAnswerIcon%>"
+											class="optionSize" />
+									</c:when>
+									<c:otherwise>
+										<img alt="incorrect" src="<%=wrongAnswerIcon%>"
+											class="optionSize" />
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						<span> Question ${question.numericalorder}: ${question.content}</span>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-6">
@@ -51,9 +52,7 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 
 								<div class="row">
 									<div class="col-sm-1">
-										<label for="${option.getName()}"
-											class="col-sm-1 col-form-label">${option.getName()}:
-										</label>
+										<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label>
 									</div>
 									<div class="col-sm-1">
 										<input type="radio" name="${question.getQuestionid()}"
@@ -68,27 +67,18 @@ String correctAnswerIcon = "https://img.pngio.com/tilde-png-and-tilde-transparen
 								</div>
 
 							</c:forEach>
-							<c:if
-								test="${question.correctanswer != listSubmitEdit[status.index].answerchoice}">
-								<div class="correctAnswer">
-									<strong id="message">Correct answer is
-										${question.correctanswer}</strong>
-								</div>
-							</c:if>
+								<c:if test="${!preview}">
+									<c:if test="${question.correctanswer != listSubmitEdit[status.index].answerchoice}">
+										<div class="correctAnswer">
+											<strong id="message">Correct answer is
+												${question.correctanswer}</strong>
+										</div>
+									</c:if>
+								</c:if>
 						</div>
 					</div>
-
 				</c:forEach>
-
-				<c:choose>
-					<c:when test="${currentRole == 'Student'}">
-						<a href="/student/assessment/history"><input class="btn btn-default" type="button" value="Cancel"></a>
-					</c:when>
-					<c:otherwise>
-						<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>"><input class="btn btn-default" type="button" value="Cancel"></a>
-					</c:otherwise>
-				</c:choose>
-
+				<a href="${urlBack}"><input class="btn btn-default" type="button" value="Back"></a>
 			</div>
 		</div>
 	</div>

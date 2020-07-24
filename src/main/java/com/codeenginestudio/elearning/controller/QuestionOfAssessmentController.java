@@ -1,5 +1,6 @@
 package com.codeenginestudio.elearning.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -128,5 +129,17 @@ public class QuestionOfAssessmentController {
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
+	@GetMapping("/teacher/assessment/preview/{assessmentid}")
+	public String previewQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
+
+		model.addAttribute("listQuestionOfAssessment",
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
+		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
+		model.addAttribute("preview", true);
+		model.addAttribute("urlBack", "/teacher/questionOfAssessment?assessmentid=" + assessmentid);
+		return PREFIX_STUDENT + "history/viewResultAssessment";
+	}
+
+	private static final String PREFIX_STUDENT = "/student/assessment/";
 	private final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
 }

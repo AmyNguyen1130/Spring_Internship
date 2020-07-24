@@ -24,19 +24,6 @@
 						<strong id="message">${messageSuccess}</strong>
 					</div>
 				</div>
-				<!-- TODO: remove here -->
-				<div class="col-sm-5">
-					<div class="row">
-						<div class="col-sm-8">
-	
-						</div>
-						<div class="col-sm-4">
-							<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-								<button class="btn btn-default" type="button">Add new question</button>
-							</a>
-						</div>
-					</div>
-				</div>
 			</div>
 	</div>
 		<br><br>
