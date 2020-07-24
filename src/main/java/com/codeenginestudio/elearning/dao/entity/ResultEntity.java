@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,9 +25,9 @@ public class ResultEntity {
 	@JoinColumn(name = "studentid", referencedColumnName = "userid")
 	private UserEntity student;
 
-	@OneToOne(cascade = CascadeType.DETACH)
-	@JoinColumn(name = "questionid", referencedColumnName = "questionid")
-	private QuestionOfAssessmentEntity question;
+	@Lob
+	@Column( length = 100000)
+	private String questions;
 
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "assessmentid", referencedColumnName = "assessmentid")
@@ -64,15 +65,6 @@ public class ResultEntity {
 		super();
 	}
 
-	public ResultEntity(UserEntity student, QuestionOfAssessmentEntity question, AssessmentEntity assessment,
-			String answerChoice) {
-		super();
-		this.student = student;
-		this.question = question;
-		this.assessment = assessment;
-		this.answerchoice = answerChoice;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -89,12 +81,12 @@ public class ResultEntity {
 		this.student = student;
 	}
 
-	public QuestionOfAssessmentEntity getQuestion() {
-		return question;
+	public String getQuestions() {
+		return questions;
 	}
 
-	public void setQuestion(QuestionOfAssessmentEntity question) {
-		this.question = question;
+	public void setQuestions(String questions) {
+		this.questions = questions;
 	}
 
 	public AssessmentEntity getAssessment() {

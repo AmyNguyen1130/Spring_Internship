@@ -14,9 +14,9 @@ public interface StudentInClassService {
 
 	Long findIdByValue(Long check);
 
-	List<Long> getListStudentByClassid(Long classid);
+	List<Long> getListStudenIdtByClassid(Long classid);
 	
-	List<StudentInClassDTO> getListStudentsByClassid(Long classid);
+	List<StudentInClassDTO> getByClassid(Long classid);
 
 	List<StudentInClassDTO> getAllStudentInClass();
 

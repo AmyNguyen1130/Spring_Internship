@@ -1,8 +1,6 @@
 package com.codeenginestudio.elearning.controller;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
-import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
+import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
@@ -141,9 +139,8 @@ public class AssessmentController {
 		for (AssessmentDTO assessmentDTO : listAssessments) {
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
-
-			assessmentDTO.setTotalscore(questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
-
+			assessmentDTO.setTotalscore(
+					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
 		}
 
 		model.addAttribute("listClass", classService.getAllClass());
@@ -156,11 +153,9 @@ public class AssessmentController {
 	@GetMapping("/student/addSubmitAssessment/{assessmentid}")
 	public String addSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
 		model.addAttribute("url", "/student/saveSubmitAssessment/" + assessmentid);
 
 		return PREFIX_STUDENT + "assessmentForm";
@@ -169,82 +164,33 @@ public class AssessmentController {
 	@GetMapping("/student/editSubmitAssessment/{assessmentid}")
 	public String editSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
+		ResultDTO result = resultService.findResultByAssessmentId(assessmentid);
+		
+		model.addAttribute("listSubmitEdit", result);
 
 		return PREFIX_STUDENT + "assessmentForm";
 	}
 
 	@PostMapping("student/saveSubmitAssessment/{assessmentid}")
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
-			@RequestParam Map<String, String> allParams, RedirectAttributes redirectAttributes)
-			throws JsonProcessingException {
+			ResultDTO resultDTO, RedirectAttributes redirectAttributes) throws JsonProcessingException {
 
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-		Long questionId = 0L;
-		String answerChoice = "";
-		final LocalDate startDate = LocalDate.now();
-		LocalDate updateDate = LocalDate.now();
-		Float score = (float) 0;
+		resultService.saveSubmitAssessment(resultDTO);
 
-		if (allParams != null) {
-			for (Map.Entry<String, String> answer : allParams.entrySet()) {
-
-				questionId = Long.parseLong(answer.getKey());
-				// TODO: why split in here
-				String[] StrValue = answer.getValue().split("_", 2);
-				answerChoice = StrValue[0];
-				QuestionOfAssessmentDTO question = questionOfAssessmentService.getOneQuestionOfAssessment(questionId);
-				if (answerChoice.equals(question.getCorrectanswer())) {
-					score = question.getScore();
-				} else {
-					score = (float) 0;
-				}
-
-				resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score, startDate, updateDate);
-			}
-		}
 		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");
 		return "redirect:/student/assessment";
 	}
 
 	@PostMapping("student/saveEditSubmitAssessment/{assessmentid}")
-	public String editSubmitAssessment(Model model, @RequestParam Map<String, String> allParams,
+	public String editSubmitAssessment(Model model, ResultDTO resultDTO,
 			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
 			throws JsonProcessingException {
 
-		Long idEdit = 0L;
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-		Long questionId = 0L;
-		String answerChoice = "";
-		final LocalDate startDate = LocalDate.now();
-		LocalDate updateDate = LocalDate.now();
-		Float score = (float) 0;
-
-		for (Map.Entry<String, String> answer : allParams.entrySet()) {
-
-			questionId = Long.parseLong(answer.getKey());
-			String[] StrValue = answer.getValue().split("_", 2);
-			answerChoice = StrValue[0];
-			if (!StrValue[1].equals("")) {
-				idEdit = Long.parseLong(StrValue[1]);
-			} else {
-				idEdit = 0L;
-			}
-			QuestionOfAssessmentDTO question = questionOfAssessmentService.getOneQuestionOfAssessment(questionId);
-			if (answerChoice.equals(question.getCorrectanswer())) {
-				score = question.getScore();
-			} else {
-				score = (float) 0;
-			}
-
-			resultService.saveEditSubmitAssessment(idEdit, userId, assessmentid, questionId, answerChoice, score,
-					startDate, updateDate);
-		}
+		resultService.saveEditSubmitAssessment(resultDTO);
 
 		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!! ");
 		return "redirect:/student/assessment";
@@ -262,7 +208,8 @@ public class AssessmentController {
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 
-			assessmentDTO.setTotalscore(questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
+			assessmentDTO.setTotalscore(
+					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
 			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
 		}
 		model.addAttribute("listClass", classService.getAllClass());
@@ -274,6 +221,5 @@ public class AssessmentController {
 
 	private static final String PREFIX_TEACHER = "/teacher/assessment/";
 	private static final String PREFIX_STUDENT = "/student/assessment/";
-
 
 }

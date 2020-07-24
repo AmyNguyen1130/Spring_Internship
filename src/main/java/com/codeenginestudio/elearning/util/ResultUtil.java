@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.util;
 
 import com.codeenginestudio.elearning.dao.entity.ResultEntity;
+
 import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.util.general.UtilGeneral;
 
@@ -19,4 +20,5 @@ public class ResultUtil {
 
 		return resultEntity;
 	}
+
 }

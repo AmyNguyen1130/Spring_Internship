@@ -17,10 +17,12 @@ public class QuestionOfAssessmentEntity {
 	@JoinColumn(name = "questiontypeid", referencedColumnName = "questiontypeid")
 	private QuestionTypeEntity questiontype;
 
-	@Column
+	@Lob
+	@Column( length = 100000)
 	private String content;
 
-	@Column
+	@Lob
+	@Column( length = 100000)
 	private String options;
 
 	@Column

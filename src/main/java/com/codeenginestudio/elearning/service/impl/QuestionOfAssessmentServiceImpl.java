@@ -76,6 +76,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 		List<OptionDTO> revisedOption = removeNullOption(questionOfAssessmentDTO.getOptions());
 		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(revisedOption));
+
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
@@ -130,7 +131,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	public Float getTotalScoreByAssessment(Long assessmentid) {
 		List<QuestionOfAssessmentDTO> listQuestions = getListQuestionOfAssessmentByAssessment(assessmentid);
 		Float totalScore = (float) 0;
-		for(QuestionOfAssessmentDTO question: listQuestions) {
+		for (QuestionOfAssessmentDTO question : listQuestions) {
 			totalScore += question.getScore();
 		}
 		return totalScore;

@@ -43,7 +43,7 @@ public class ClassController {
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
 		Page<ClassDTO> classess = classService.getClassPage(page);
 		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO.getClassid()).size());
+			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
 		model.addAttribute("classPage", classess);
 
@@ -131,7 +131,7 @@ public class ClassController {
 
 		Page<ClassDTO> classess = classService.getClassPage(page);
 		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.getListStudentByClassid(classDTO.getClassid()).size());
+			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
 
 		model.addAttribute("classPage", classess);

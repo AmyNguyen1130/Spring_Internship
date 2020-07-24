@@ -76,7 +76,7 @@ public class ResultController {
 		ClassDTO classDTO = classService.getClassByClassid(assessment.getClassForeign().getClassid());
 		List<Long> listIdOfStudentDTOs = resultService.getListStudentIdtByAssessmentId(assessmentid);
 		List<StudentInClassDTO> listStudentsInclass = studentInClassService
-				.getListStudentsByClassid(classDTO.getClassid());
+				.getByClassid(classDTO.getClassid());
 
 		for (StudentInClassDTO studentInClassDTO : listStudentsInclass) {
 			studentInClassDTO.setScore(

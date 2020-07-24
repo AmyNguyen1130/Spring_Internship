@@ -35,7 +35,7 @@ public class StudentInClassController {
 		model.addAttribute("classid", classid);
 		model.addAttribute("userPage",
 				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
-		model.addAttribute("studentChecked", studentInClassService.getListStudentByClassid(classid));
+		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return PREFIX + "addStudentInClass";
 	}
@@ -45,30 +45,28 @@ public class StudentInClassController {
 			@ModelAttribute("classid") Long classid,
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
-		// TODO: please revise here
-		List<Long> listStudentIdInClass = studentInClassService.getListStudentByClassid(classid);
-		if (listCheckedId != null) {
+		List<Long> listStudentIdInClass = studentInClassService.getListStudenIdtByClassid(classid);
 
+		if (listCheckedId != null) {
+			// check student existed from url
 			for (Long userid : listCheckedId) {
 				if (!checkDuplicateStudentInClass(userid, classid)) {
 					studentInClassService.saveStudentInClass(classid, userid);
-					redirectAttributes.addFlashAttribute("messageSuccess", "Assign Students to Class Successfully!!! ");
 				}
 			}
-
+			// check student existed in db
 			for (Long check : listStudentIdInClass) {
-
 				if (!listCheckedId.contains(check)) {
 					Long id = studentInClassService.findIdByValue(check);
 					studentInClassService.deleteStudentInClass(id);
-					redirectAttributes.addFlashAttribute("messageSuccess", "Delete Students to Class Successfully!!! ");
 				}
 			}
 
 		}
+		// check list remove all
 		if (listCheckedId == null) {
 			studentInClassService.deleteAllByClass(classid);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Delete Students to Class Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess", "Update assign students to Class Successfully!!! ");
 		}
 		return "redirect:/admin/class";
 	}
@@ -80,14 +78,14 @@ public class StudentInClassController {
 		model.addAttribute("classid", classid);
 		model.addAttribute("userPage",
 				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
-		model.addAttribute("studentChecked", studentInClassService.getListStudentByClassid(classid));
+		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";
 	}
 
 	public Boolean checkDuplicateStudentInClass(Long check, Long classid) {
 
-		List<Long> list = studentInClassService.getListStudentByClassid(classid);
+		List<Long> list = studentInClassService.getListStudenIdtByClassid(classid);
 		if (list.contains(check)) {
 			return true;
 		}

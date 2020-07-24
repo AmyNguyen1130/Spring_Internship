@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ResultDTO {
 
@@ -8,7 +9,7 @@ public class ResultDTO {
 
 	private UserDTO student;
 
-	private QuestionOfAssessmentDTO question;
+	private List<QuestionOfAssessmentDTO> questions;
 
 	private AssessmentDTO assessment;
 
@@ -24,14 +25,6 @@ public class ResultDTO {
 		super();
 	}
 
-	public ResultDTO(UserDTO student, QuestionOfAssessmentDTO question, AssessmentDTO assessment, String answerChoice) {
-		super();
-		this.student = student;
-		this.question = question;
-		this.assessment = assessment;
-		this.answerchoice = answerChoice;
-	}
-
 	public UserDTO getStudent() {
 		return student;
 	}
@@ -40,12 +33,12 @@ public class ResultDTO {
 		this.student = student;
 	}
 
-	public QuestionOfAssessmentDTO getQuestion() {
-		return question;
+	public List<QuestionOfAssessmentDTO> getQuestions() {
+		return questions;
 	}
 
-	public void setQuestion(QuestionOfAssessmentDTO question) {
-		this.question = question;
+	public void setQuestions(List<QuestionOfAssessmentDTO> questions) {
+		this.questions = questions;
 	}
 
 	public AssessmentDTO getAssessment() {
