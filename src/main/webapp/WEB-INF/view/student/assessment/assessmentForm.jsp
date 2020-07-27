@@ -1,7 +1,9 @@
-<%@page import="java.util.List"%>
-<%@page import="com.codeenginestudio.elearning.dto.ResultDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
 			<div class="col-sm-3"></div>
 
 			<div class="col-sm-6" id="borderTest">
-				<form action="<%=request.getContextPath()%>${url}" method="post">
+			<form:form method="POST" action="${url}" modelAttribute="lessonForm">
 					<div class="descriptionAssessment">
 						<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
 						<p class="dateTime">(${assessment.getStartdate()} -
@@ -23,6 +25,9 @@
 
 					<c:forEach items="${listQuestionOfAssessment}" var="question"
 						varStatus="status">
+						
+					<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" /> 
+					<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" /> 
 						<div>
 							<div class="questionName">
 								<span> Question ${question.numericalorder}:
@@ -43,9 +48,8 @@
 												</label>
 											</div>
 											<div class="col-sm-1">
-												<input type="radio" name="${question.getQuestionid()}"
-													value="${option.getName()}_${listSubmitEdit[status.index].id}"
-													class="inputRadioOption" ${check}>
+											<form:radiobutton path="resultDTOs[${status.index}].answerchoice" value="${option.getName()}" class="inputRadioOption"  items="${check}" />  
+
 											</div>
 											<div class="col-sm-6">
 												<label class="optionName">${option.getOptionValue()}</label>
@@ -61,7 +65,7 @@
 					<button id="submit-button" type="submit" class="btn">Submit</button>
 					<a href="/student/assessment"><input class="btn btn-default"
 						type="button" value="Cancel"></a>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

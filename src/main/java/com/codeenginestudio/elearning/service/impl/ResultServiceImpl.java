@@ -10,11 +10,12 @@ import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.ResultDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
 import com.codeenginestudio.elearning.dao.entity.ResultEntity;
 import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.ResultUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.codeenginestudio.elearning.util.SecurityUtil;
 
 @Service
 public class ResultServiceImpl implements ResultService {
@@ -30,24 +31,6 @@ public class ResultServiceImpl implements ResultService {
 
 	@Autowired
 	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
-
-	@Override
-	public void saveSubmitAssessment(Long userId, Long assessmentid, Long questionId, String answerChoice, Float score)
-			throws JsonProcessingException {
-
-		final LocalDate startDate = LocalDate.now();
-		LocalDate updateDate = LocalDate.now();
-		ResultEntity resultEntity = new ResultEntity();
-
-		resultEntity.setStudent(userDAO.getUserByUserid(userId));
-		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
-		resultEntity.setAssessment(assessmentDAO.getOne(assessmentid));
-		resultEntity.setAnswerchoice(answerChoice);
-		resultEntity.setScore(score);
-		resultEntity.setStartdate(startDate);
-		resultEntity.setUpdatedate(updateDate);
-		resultDAO.save(resultEntity);
-	}
 
 	@Override
 	public List<ResultDTO> findByAssessmentId(Long assessmentid) {
@@ -68,26 +51,6 @@ public class ResultServiceImpl implements ResultService {
 			resultDTO.add(ResultUtil.parseToDTO(result));
 		}
 		return resultDTO;
-	}
-
-	@Override
-	public void saveEditSubmitAssessment(Long idEdit, Long userId, Long assessmentid, Long questionId,
-			String answerChoice, Float score) throws JsonProcessingException {
-
-		LocalDate updateDate = LocalDate.now();
-
-		if (idEdit == 0) {
-			saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score);
-		} else {
-			ResultEntity resultEntity = resultDAO.getOne(idEdit);
-
-			resultEntity.setQuestion(questionOfAssessmentDAO.getOne(questionId));
-			resultEntity.setAnswerchoice(answerChoice);
-			resultEntity.setScore(score);
-			resultEntity.setUpdatedate(updateDate);
-			resultDAO.save(resultEntity);
-		}
-
 	}
 
 	@Override
@@ -112,21 +75,8 @@ public class ResultServiceImpl implements ResultService {
 		}
 
 		return listIdOfStudent;
-
 	}
 
-	@Override
-	public List<Long> getListAssessmentIdtByStudentId(Long studentid) {
-		List<Long> listIdOfAssessment = new ArrayList<>();
-		
-		List<ResultDTO> listResultDTOs = findByStudentId(studentid);
-
-		for (ResultDTO resultDTO : listResultDTOs) {
-			listIdOfAssessment.add(resultDTO.getAssessment().getAssessmentid());
-		}
-
-		return listIdOfAssessment;
-	}
 
 	@Override
 	public List<ResultDTO> findByStudentId(Long studentid) {
@@ -137,6 +87,43 @@ public class ResultServiceImpl implements ResultService {
 			resultDTO.add(ResultUtil.parseToDTO(result));
 		}
 		return resultDTO;
+	}
+
+	public void saveSubmitLesson(ResultDTO lesson) {
+		final LocalDate startDate = LocalDate.now();
+		LocalDate updateDate = LocalDate.now();
+		ResultEntity resultEntity = new ResultEntity();
+		Float score = (float) 0;
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+
+		resultEntity.setStudent(userDAO.getUserByUserid(userId));
+		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(lesson.getQuestion().getQuestionid()));
+		resultEntity.setAssessment(assessmentDAO.getOne(lesson.getAssessment().getAssessmentid()));
+		resultEntity.setAnswerchoice(lesson.getAnswerchoice());
+		resultEntity.setScore(showScoreOfEachQuestion(lesson.getAnswerchoice(), lesson.getQuestion().getQuestionid(), score));
+		resultEntity.setStartdate(startDate);
+		resultEntity.setUpdatedate(updateDate);
+
+		resultDAO.save(resultEntity);
+		
+	}
+	
+	public Float showScoreOfEachQuestion(String answerChoice, Long questionId, Float score) {
+
+		QuestionOfAssessmentEntity question = questionOfAssessmentDAO.getOne(questionId);
+		if (answerChoice.equals(question.getCorrectanswer())) {
+			score = question.getScore();
+		} else {
+			score = (float) 0;
+		}
+		return score;
+
+	}
+
+	@Override
+	public List<Long> getListAssessmentIdtByStudentId(Long studentid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

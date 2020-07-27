@@ -1,7 +1,6 @@
 package com.codeenginestudio.elearning.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.ClassDTO;
-import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
+import com.codeenginestudio.elearning.dto.LessonForm;
+import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
@@ -23,7 +22,6 @@ import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.AssessmentValidation;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Controller
 public class AssessmentController {
@@ -155,13 +153,12 @@ public class AssessmentController {
 
 	@GetMapping("/student/addSubmitAssessment/{assessmentid}")
 	public String addSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
 		model.addAttribute("url", "/student/saveSubmitAssessment/" + assessmentid);
+		model.addAttribute("lessonForm", new LessonForm());
 
 		return PREFIX_STUDENT + "assessmentForm";
 	}
@@ -170,69 +167,27 @@ public class AssessmentController {
 	public String editSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<ResultDTO> resultDTOs = resultService.findByAssessmentAndStudent(assessmentid, userId);
+		LessonForm lessonForm = new LessonForm();
+		lessonForm.setResultDTOs(resultDTOs);
+
 		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
+		model.addAttribute("lessonForm", lessonForm);
 
 		return PREFIX_STUDENT + "assessmentForm";
 	}
 
-	@PostMapping("student/saveSubmitAssessment/{assessmentid}")
+	@PostMapping(value = "student/saveSubmitAssessment/{assessmentid}", consumes = "application/x-www-form-urlencoded")
 	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
-			@RequestParam Map<String, String> allParams, RedirectAttributes redirectAttributes)
-			throws JsonProcessingException {
+			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
-		Long questionId = 0L;
-		String answerChoice = "";
-		Float score = (float) 0;
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-
-		if (allParams != null) {
-			for (Map.Entry<String, String> answer : allParams.entrySet()) {
-
-				questionId = Long.parseLong(answer.getKey());
-				String[] StrValue = splitString(answer.getValue());
-				answerChoice = StrValue[0];
-				score = showScoreOfEachQuestion(answerChoice, questionId, score);
-
-				resultService.saveSubmitAssessment(userId, assessmentid, questionId, answerChoice, score);
-			}
+		for (ResultDTO lesson : lessonForm.getResultDTOs()) {
+			resultService.saveSubmitLesson(lesson);
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");
-		return "redirect:/student/assessment";
-	}
-
-	@PostMapping("student/saveEditSubmitAssessment/{assessmentid}")
-	public String editSubmitAssessment(Model model, @RequestParam Map<String, String> allParams,
-			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
-			throws JsonProcessingException {
-
-		Long idEdit = 0L;
-		Long questionId = 0L;
-		String answerChoice = "";
-		Float score = (float) 0;
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-
-		for (Map.Entry<String, String> answer : allParams.entrySet()) {
-
-			questionId = Long.parseLong(answer.getKey());
-			String[] StrValue = splitString(answer.getValue());
-			answerChoice = StrValue[0];
-
-			if (!StrValue[1].equals("")) {
-				idEdit = Long.parseLong(StrValue[1]);
-			} else {
-				idEdit = 0L;
-			}
-
-			score = showScoreOfEachQuestion(answerChoice, questionId, score);
-			resultService.saveEditSubmitAssessment(idEdit, userId, assessmentid, questionId, answerChoice, score);
-		}
-
-		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!!");
-
 		return "redirect:/student/assessment";
 	}
 
@@ -257,18 +212,6 @@ public class AssessmentController {
 		model.addAttribute("listAssessment", listAssessments);
 
 		return PREFIX_STUDENT + "history/listAssessmentExpired";
-	}
-
-	public Float showScoreOfEachQuestion(String answerChoice, Long questionId, Float score) {
-
-		QuestionOfAssessmentDTO question = questionOfAssessmentService.getOneQuestionOfAssessment(questionId);
-		if (answerChoice.equals(question.getCorrectanswer())) {
-			score = question.getScore();
-		} else {
-			score = (float) 0;
-		}
-		return score;
-
 	}
 
 	public String[] splitString(String answer) {

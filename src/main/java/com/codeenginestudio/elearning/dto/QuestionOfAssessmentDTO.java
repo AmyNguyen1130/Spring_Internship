@@ -20,7 +20,6 @@ public class QuestionOfAssessmentDTO {
 
 	private AssessmentDTO assessment;
 
-	private String answerchoice;
 
 	public QuestionOfAssessmentDTO(Long questionid, String numericalorder, QuestionTypeDTO questionType, String content,
 			List<OptionDTO> options, String correctanswer, float score, AssessmentDTO assessment) {
@@ -101,14 +100,6 @@ public class QuestionOfAssessmentDTO {
 
 	public void setAssessment(AssessmentDTO assessment) {
 		this.assessment = assessment;
-	}
-
-	public String getAnswerchoice() {
-		return answerchoice;
-	}
-
-	public void setAnswerchoice(String answerchoice) {
-		this.answerchoice = answerchoice;
 	}
 
 }
