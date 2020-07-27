@@ -23,7 +23,6 @@
 						${assessment.getExpireddate()})</p>
 				</div>
 				<br>
-				<!-- TODO: revise here -->
 				<c:forEach items="${listQuestionOfAssessment}" var="question"
 					varStatus="status">
 
@@ -31,7 +30,7 @@
 						<c:if test="${!preview}">
 								<c:choose>
 									<c:when
-										test="${question.correctanswer eq listSubmitEdit[status.index].answerchoice}">
+										test="${question.correctanswer eq listResult[status.index].answerchoice}">
 										<img alt="correct" src="<%=correctAnswerIcon%>"
 											class="optionSize" />
 									</c:when>
@@ -48,7 +47,7 @@
 
 							<c:forEach items="${question.options}" var="option">
 								<c:set var="check"
-									value='${option.getName() eq listSubmitEdit[status.index].answerchoice &&  question.questionid == listSubmitEdit[status.index].getQuestion().getQuestionid() ? "checked" : ""}' />
+									value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
 
 								<div class="row">
 									<div class="col-sm-1">
@@ -56,9 +55,9 @@
 									</div>
 									<div class="col-sm-1">
 										<input type="radio" name="${question.getQuestionid()}"
-											value="${option.getName()}_${listSubmitEdit[status.index].id}"
+											value="${option.getName()}"
 											class="inputRadioOption"
-											${option.getName() eq listSubmitEdit[status.index].answerchoice ? "checked" : ""}
+											${check}
 											disabled="disabled">
 									</div>
 									<div class="col-sm-6">
@@ -68,7 +67,7 @@
 
 							</c:forEach>
 								<c:if test="${!preview}">
-									<c:if test="${question.correctanswer != listSubmitEdit[status.index].answerchoice}">
+									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 										<div class="correctAnswer">
 											<strong id="message">Correct answer is
 												${question.correctanswer}</strong>

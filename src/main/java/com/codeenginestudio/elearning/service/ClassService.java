@@ -20,6 +20,10 @@ public interface ClassService {
 
 	List<ClassDTO> getAllClass();
 
+	List<ClassDTO> getClassByTeacherId(Long teacherId);
+
+	Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId);
+
 	Page<ClassDTO> getClassPage(Integer page);
 
 }

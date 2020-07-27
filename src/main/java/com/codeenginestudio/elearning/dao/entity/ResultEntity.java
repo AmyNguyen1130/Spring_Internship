@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,9 +24,9 @@ public class ResultEntity {
 	@JoinColumn(name = "studentid", referencedColumnName = "userid")
 	private UserEntity student;
 
-	@Lob
-	@Column( length = 100000)
-	private String questions;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "questionid", referencedColumnName = "questionid")
+	private QuestionOfAssessmentEntity question;
 
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "assessmentid", referencedColumnName = "assessmentid")
@@ -45,26 +44,6 @@ public class ResultEntity {
 	@Column
 	private Float score;
 
-	public LocalDate getStartdate() {
-		return startdate;
-	}
-
-	public void setStartdate(LocalDate startdate) {
-		this.startdate = startdate;
-	}
-
-	public LocalDate getUpdatedate() {
-		return updatedate;
-	}
-
-	public void setUpdatedate(LocalDate updatedate) {
-		this.updatedate = updatedate;
-	}
-
-	public ResultEntity() {
-		super();
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -81,12 +60,12 @@ public class ResultEntity {
 		this.student = student;
 	}
 
-	public String getQuestions() {
-		return questions;
+	public QuestionOfAssessmentEntity getQuestion() {
+		return question;
 	}
 
-	public void setQuestions(String questions) {
-		this.questions = questions;
+	public void setQuestion(QuestionOfAssessmentEntity question) {
+		this.question = question;
 	}
 
 	public AssessmentEntity getAssessment() {
@@ -103,6 +82,22 @@ public class ResultEntity {
 
 	public void setAnswerchoice(String answerchoice) {
 		this.answerchoice = answerchoice;
+	}
+
+	public LocalDate getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(LocalDate startdate) {
+		this.startdate = startdate;
+	}
+
+	public LocalDate getUpdatedate() {
+		return updatedate;
+	}
+
+	public void setUpdatedate(LocalDate updatedate) {
+		this.updatedate = updatedate;
 	}
 
 	public Float getScore() {

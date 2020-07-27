@@ -84,11 +84,11 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassPage(Integer page) {
+	public Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId) {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
-		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
+		Page<ClassEntity> listClassEntity = classDAO.findByUser(userDAO.getUserByUserid(teacherId), pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
@@ -99,6 +99,26 @@ public class ClassServiceImpl implements ClassService {
 		ClassEntity classEntity = classDAO.getOne(classid);
 		classEntity.setStatus(!classEntity.getStatus());
 		classDAO.saveAndFlush(classEntity);
+	}
+
+	@Override
+	public List<ClassDTO> getClassByTeacherId(Long teacherId) {
+		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getUserByUserid(teacherId));
+		List<ClassDTO> classDTO = new ArrayList<>();
+
+		for (ClassEntity classes : listClass) {
+			classDTO.add(ClassUtil.parseToDTO(classes));
+		}
+		return classDTO;
+	}
+
+	@Override
+	public Page<ClassDTO> getClassPage(Integer page) {
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
+
+		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
+
+		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 
 }

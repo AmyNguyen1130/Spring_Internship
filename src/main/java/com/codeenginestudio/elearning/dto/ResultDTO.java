@@ -1,7 +1,6 @@
 package com.codeenginestudio.elearning.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class ResultDTO {
 
@@ -9,7 +8,7 @@ public class ResultDTO {
 
 	private UserDTO student;
 
-	private List<QuestionOfAssessmentDTO> questions;
+	private QuestionOfAssessmentDTO question;
 
 	private AssessmentDTO assessment;
 
@@ -25,6 +24,22 @@ public class ResultDTO {
 		super();
 	}
 
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public UserDTO getStudent() {
 		return student;
 	}
@@ -33,12 +48,12 @@ public class ResultDTO {
 		this.student = student;
 	}
 
-	public List<QuestionOfAssessmentDTO> getQuestions() {
-		return questions;
+	public QuestionOfAssessmentDTO getQuestion() {
+		return question;
 	}
 
-	public void setQuestions(List<QuestionOfAssessmentDTO> questions) {
-		this.questions = questions;
+	public void setQuestion(QuestionOfAssessmentDTO question) {
+		this.question = question;
 	}
 
 	public AssessmentDTO getAssessment() {
@@ -57,14 +72,6 @@ public class ResultDTO {
 		this.answerchoice = answerchoice;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public LocalDate getStartdate() {
 		return startdate;
 	}
@@ -79,14 +86,6 @@ public class ResultDTO {
 
 	public void setUpdatedate(LocalDate updatedate) {
 		this.updatedate = updatedate;
-	}
-
-	public Float getScore() {
-		return score;
-	}
-
-	public void setScore(Float score) {
-		this.score = score;
 	}
 
 }

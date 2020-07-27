@@ -17,6 +17,7 @@ import com.codeenginestudio.elearning.dao.ResultDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.util.AssessmentUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
@@ -149,6 +150,22 @@ public class AssessmentServiceImpl implements AssessmentService {
 			}
 		}
 		return listAssessmentExpired;
+	}
+
+	@Override
+	public List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass) {
+
+		List<AssessmentEntity> listAssessment = assessmentDAO.findAll();
+
+		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+		for (AssessmentEntity assessment : listAssessment) {
+			for(ClassDTO classes: listClass) {
+				if(assessment.getClassForeign().getClassid() == classes.getClassid()) {
+					assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
+				}
+			}
+		}
+		return assessmentDTO;
 	}
 
 }

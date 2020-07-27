@@ -51,18 +51,11 @@
 			</thead>
 			<tbody>
 				<c:set var="i" value="1" />
-					<c:forEach items="${assessmentPage.getContent()}" var="assessment">
+					<c:forEach items="${listAssessment}" var="assessment">
 					<tr>
 						<td>${i}</td>
 						<td>${assessment.assessmentname}</td>
-						<c:if test="${assessment.getClassForeign().getClassid() == null}">
-							<td></td>
-						</c:if>
-						<c:forEach items="${listClass}" var="class">
-							<c:if test="${class.classid == assessment.getClassForeign().getClassid()}">
-								<td>${class.classname}</td>
-							</c:if>
-						</c:forEach>
+						<td>${assessment.getClassForeign().getClassname()}</td>
 						<td>${assessment.startdate}</td>
 						<td>${assessment.expireddate}</td>
 						<td>
@@ -95,12 +88,7 @@
 			</table>
 			</div>
 		</div>
-		<util:pagination
-			count="${assessmentPage.getTotalElements()}"
-			totalPages="${assessmentPage.getTotalPages()}" 
-			url="${pageContext.request.contextPath}/teacher/assessment"
-			curpage="${assessmentPage.getNumber()}" />
-	
+
 			<div id="confirm" class="modal">
 			  
 			  <form class="modal-content">

@@ -11,6 +11,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3"></div>
+
 			<div class="col-sm-6" id="borderTest">
 				<form action="<%=request.getContextPath()%>${url}" method="post">
 					<div class="descriptionAssessment">
@@ -18,15 +19,10 @@
 						<p class="dateTime">(${assessment.getStartdate()} -
 							${assessment.getExpireddate()})</p>
 					</div>
-					<br> <input type="hidden" name="assessment.assessmentid"
-						value="${assessment.assessmentid}"> <input type="hidden"
-						name="id" value="">
-					<c:forEach items="${listQuestionOfAssessment}" var="question"
-						varStatus="questionStatus">
-						<input type="hidden"
-							name="questions[${questionStatus.index}].questionid"
-							value="${question.getQuestionid()}">
+					<br>
 
+					<c:forEach items="${listQuestionOfAssessment}" var="question"
+						varStatus="status">
 						<div>
 							<div class="questionName">
 								<span> Question ${question.numericalorder}:
@@ -35,11 +31,10 @@
 							<div class="form-group row">
 								<div class="col-sm-6">
 
+									<c:forEach items="${question.options}" var="option">
 
-									<c:forEach items="${question.options}" var="option"
-										varStatus="optionStatus">
 										<c:set var="check"
-											value='${option.getName() eq listSubmitEdit[status.index].getQuestion().get(status.index).getAnswerchoice() && question.questionid eq listSubmitEdit[status.index].getQuestion().get(status.index).getQuestionid()? "checked" : ""}' />
+											value='${option.getName() eq listSubmitEdit[status.index].answerchoice ? "checked" : ""}' />
 
 										<div class="row">
 											<div class="col-sm-1">
@@ -48,10 +43,9 @@
 												</label>
 											</div>
 											<div class="col-sm-1">
-												<input type="radio"
-													name="questions[${questionStatus.index}].answerchoice"
-													value="${option.getName()}" class="inputRadioOption"
-													${check}>
+												<input type="radio" name="${question.getQuestionid()}"
+													value="${option.getName()}_${listSubmitEdit[status.index].id}"
+													class="inputRadioOption" ${check}>
 											</div>
 											<div class="col-sm-6">
 												<label class="optionName">${option.getOptionValue()}</label>

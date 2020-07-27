@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
+import com.codeenginestudio.elearning.dto.ClassDTO;
 
 public interface AssessmentService {
 
@@ -27,5 +28,7 @@ public interface AssessmentService {
 	List<AssessmentDTO> getListAssessmentByExpired(Long userId);
 
 	Page<AssessmentDTO> getPageListAssessment(Integer page);
+
+	List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass);
 
 }

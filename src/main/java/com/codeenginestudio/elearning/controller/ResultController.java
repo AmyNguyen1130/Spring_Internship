@@ -49,7 +49,7 @@ public class ResultController {
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userId));
+		model.addAttribute("listResult", resultService.findByAssessmentAndStudent(assessmentid, userId));
 		model.addAttribute("urlBack", "/student/assessment/history");
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
@@ -64,7 +64,7 @@ public class ResultController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("listSubmitEdit", resultService.findByAssessmentAndStudent(assessmentid, userid));
+		model.addAttribute("listResult", resultService.findByAssessmentAndStudent(assessmentid, userid));
 		model.addAttribute("urlBack", "/teacher/viewResult?assessmentid=" + assessmentid);
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}

@@ -34,7 +34,9 @@
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">First Name</th>
-					<%-- <th scope="col">Last Name</th>--%>
+					<th scope="col">Last Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Gender</th>
 					<th scope="col">Score/Total</th>
 					<th scope="col">Actions</th>
 				</tr>
@@ -43,20 +45,22 @@
 				<c:forEach items="${listStudentInClass}" var="studentInClass" varStatus="num">
 					<tr>
 						<td>${num.index + 1}</td>
-						<td>${studentInClass.student.userid}</td>
-						<%-- <td>${studentInClass.student.lastname}</td>--%>
+						<td>${studentInClass.student.firstname}</td>
+						<td>${studentInClass.student.lastname}</td>
+						<td>${studentInClass.student.email}</td>
+						<td>${studentInClass.student.gender}</td>
 						<td>${studentInClass.score} / ${assessment.totalscore}</td>
 						<td>
 							<c:choose>
-                                  <c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
-                                      <a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
+								<c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
+									<a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
 										<button class="btn">view detail</button>
 									</a>
-                                  </c:when>
-                                  <c:otherwise>
-                                      <p>Haven't done the assignment yet</p>
-                                  </c:otherwise>
-                              </c:choose>
+								</c:when>
+								<c:otherwise>
+									<p>Haven't done the assignment yet</p>
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>

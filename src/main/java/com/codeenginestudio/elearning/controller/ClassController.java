@@ -20,6 +20,7 @@ import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
+import com.codeenginestudio.elearning.util.SecurityUtil;
 import com.codeenginestudio.elearning.validation.ClassValidation;
 
 @Controller
@@ -129,7 +130,8 @@ public class ClassController {
 	public String showListClassWithTeacherRole(Model model,
 			@RequestParam(name = "page", required = false) Integer page) {
 
-		Page<ClassDTO> classess = classService.getClassPage(page);
+		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
+		Page<ClassDTO> classess = classService.getClassPageByTeacherId(page, teacherId);
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
