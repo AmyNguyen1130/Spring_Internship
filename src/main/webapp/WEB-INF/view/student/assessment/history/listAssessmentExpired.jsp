@@ -39,11 +39,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${assessmentPage}" var="assessment"
-						varStatus="count">
-						<c:if
-							test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
-
+					<c:forEach items="${listAssessment}" var="assessment" varStatus="count">
+						<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid()) }">
 							<tr>
 								<td>${count.index + 1}</td>
 								<td>${assessment.assessmentname}</td>
@@ -54,9 +51,18 @@
 								<td>${assessment.getUserscore()} /
 									${assessment.getTotalscore()}</td>
 								<td>${assessment.getTotalquestion()}</td>
-								<td><a class="href"
-									href="/student/assessment/history/viewResult/${assessment.assessmentid }"><button
-											class="btn btn-success" type="button">View Result</button></a></td>
+								<td>
+									<c:choose>
+										<c:when test="${listIdOfAssessment.contains(assessment.assessmentid)}">
+											<a class="href" href="/student/assessment/history/viewResult/${assessment.assessmentid }">
+												<button class="btn btn-success" type="button">View Result</button>
+											</a>
+										</c:when>
+										<c:otherwise>
+											<p>You haven't submitted this assignment!</p>
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 						</c:if>
 					</c:forEach>

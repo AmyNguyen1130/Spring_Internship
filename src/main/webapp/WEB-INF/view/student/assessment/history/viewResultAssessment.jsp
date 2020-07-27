@@ -29,8 +29,7 @@
 					<div class="questionName">
 						<c:if test="${!preview}">
 								<c:choose>
-									<c:when
-										test="${question.correctanswer eq listResult[status.index].answerchoice}">
+									<c:when test="${question.correctanswer eq listResult[status.index].answerchoice}">
 										<img alt="correct" src="<%=correctAnswerIcon%>"
 											class="optionSize" />
 									</c:when>
@@ -44,10 +43,9 @@
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-6">
-
 							<c:forEach items="${question.options}" var="option">
 								<c:set var="check"
-									value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
+									value='${option.getName() eq listResult[status.index].answerchoice && question.questionid eq listResult[status.index].question.questionid? "checked" : ""}' />
 
 								<div class="row">
 									<div class="col-sm-1">

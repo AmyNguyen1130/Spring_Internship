@@ -106,11 +106,37 @@ public class ResultServiceImpl implements ResultService {
 
 		List<Long> listIdOfStudent = new ArrayList<>();
 		List<ResultDTO> listResultDTOs = findByAssessmentId(assessmentid);
+
 		for (ResultDTO resultDTO : listResultDTOs) {
 			listIdOfStudent.add(resultDTO.getStudent().getUserid());
 		}
+
 		return listIdOfStudent;
 
+	}
+
+	@Override
+	public List<Long> getListAssessmentIdtByStudentId(Long studentid) {
+		List<Long> listIdOfAssessment = new ArrayList<>();
+		
+		List<ResultDTO> listResultDTOs = findByStudentId(studentid);
+
+		for (ResultDTO resultDTO : listResultDTOs) {
+			listIdOfAssessment.add(resultDTO.getAssessment().getAssessmentid());
+		}
+
+		return listIdOfAssessment;
+	}
+
+	@Override
+	public List<ResultDTO> findByStudentId(Long studentid) {
+		
+		List<ResultEntity> listResult = resultDAO.findByStudent(userDAO.getOne(studentid));
+		List<ResultDTO> resultDTO = new ArrayList<>();
+		for (ResultEntity result : listResult) {
+			resultDTO.add(ResultUtil.parseToDTO(result));
+		}
+		return resultDTO;
 	}
 
 }

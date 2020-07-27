@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.ClassDTO;
+import com.codeenginestudio.elearning.dto.ResultDTO;
 import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
@@ -49,7 +50,8 @@ public class ResultController {
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 
-		model.addAttribute("listResult", resultService.findByAssessmentAndStudent(assessmentid, userId));
+		List<ResultDTO> resultDTO = resultService.findByAssessmentAndStudent(assessmentid, userId);
+		model.addAttribute("listResult", resultDTO);
 		model.addAttribute("urlBack", "/student/assessment/history");
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
@@ -75,8 +77,7 @@ public class ResultController {
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		ClassDTO classDTO = classService.getClassByClassid(assessment.getClassForeign().getClassid());
 		List<Long> listIdOfStudentDTOs = resultService.getListStudentIdtByAssessmentId(assessmentid);
-		List<StudentInClassDTO> listStudentsInclass = studentInClassService
-				.getByClassid(classDTO.getClassid());
+		List<StudentInClassDTO> listStudentsInclass = studentInClassService.getByClassid(classDTO.getClassid());
 
 		for (StudentInClassDTO studentInClassDTO : listStudentsInclass) {
 			studentInClassDTO.setScore(

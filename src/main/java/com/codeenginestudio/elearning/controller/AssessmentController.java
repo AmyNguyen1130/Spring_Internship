@@ -220,17 +220,19 @@ public class AssessmentController {
 			questionId = Long.parseLong(answer.getKey());
 			String[] StrValue = splitString(answer.getValue());
 			answerChoice = StrValue[0];
+
 			if (!StrValue[1].equals("")) {
 				idEdit = Long.parseLong(StrValue[1]);
 			} else {
 				idEdit = 0L;
 			}
-			score = showScoreOfEachQuestion(answerChoice, questionId, score);
 
+			score = showScoreOfEachQuestion(answerChoice, questionId, score);
 			resultService.saveEditSubmitAssessment(idEdit, userId, assessmentid, questionId, answerChoice, score);
 		}
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!!");
+
 		return "redirect:/student/assessment";
 	}
 
@@ -239,20 +241,20 @@ public class AssessmentController {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
-
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired(userId);
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
+			
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
-
 			assessmentDTO.setTotalscore(
 					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
 			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
 		}
-		model.addAttribute("listClass", classService.getAllClass());
+
+		model.addAttribute("listIdOfAssessment", resultService.getListAssessmentIdtByStudentId(userId));
 		model.addAttribute("listClassAssigned", listClassid);
-		model.addAttribute("assessmentPage", listAssessments);
+		model.addAttribute("listAssessment", listAssessments);
 
 		return PREFIX_STUDENT + "history/listAssessmentExpired";
 	}
