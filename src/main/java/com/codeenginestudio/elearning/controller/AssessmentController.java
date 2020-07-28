@@ -151,27 +151,27 @@ public class AssessmentController {
 		return PREFIX_STUDENT + "listAssessment";
 	}
 
-	@GetMapping("/student/addSubmitAssessment/{assessmentid}")
-	public String addSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	@GetMapping("/student/addSubmitLesson/{assessmentid}")
+	public String addSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("url", "/student/saveSubmitAssessment/" + assessmentid);
+		model.addAttribute("url", "/student/saveSubmitLesson/" + assessmentid);
 		model.addAttribute("lessonForm", new LessonForm());
 
 		return PREFIX_STUDENT + "assessmentForm";
 	}
 
-	@GetMapping("/student/editSubmitAssessment/{assessmentid}")
-	public String editSubmitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	@GetMapping("/student/editSubmitLesson/{assessmentid}")
+	public String editSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		List<ResultDTO> resultDTOs = resultService.findByAssessmentAndStudent(assessmentid, userId);
 		LessonForm lessonForm = new LessonForm();
 		lessonForm.setResultDTOs(resultDTOs);
 
-		model.addAttribute("url", "/student/saveEditSubmitAssessment/" + assessmentid);
+		model.addAttribute("url", "/student/saveEditSubmitLesson/" + assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
@@ -180,14 +180,29 @@ public class AssessmentController {
 		return PREFIX_STUDENT + "assessmentForm";
 	}
 
-	@PostMapping(value = "student/saveSubmitAssessment/{assessmentid}", consumes = "application/x-www-form-urlencoded")
-	public String submitAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
+	@PostMapping(value = "student/saveSubmitLesson/{assessmentid}")
+	public String saveSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
 		for (ResultDTO lesson : lessonForm.getResultDTOs()) {
-			resultService.saveSubmitLesson(lesson);
+			if (lesson.getAnswerchoice() != null) {
+				resultService.saveSubmitLesson(lesson);
+			}
 		}
-		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Assessment Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Lesson Successfully!!! ");
+		return "redirect:/student/assessment";
+	}
+
+	@PostMapping(value = "student/saveEditSubmitLesson/{assessmentid}")
+	public String saveEditSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
+			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
+
+		for (ResultDTO lesson : lessonForm.getResultDTOs()) {
+			if (lesson.getAnswerchoice() != null) {
+				resultService.saveEditSubmitLesson(lesson);
+			}
+		}
+		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Lesson Successfully!!! ");
 		return "redirect:/student/assessment";
 	}
 
@@ -199,7 +214,7 @@ public class AssessmentController {
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired(userId);
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
-			
+
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 			assessmentDTO.setTotalscore(
@@ -207,16 +222,11 @@ public class AssessmentController {
 			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
 		}
 
-		model.addAttribute("listIdOfAssessment", resultService.getListAssessmentIdtByStudentId(userId));
+		model.addAttribute("listIdOfAssessment", resultService.getListAssessmentIdByStudentId(userId));
 		model.addAttribute("listClassAssigned", listClassid);
 		model.addAttribute("listAssessment", listAssessments);
 
 		return PREFIX_STUDENT + "history/listAssessmentExpired";
-	}
-
-	public String[] splitString(String answer) {
-		String[] StrSplit = answer.split("_", 2);
-		return StrSplit;
 	}
 
 	private static final String PREFIX_TEACHER = "/teacher/assessment/";

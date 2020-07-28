@@ -15,7 +15,7 @@
 			<div class="col-sm-3"></div>
 
 			<div class="col-sm-6" id="borderTest">
-			<form:form method="POST" action="${url}" modelAttribute="lessonForm">
+				<form:form method="POST" action="${url}" modelAttribute="lessonForm">
 					<div class="descriptionAssessment">
 						<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
 						<p class="dateTime">(${assessment.getStartdate()} -
@@ -25,9 +25,14 @@
 
 					<c:forEach items="${listQuestionOfAssessment}" var="question"
 						varStatus="status">
-						
-					<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" /> 
-					<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" /> 
+						<form:input type="hidden" path="resultDTOs[${status.index}].id"
+							value="${resultDTOs[status.index].id}" />
+						<form:input type="hidden"
+							path="resultDTOs[${status.index}].assessment.assessmentid"
+							value="${assessment.assessmentid}" />
+						<form:input type="hidden"
+							path="resultDTOs[${status.index}].question.questionid"
+							value="${question.questionid}" />
 						<div>
 							<div class="questionName">
 								<span> Question ${question.numericalorder}:
@@ -38,8 +43,7 @@
 
 									<c:forEach items="${question.options}" var="option">
 
-										<c:set var="check"
-											value='${option.getName() eq listSubmitEdit[status.index].answerchoice ? "checked" : ""}' />
+										<c:set var="check" value='' />
 
 										<div class="row">
 											<div class="col-sm-1">
@@ -48,7 +52,10 @@
 												</label>
 											</div>
 											<div class="col-sm-1">
-											<form:radiobutton path="resultDTOs[${status.index}].answerchoice" value="${option.getName()}" class="inputRadioOption"  items="${check}" />  
+												<form:radiobutton
+													path="resultDTOs[${status.index}].answerchoice"
+													value="${option.getName()}" class="inputRadioOption"
+													items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
 
 											</div>
 											<div class="col-sm-6">

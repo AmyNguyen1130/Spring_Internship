@@ -55,10 +55,10 @@
 							<td>
 								<c:choose>
 									<c:when test="${!assessment.isEdit()}">
-										<a class="href" href="/student/addSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-danger" type="button">Do Exercise</button></a>
+										<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-danger" type="button">Do Exercise</button></a>
 									</c:when>
 									<c:otherwise>
-										<a class="href" href="/student/editSubmitAssessment/${assessment.assessmentid }"><button class="btn btn-warning" type="button">Edit Exercise</button></a>
+										<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button">Edit Exercise</button></a>
 									</c:otherwise>
 								</c:choose>
 							</td>

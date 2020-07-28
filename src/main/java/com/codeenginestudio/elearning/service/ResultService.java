@@ -16,8 +16,10 @@ public interface ResultService {
 
 	List<Long> getListStudentIdtByAssessmentId(Long assessmentid);
 	
-	List<Long> getListAssessmentIdtByStudentId(Long studentid);
+	List<Long> getListAssessmentIdByStudentId(Long studentid);
 
 	void saveSubmitLesson(ResultDTO lesson);
+
+	void saveEditSubmitLesson(ResultDTO lesson);
 
 }

@@ -45,7 +45,7 @@
 						<div class="col-sm-6">
 							<c:forEach items="${question.options}" var="option">
 								<c:set var="check"
-									value='${option.getName() eq listResult[status.index].answerchoice && question.questionid eq listResult[status.index].question.questionid? "checked" : ""}' />
+									value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
 
 								<div class="row">
 									<div class="col-sm-1">
