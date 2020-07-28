@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dto.ClassDTO;
+import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
@@ -36,6 +37,9 @@ public class ClassController {
 	private RoleService roleService;
 
 	@Autowired
+	private AssessmentService assessmentService;
+
+	@Autowired
 	private StudentInClassService studentInClassService;
 
 	// Admin role
@@ -45,6 +49,7 @@ public class ClassController {
 		Page<ClassDTO> classess = classService.getClassPage(page);
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
+			classDTO.setTotalAssessments(assessmentService.getListAssessmentByClassid(classDTO.getClassid()).size());
 		}
 		model.addAttribute("classPage", classess);
 

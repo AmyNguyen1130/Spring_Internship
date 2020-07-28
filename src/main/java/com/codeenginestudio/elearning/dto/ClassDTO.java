@@ -12,6 +12,8 @@ public class ClassDTO {
 
 	private UserDTO user;
 
+	private int totalAssessments;
+
 	public ClassDTO() {
 		super();
 	}
@@ -63,6 +65,14 @@ public class ClassDTO {
 
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public int getTotalAssessments() {
+		return totalAssessments;
+	}
+
+	public void setTotalAssessments(int totalAssessments) {
+		this.totalAssessments = totalAssessments;
 	}
 
 }

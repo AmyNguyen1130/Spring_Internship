@@ -19,30 +19,42 @@
 							<th scope="col">First Name</th>
 							<th scope="col">Last Name</th>
 							<th scope="col">Email</th>
-							<th scope="col">Total assignment</th>
+							<th scope="col">Status</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${userPage}" var="user">
-							<tr>
+						<c:forEach items="${userPage}" var="user" varStatus="num">
+							<tr class="checkedRow row_${num.index} ${studentChecked.contains(user.getUserid()) ? 'row-grey' : ''}"> 
 								<td>
-									<input type="checkbox" name="checkSelected"
-										id="checkbox_${user.getUserid() }"
+									<input class="checkboxChecked" type="checkbox" name="checkSelected"
+										id="checkbox_${num.index}"
 										value="${user.getUserid()}"
+										onclick="changeColor('.row_' + ${num.index}, '#checkbox_' + ${num.index})"
 										${studentChecked.contains(user.getUserid()) ? 'checked' : ''}>
 								</td>
 								<td>${user.getFirstname()}</td>
 								<td>${user.getLastname()}</td>
 								<td>${user.getEmail()}</td>
-								<td>****************</td>
+								<td>${user.isEnabled() == true ? 'Active' : 'Inactive'}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>	
 				<br>
-				<button type="submit" id="assign_buton" class="btn btn-default">Save</button>
-				<a href="/admin/class"><button type="button" class="btn btn-default">Cancel</button></a>
+				<button type="submit" id="assign_buton" class="btn btn-dark">Save</button>
+				<a href="/admin/class"><button type="button" class="btn btn-dark">Cancel</button></a>
 			</form>
 		</div>
+	<script type="text/javascript">
+
+		function changeColor(className, idCheckBox){
+			if($(idCheckBox).is(":checked") ){
+				$(className).addClass("row-grey");
+			}else{
+				$(className).removeClass("row-grey");
+				}
+				
+			}
+	</script>
 </body>
 </html>

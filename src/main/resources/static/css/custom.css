@@ -234,4 +234,30 @@ img {
 	margin-left: 5px;
 	color: #B43104;
 }
+/* User List CSS*/
+
+.btn-dark{
+	background-color: #585858;
+	color: #ffffff;
+}
+
+.navbar-custom {
+	display: inline-block;
+	padding-top: .3125rem;
+	padding-bottom: .3125rem;
+	margin-right: 1.25rem;
+	font-size: 1.25rem;
+	line-height: inherit;
+	white-space: nowrap;
+}
+
+.row-grey{
+	background-color: #585858;
+	color: #ffffff;
+}
+
+.checkedRow:hover{
+	background-color: #d0d0d0;
+	color: #1f1f1f;
+}
 

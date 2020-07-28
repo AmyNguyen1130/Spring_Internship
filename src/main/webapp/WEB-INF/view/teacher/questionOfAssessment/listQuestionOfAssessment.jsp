@@ -31,10 +31,10 @@
 					</div>
 					<div class="col-sm-4">
 						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-							<button class="btn btn-default" type="button">Add new question</button>
+							<button class="btn btn-dark" type="button">Add new question</button>
 						</a>						
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}'>
-							<button class="btn btn-default" type="button">Preview</button>
+							<button class="btn btn-dark" type="button">Preview</button>
 						</a>
 					</div>
 				</div>
@@ -93,8 +93,8 @@
 	      <p id="ask"></p>
 	
 	      <div class="clearfix">
-	        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
-	        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
+	        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="btn-dark btn">No</button></a>
+	        <a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn">Yes</button></a>
 	      </div>
 	    </div>
 	  </form>

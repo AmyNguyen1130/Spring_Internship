@@ -27,7 +27,7 @@
 
 			</div>
 			 <div class="col-sm-4">
-				<a href='/teacher/assessment/addAssessment'><button class="btn btn-default" type="button">Add new assessment</button></a>
+				<a href='/teacher/assessment/addAssessment'><button class="btn btn-dark" type="button">Add new assessment</button></a>
 			</div>
 		</div>
 		</div>
@@ -60,7 +60,7 @@
 						<td>${assessment.expireddate}</td>
 						<td>
 							<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
-								<button class="btn btn-default">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
+								<button class="btn btn-dark">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
 							</a>
 						</td>
 						<td>${assessment.getTotalquestion()}</td>
@@ -73,11 +73,10 @@
 								<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
 							</a>&emsp;
 							<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
-								<button class="btn btn-default" type="button">View questions</button>
-							</a>
-							
+								<button class="btn btn-dark" type="button">View questions</button>
+							</a>&emsp;
 							<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>">
-								<button class="btn btn-default" type="button">View result</button>
+								<button class="btn btn-dark" type="button">View result</button>
 							</a>
 						</td>
 
@@ -90,35 +89,39 @@
 		</div>
 
 			<div id="confirm" class="modal">
-			  
-			  <form class="modal-content">
-			    <div class="container-model">
-			    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
-			      <h1 id="title"></h1>
-			      <p id="ask"></p>
+				<form class="modal-content">
+					<div class="container-model">
+			 			<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+						<h1 id="title"></h1>
+						<p id="ask"></p>
 			
-			      <div class="clearfix">
-			        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
-			        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
-			      </div>
-			    </div>
-			  </form>
+						<div class="clearfix">
+							<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
+								<button type="button" class="btn-dark btn">No</button>
+							</a>
+							<a id="acceptConfirm" href="#">
+								<button type="button" class="btn-dark btn">Yes</button>
+							</a>
+						</div>
+					</div>
+				</form>
 			</div>
-<script type="text/javascript">
-	$(document).ready(function() {
 
-		if($("#message").html() != ""){
-			$(".alert").css("display", "block");
-			setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+	<script type="text/javascript">
+		$(document).ready(function() {
+	
+			if($("#message").html() != ""){
+				$(".alert").css("display", "block");
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+			}
+		});
+		function confirmation(success, action) {
+			
+			$('#acceptConfirm').attr("href", success);
+			$('#title').html(action + ' Item');
+			$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
+			$('#confirm').show();
 		}
-	});
-	function confirmation(success, action) {
-		
-		$('#acceptConfirm').attr("href", success);
-		$('#title').html(action + ' Item');
-		$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
-		$('#confirm').show();
-	}
-</script>
+	</script>
 </body>
 </html>

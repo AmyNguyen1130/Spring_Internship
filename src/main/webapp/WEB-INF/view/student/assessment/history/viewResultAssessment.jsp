@@ -75,7 +75,7 @@
 						</div>
 					</div>
 				</c:forEach>
-				<a href="${urlBack}"><input class="btn btn-default" type="button" value="Back"></a>
+				<a href="${urlBack}"><input class="btn btn-dark" type="button" value="Back"></a>
 			</div>
 		</div>
 	</div>

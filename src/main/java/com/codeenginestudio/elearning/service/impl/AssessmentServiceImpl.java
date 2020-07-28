@@ -159,11 +159,22 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
 		for (AssessmentEntity assessment : listAssessment) {
-			for(ClassDTO classes: listClass) {
-				if(assessment.getClassForeign().getClassid() == classes.getClassid()) {
+			for (ClassDTO classes : listClass) {
+				if (assessment.getClassForeign().getClassid() == classes.getClassid()) {
 					assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 				}
 			}
+		}
+		return assessmentDTO;
+	}
+
+	@Override
+	public List<AssessmentDTO> getListAssessmentByClassid(Long classid) {
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByClassForeign(classDAO.getClassByClassid(classid));
+
+		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+		for (AssessmentEntity assessment : listAssessment) {
+			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
 		return assessmentDTO;
 	}

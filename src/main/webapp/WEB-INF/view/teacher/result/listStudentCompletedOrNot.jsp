@@ -54,7 +54,7 @@
 							<c:choose>
 								<c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
 									<a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
-										<button class="btn">view detail</button>
+										<button class="btn btn-dark">view detail</button>
 									</a>
 								</c:when>
 								<c:otherwise>

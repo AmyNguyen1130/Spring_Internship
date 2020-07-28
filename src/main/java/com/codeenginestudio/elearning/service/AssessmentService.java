@@ -31,4 +31,6 @@ public interface AssessmentService {
 
 	List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass);
 
+	List<AssessmentDTO> getListAssessmentByClassid(Long classid);
+
 }

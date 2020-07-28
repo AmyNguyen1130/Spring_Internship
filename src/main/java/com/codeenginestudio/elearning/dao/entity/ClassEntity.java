@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.codeenginestudio.elearning.dao.entity.CreateEntity.CreateEntity;
+
 @Entity
 @Table(name = "classes")
 public class ClassEntity {

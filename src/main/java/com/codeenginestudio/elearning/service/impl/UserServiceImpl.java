@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Autowired
 	private RoleDAO roleDAO;
 
@@ -127,5 +127,16 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getUserByUsername(String username) {
 
 		return UserUtil.parseToUserDTO(userDAO.getUserByUsername(username));
+	}
+
+	@Override
+	public List<UserDTO> getAllUser() {
+		List<UserEntity> listUserEntities = userDAO.findAll();
+		List<UserDTO> listUserDTO = new ArrayList<>();
+
+		for (UserEntity userEntity : listUserEntities) {
+			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+		}
+		return listUserDTO;
 	}
 }

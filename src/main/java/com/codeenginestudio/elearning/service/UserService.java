@@ -31,6 +31,8 @@ public interface UserService {
 
 	Page<UserDTO> getUserPageByRole(Long roleid, Integer page);
 
+	List<UserDTO> getAllUser();
+
 
 
 }

@@ -85,8 +85,8 @@ p {
 			value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
 			name="enabled" />
 	</div>
-	<input class="btn btn-default" type="submit" value="Save">
+	<input class="btn btn-dark" type="submit" value="Save">
 
-	<a href="/admin/user"><input class="btn btn-default" type="button" value="Cancel"></a>
+	<a href="/admin/user"><input class="btn btn-dark" type="button" value="Cancel"></a>
 
 	</div>

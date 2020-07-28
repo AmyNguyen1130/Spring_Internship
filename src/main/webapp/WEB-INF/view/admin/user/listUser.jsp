@@ -28,7 +28,7 @@
 						</div>
 						<div class="col-sm-4">
 							<a href="/admin/user/addUser">
-								<button class="btn btn-default">Add New User</button>
+								<button class="btn btn-dark">Add New User</button>
 							</a>
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 							<td>${user.getRole().getRolename()}</td>
 							<td>
 								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
-									<button class="btn btn-default">${user.isEnabled() == true ? 'Active' : 'Inactive'}</button>
+									<button class="btn ${user.isEnabled() ? 'btn-dark' : ''}">${user.isEnabled() ? 'Active' : 'Inactive'}</button>
 								</a>
 							</td>
 							<td>
@@ -89,19 +89,21 @@
 	</div>
 	
 	<div id="confirm" class="modal">
-	  
-	  <form class="modal-content">
-	    <div class="container-model">
-	    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
-	      <h1 id="title"></h1>
-	      <p id="ask"></p>
-	
-	      <div class="clearfix">
-	        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="cancelbtn btn">No</button></a>
-	        <a id="acceptConfirm" href="#"> <button type="button" class="acceptbtn btn">Yes</button></a>
-	      </div>
-	    </div>
-	  </form>
+
+		<form class="modal-content">
+			<div class="container-model">
+				<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h1 id="title"></h1>
+			<p id="ask"></p>
+		
+				<div class="clearfix">
+					<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
+						<button type="button" class="cancelbtn btn">No</button>
+					</a>
+					<a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn">Yes</button></a>
+				</div>
+			</div>
+		</form>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {

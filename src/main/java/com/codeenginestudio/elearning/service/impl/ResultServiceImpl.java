@@ -6,16 +6,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.ResultDAO;
+import com.codeenginestudio.elearning.dao.RoleDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
 import com.codeenginestudio.elearning.dao.entity.ResultEntity;
+import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.ResultDTO;
+import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.ResultUtil;
 import com.codeenginestudio.elearning.util.SecurityUtil;
+import com.codeenginestudio.elearning.util.UserUtil;
 
 @Service
 public class ResultServiceImpl implements ResultService {
@@ -28,6 +35,9 @@ public class ResultServiceImpl implements ResultService {
 
 	@Autowired
 	private UserDAO userDAO;
+
+	@Autowired
+	private RoleDAO roleDAO;
 
 	@Autowired
 	private QuestionOfAssessmentDAO questionOfAssessmentDAO;
@@ -149,6 +159,23 @@ public class ResultServiceImpl implements ResultService {
 		}
 
 		return listIdOfAssessment;
+	}
+
+	@Override
+	public List<UserDTO> getListStudentNotyetSubmitAssessment() {
+		List<AssessmentEntity> listAssessments = assessmentDAO.findAll();
+		List<UserEntity> listUsers = userDAO.findByRole(roleDAO.getRoleIdByRolename(RoleConstant.STUDENT));
+		List<UserDTO> listUserDTOs = new ArrayList<>();
+
+		for (AssessmentEntity assessment : listAssessments) {
+			List<Long> listIdOfStudentDTOs = getListStudentIdtByAssessmentId(assessment.getAssessmentid());
+			for (UserEntity user : listUsers) {
+				if (!listIdOfStudentDTOs.contains(user.getUserid())) {
+					listUserDTOs.add(UserUtil.parseToUserDTO(user));
+				}
+			}
+		}
+		return listUserDTOs;
 	}
 
 }

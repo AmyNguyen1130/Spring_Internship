@@ -13,9 +13,9 @@
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-brand"
+			<a class="navbar-custom"
 				href="<c:url value="/admin/user"/>"> <button class="grey tablink" >Users</button> </a> 
-			<a class="navbar-brand"
+			<a class="navbar-custom"
 				href="<c:url value="/admin/class"/>"> <button class="grey tablink" >Classes</button> </a>
 		</div>
 	</div>

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.codeenginestudio.elearning.dao.entity.RoleEntity;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 
 @Repository
@@ -25,5 +26,7 @@ public interface UserDAO extends JpaRepository<UserEntity, Long> {
 	UserEntity getUserByUserid(Long userid);
 
 	Page<UserEntity> getUserPageByUsername(String username, Pageable pageable);
+
+	List<UserEntity> findByRole(RoleEntity role);
 
 }

@@ -17,34 +17,36 @@
 
 	<form action="<%=request.getContextPath()%>${url}" method="post">
 
-	<input type="hidden" name="classid" value="${editClass.classid}" />
+		<input type="hidden" name="classid" value="${editClass.classid}" />
 
-	<div class="form-group row">
-		<label for="classname" class="col-sm-1 col-form-label">Class Name</label>
-		<div class="col-sm-4">
-			<input type="text" class="form-control" name="classname" value="${editClass.classname}">
+		<div class="form-group row">
+			<label for="classname" class="col-sm-1 col-form-label">Class Name</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="classname" value="${editClass.classname}">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group row">
-		<label for="Teacher" class="col-sm-1 col-form-label">Teacher</label>
-		<div class="col-sm-4">
+		<div class="form-group row">
+			<label for="Teacher" class="col-sm-1 col-form-label">Teacher</label>
+			<div class="col-sm-4">
 
-			<select class="form-control" name="user.userid">
-				<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}>None</option>
-				<c:forEach items="${users}" var="user">
-					<option value="${user.userid}" ${user.userid == editClass.getUser().getUserid() ? 'selected="selected"' : ''}>${user.getUsername()}</option>
-				</c:forEach>
-			</select>
+				<select class="form-control" name="user.userid">
+					<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}>None</option>
+					<c:forEach items="${users}" var="user">
+						<option value="${user.userid}" ${user.userid == editClass.getUser().getUserid() ? 'selected="selected"' : ''}>${user.getUsername()}</option>
+					</c:forEach>
+				</select>
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group row">
-		<input type="hidden" value="${url == '/admin/class/saveAddClass' ? 'true' : editClass.status}"  name="status" />
-	</div>
+		<div class="form-group row">
+			<input type="hidden" value="${url == '/admin/class/saveAddClass' ? 'true' : editClass.status}"  name="status" />
+		</div>
 
-	<input class="btn btn-default" type="submit" value="Save">
-	<a href="/admin/class"><input class="btn btn-default" type="button" value="Cancel"></a>
+		<input class="btn btn-dark" type="submit" value="Save">
+		<a href="/admin/class">
+			<input class="btn btn-dark" type="button" value="Cancel" />
+		</a>
 	</form>
 
 </div>
