@@ -67,8 +67,7 @@
 								<c:if test="${!preview}">
 									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 										<div class="correctAnswer">
-											<strong id="message">Correct answer is
-												${question.correctanswer}</strong>
+											<strong id="message">Correct answer is ${question.correctanswer}</strong>
 										</div>
 									</c:if>
 								</c:if>

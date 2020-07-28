@@ -21,9 +21,14 @@ img {
 	margin: 5px;
 }
 
-.inputRadioOption {
+.radioOption {
+    margin-top: 2%;
+}
+
+.inputRadioOption{
 	margin-top: 12px;
 }
+
 .optionName{
 	margin-top: 7px;
 }
@@ -167,9 +172,6 @@ img {
 	font-weight: bold;
 }
 
-
-/* css for confirmation below*/
-
 .cancelbtn, .acceptbtn {
   float: left;
   width: 50%;
@@ -261,3 +263,30 @@ img {
 	color: #1f1f1f;
 }
 
+.center{
+	display: flex;
+    justify-content: center;
+}
+
+.form-general{
+	border: 1px solid darkgrey;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    text-align: center;
+    border-radius: 1%;
+}
+
+.space-evenly{
+	display: flex;
+    justify-content: space-evenly;
+}
+.checkbox{
+	margin: 5px;
+}
+.error{
+	display: flex;
+    justify-content: start;
+}
+.form-title{
+	font-weight: bold;
+}

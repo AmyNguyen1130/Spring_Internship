@@ -18,11 +18,10 @@ public class SimpleEmailExampleController {
 		List<UserDTO> listUsers = resultService.getListStudentNotyetSubmitAssessment();
 
 		for (UserDTO user : listUsers) {
-			message.setTo(user.getEmail());
-			message.setSubject("Test Send Email");
-			message.setText("Hello, Im testing Send Email");
-			emailSende.send(message);
-
+//			message.setTo(user.getEmail());
+//			message.setSubject("Test Send Email");
+//			message.setText("Hello, Im testing Send Email");
+//			emailSende.send(message);
 		}
 		// Send Message!
 

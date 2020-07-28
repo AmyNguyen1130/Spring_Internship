@@ -2,35 +2,28 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.error {
-	color: red;
-}
-</style>
-</head>
-<body>
-	<div class="container-fluid">
-		<h1>Assessment Form</h1>
-	<br>
+<div class="container-fluid center">
 
-	<form action="<%=request.getContextPath()%>${url}" method="post">
+	<div class="col-sm-3"></div>
 
+	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
+		<h1 class="form-title">Assessment Form</h1>
+		<br>
 		<input class="form-control" value="${assessmentEdit.assessmentid}" type="hidden" name="assessmentid">
 
 		<div class="form-group row">
-			<label for="AssessmentName" class="col-sm-1 col-form-label">Name</label>
-			<div class="col-sm-4">
+			<div class="col-sm-1"></div>
+			<label for="AssessmentName" class="col-sm-2 col-form-label">Name</label>
+			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname">
 				<p class="error">${error.errAssessmentName}</p>
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="className" class="col-sm-1 col-form-label">Class Name</label>
-			<div class="col-sm-4">
+			<div class="col-sm-1"></div>
+			<label for="className" class="col-sm-2 col-form-label">Class Name</label>
+			<div class="col-sm-8">
 				<select class="form-control" name="classForeign.classid">
 					<option value="" ${assessmentEdit.getClassForeign().getClassid() == null ? 'selected="selected"' : ''}>None</option>
 					<c:forEach items="${listClass}" var="class">
@@ -41,15 +34,17 @@
 		</div>
 
 		<div class="form-group row">
-			<label for="startdate" class="col-sm-1 col-form-label">Start Date</label>
-			<div class="col-sm-4">
+			<div class="col-sm-1"></div>
+			<label for="startdate" class="col-sm-2 col-form-label">Start Date</label>
+			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate">
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="expireddate" class="col-sm-1 col-form-label">Expired Date</label>
-			<div class="col-sm-4">
+			<div class="col-sm-1"></div>
+			<label for="expireddate" class="col-sm-2 col-form-label">Expired Date</label>
+			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
 				<p class="error">${error.errExpiredDate}</p>
 			</div>
@@ -62,8 +57,10 @@
 		<input class="btn btn-dark" type="submit" value="Save">
 		<a href="/teacher/assessment"><input class="btn btn-dark" type="button" value="Cancel"></a>
 	</form>
-	
-	</div>
+
+	<div class="col-sm-3"></div>
+
+</div>
 	<script type="text/javascript">
 		var url = window.location.href;
 		if(url == "http://localhost:8080/teacher/assessment/addAssessment"){
@@ -88,5 +85,3 @@
 		}
 
 	</script>
-</body>
-</html>
