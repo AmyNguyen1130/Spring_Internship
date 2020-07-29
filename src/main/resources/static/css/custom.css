@@ -22,14 +22,14 @@ img {
 }
 
 .radioOption {
-    margin-top: 2%;
+	margin-top: 2%;
 }
 
-.inputRadioOption{
+.inputRadioOption {
 	margin-top: 12px;
 }
 
-.optionName{
+.optionName {
 	margin-top: 7px;
 }
 
@@ -67,15 +67,15 @@ img {
 }
 
 .tablink {
-  background-color: #fff;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 122%;
-  font-weight: bold;
+	background-color: #fff;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	font-size: 17px;
+	width: 122%;
+	font-weight: bold;
 }
 
 .tablink:hover {
@@ -168,79 +168,82 @@ img {
 	color: black;
 }
 
-.questionName{
+.questionName {
 	font-weight: bold;
 }
 
 .cancelbtn, .acceptbtn {
-  float: left;
-  width: 50%;
+	float: left;
+	width: 50%;
 }
 
 .acceptbtn {
-  background-color: #f44336;
+	background-color: #f44336;
 }
 
 .cancelbtn {
-  background-color: #ccc;
-  color: black;
+	background-color: #ccc;
+	color: black;
 }
 
 .container-model {
-  padding: 16px;
-  text-align: center;
-  background-color: aliceblue;
+	padding: 16px;
+	text-align: center;
+	background-color: aliceblue;
 }
 
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  padding-top: 50px;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	padding-top: 50px;
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto;
-  border: 1px solid #888;
-  width: 22%;
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	border: 1px solid #888;
+	width: 22%;
 }
 
 .close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #000;
+	position: absolute;
+	right: 35px;
+	top: 15px;
+	font-size: 40px;
+	font-weight: bold;
+	color: #000;
 }
 
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
+.close:hover, .close:focus {
+	color: #f44336;
+	cursor: pointer;
 }
 
 .clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
+	content: "";
+	clear: both;
+	display: table;
 }
 
-.correctAnswer{
+.correctAnswer {
 	margin-left: 5px;
 	color: #B43104;
 }
-/* User List CSS*/
 
-.btn-dark{
+/* User List CSS*/
+.btn-dark {
 	background-color: #585858;
 	color: #ffffff;
+}
+
+.preview {
+	margin-left: 2%;
 }
 
 .navbar-custom {
@@ -253,40 +256,64 @@ img {
 	white-space: nowrap;
 }
 
-.row-grey{
+.row-grey {
 	background-color: #585858;
 	color: #ffffff;
 }
 
-.checkedRow:hover{
+.checkedRow:hover {
 	background-color: #d0d0d0;
 	color: #1f1f1f;
 }
 
-.center{
+.center {
 	display: flex;
-    justify-content: center;
+	justify-content: center;
 }
 
-.form-general{
+.form-general {
 	border: 1px solid darkgrey;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    text-align: center;
-    border-radius: 1%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	text-align: center;
+	border-radius: 1%;
 }
 
-.space-evenly{
+.space-evenly {
 	display: flex;
-    justify-content: space-evenly;
+	justify-content: space-evenly;
 }
-.checkbox{
+
+.checkbox {
 	margin: 5px;
 }
-.error{
+
+.error {
 	display: flex;
-    justify-content: start;
+	justify-content: start;
 }
-.form-title{
+
+.form-title {
 	font-weight: bold;
+}
+
+.justify-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#pagination {
+	padding: 1% 5% 1% 5%;
+	margin: 0% 0% 0% 0%;
+	border-top: 1px solid grey;
+	position: fixed;
+}
+
+.capitalize {
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+.tablink:active {
+	color: red;
 }

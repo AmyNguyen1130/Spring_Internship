@@ -57,7 +57,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="options" class="col-sm-3 col-form-label">Options: </label>
+				<label for="options" class="col-sm-3 col-form-label">Options </label>
 
 				<div class="col-sm-8">
 					<c:forEach begin="0" end="3" step="1" varStatus="num">

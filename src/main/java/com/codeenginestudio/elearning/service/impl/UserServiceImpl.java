@@ -84,19 +84,31 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserEntity> findByUsername(String username) {
+	public List<UserDTO> findByUsername(String username) {
 
-		return userDAO.findByUsername(username);
+		List<UserDTO> listUserDTOs = new ArrayList<>();
+
+		for (UserEntity userEntity : userDAO.findByUsername(username)) {
+			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
+		}
+
+		return listUserDTOs;
 	}
 
 	@Override
-	public List<UserEntity> findByEmail(String email) {
+	public List<UserDTO> findByEmail(String email) {
 
-		return userDAO.findByEmail(email);
+		List<UserDTO> listUserDTOs = new ArrayList<>();
+
+		for (UserEntity userEntity : userDAO.findByEmail(email)) {
+			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
+		}
+
+		return listUserDTOs;
 	}
 
 	@Override
-	public UserDTO showUserByUserId(Long userid) {
+	public UserDTO getUserByUserId(Long userid) {
 
 		return UserUtil.parseToUserDTO(userDAO.getOne(userid));
 	}

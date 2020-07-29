@@ -79,14 +79,13 @@
 
 				</tbody>
 			</table>
+		<util:pagination count="${userPage.getTotalElements()}"
+			totalPages="${userPage.getTotalPages()}"
+			url="${pageContext.request.contextPath}/admin/user"
+			curpage="${userPage.getNumber()}" />
+	</div>
+	</div>
 
-			<util:pagination count="${userPage.getTotalElements()}"
-				totalPages="${userPage.getTotalPages()}"
-				url="${pageContext.request.contextPath}/admin/user"
-				curpage="${userPage.getNumber()}" />
-	</div>
-	</div>
-	
 	<div id="confirm" class="modal">
 
 		<form class="modal-content">
@@ -99,11 +98,12 @@
 					<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
 						<button type="button" class="cancelbtn btn">No</button>
 					</a>
-					<a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn">Yes</button></a>
+					<a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn acceptbtn">Yes</button></a>
 				</div>
 			</div>
 		</form>
 	</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 

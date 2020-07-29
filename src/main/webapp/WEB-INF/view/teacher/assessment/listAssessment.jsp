@@ -13,27 +13,25 @@
 	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 %>
 <body>
-	 <div class="container-fluid">
-	  <div class="row">
-		<div class="col-sm-7">
-			<div class="alert success" style="display:none">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-				<strong id="message">${messageSuccess}</strong> 
+	<div class="container-fluid">
+		 <div class="row">
+			<div class="col-sm-7">
+				<div class="alert success" style="display:none">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+					<strong id="message">${messageSuccess}</strong> 
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="row">
+					<div class="col-sm-8"></div>
+					 <div class="col-sm-4">
+						<a href='/teacher/assessment/addAssessment'><button class="btn btn-dark" type="button">Add new assessment</button></a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-sm-5">
-		<div class="row">
-			<div class="col-sm-8">
-
-			</div>
-			 <div class="col-sm-4">
-				<a href='/teacher/assessment/addAssessment'><button class="btn btn-dark" type="button">Add new assessment</button></a>
-			</div>
-		</div>
-		</div>
-		</div>
-		</div>	
-		<br><br>
+	</div>	
+	<br><br>
 		<div class="container-fluid">
 		  <div class="row">
 		  	<table class="table table-bordered table-hover">
@@ -60,7 +58,7 @@
 						<td>${assessment.expireddate}</td>
 						<td>
 							<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
-								<button class="btn btn-dark">${assessment.getStatus() == true ? 'Active' : 'Inactive'}</button>
+								<button class="btn ${assessment.getStatus() ? 'btn-dark' : ''}">${assessment.getStatus() ? 'Active' : 'Inactive'}</button>
 							</a>
 						</td>
 						<td>${assessment.getTotalquestion()}</td>
@@ -88,24 +86,24 @@
 			</div>
 		</div>
 
-			<div id="confirm" class="modal">
-				<form class="modal-content">
-					<div class="container-model">
-			 			<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
-						<h1 id="title"></h1>
-						<p id="ask"></p>
-			
-						<div class="clearfix">
-							<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
-								<button type="button" class="btn-dark btn">No</button>
-							</a>
-							<a id="acceptConfirm" href="#">
-								<button type="button" class="btn-dark btn">Yes</button>
-							</a>
-						</div>
+		<div id="confirm" class="modal">
+			<form class="modal-content">
+				<div class="container-model">
+		 			<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<h1 id="title"></h1>
+					<p id="ask"></p>
+		
+					<div class="clearfix">
+						<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
+							<button type="button" class="btn cancelbtn">No</button>
+						</a>
+						<a id="acceptConfirm" href="#">
+							<button type="button" class="btn-dark btn acceptbtn">Yes</button>
+						</a>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
+		</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {

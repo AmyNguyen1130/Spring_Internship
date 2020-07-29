@@ -100,9 +100,9 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 				<div class="clearfix">
 					<a id="cancelConfirm" href="#"
 						onclick="document.getElementById('confirm').style.display='none'"><button
-							type="button" class="btn-dark btn">No</button></a>
+							type="button" class="btn cancelbtn">No</button></a>
 					<a id="acceptConfirm" href="#"> 
-						<button type="button" class="btn-dark btn">Yes</button>
+						<button type="button" class="btn-dark btn acceptbtn">Yes</button>
 					</a>
 				</div>
 			</div>

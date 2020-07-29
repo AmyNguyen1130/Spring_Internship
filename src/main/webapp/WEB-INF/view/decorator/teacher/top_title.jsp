@@ -13,24 +13,26 @@
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-custom"
-				href="<c:url value="/teacher/class"/>"> <button class="grey tablink" >Class</button></a>
-			<a class="navbar-custom"
-				href="<c:url value="/teacher/assessment"/>"> <button class="grey tablink" >Assessment</button></a>
-				
+			<a class="navbar-custom" href="<c:url value="/teacher/class"/>"> 
+				<button class="grey tablink" >Class</button>
+			</a>
+
+			<a class="navbar-custom" href="<c:url value="/teacher/assessment"/>"> 
+				<button class="grey tablink" >Assessment</button>
+			</a>
 		</div>
 	</div>
 
-	<ul class="navbar-nav ml-auto ml-md-0"
-		style="position: absolute; right: 20px; color: white;">
+	<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
 
 		<li class="nav-item dropdown"><a
-			class="nav-link dropdown-toggle" href="#" id="userDropdown"
+			class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
 			aria-expanded="false"> ${SecurityUtil.getUserPrincipal().getUsername()} </a>
 			<div class="dropdown-menu dropdown-menu-right"
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/logout">Logout</a>
-			</div></li>
+			</div>
+		</li>
 	</ul>
 </nav>

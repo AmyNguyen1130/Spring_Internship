@@ -19,11 +19,11 @@ public interface UserService {
 
 	UserDTO getUserByUsername(String username);
 
-	UserDTO showUserByUserId(Long userid);
+	UserDTO getUserByUserId(Long userid);
 
-	List<UserEntity> findByUsername(String username);
+	List<UserDTO> findByUsername(String username);
 
-	List<UserEntity> findByEmail(String email);
+	List<UserDTO> findByEmail(String email);
 
 	Page<UserDTO> getUserPage(Integer page);
 

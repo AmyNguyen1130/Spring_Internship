@@ -78,7 +78,7 @@ public class UserController {
 	@GetMapping("admin/user/editUser/{userId}")
 	public String editUser(@PathVariable(name = "userId") Long userId, Model model) {
 
-		model.addAttribute("userInf", userService.showUserByUserId(userId));
+		model.addAttribute("userInf", userService.getUserByUserId(userId));
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
 		return PREFIX + "addAndEditUser";
