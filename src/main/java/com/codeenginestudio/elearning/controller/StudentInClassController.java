@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
-import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 
@@ -23,9 +22,6 @@ public class StudentInClassController {
 	private UserService userService;
 
 	@Autowired
-	private RoleService roleService;
-
-	@Autowired
 	private StudentInClassService studentInClassService;
 
 	// Admin role
@@ -33,8 +29,7 @@ public class StudentInClassController {
 	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("userPage",
-				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
+		model.addAttribute("users", userService.getUserByRole(RoleConstant.STUDENT));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return PREFIX + "addStudentInClass";
@@ -66,8 +61,8 @@ public class StudentInClassController {
 		// check list remove all
 		if (listCheckedId == null) {
 			studentInClassService.deleteAllByClass(classid);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Update assign students to Class Successfully!!! ");
 		}
+		redirectAttributes.addFlashAttribute("messageSuccess", "Update assign students to Class Successfully!!! ");
 		return "redirect:/admin/class";
 	}
 
@@ -76,8 +71,7 @@ public class StudentInClassController {
 	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("userPage",
-				userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.STUDENT)));
+		model.addAttribute("users", userService.getUserByRole(RoleConstant.STUDENT));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";

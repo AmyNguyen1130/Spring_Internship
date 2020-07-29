@@ -13,8 +13,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 		<div class="row">
 			<div class="col-sm-7">
 				<div class="alert success" style="display: none">
-					<span class="closebtn"
-						onclick="this.parentElement.style.display='none';">&times;</span>
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 					<strong id="message">${messageSuccess}</strong>
 				</div>
 			</div>
@@ -115,7 +114,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 
 			if($("#message").html() != ""){
 				$(".alert").css("display", "block");
-				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 5000);
 			}
 		});
 

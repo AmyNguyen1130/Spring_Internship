@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${userPage}" var="user" varStatus="num">
+						<c:forEach items="${users}" var="user" varStatus="num">
 							<tr class="checkedRow row_${num.index} ${studentChecked.contains(user.getUserid()) ? 'row-grey' : ''}"> 
 								<td>
 									<input class="checkboxChecked" type="checkbox" name="checkSelected"
@@ -53,7 +53,6 @@
 			}else{
 				$(className).removeClass("row-grey");
 				}
-				
 			}
 	</script>
 </body>

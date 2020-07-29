@@ -45,7 +45,7 @@
 					<th scope="col">Start Date</th>
 					<th scope="col">Expired Date</th>
 					<th scope="col">Status</th>
-					<th scope="col">Total Question</th>
+					<th scope="col">Total Questions</th>
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>

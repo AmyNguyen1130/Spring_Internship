@@ -25,14 +25,8 @@ public interface UserService {
 
 	List<UserEntity> findByEmail(String email);
 
-	List<UserDTO> getUserByRole(Long roleid);
-
 	Page<UserDTO> getUserPage(Integer page);
 
-	Page<UserDTO> getUserPageByRole(Long roleid, Integer page);
-
-	List<UserDTO> getAllUser();
-
-
+	List<UserDTO> getUserByRole(String roleName);
 
 }

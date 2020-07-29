@@ -24,7 +24,7 @@ public class ClassEntity {
 	@Column
 	private Boolean status;
 
-	@OneToOne(cascade = { CascadeType.ALL, CascadeType.REMOVE })
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "teacherid", referencedColumnName = "userid")
 	private UserEntity user;
 

@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dao.RoleDAO;
 import com.codeenginestudio.elearning.dao.entity.RoleEntity;
 import com.codeenginestudio.elearning.dto.RoleDTO;

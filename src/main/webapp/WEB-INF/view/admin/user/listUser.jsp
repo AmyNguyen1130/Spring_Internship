@@ -14,7 +14,7 @@
 %>
 <body>
 	<div class="container-fluid">
-			<div class="row = 12">
+			<div class="row">
 				<div class="col-sm-7">
 					<div class="alert success" style="display:none">
 						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -22,9 +22,8 @@
 					</div>
 				</div>
 				<div class="col-sm-5">
-					<div class="row = 12">
+					<div class="row">
 						<div class="col-sm-8">
-	
 						</div>
 						<div class="col-sm-4">
 							<a href="/admin/user/addUser">
@@ -37,7 +36,7 @@
 	</div>
 	<br><br>
 	<div class="container-fluid">
-		<div class="row = 12">
+		<div class="row">
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
@@ -110,7 +109,7 @@
 
 			if($("#message").html() != ""){
 				$(".alert").css("display", "block");
-				setTimeout(function(){ $(".alert").css("display", "none"); }, 1000);
+				setTimeout(function(){ $(".alert").css("display", "none"); }, 5000);
 			}
 		});
 

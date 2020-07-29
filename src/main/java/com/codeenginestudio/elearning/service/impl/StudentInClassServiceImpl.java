@@ -35,8 +35,8 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public void saveStudentInClass(Long classid, Long userid) {
 		StudentInClassEntity studentInClassEntity = new StudentInClassEntity();
 
-		studentInClassEntity.setClassForeign(classDAO.getClassByClassid(classid));
-		studentInClassEntity.setStudent(userDAO.getUserByUserid(userid));
+		studentInClassEntity.setClassForeign(classDAO.getOne(classid));
+		studentInClassEntity.setStudent(userDAO.getOne(userid));
 		studentInClassDAO.save(studentInClassEntity);
 	}
 
@@ -44,7 +44,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public List<Long> getListStudenIdtByClassid(Long classid) {
 
 		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO
-				.findByClassForeign(classDAO.getClassByClassid(classid));
+				.findByClassForeign(classDAO.getOne(classid));
 		List<Long> listStudentid = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntities) {
@@ -57,7 +57,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	@Override
 	public List<StudentInClassDTO> getByClassid(Long classid) {
 		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO
-				.findByClassForeign(classDAO.getClassByClassid(classid));
+				.findByClassForeign(classDAO.getOne(classid));
 		List<StudentInClassDTO> studentInClassDTOs = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntities) {
@@ -98,14 +98,14 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public void deleteAllByClass(Long classId) {
 
 		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO
-				.findByClassForeign(classDAO.getClassByClassid(classId));
+				.findByClassForeign(classDAO.getOne(classId));
 		studentInClassDAO.deleteAll(studentInClassEntity);
 	}
 
 	@Override
 	public List<Long> getClassIdByStudent(Long userid) {
 		List<StudentInClassEntity> studentInClassEntity = studentInClassDAO
-				.findByStudent(userDAO.getUserByUserid(userid));
+				.findByStudent(userDAO.getOne(userid));
 		List<Long> listClass = new ArrayList<>();
 		for (StudentInClassEntity student : studentInClassEntity) {
 			listClass.add(student.getClassForeign().getClassid());

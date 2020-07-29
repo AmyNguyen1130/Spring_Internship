@@ -39,11 +39,12 @@ public class UserEntity {
 	private RoleEntity role;
 
 	public UserEntity() {
-
+		super();
 	}
 
 	public UserEntity(Long userid, String username, String password, String firstname, String lastname, String email,
-			String gender, Boolean enabled) {
+			String gender, Boolean enabled, String avartar, RoleEntity role) {
+		super();
 		this.userid = userid;
 		this.username = username;
 		this.password = password;
@@ -52,6 +53,8 @@ public class UserEntity {
 		this.email = email;
 		this.gender = gender;
 		this.enabled = enabled;
+		this.avartar = avartar;
+		this.role = role;
 	}
 
 	public Long getUserid() {

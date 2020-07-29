@@ -20,13 +20,10 @@ public class ClassValidation {
 	public static boolean checkClassnameExisted(Long classid, String classname, ClassService classService) {
 		List<ClassDTO> listClass = classService.getAllClass();
 
-		if (listClass.size() == 0) {
-			return true;
-		}
 		if (listClass.size() != 0) {
 			for (ClassDTO existed : listClass) {
 				if (classname.equals(existed.getClassname())) {
-					if (classid == existed.getClassid()) {
+					if (classid.equals(existed.getClassid())) {
 						return true;
 					} else {
 						errClassname = "Class name already exists !";
@@ -34,6 +31,8 @@ public class ClassValidation {
 					}
 				}
 			}
+		} else {
+			return true;
 		}
 
 		return true;

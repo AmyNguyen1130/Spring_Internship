@@ -13,10 +13,8 @@ import com.codeenginestudio.elearning.dao.entity.UserEntity;
 @Repository
 public interface ClassDAO extends JpaRepository<ClassEntity, Long> {
 
-	ClassEntity getClassByClassid(Long classid);
-
 	List<ClassEntity> findByUser(UserEntity user);
 
-	Page<ClassEntity> findByUser(UserEntity userByUserid, Pageable pageable);
+	Page<ClassEntity> findPageByUser(UserEntity userByUserid, Pageable pageable);
 
 }

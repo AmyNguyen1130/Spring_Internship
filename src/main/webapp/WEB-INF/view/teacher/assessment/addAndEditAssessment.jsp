@@ -25,9 +25,8 @@
 			<label for="className" class="col-sm-2 col-form-label">Class Name</label>
 			<div class="col-sm-8">
 				<select class="form-control" name="classForeign.classid">
-					<option value="" ${assessmentEdit.getClassForeign().getClassid() == null ? 'selected="selected"' : ''}>None</option>
 					<c:forEach items="${listClass}" var="class">
-						<option value="${class.classid}" ${class.classid == assessmentEdit.getClassForeign().getClassid() ? 'selected="selected"' : ''}>${class.getClassname()}</option>
+						<option value="${class.classid}" ${class.classid == assessmentEdit.getClassForeign().getClassid() ? 'selected' : ''}>${class.getClassname()}</option>
 					</c:forEach>
 				</select>
 			</div>

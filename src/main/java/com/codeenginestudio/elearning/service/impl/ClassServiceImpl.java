@@ -56,7 +56,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void saveEditClass(ClassDTO classDTO) {
-		ClassEntity classEntity = classDAO.getClassByClassid(classDTO.getClassid());
+		ClassEntity classEntity = classDAO.getOne(classDTO.getClassid());
 
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
@@ -88,7 +88,7 @@ public class ClassServiceImpl implements ClassService {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
-		Page<ClassEntity> listClassEntity = classDAO.findByUser(userDAO.getUserByUserid(teacherId), pageable);
+		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
@@ -103,7 +103,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public List<ClassDTO> getClassByTeacherId(Long teacherId) {
-		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getUserByUserid(teacherId));
+		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getOne(teacherId));
 		List<ClassDTO> classDTO = new ArrayList<>();
 
 		for (ClassEntity classes : listClass) {

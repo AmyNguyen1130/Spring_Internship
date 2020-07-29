@@ -55,7 +55,7 @@ public class ResultServiceImpl implements ResultService {
 	@Override
 	public List<ResultDTO> findByAssessmentAndStudent(Long assessmentid, Long userId) {
 		List<ResultEntity> listResult = resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessmentid),
-				userDAO.getUserByUserid(userId));
+				userDAO.getOne(userId));
 		List<ResultDTO> resultDTO = new ArrayList<>();
 		for (ResultEntity result : listResult) {
 			resultDTO.add(ResultUtil.parseToDTO(result));
@@ -105,7 +105,7 @@ public class ResultServiceImpl implements ResultService {
 		ResultEntity resultEntity = new ResultEntity();
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 
-		resultEntity.setStudent(userDAO.getUserByUserid(userId));
+		resultEntity.setStudent(userDAO.getOne(userId));
 		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(lesson.getQuestion().getQuestionid()));
 		resultEntity.setAssessment(assessmentDAO.getOne(lesson.getAssessment().getAssessmentid()));
 		resultEntity.setAnswerchoice(lesson.getAnswerchoice());

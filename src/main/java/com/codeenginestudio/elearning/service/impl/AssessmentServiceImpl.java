@@ -60,10 +60,10 @@ public class AssessmentServiceImpl implements AssessmentService {
 		AssessmentEntity assessmentEntity = new AssessmentEntity();
 
 		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
-		assessmentEntity.setClassForeign(classDAO.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
 		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
 		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
 		assessmentEntity.setStatus(assessmentDTO.getStatus());
+		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
 
 		assessmentDAO.saveAndFlush(assessmentEntity);
 
@@ -75,7 +75,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		assessmentEntity.setAssessmentid(assessmentDTO.getAssessmentid());
 		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
-		assessmentEntity.setClassForeign(classDAO.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
+		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
 		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
 		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
 		assessmentEntity.setStatus(assessmentDTO.getStatus());
@@ -128,7 +128,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 				assessment.setEdit(
 						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-								userDAO.getUserByUserid(userId)).isEmpty());
+								userDAO.getOne(userId)).isEmpty());
 			}
 		}
 		return listAssessmentUnExpired;
@@ -146,7 +146,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 				listAssessmentExpired.add(assessment);
 				assessment.setEdit(
 						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-								userDAO.getUserByUserid(userId)).isEmpty());
+								userDAO.getOne(userId)).isEmpty());
 			}
 		}
 		return listAssessmentExpired;
@@ -170,7 +170,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public List<AssessmentDTO> getListAssessmentByClassid(Long classid) {
-		List<AssessmentEntity> listAssessment = assessmentDAO.findByClassForeign(classDAO.getClassByClassid(classid));
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByClassForeign(classDAO.getOne(classid));
 
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
 		for (AssessmentEntity assessment : listAssessment) {

@@ -95,28 +95,6 @@ public class UserServiceImpl implements UserService {
 		return userDAO.findByEmail(email);
 	}
 
-	public List<UserDTO> getUserByRole(Long roleid) {
-
-		List<UserEntity> listUserEntity = userDAO.findAll();
-		List<UserDTO> listUserDTO = new ArrayList<>();
-		for (UserEntity userEntity : listUserEntity) {
-			if (userEntity.getRole().getRoleid() == roleid) {
-				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
-			}
-		}
-
-		return listUserDTO;
-	}
-
-	@Override
-	public Page<UserDTO> getUserPageByRole(Long roleid, Integer page) {
-
-		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
-		Page<UserEntity> listUserEntity = userDAO.getUserPageByRole(roleid, pageable);
-
-		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
-	}
-
 	@Override
 	public UserDTO showUserByUserId(Long userid) {
 
@@ -130,13 +108,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDTO> getAllUser() {
-		List<UserEntity> listUserEntities = userDAO.findAll();
+	public List<UserDTO> getUserByRole(String roleName) {
+
+		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<UserDTO> listUserDTO = new ArrayList<>();
 
-		for (UserEntity userEntity : listUserEntities) {
-			listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+		for (UserEntity userEntity : listUserEntity) {
+			if (userEntity.getRole().getRolename().equals(roleName)) {
+				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
+			}
 		}
+
 		return listUserDTO;
 	}
 }

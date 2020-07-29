@@ -23,7 +23,7 @@
 				</tr>
 			</thead>
 			<tbody>
-					<c:forEach items="${userPage}" var="student">
+					<c:forEach items="${users}" var="student">
 					<c:if test="${studentChecked.contains(student.getUserid())}">
 						<tr>
 							<td>${student.getUsername()}</td>

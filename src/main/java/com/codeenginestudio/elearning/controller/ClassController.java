@@ -18,7 +18,6 @@ import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
-import com.codeenginestudio.elearning.service.RoleService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.SecurityUtil;
@@ -32,9 +31,6 @@ public class ClassController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private RoleService roleService;
 
 	@Autowired
 	private AssessmentService assessmentService;
@@ -59,7 +55,7 @@ public class ClassController {
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
 		model.addAttribute("url", "/admin/class/saveAddClass");
-		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+		model.addAttribute("users", userService.getUserByRole(RoleConstant.TEACHER));
 
 		return PREFIX + "addAndEditClass";
 	}
@@ -77,7 +73,7 @@ public class ClassController {
 
 		model.addAttribute("url", "/admin/class/saveEditClass");
 		model.addAttribute("editClass", classService.getClassByClassid(classid));
-		model.addAttribute("users", userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+		model.addAttribute("users", userService.getUserByRole(RoleConstant.TEACHER));
 
 		return PREFIX + "addAndEditClass";
 	}
@@ -97,8 +93,7 @@ public class ClassController {
 		if (errors.size() > 0) {
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
-			model.addAttribute("users",
-					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users", userService.getUserByRole(RoleConstant.TEACHER));
 
 			return PREFIX + "addAndEditClass";
 		} else {
@@ -118,8 +113,7 @@ public class ClassController {
 			model.addAttribute("url", "/admin/class/saveEditClass");
 			model.addAttribute("errors", errors);
 			model.addAttribute("editClass", classService.getClassByClassid(classDTO.getClassid()));
-			model.addAttribute("users",
-					userService.getUserByRole(roleService.getRoleIdByRolename(RoleConstant.TEACHER)));
+			model.addAttribute("users", userService.getUserByRole(RoleConstant.TEACHER));
 
 			return PREFIX + "addAndEditClass";
 		} else {
