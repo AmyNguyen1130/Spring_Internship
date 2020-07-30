@@ -62,9 +62,10 @@ public class AssessmentController {
 
 	@GetMapping("/teacher/assessment/addAssessment")
 	public String addAssessment(Model model) {
+		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
 
 		model.addAttribute("url", "/teacher/assessment/saveAddAssessment");
-		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClass", classService.getClassByTeacherId(teacherId));
 		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
@@ -88,9 +89,9 @@ public class AssessmentController {
 
 	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
 	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
-
+		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
-		model.addAttribute("listClass", classService.getAllClass());
+		model.addAttribute("listClass", classService.getClassByTeacherId(teacherId));
 		model.addAttribute("assessmentEdit", assessmentService.getAssessmentByAssessmentid(assessmentid));
 		return PREFIX_TEACHER + "addAndEditAssessment";
 	}

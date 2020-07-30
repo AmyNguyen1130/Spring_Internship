@@ -84,11 +84,11 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId) {
+	public Page<ClassDTO> getClassEnablePageByTeacherId(Integer page, Long teacherId,Boolean enable) {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
-		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
+		Page<ClassEntity> listClassEntity = classDAO.findPageByUserAndStatus(userDAO.getOne(teacherId),enable, pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}

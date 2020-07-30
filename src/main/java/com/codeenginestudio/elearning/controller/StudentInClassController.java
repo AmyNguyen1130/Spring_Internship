@@ -29,7 +29,7 @@ public class StudentInClassController {
 	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("users", userService.getUserByRole(RoleConstant.STUDENT));
+		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT,true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return PREFIX + "addStudentInClass";
@@ -71,7 +71,7 @@ public class StudentInClassController {
 	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("users", userService.getUserByRole(RoleConstant.STUDENT));
+		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT,true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";

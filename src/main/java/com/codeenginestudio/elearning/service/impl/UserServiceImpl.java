@@ -120,17 +120,31 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDTO> getUserByRole(String roleName) {
+	public List<UserDTO> getUserByRoleAndStatus(String roleName, Boolean status) {
 
 		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<UserDTO> listUserDTO = new ArrayList<>();
 
 		for (UserEntity userEntity : listUserEntity) {
-			if (userEntity.getRole().getRolename().equals(roleName)) {
+			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 			}
 		}
 
 		return listUserDTO;
+	}
+
+	@Override
+	public List<Long> getUserByStatus(Boolean status) {
+		List<UserEntity> listUserEntity = userDAO.findAll();
+		List<Long> listUserId = new ArrayList<>();
+
+		for (UserEntity userEntity : listUserEntity) {
+			if (userEntity.isEnabled().equals(status)) {
+				listUserId.add(userEntity.getUserid());
+			}
+		}
+
+		return listUserId;
 	}
 }

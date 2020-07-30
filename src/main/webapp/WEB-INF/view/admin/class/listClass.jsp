@@ -55,23 +55,29 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 							<td>
 								<a href="#"
 									onclick="confirmation('/admin/class/editClassStatus/${class.classid}', 'update')">
-										<button class="btn ${class.getStatus() ? 'btn-dark' : ''}">${class.getStatus() ? 'Active' : 'Inactive'}</button>
+										<button class="btn ${class.getStatus() ? 'btn-dark' : ''}">${class.getStatus() ? 'Enable' : 'Disable'}</button>
 								</a>
 							</td>
 							<td>${class.totalStudents}</td>
 							<td>${class.totalAssessments}</td>
 							<td>
-								<a href="/admin/class/editClass/${class.classid}"> 
-									<img alt="edit" src="<%=editImageAddress%>" class="optionSize" />
-								</a> 
-								<a onclick="confirmation('/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>', 'delete ')">
-									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
-								</a>&emsp; 
-								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/>">
-								<button class="btn btn-dark">Assign</button>
-								</a>
-							</td>
+								<div class="row">
+									<div class="col-sm-3">
+										<a href="/admin/class/editClass/${class.classid}"> 
+											<img alt="edit" src="<%=editImageAddress%>" class="optionSize" />
+										</a> 
+										<a onclick="confirmation('/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>', 'delete ')">
+											<img ${!class.getIsDelete() ? 'style="display:none"' : ''}  alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
+										</a>
+									</div>
+									<div class="col-sm-8">
+										<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/> ">
+											<button class="btn ${class.getStatus() ? 'btn-dark' : ''}" ${!class.getStatus() ? 'disabled' : ''}>Assign</button>
+										</a>
+									</div>
+								</div>
 
+							</td>
 						</tr>
 						<c:set var="i" value="${i+1}" />
 					</c:forEach>

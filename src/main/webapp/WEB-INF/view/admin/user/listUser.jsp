@@ -47,6 +47,7 @@
 						<th scope="col">Email</th>
 						<th scope="col">Role</th>
 						<th scope="col">Status</th>
+						<th scope="col">Total Assigned</th>
 						<th scope="col">Options</th>
 					</tr>
 				</thead>
@@ -60,9 +61,10 @@
 							<td>${user.getLastname()}</td>
 							<td>${user.getEmail()}</td>
 							<td>${user.getRole().getRolename()}</td>
+							<td>${user.getTotalAssigned()}</td>
 							<td>
 								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
-									<button class="btn ${user.isEnabled() ? 'btn-dark' : ''}">${user.isEnabled() ? 'Active' : 'Inactive'}</button>
+									<button class="btn ${user.isEnabled() ? 'btn-dark' : ''}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
 								</a>
 							</td>
 							<td>
@@ -70,7 +72,7 @@
 									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
 								</a>
 								<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
-									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
+									<img ${!user.getIsDelete() ? 'style="display:none"' : ''} alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
 								</a>
 							</td>
 						</tr>

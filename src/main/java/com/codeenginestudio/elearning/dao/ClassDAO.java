@@ -15,6 +15,6 @@ public interface ClassDAO extends JpaRepository<ClassEntity, Long> {
 
 	List<ClassEntity> findByUser(UserEntity user);
 
-	Page<ClassEntity> findPageByUser(UserEntity userByUserid, Pageable pageable);
+	Page<ClassEntity> findPageByUserAndStatus(UserEntity userByUserid, Boolean status, Pageable pageable);
 
 }

@@ -1,6 +1,7 @@
 package com.codeenginestudio.elearning.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.dto.UserDTO;
+import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.RoleService;
+import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.validation.UserValidator;
 
@@ -23,12 +26,26 @@ public class UserController {
 	@Autowired
 	private RoleService roleService;
 
+	@Autowired
+	private StudentInClassService studentInClassService;
+
+	@Autowired
+	private ClassService classService;
+
 	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("/admin/user")
 	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
 
-		model.addAttribute("userPage", userService.getUserPage(page));
+		Page<UserDTO> listUsers = userService.getUserPage(page);
+		for (UserDTO userDTO : listUsers) {
+			userDTO.setTotalAssigned(studentInClassService.getClassIdByStudent(userDTO.getUserid()).size()
+					+ classService.getClassByTeacherId(userDTO.getUserid()).size());
+			if (userDTO.getTotalAssigned() == 0) {
+				userDTO.setIsDelete(true);
+			}
+		}
+		model.addAttribute("userPage", listUsers);
 		return PREFIX + "listUser";
 	}
 

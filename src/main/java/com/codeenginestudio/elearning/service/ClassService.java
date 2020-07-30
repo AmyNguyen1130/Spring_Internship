@@ -22,7 +22,7 @@ public interface ClassService {
 
 	List<ClassDTO> getClassByTeacherId(Long teacherId);
 
-	Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId);
+	Page<ClassDTO> getClassEnablePageByTeacherId(Integer page, Long teacherId, Boolean enable);
 
 	Page<ClassDTO> getClassPage(Integer page);
 
