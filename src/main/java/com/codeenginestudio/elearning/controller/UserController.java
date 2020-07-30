@@ -86,6 +86,8 @@ public class UserController {
 	@GetMapping("admin/user/deleteUser/{userId}")
 	public String deleteUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
 
+		studentInClassService.deleteStudentInClass(userId);
+
 		userService.deleteUser(userId);
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete User Successfully!!! ");
 

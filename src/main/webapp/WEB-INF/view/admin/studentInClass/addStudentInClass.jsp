@@ -24,19 +24,21 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${users}" var="user" varStatus="num">
-							<tr class="checkedRow row_${num.index} ${studentChecked.contains(user.getUserid()) ? 'row-grey' : ''}"> 
-								<td>
-									<input class="checkboxChecked" type="checkbox" name="checkSelected"
-										id="checkbox_${num.index}"
-										value="${user.getUserid()}"
-										onclick="changeColor('.row_' + ${num.index}, '#checkbox_' + ${num.index})"
-										${studentChecked.contains(user.getUserid()) ? 'checked' : ''}>
-								</td>
-								<td>${user.getFirstname()}</td>
-								<td>${user.getLastname()}</td>
-								<td>${user.getEmail()}</td>
-								<td>${user.isEnabled() == true ? 'Active' : 'Inactive'}</td>
-							</tr>
+							<c:if test="${user.enabled}">
+								<tr class="checkedRow row_${num.index} ${studentChecked.contains(user.getUserid()) ? 'row-grey' : ''}"> 
+									<td>
+										<input class="checkboxChecked" type="checkbox" name="checkSelected"
+											id="checkbox_${num.index}"
+											value="${user.getUserid()}"
+											onclick="changeColor('.row_' + ${num.index}, '#checkbox_' + ${num.index})"
+											${studentChecked.contains(user.getUserid()) ? 'checked' : ''}>
+									</td>
+									<td>${user.getFirstname()}</td>
+									<td>${user.getLastname()}</td>
+									<td>${user.getEmail()}</td>
+									<td>${user.isEnabled() == true ? 'Active' : 'Inactive'}</td>
+								</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>	

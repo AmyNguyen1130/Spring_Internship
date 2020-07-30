@@ -30,9 +30,11 @@
 
 					</div>
 					<div class="col-sm-4 justify-end">
-						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-							<button class="btn btn-dark" type="button">Add new question</button>
-						</a>		
+						<c:if test="${assessment.getStatus()}"> 
+							<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
+								<button class="btn btn-dark" type="button">Add new question</button>
+							</a>		
+						</c:if>
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
 							<button class="btn btn-dark" type="button">Preview</button>
 						</a>
@@ -51,7 +53,9 @@
 					<th scope="col">Content</th>
 					<th scope="col">Correct Answer</th>
 					<th scope="col">Score</th>
-					<th scope="col">Options</th>
+					<c:if test="${assessment.getStatus()}">
+						<th scope="col">Options</th>
+					</c:if>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,14 +67,17 @@
 						<td>${question.content}</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
-						<td>
-							<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
-									<img alt="edit" src="<%=editImageAddress%>" /> </a> 
-									<%-- --%>
-							<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
-								<img alt="delete" src="<%=deleteImageAddress%>" />
-							</a>
+						<c:if test="${assessment.getStatus()}">
+							<td>
+								<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
+										<img alt="edit" src="<%=editImageAddress%>" /> 
+								</a> 
+								<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
+									<img alt="delete" src="<%=deleteImageAddress%>" />
+								</a>
 						</td>
+						</c:if>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

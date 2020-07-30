@@ -8,14 +8,14 @@ public interface StudentInClassService {
 
 	void saveStudentInClass(Long classid, Long userid);
 
-	void deleteStudentInClass(Long id);
+	void deleteStudentInClass(Long userid);
 
 	void deleteAllByClass(Long classid);
 
 	Long findIdByValue(Long check);
 
 	List<Long> getListStudenIdtByClassid(Long classid);
-	
+
 	List<StudentInClassDTO> getByClassid(Long classid);
 
 	List<StudentInClassDTO> getAllStudentInClass();

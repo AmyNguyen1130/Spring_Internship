@@ -25,11 +25,11 @@ img {
 	margin-top: 2%;
 }
 
-.inputRadioOption {
+.inputRadioOption{
 	margin-top: 12px;
 }
 
-.optionName {
+.optionName{
 	margin-top: 7px;
 }
 
@@ -236,7 +236,6 @@ img {
 	color: #B43104;
 }
 
-/* User List CSS*/
 .btn-dark {
 	background-color: #585858;
 	color: #ffffff;
@@ -317,3 +316,4 @@ img {
 .tablink:active {
 	color: red;
 }
+
