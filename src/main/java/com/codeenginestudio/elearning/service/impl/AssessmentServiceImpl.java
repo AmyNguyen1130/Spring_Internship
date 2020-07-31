@@ -165,6 +165,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 				}
 			}
 		}
+
 		return assessmentDTO;
 	}
 
@@ -177,6 +178,17 @@ public class AssessmentServiceImpl implements AssessmentService {
 			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
 		return assessmentDTO;
+	}
+
+	@Override
+	public List<Long> getAssessmentEnable(boolean status) {
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByStatus(status);
+
+		List<Long> listAssessmentId = new ArrayList<>();
+		for (AssessmentEntity assessment : listAssessment) {
+			listAssessmentId.add(assessment.getAssessmentid());
+		}
+		return listAssessmentId;
 	}
 
 }

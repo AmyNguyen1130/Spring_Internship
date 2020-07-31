@@ -17,6 +17,8 @@ public interface AssessmentService {
 
 	void editAssessmentStatus(Long assessmentid);
 
+	List<Long> getAssessmentEnable(boolean status);
+
 	AssessmentDTO getAssessmentByAssessmentid(Long assessmentid);
 
 	AssessmentDTO findByAssessmentName(String assessmentname);

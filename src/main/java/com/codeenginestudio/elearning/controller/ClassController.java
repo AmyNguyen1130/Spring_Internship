@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dto.ClassDTO;
+
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
@@ -43,16 +44,11 @@ public class ClassController {
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
 		Page<ClassDTO> classess = classService.getClassPage(page);
-		List<Long> listUsers = userService.getUserByStatus(true);
 		for (ClassDTO classDTO : classess) {
-			if (!listUsers.contains(classDTO.getUser().getUserid())) {
-				classDTO.setStatus(false);
-			}
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 			classDTO.setTotalAssessments(assessmentService.getListAssessmentByClassid(classDTO.getClassid()).size());
 			if (classDTO.getTotalAssessments() == 0 && classDTO.getTotalStudents() == 0) {
 				classDTO.setIsDelete(true);
-				;
 			}
 		}
 		model.addAttribute("classPage", classess);
@@ -88,9 +84,16 @@ public class ClassController {
 
 	@GetMapping("/admin/class/editClassStatus/{classid}")
 	public String editStatusClass(@PathVariable(name = "classid") Long classid, RedirectAttributes redirectAttributes) {
-		classService.editStatusClass(classid);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
+		ClassDTO classDTO = classService.getClassByClassid(classid);
+		List<Long> listUsers = userService.getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
+		if (listUsers.contains(classDTO.getUser().getUserid())) {
+			classService.editStatusClass(classid);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!!");
+		} else {
+			redirectAttributes.addFlashAttribute("messageDanger", "This Class Is Disabled!!!");
+		}
+
 		return "redirect:/admin/class";
 	}
 
@@ -139,11 +142,12 @@ public class ClassController {
 			@RequestParam(name = "page", required = false) Integer page) {
 
 		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
-		Page<ClassDTO> classess = classService.getClassEnablePageByTeacherId(page, teacherId, true);
+		Page<ClassDTO> classess = classService.getClassPageByTeacherId(page, teacherId);
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
 
+		model.addAttribute("listClassEnable", classService.getListByStatus(true));
 		model.addAttribute("classPage", classess);
 
 		return "teacher/class/listClass";

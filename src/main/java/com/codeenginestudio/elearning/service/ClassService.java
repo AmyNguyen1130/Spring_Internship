@@ -18,12 +18,14 @@ public interface ClassService {
 
 	ClassDTO getClassByClassid(Long classid);
 
+	List<Long> getListByStatus(boolean status);
+
 	List<ClassDTO> getAllClass();
 
 	List<ClassDTO> getClassByTeacherId(Long teacherId);
 
-	Page<ClassDTO> getClassEnablePageByTeacherId(Integer page, Long teacherId, Boolean enable);
-
 	Page<ClassDTO> getClassPage(Integer page);
+
+	Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId);
 
 }

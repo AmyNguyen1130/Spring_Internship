@@ -49,16 +49,16 @@
 							<td>${assessment.getClassForeign().getClassname()}</td>
 							<td>${assessment.startdate}</td>
 							<td>${assessment.expireddate}</td>
-							<td>${assessment.getStatus() ? 'Active' : 'Inactive'}</td>
+							<td>${assessment.getStatus() ? 'Enable' : 'Disable'}</td>
 							<td>${assessment.getTotalscore()}</td>
 							<td>${assessment.getTotalquestion()}</td>
 							<td>
 								<c:choose>
 									<c:when test="${!assessment.isEdit()}">
-										<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-danger" type="button">Do Exercise</button></a>
+										<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-danger" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Do Exercise</button></a>
 									</c:when>
 									<c:otherwise>
-										<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button">Edit Exercise</button></a>
+										<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button" ${!slistAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Edit Exercise</button></a>
 									</c:otherwise>
 								</c:choose>
 							</td>

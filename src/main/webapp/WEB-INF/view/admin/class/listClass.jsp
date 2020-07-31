@@ -12,10 +12,21 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-7">
-				<div class="alert success" style="display: none">
-					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong id="message">${messageSuccess}</strong>
-				</div>
+			<c:choose>
+				<c:when test="${messageSuccess.length() > 0}">
+					<div class="alert success" style="display: none">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+						<strong id="message">${messageSuccess}</strong>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="alert danger" style="display: none">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+						<strong id="message">${messageDanger}</strong>
+					</div>
+				</c:otherwise>
+			</c:choose>
+
 			</div>
 			<div class="col-sm-5">
 				<div class="row">
@@ -72,7 +83,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 									</div>
 									<div class="col-sm-8">
 										<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/> ">
-											<button class="btn ${class.getStatus() ? 'btn-dark' : ''}" ${!class.getStatus() ? 'disabled' : ''}>Assign</button>
+											<button class="btn btn-dark">Assign</button>
 										</a>
 									</div>
 								</div>

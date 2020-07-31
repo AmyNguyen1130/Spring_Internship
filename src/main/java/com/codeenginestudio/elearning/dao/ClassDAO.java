@@ -13,8 +13,10 @@ import com.codeenginestudio.elearning.dao.entity.UserEntity;
 @Repository
 public interface ClassDAO extends JpaRepository<ClassEntity, Long> {
 
+	List<ClassEntity> findByStatus(Boolean status);
+
 	List<ClassEntity> findByUser(UserEntity user);
 
-	Page<ClassEntity> findPageByUserAndStatus(UserEntity userByUserid, Boolean status, Pageable pageable);
+	Page<ClassEntity> findPageByUser(UserEntity user, Pageable pageable);
 
 }

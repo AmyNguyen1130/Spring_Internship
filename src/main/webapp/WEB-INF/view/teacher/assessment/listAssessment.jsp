@@ -58,7 +58,7 @@
 						<td>${assessment.expireddate}</td>
 						<td>
 							<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
-								<button class="btn ${assessment.getStatus() ? 'btn-dark' : ''}">${assessment.getStatus() ? 'Active' : 'Inactive'}</button>
+								<button class="btn ${assessment.getStatus() ? 'btn-dark' : ''}">${assessment.getStatus() ? 'Enable' : 'Disable'}</button>
 							</a>
 						</td>
 						<td>${assessment.getTotalquestion()}</td>

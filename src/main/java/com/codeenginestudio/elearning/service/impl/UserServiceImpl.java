@@ -10,8 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.constant.Constant;
+import com.codeenginestudio.elearning.constant.RoleConstant;
+import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.RoleDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.UserService;
@@ -27,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleDAO roleDAO;
+
+	@Autowired
+	private ClassDAO classDAO;
 
 	@Override
 	public Page<UserDTO> getUserPage(Integer page) {
@@ -80,6 +86,16 @@ public class UserServiceImpl implements UserService {
 
 		UserEntity userEntity = userDAO.getOne(userId);
 		userEntity.setEnabled(!userEntity.isEnabled());
+		if (userEntity.isEnabled() == false) {
+			List<ClassEntity> listClasses = classDAO.findAll();
+			List<Long> listUsers = getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
+			for (ClassEntity classEntity : listClasses) {
+				if (!listUsers.contains(classEntity.getUser().getUserid())) {
+					classEntity.setStatus(false);
+				}
+
+			}
+		}
 		userDAO.saveAndFlush(userEntity);
 	}
 
@@ -135,12 +151,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Long> getUserByStatus(Boolean status) {
+	public List<Long> getUserIdByRoleAndStatus(String roleName, boolean status) {
 		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<Long> listUserId = new ArrayList<>();
 
 		for (UserEntity userEntity : listUserEntity) {
-			if (userEntity.isEnabled().equals(status)) {
+			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserId.add(userEntity.getUserid());
 			}
 		}

@@ -19,7 +19,7 @@ public interface UserService {
 
 	UserDTO getUserByUserId(Long userid);
 
-	List<Long> getUserByStatus(Boolean status);
+	List<Long> getUserIdByRoleAndStatus(String teacher, boolean status);
 
 	List<UserDTO> findByUsername(String username);
 

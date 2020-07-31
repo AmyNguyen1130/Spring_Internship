@@ -84,11 +84,11 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassEnablePageByTeacherId(Integer page, Long teacherId,Boolean enable) {
+	public Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId) {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
-		Page<ClassEntity> listClassEntity = classDAO.findPageByUserAndStatus(userDAO.getOne(teacherId),enable, pageable);
+		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
@@ -119,6 +119,18 @@ public class ClassServiceImpl implements ClassService {
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
+	}
+
+	@Override
+	public List<Long> getListByStatus(boolean status) {
+
+		List<ClassEntity> listClass = classDAO.findByStatus(status);
+		List<Long> listClassId = new ArrayList<>();
+
+		for (ClassEntity classes : listClass) {
+			listClassId.add(classes.getClassid());
+		}
+		return listClassId;
 	}
 
 }

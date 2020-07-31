@@ -36,14 +36,15 @@
 									<td>${user.getFirstname()}</td>
 									<td>${user.getLastname()}</td>
 									<td>${user.getEmail()}</td>
-									<td>${user.isEnabled() == true ? 'Active' : 'Inactive'}</td>
+									<td>${user.isEnabled() == true ? 'Enable' : 'Disable'}</td>
 								</tr>
 							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>	
 				<br>
-				<button type="submit" id="assign_buton" class="btn btn-dark">Save</button>
+
+				<button type="submit" id="assign_buton" class="btn btn-dark" ${!listClassEnable.contains(classid) ? 'disabled' : ''} >Save</button>
 				<a href="/admin/class"><button type="button" class="btn btn-dark">Cancel</button></a>
 			</form>
 		</div>

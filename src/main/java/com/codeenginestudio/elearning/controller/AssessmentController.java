@@ -145,7 +145,7 @@ public class AssessmentController {
 					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
 
 		}
-
+		model.addAttribute("listAssessmentId", assessmentService.getAssessmentEnable(true));
 		model.addAttribute("listClassAssigned", listClassid);
 		model.addAttribute("assessmentPage", listAssessments);
 

@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
+import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 
 @Controller
 public class StudentInClassController {
+
+	@Autowired
+	private ClassService classService;
 
 	@Autowired
 	private UserService userService;
@@ -27,9 +31,10 @@ public class StudentInClassController {
 	// Admin role
 	@GetMapping("/admin/getStudentInClass")
 	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
-
 		model.addAttribute("classid", classid);
-		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT,true));
+		List<Long> listClassId = classService.getListByStatus(true);
+		model.addAttribute("listClassEnable", listClassId);
+		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return PREFIX + "addStudentInClass";
@@ -71,7 +76,7 @@ public class StudentInClassController {
 	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("classid", classid);
-		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT,true));
+		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";

@@ -61,12 +61,12 @@
 							<td>${user.getLastname()}</td>
 							<td>${user.getEmail()}</td>
 							<td>${user.getRole().getRolename()}</td>
-							<td>${user.getTotalAssigned()}</td>
 							<td>
 								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
 									<button class="btn ${user.isEnabled() ? 'btn-dark' : ''}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
 								</a>
 							</td>
+							<td>${user.getTotalAssigned()}</td>
 							<td>
 								<a href="/admin/user/editUser/${user.getUserid()}"> 
 									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
