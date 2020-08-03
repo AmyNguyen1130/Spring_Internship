@@ -94,13 +94,26 @@
 				<div class="col-sm-1"></div>
 				<label for="role" class="col-sm-2 col-form-label">Role</label>
 				<div class="col-sm-8">
-					<select name="role.roleid" class="form-control">
-						<c:forEach items="${listRole}" var="role">
-							<option value="${role.getRoleid()}"
-								${userInf.getRole().getRoleid() == role.getRoleid() ? 'selected' : "" }>
-								${role.getRolename()}</option>
-						</c:forEach>
-					</select>
+						<c:choose>
+							<c:when test="${roleId == null}">
+								<select name="role.roleid" class="form-control">
+									<c:forEach items="${listRole}" var="role">
+										<option value="${role.getRoleid()}"
+											${userInf.getRole().getRoleid() == role.getRoleid() ? 'selected' : "" }>
+												${role.getRolename()}</option>
+									</c:forEach>
+								</select>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${listRole}" var="role">
+									<c:if test="${roleId eq role.getRoleid()}">
+										<input type="hidden" name="role.roleid"
+											value="${role.getRoleid()}"/>
+										<input type="text" class="form-control" value="${role.getRolename()}" disabled="disabled">
+									</c:if>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 				</div>
 			</div>
 
@@ -109,7 +122,8 @@
 					value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
 					name="enabled" />
 			</div>
-			<input class="btn btn-pink" type="submit" value="Save">
+
+			<input class="btn btn-dark" type="submit" value="Save">
 		
 			<a href="/admin/user"><input class="btn btn-warning" type="button" value="Cancel"></a>
 		</form>

@@ -27,7 +27,7 @@
 				<div class="col-sm-8">
 					<select name="score" class="form-control">
 						<c:forEach begin="1" end="10" step="1" varStatus="num">
-							<option value="${num.index}" ${questionInf.getScore() == i ? 'selected' : ''}>${num.index}</option>
+							<option value="${num.index}" ${questionInf.getScore() == num.index ? 'selected' : ''}>${num.index}</option>
 						</c:forEach>
 					</select>
 				</div>

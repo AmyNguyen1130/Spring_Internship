@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +39,7 @@ public class UserController {
 	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
 
 		Page<UserDTO> listUsers = userService.getUserPage(page);
+
 		for (UserDTO userDTO : listUsers) {
 			userDTO.setTotalAssigned(studentInClassService.getClassIdByStudent(userDTO.getUserid()).size()
 					+ classService.getClassByTeacherId(userDTO.getUserid()).size());
@@ -45,15 +47,24 @@ public class UserController {
 				userDTO.setIsDelete(true);
 			}
 		}
+
+		if(listUsers.getContent().size() == 1) {
+			if(listUsers.getContent().get(0) .getRole().getRoleid() == 1){
+				return PREFIX + "noUserFound";
+			}
+		}
+
 		model.addAttribute("userPage", listUsers);
 		return PREFIX + "listUser";
 	}
 
 	@GetMapping("admin/user/addUser")
-	public String addUser(Model model) {
+	public String addUser(Model model, @ModelAttribute("role") Long roleId) {
 
 		model.addAttribute("url", "/admin/user/saveAddUser");
+		model.addAttribute("roleId", roleId);
 		model.addAttribute("listRole", roleService.getListRole());
+
 		return PREFIX + "addAndEditUser";
 	}
 
@@ -77,16 +88,16 @@ public class UserController {
 		}
 
 		model.addAttribute("error", inValid);
+		model.addAttribute("roleId", userDTO.getRole().getRoleid());
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("listRole", roleService.getListRole());
+
 		return PREFIX + "addAndEditUser";
 	}
 
 	@GetMapping("admin/user/deleteUser/{userId}")
 	public String deleteUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
-
-		studentInClassService.deleteStudentInClass(userId);
 
 		userService.deleteUser(userId);
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete User Successfully!!! ");
@@ -100,6 +111,7 @@ public class UserController {
 		model.addAttribute("userInf", userService.getUserByUserId(userId));
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
+
 		return PREFIX + "addAndEditUser";
 	}
 
@@ -118,6 +130,7 @@ public class UserController {
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
+
 		return PREFIX + "addAndEditUser";
 	}
 
