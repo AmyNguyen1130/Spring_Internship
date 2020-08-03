@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.codeenginestudio.elearning.util.SecurityUtil" %>
+<%@ page import="com.codeenginestudio.elearning.util.SecurityUtil"%>
 <!-- Custom styles for this template-->
 
 <nav class="navbar border-bottom navbar-expand">
@@ -9,30 +9,39 @@
 			<img class="logo-right"
 				style="max-width: 32; vertical-align: middle;"
 				src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg">
-			<h6 class="brand-name grey">Intern App</h6>
+			<h6 class="brand-name white">Intern App</h6>
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-custom" href="<c:url value="/teacher/class"/>"> 
-				<button class="grey tablink" >Class</button>
-			</a>
-
-			<a class="navbar-custom" href="<c:url value="/teacher/assessment"/>"> 
-				<button class="grey tablink" >Assessment</button>
-			</a>
+			<a id="class" class="navbar-brand white tab-link"
+				href="<c:url value="/teacher/class"/>"> Class </a> 
+			<a id="assessment" class="navbar-brand white tab-link" 
+				href="<c:url value="/teacher/assessment"/>"> Assessment </a>
 		</div>
 	</div>
 
-	<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
+	<ul class="navbar-nav ml-auto ml-md-0"
+		style="position: absolute; right: 20px; color: white;">
 
 		<li class="nav-item dropdown"><a
-			class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
-			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> ${SecurityUtil.getUserPrincipal().getUsername()} </a>
+			class="nav-link dropdown-toggle white capitalize" href="#"
+			id="userDropdown" role="button" data-toggle="dropdown"
+			aria-haspopup="true" aria-expanded="false">
+				${SecurityUtil.getUserPrincipal().getUsername()} </a>
 			<div class="dropdown-menu dropdown-menu-right"
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/logout">Logout</a>
-			</div>
-		</li>
+			</div></li>
 	</ul>
 </nav>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var url = window.location.href;
+		if (url == "http://localhost:8080/teacher/class") {
+			$("#class").css("border-bottom", "4px solid red");
+		} else {
+			$("#assessment").css("border-bottom", "4px solid red");
+		}
+
+	});
+</script>

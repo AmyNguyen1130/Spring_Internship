@@ -7,21 +7,20 @@
 
 		<div class="brand-top-right col-sm-4">
 			<img class="logo-right"
-				style="max-width: 32; vertical-align: middle;"
 				src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg">
-			<h6 class="brand-name grey">Intern App</h6>
+			<h6 class="brand-name white">Intern App</h6>
 		</div>
 
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-custom" href="<c:url value="/student/assessment"/>"> <button class="grey tablink" >History</button> </a>
-			<a class="navbar-custom" href="<c:url value="/student/assessment/history"/>"> <button class="grey tablink">Assessment</button> </a>
+			<a id="history" class="navbar-brand white tab-link" href="<c:url value="/student/assessment/history"/>">History</a>
+			<a id="assessment" class="navbar-brand white tab-link" href="<c:url value="/student/assessment"/>"> Assessment</a>
 		</div>
 	</div>
 
 	<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
 
 		<li class="nav-item dropdown"><a
-			class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
+			class="nav-link dropdown-toggle white capitalize" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
 			aria-expanded="false"> ${SecurityUtil.getUserPrincipal().getUsername()} </a>
 			<div class="dropdown-menu dropdown-menu-right"
@@ -31,3 +30,14 @@
 		</li>
 	</ul>
 </nav>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var url = window.location.href;
+		if (url == "http://localhost:8080/student/assessment") {
+			$("#assessment").css("border-bottom", "4px solid red");
+		} else {
+			$("#history").css("border-bottom", "4px solid red");
+		}
+
+	});
+</script>

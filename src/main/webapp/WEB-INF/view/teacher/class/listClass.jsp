@@ -35,10 +35,10 @@
 							<td>${class.classname}</td>
 							<td>${class.getUser().getUsername()}</td>
 							<td>${class.getStatus() == true ? 'Active' : 'Inactive'}</td>
-							<td>${class.totalStudents}</td>
+							<td class="pink-highlight">${class.totalStudents}</td>
 							<td>
 								<a href="/teacher/getStudentInClass?classid=<c:out value='${class.classid}'/>"><button
-										class="btn btn-dark">View Students In Class</button></a>
+										class="btn btn-pink">View Students In Class</button></a>
 							</td>
 
 						</tr>

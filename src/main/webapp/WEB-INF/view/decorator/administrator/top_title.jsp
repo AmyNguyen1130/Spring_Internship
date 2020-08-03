@@ -7,16 +7,12 @@
 
 		<div class="brand-top-right col-sm-4">
 			<img class="logo-right"
-				style="max-width: 32; vertical-align: middle;"
 				src="https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg">
-			<h6 class="brand-name grey">Intern App</h6>
+			<h6 class="brand-name white">Intern App</h6>
 		</div>
-
 		<div class="col-sm-8 navbar-top-right">
-			<a class="navbar-custom"
-				href="<c:url value="/admin/user"/>"> <button class="grey tablink" >Users</button> </a> 
-			<a class="navbar-custom"
-				href="<c:url value="/admin/class"/>"> <button class="grey tablink" >Classes</button> </a>
+			<a id="users" class="navbar-brand white tab-link" href="<c:url value="/admin/user"/>">Users</a>
+			<a id="class" class="navbar-brand white tab-link" href="<c:url value="/admin/class"/>"> Classes</a>
 		</div>
 	</div>
 
@@ -24,7 +20,7 @@
 		style="position: absolute; right: 20px; color: white;">
 
 		<li class="nav-item dropdown"><a
-			class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
+			class="nav-link dropdown-toggle white capitalize" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
 			aria-expanded="false">${SecurityUtil.getUserPrincipal().getUsername()} </a>
 			<div class="dropdown-menu dropdown-menu-right"
@@ -33,3 +29,14 @@
 			</div></li>
 	</ul>
 </nav>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var url = window.location.href;
+		if (url == "http://localhost:8080/admin/user") {
+			$("#users").css("border-bottom", "4px solid red");
+		} else {
+			$("#class").css("border-bottom", "4px solid red");
+		}
+
+	});
+</script>

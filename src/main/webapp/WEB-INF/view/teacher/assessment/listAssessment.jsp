@@ -25,7 +25,7 @@
 				<div class="row">
 					<div class="col-sm-8"></div>
 					 <div class="col-sm-4">
-						<a href='/teacher/assessment/addAssessment'><button class="btn btn-dark" type="button">Add new assessment</button></a>
+						<a href='/teacher/assessment/addAssessment'><button class="btn btn-pink" type="button">Add new assessment</button></a>
 					</div>
 				</div>
 			</div>
@@ -58,10 +58,10 @@
 						<td>${assessment.expireddate}</td>
 						<td>
 							<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
-								<button class="btn ${assessment.getStatus() ? 'btn-dark' : ''}">${assessment.getStatus() ? 'Enable' : 'Disable'}</button>
+								<button class="btn ${assessment.getStatus() ? 'btn-active' : 'btn-inactive'}">${assessment.getStatus() ? 'Enable' : 'Disable'}</button>
 							</a>
 						</td>
-						<td>${assessment.getTotalquestion()}</td>
+						<td class="pink-highlight">${assessment.getTotalquestion()}</td>
 
 						<td>
 							<a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">
@@ -71,10 +71,10 @@
 								<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
 							</a>&emsp;
 							<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
-								<button class="btn btn-dark" type="button">View questions</button>
+								<button class="btn btn-pink" type="button">View questions</button>
 							</a>&emsp;
 							<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>">
-								<button class="btn btn-dark" type="button">View result</button>
+								<button class="btn btn-warning" type="button">View result</button>
 							</a>
 						</td>
 

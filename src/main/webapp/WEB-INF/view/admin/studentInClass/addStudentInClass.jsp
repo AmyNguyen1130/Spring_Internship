@@ -44,8 +44,8 @@
 				</table>	
 				<br>
 
-				<button type="submit" id="assign_buton" class="btn btn-dark" ${!listClassEnable.contains(classid) ? 'disabled' : ''} >Save</button>
-				<a href="/admin/class"><button type="button" class="btn btn-dark">Cancel</button></a>
+				<button type="submit" id="assign_buton" class="btn btn-pink" ${!listClassEnable.contains(classid) ? 'disabled' : ''} >Save</button>
+				<a href="/admin/class"><button type="button" class="btn btn-warning">Cancel</button></a>
 			</form>
 		</div>
 	<script type="text/javascript">

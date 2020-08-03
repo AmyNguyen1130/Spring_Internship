@@ -48,14 +48,14 @@
 								<td>${assessment.startdate}</td>
 								<td>${assessment.expireddate}</td>
 								<td>${assessment.getStatus() ? 'Active' : 'Inactive'}</td>
-								<td>${assessment.getUserscore()} /
+								<td class="pink-highlight">${assessment.getUserscore()} /
 									${assessment.getTotalscore()}</td>
-								<td>${assessment.getTotalquestion()}</td>
+								<td class="pink-highlight">${assessment.getTotalquestion()}</td>
 								<td>
 									<c:choose>
 										<c:when test="${listIdOfAssessment.contains(assessment.assessmentid)}">
 											<a class="href" href="/student/assessment/history/viewResult/${assessment.assessmentid }">
-												<button class="btn btn-success" type="button">View Result</button>
+												<button class="btn btn-pink" type="button">View Result</button>
 											</a>
 										</c:when>
 										<c:otherwise>

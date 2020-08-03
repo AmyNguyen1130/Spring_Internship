@@ -27,7 +27,7 @@
 						</div>
 						<div class="col-sm-4">
 							<a href="/admin/user/addUser">
-								<button class="btn btn-dark">Add New User</button>
+								<button class="btn btn-pink">Add New User</button>
 							</a>
 						</div>
 					</div>
@@ -63,10 +63,10 @@
 							<td>${user.getRole().getRolename()}</td>
 							<td>
 								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
-									<button class="btn ${user.isEnabled() ? 'btn-dark' : ''}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
+									<button class="btn ${user.isEnabled() ? 'btn-active' : 'btn-inactive'}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
 								</a>
 							</td>
-							<td>${user.getTotalAssigned()}</td>
+							<td class="pink-highlight">${user.getTotalAssigned()}</td>
 							<td>
 								<a href="/admin/user/editUser/${user.getUserid()}"> 
 									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>

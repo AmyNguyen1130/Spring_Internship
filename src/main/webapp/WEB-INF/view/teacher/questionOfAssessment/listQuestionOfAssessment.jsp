@@ -32,11 +32,11 @@
 					<div class="col-sm-4 justify-end">
 						<c:if test="${assessment.getStatus()}"> 
 							<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-								<button class="btn btn-dark" type="button">Add new question</button>
+								<button class="btn btn-pink" type="button">Add new question</button>
 							</a>		
 						</c:if>
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
-							<button class="btn btn-dark" type="button">Preview</button>
+							<button class="btn btn-warning" type="button">Preview</button>
 						</a>
 					</div>
 				</div>

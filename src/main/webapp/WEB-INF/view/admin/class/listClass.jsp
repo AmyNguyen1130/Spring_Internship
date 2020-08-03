@@ -32,7 +32,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 				<div class="row">
 					<div class="col-sm-8"></div>
 					<div class="col-sm-4">
-						<a href='/admin/class/addClass'><button class="btn btn-dark"
+						<a href='/admin/class/addClass'><button class="btn btn-pink"
 								type="button">Add new class</button></a>
 					</div>
 				</div>
@@ -66,7 +66,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 							<td>
 								<a href="#"
 									onclick="confirmation('/admin/class/editClassStatus/${class.classid}', 'update')">
-										<button class="btn ${class.getStatus() ? 'btn-dark' : ''}">${class.getStatus() ? 'Enable' : 'Disable'}</button>
+										<button class="btn ${class.getStatus() ? 'btn-active' : 'btn-inactive'}">${class.getStatus() ? 'Enable' : 'Disable'}</button>
 								</a>
 							</td>
 							<td>${class.totalStudents}</td>
@@ -83,7 +83,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 									</div>
 									<div class="col-sm-8">
 										<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/> ">
-											<button class="btn btn-dark">Assign</button>
+											<button class="btn btn-pink">Assign</button>
 										</a>
 									</div>
 								</div>

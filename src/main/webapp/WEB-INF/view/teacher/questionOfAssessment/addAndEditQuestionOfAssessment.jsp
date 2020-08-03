@@ -92,10 +92,10 @@
 			<input type="hidden" name="assessment.assessmentid"
 				value="${assessmentid}">
 
-			<button type="submit" class="btn btn-dark">Save</button>
+			<button type="submit" class="btn btn-pink">Save</button>
 
 			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
-					type="button" class="btn btn-dark">Cancel</button></a>
+					type="button" class="btn btn-warning">Cancel</button></a>
 		</form>
 
 		<div class="col-sm-3"></div>

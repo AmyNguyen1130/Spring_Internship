@@ -55,8 +55,8 @@
 			<input type="hidden" value="${url == '/teacher/assessment/saveAddAssessment' ? 'true' : assessmentEdit.status}"  name="status" />
 		</div>
 
-		<input class="btn btn-dark" type="submit" value="Save">
-		<a href="/teacher/assessment"><input class="btn btn-dark" type="button" value="Cancel"></a>
+		<input class="btn btn-pink" type="submit" value="Save">
+		<a href="/teacher/assessment"><input class="btn btn-warning" type="button" value="Cancel"></a>
 	</form>
 
 	<div class="col-sm-3"></div>

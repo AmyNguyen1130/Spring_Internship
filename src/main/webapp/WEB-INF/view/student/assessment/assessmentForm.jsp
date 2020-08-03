@@ -69,8 +69,8 @@
 						</div>
 					</c:forEach>
 
-					<button id="submit-button" type="submit" class="btn btn-dark">Submit</button>
-					<a href="/student/assessment"><input class="btn btn-dark"
+					<button id="submit-button" type="submit" class="btn btn-pink">Submit</button>
+					<a href="/student/assessment"><input class="btn btn-warning"
 						type="button" value="Cancel"></a>
 				</form:form>
 			</div>
