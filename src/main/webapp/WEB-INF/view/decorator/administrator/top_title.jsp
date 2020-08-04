@@ -32,11 +32,10 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var url = window.location.href;
-		if (url == "http://localhost:8080/admin/user") {
+		if (url.includes("user")) {
 			$("#users").css("border-bottom", "4px solid red");
 		} else {
 			$("#class").css("border-bottom", "4px solid red");
 		}
-
 	});
 </script>

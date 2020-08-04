@@ -37,7 +37,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var url = window.location.href;
-		if (url == "http://localhost:8080/teacher/class") {
+		if (url.includes("class")) {
 			$("#class").css("border-bottom", "4px solid red");
 		} else {
 			$("#assessment").css("border-bottom", "4px solid red");

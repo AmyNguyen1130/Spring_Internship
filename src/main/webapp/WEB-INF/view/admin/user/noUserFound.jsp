@@ -19,10 +19,10 @@
 		<div>
 			<h4>There are no data, Please creating the first user here!</h4>
 			<a href="/admin/user/addUser?role=3">
-				<button class="btn btn-dark">Add New Student</button>
+				<button class="btn btn-pink">Add New Student</button>
 			</a>
 			<a href="/admin/user/addUser?role=2">
-				<button class="btn btn-pink">Add New Teacher</button>
+				<button class="btn btn-warning">Add New Teacher</button>
 			</a>		
 		</div>
 	</div>

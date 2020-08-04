@@ -78,7 +78,7 @@ String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
 											<img alt="edit" src="<%=editImageAddress%>" class="optionSize" />
 										</a> 
 										<a onclick="confirmation('/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>', 'delete ')">
-											<img ${!class.getIsDelete() ? 'style="display:none"' : ''}  alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
+											<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
 										</a>
 									</div>
 									<div class="col-sm-8">

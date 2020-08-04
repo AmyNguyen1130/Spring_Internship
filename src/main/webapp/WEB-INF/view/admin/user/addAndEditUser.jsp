@@ -123,7 +123,7 @@
 					name="enabled" />
 			</div>
 
-			<input class="btn btn-dark" type="submit" value="Save">
+			<input class="btn btn-pink" type="submit" value="Save">
 		
 			<a href="/admin/user"><input class="btn btn-warning" type="button" value="Cancel"></a>
 		</form>

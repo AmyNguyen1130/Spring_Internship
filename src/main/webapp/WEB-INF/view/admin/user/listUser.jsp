@@ -46,7 +46,7 @@
 				</div>
 			</div>
 	</div>
-	<br><br>
+	<br><br><br>
 	<div class="container-fluid">
 		<div class="row">
 			<table class="table table-bordered table-hover">
@@ -84,7 +84,7 @@
 									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
 								</a>
 								<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
-									<img ${!user.getIsDelete() ? 'style="display:none"' : ''} alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
+									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
 								</a>
 							</td>
 						</tr>
