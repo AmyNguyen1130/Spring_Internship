@@ -11,7 +11,7 @@
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-7">
-				<h1>List students into class</h1>
+				<h1>List students into class: ${class.classname}</h1>
 			</div>
 		</div>
 	</div>
@@ -29,16 +29,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${users}" var="student">
-						<c:if test="${studentChecked.contains(student.getUserid())}">
+					<c:forEach items="${studentsInClass}" var="student">
 							<tr>
-								<td>${student.getUsername()}</td>
-								<td>${student.getFirstname()}</td>
-								<td>${student.getLastname()}</td>
-								<td>${student.getEmail()}</td>
-	
+								<td>${student.getStudent().getUsername()}</td>
+								<td>${student.getStudent().getFirstname()}</td>
+								<td>${student.getStudent().getLastname()}</td>
+								<td>${student.getStudent().getEmail()}</td>
 							</tr>
-						</c:if>
+
 					</c:forEach>
 				</tbody>
 			</table>

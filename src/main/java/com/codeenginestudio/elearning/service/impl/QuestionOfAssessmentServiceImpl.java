@@ -137,4 +137,14 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		return totalScore;
 	}
 
+	@Override
+	public void deleteQuestionsByAssessmentId(Long assessmentid) {
+
+		List<QuestionOfAssessmentDTO> listQuestions = getListQuestionOfAssessmentByAssessment(assessmentid);
+		for (QuestionOfAssessmentDTO question : listQuestions) {
+			questionOfAssessmentDAO.deleteById(question.getQuestionid());
+		}
+
+	}
+
 }

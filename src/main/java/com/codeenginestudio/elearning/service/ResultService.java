@@ -11,6 +11,10 @@ public interface ResultService {
 
 	void saveEditSubmitLesson(ResultDTO lesson);
 
+	void deleteResultByAssessmentId(Long assessmentid);
+
+	void deleteResultByQuestionId(Long questionId);
+
 	Float getUserScoreByAssessment(Long assessmentid);
 
 	List<Long> getListStudentIdtByAssessmentId(Long assessmentid);

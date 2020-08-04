@@ -72,6 +72,8 @@ public class AssessmentController {
 	@GetMapping("/teacher/assessment/deleteAssessment")
 	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid,
 			RedirectAttributes redirectAttributes) {
+		resultService.deleteResultByAssessmentId(assessmentid);
+		questionOfAssessmentService.deleteQuestionsByAssessmentId(assessmentid);
 		assessmentService.deleteById(assessmentid);
 
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Assessment Successfully!!! ");

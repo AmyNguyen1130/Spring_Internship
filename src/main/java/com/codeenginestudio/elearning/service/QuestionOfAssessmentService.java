@@ -16,6 +16,8 @@ public interface QuestionOfAssessmentService {
 
 	void editQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO) throws JsonProcessingException;
 
+	void deleteQuestionsByAssessmentId(Long assessmentid);
+
 	QuestionOfAssessmentDTO getOneQuestionOfAssessment(Long questionId);
 
 	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid);
@@ -23,4 +25,5 @@ public interface QuestionOfAssessmentService {
 	int generateNumericalOrder(Long assessmentid);
 
 	Float getTotalScoreByAssessment(Long assessmentid);
+
 }

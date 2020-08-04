@@ -178,4 +178,20 @@ public class ResultServiceImpl implements ResultService {
 		return listUserDTOs;
 	}
 
+	@Override
+	public void deleteResultByAssessmentId(Long assessmentid) {
+		List<ResultEntity> listResults =  resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
+		for(ResultEntity result: listResults) {
+			resultDAO.delete(result);
+		}
+	}
+
+	@Override
+	public void deleteResultByQuestionId(Long questionId) {
+		ResultEntity result =  resultDAO.findByQuestion(questionOfAssessmentDAO.getOne(questionId));
+		if(result != null) {
+			resultDAO.delete(result);
+		}
+	}
+
 }

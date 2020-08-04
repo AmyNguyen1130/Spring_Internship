@@ -75,9 +75,8 @@ public class StudentInClassController {
 	@GetMapping("/teacher/getStudentInClass")
 	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
 
-		model.addAttribute("classid", classid);
-		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true));
-		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
+		model.addAttribute("studentsInClass", studentInClassService.getByClassid(classid));
+		model.addAttribute("class",classService.getClassByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";
 	}
