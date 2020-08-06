@@ -11,7 +11,6 @@
 <%
 	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
 	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
-	String imageGif = "https://lh3.googleusercontent.com/proxy/rqD8ijucULRhDCHXQY7ncLW5L5jXOgvhhpRN5zLiS-64PQe-w91SYAjb4zmkCyltSNIF3iZQp7FQxUPL0Mi-7kOT";
 %>
 <body>
 	<div class="container-fluid">
@@ -27,14 +26,12 @@
 						<div class="col-sm-4">
 						</div>
 						<div class="col-sm-8">
-							
 							<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
 										role="button" data-toggle="dropdown">
 										<button class="btn btn-pink"> Add User</button>
 									</a>
-
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 										<a class="dropdown-item" href="/admin/user/addUser?role=3">Add New Student</a>
 										<a class="dropdown-item" href="/admin/user/addUser?role=2">Add New Teacher</a>

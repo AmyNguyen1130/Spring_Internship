@@ -163,6 +163,7 @@ public class ResultServiceImpl implements ResultService {
 
 	@Override
 	public List<UserDTO> getListStudentNotyetSubmitAssessment() {
+
 		List<AssessmentEntity> listAssessments = assessmentDAO.findAll();
 		List<UserEntity> listUsers = userDAO.findByRole(roleDAO.getRoleIdByRolename(RoleConstant.STUDENT));
 		List<UserDTO> listUserDTOs = new ArrayList<>();
@@ -175,6 +176,7 @@ public class ResultServiceImpl implements ResultService {
 				}
 			}
 		}
+
 		return listUserDTOs;
 	}
 
@@ -191,6 +193,19 @@ public class ResultServiceImpl implements ResultService {
 		ResultEntity result =  resultDAO.findByQuestion(questionOfAssessmentDAO.getOne(questionId));
 		if(result != null) {
 			resultDAO.delete(result);
+		}
+	}
+
+	@Override
+	public void deleteResultByStudent(Long studentId) {
+
+		List<ResultEntity> results =  resultDAO.findByStudent(userDAO.getOne(studentId));
+		if(results.size() > 0) {
+
+			for (ResultEntity result : results) {
+				resultDAO.delete(result);
+			}
+			
 		}
 	}
 

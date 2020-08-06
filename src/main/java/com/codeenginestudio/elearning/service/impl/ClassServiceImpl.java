@@ -14,6 +14,7 @@ import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
+import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
@@ -25,17 +26,21 @@ public class ClassServiceImpl implements ClassService {
 	private ClassDAO classDAO;
 
 	@Autowired
+	private AssessmentService assessmentService;
+
+	@Autowired
 	private UserDAO userDAO;
 
 	@Override
 	public List<ClassDTO> getAllClass() {
 
 		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findAll();
-
 		List<ClassDTO> classDTO = new ArrayList<>();
+
 		for (ClassEntity classes : listClass) {
 			classDTO.add(ClassUtil.parseToDTO(classes));
 		}
+
 		return classDTO;
 	}
 
@@ -103,6 +108,7 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public List<ClassDTO> getClassByTeacherId(Long teacherId) {
+
 		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getOne(teacherId));
 		List<ClassDTO> classDTO = new ArrayList<>();
 
@@ -114,8 +120,8 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public Page<ClassDTO> getClassPage(Integer page) {
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
 
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
@@ -130,7 +136,21 @@ public class ClassServiceImpl implements ClassService {
 		for (ClassEntity classes : listClass) {
 			listClassId.add(classes.getClassid());
 		}
+
 		return listClassId;
+	}
+
+	@Override
+	public void deleteClassByTeacherId(Long teacherId) {
+
+		List<ClassEntity> listClasses = classDAO.findByUser(userDAO.getOne(teacherId));
+		
+		if(listClasses.size() > 0) {
+			for (ClassEntity classEntity : listClasses) {
+				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
+				classDAO.delete(classEntity);
+			}
+		}
 	}
 
 }

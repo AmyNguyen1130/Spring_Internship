@@ -15,6 +15,8 @@ public interface ResultService {
 
 	void deleteResultByQuestionId(Long questionId);
 
+	void deleteResultByStudent(Long studentId);
+
 	Float getUserScoreByAssessment(Long assessmentid);
 
 	List<Long> getListStudentIdtByAssessmentId(Long assessmentid);

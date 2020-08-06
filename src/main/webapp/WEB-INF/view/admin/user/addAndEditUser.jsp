@@ -3,15 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<style>
-	p {
-		color: red
-	}
+		p {
+			color: red
+		}
 	</style>
 
 	<div class="container-fluid center">
 		<div class="col-sm-3"></div>
 		<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
-			<h1 class="form-title">Register Info</h1>
+			<h1 class="form-title">Register User</h1>
 			<br>
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
 

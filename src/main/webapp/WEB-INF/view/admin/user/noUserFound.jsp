@@ -11,7 +11,7 @@
 <%
 	String imageGif = "https://lh3.googleusercontent.com/proxy/rqD8ijucULRhDCHXQY7ncLW5L5jXOgvhhpRN5zLiS-64PQe-w91SYAjb4zmkCyltSNIF3iZQp7FQxUPL0Mi-7kOT";
 %>
-<div class="container-fluid center">
+<div class="container-fluid center pd-10">
 	<div>
 		<div>
 			<img alt="delete" src="<%=imageGif%>" style="width: 180px; height: 180px"/>		

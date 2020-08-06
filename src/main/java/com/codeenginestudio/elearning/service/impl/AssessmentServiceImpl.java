@@ -19,6 +19,8 @@ import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
+import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
+import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.AssessmentUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
 
@@ -27,6 +29,13 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Autowired
 	private AssessmentDAO assessmentDAO;
+
+	@Autowired
+	private QuestionOfAssessmentService questionOfAssessmentService;
+
+	@Autowired
+	private ResultService resultService;
+
 	@Autowired
 	private ResultDAO resultDAO;
 	@Autowired
@@ -148,6 +157,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
 								userDAO.getOne(userId)).isEmpty());
 			}
+			
 		}
 		return listAssessmentExpired;
 	}
@@ -171,24 +181,43 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public List<AssessmentDTO> getListAssessmentByClassid(Long classid) {
-		List<AssessmentEntity> listAssessment = assessmentDAO.findByClassForeign(classDAO.getOne(classid));
 
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByClassForeign(classDAO.getOne(classid));
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+
 		for (AssessmentEntity assessment : listAssessment) {
 			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
+
 		return assessmentDTO;
 	}
 
 	@Override
 	public List<Long> getAssessmentEnable(boolean status) {
-		List<AssessmentEntity> listAssessment = assessmentDAO.findByStatus(status);
 
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByStatus(status);
 		List<Long> listAssessmentId = new ArrayList<>();
+
 		for (AssessmentEntity assessment : listAssessment) {
 			listAssessmentId.add(assessment.getAssessmentid());
 		}
+
 		return listAssessmentId;
+	}
+
+	@Override
+	public void deleteAssessmentClassid(Long classId) {
+
+		List<AssessmentEntity> listAssessments = assessmentDAO.findByClassForeign(classDAO.getOne(classId));
+		if(listAssessments.size() > 0) {
+
+			for (AssessmentEntity assessment : listAssessments) {
+				resultService.deleteResultByAssessmentId(assessment.getAssessmentid());
+				questionOfAssessmentService.deleteQuestionsByAssessmentId(assessment.getAssessmentid());
+				assessmentDAO.delete(assessment);
+			}
+			
+		}
 	}
 
 }

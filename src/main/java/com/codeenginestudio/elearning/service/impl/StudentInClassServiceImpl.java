@@ -65,14 +65,21 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 		for (StudentInClassEntity student : studentInClassEntities) {
 			studentInClassDTOs.add(StudentInClassUtil.parseToDTO(student));
-
 		}
+
 		return studentInClassDTOs;
 	}
 
 	@Override
 	public void deleteStudentInClass(Long userid) {
-		studentInClassDAO.deleteById(userid);
+		List<StudentInClassEntity> listStudentInClass = studentInClassDAO.findByStudent(userDAO.getOne(userid));
+
+		if(listStudentInClass.size() > 0) {
+			for (StudentInClassEntity StudentInClass : listStudentInClass) {
+				resultService.deleteResultByStudent(StudentInClass.getStudent().getUserid());
+				studentInClassDAO.delete(StudentInClass);
+			}
+		}
 	}
 
 	@Override

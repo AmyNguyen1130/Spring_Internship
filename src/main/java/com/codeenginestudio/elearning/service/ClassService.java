@@ -10,6 +10,8 @@ public interface ClassService {
 
 	void deleteClass(Long id);
 
+	void deleteClassByTeacherId(Long teacherId);
+
 	void editStatusClass(Long classid);
 
 	void saveAddClass(ClassDTO classDTO);
@@ -27,5 +29,4 @@ public interface ClassService {
 	Page<ClassDTO> getClassPage(Integer page);
 
 	Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId);
-
 }

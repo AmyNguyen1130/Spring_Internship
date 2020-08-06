@@ -15,6 +15,8 @@ public interface AssessmentService {
 
 	void saveEditAssessment(AssessmentDTO assessmentDTO);
 
+	void deleteAssessmentClassid(Long classId);
+
 	void editAssessmentStatus(Long assessmentid);
 
 	List<Long> getAssessmentEnable(boolean status);
