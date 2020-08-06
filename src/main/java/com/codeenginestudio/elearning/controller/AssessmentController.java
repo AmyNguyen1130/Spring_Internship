@@ -83,9 +83,18 @@ public class AssessmentController {
 	@GetMapping("/teacher/assessment/editAssessmentStatus/{assessmentid}")
 	public String editAssessmentStatus(@PathVariable(name = "assessmentid") Long assessmentid,
 			RedirectAttributes redirectAttributes) {
-		assessmentService.editAssessmentStatus(assessmentid);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
+		AssessmentDTO assessmentDTO = assessmentService.getAssessmentByAssessmentid(assessmentid);
+
+		List<Long> listClasses = classService.getListIdByStatus(true);
+
+		if (listClasses.contains(assessmentDTO.getAssessmentid())) {
+			assessmentService.editAssessmentStatus(assessmentid);
+			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
+		}
+		else {
+			redirectAttributes.addFlashAttribute("messageDanger", "This Assessment Is Disabled!!!");
+		}
 		return "redirect:/teacher/assessment";
 	}
 

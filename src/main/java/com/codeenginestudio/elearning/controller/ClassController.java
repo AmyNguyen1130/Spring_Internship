@@ -147,7 +147,7 @@ public class ClassController {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
 
-		model.addAttribute("listClassEnable", classService.getListByStatus(true));
+		model.addAttribute("listClassEnable", classService.getListIdByStatus(true));
 		model.addAttribute("classPage", classess);
 
 		return "teacher/class/listClass";

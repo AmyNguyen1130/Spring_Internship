@@ -20,7 +20,7 @@ public interface ClassService {
 
 	ClassDTO getClassByClassid(Long classid);
 
-	List<Long> getListByStatus(boolean status);
+	List<Long> getListIdByStatus(boolean status);
 
 	List<ClassDTO> getAllClass();
 

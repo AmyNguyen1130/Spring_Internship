@@ -10,8 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.codeenginestudio.elearning.constant.Constant;
+import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.UserDAO;
+import com.codeenginestudio.elearning.dao.entity.AssessmentEntity;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
@@ -34,6 +36,9 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private UserDAO userDAO;
+
+	@Autowired
+	private AssessmentDAO assessmentDAO;
 
 	@Override
 	public List<ClassDTO> getAllClass() {
@@ -107,6 +112,13 @@ public class ClassServiceImpl implements ClassService {
 
 		ClassEntity classEntity = classDAO.getOne(classid);
 		classEntity.setStatus(!classEntity.getStatus());
+
+		if (classEntity.getStatus() == false) {
+			List<AssessmentEntity> listAssessmentEntities = assessmentDAO.findByClassForeign(classEntity);
+			for (AssessmentEntity assessmentEntity : listAssessmentEntities) {
+				assessmentEntity.setStatus(false);
+			}
+		}
 		classDAO.saveAndFlush(classEntity);
 	}
 
@@ -132,7 +144,7 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public List<Long> getListByStatus(boolean status) {
+	public List<Long> getListIdByStatus(boolean status) {
 
 		List<ClassEntity> listClass = classDAO.findByStatus(status);
 		List<Long> listClassId = new ArrayList<>();
@@ -148,8 +160,8 @@ public class ClassServiceImpl implements ClassService {
 	public void deleteClassByTeacherId(Long teacherId) {
 
 		List<ClassEntity> listClasses = classDAO.findByUser(userDAO.getOne(teacherId));
-		
-		if(listClasses.size() > 0) {
+
+		if (listClasses.size() > 0) {
 			for (ClassEntity classEntity : listClasses) {
 				studentInClassService.deleteAllByClass(classEntity.getClassid());
 				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
@@ -157,5 +169,4 @@ public class ClassServiceImpl implements ClassService {
 			}
 		}
 	}
-
 }

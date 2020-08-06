@@ -32,7 +32,7 @@ public class StudentInClassController {
 	@GetMapping("/admin/getStudentInClass")
 	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
 		model.addAttribute("classid", classid);
-		List<Long> listClassId = classService.getListByStatus(true);
+		List<Long> listClassId = classService.getListIdByStatus(true);
 		model.addAttribute("listClassEnable", listClassId);
 		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));

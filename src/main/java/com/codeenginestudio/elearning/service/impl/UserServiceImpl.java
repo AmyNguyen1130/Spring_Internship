@@ -93,7 +93,6 @@ public class UserServiceImpl implements UserService {
 				if (!listUsers.contains(classEntity.getUser().getUserid())) {
 					classEntity.setStatus(false);
 				}
-
 			}
 		}
 		userDAO.saveAndFlush(userEntity);
