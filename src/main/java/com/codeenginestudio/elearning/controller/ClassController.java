@@ -65,8 +65,11 @@ public class ClassController {
 	}
 
 	@GetMapping("/admin/class/deleteClass")
-	public String deleteClass(@ModelAttribute("classid") Long id, RedirectAttributes redirectAttributes) {
-		classService.deleteClass(id);
+	public String deleteClass(@ModelAttribute("classid") Long classId, RedirectAttributes redirectAttributes) {
+
+		studentInClassService.deleteAllByClass(classId);
+		assessmentService.deleteAssessmentClassid(classId);
+		classService.deleteClass(classId);
 
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Class Successfully!!! ");
 		return "redirect:/admin/class";
