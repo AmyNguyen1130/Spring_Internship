@@ -16,6 +16,7 @@ import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dto.ClassDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.util.ClassUtil;
 import com.codeenginestudio.elearning.util.CommonUtil;
 
@@ -27,6 +28,9 @@ public class ClassServiceImpl implements ClassService {
 
 	@Autowired
 	private AssessmentService assessmentService;
+
+	@Autowired
+	private StudentInClassService studentInClassService;
 
 	@Autowired
 	private UserDAO userDAO;
@@ -147,6 +151,7 @@ public class ClassServiceImpl implements ClassService {
 		
 		if(listClasses.size() > 0) {
 			for (ClassEntity classEntity : listClasses) {
+				studentInClassService.deleteAllByClass(classEntity.getClassid());
 				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
 				classDAO.delete(classEntity);
 			}
