@@ -8,16 +8,11 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/fontawesome.min.css">
 </head>
-<%
-	String imageGif = "https://lh3.googleusercontent.com/proxy/rqD8ijucULRhDCHXQY7ncLW5L5jXOgvhhpRN5zLiS-64PQe-w91SYAjb4zmkCyltSNIF3iZQp7FQxUPL0Mi-7kOT";
-%>
 <div class="container-fluid center pd-10">
 	<div>
+
 		<div>
-			<img alt="delete" src="<%=imageGif%>" style="width: 180px; height: 180px"/>		
-		</div>
-		<div>
-			<h4>There are no data, Please creating the first user here!</h4>
+			<h4>There are no data. Please creating the first user here!</h4>
 			<a href="/admin/user/addUser?role=3">
 				<button class="btn btn-pink">Add New Student</button>
 			</a>

@@ -7,18 +7,17 @@
 <body id="page-top">
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/teacher/top_title.jsp" %>
-	<div id="wrapper">
+		<div id="wrapper">
 
-		<div id="content-wrapper">
+			<div id="content-wrapper">
 
-	        <div class="container-fluid">
-	            <sitemesh:write property="body" />
-	        </div>
+		        <div class="container-fluid">
+		            <sitemesh:write property="body" />
+		        </div>
 
-	        <%@ include file="/WEB-INF/view/decorator/teacher/footer.jsp"%>
-	    </div>
+		        <%@ include file="/WEB-INF/view/decorator/teacher/footer.jsp"%>
+		    </div>
+		</div>
 	</div>
-	</div>
-
 </body>
 </html>

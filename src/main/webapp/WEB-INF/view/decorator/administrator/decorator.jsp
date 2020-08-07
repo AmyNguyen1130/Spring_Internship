@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<sitemesh:write property="head" />
-<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
+	<sitemesh:write property="head" />
+	<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
 </head>
 <body id="page-top">
 	<div class="container-fluid">
@@ -19,6 +19,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
