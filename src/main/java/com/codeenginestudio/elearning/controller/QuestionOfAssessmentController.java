@@ -92,6 +92,8 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String deleteQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid,
 			@PathVariable(name = "questionId") Long questionId, RedirectAttributes redirectAttributes) {
+
+		// TODO: move to service
 		resultService.deleteResultByQuestionId(questionId);
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete question Successfully!!! ");

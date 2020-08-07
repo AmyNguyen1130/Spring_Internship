@@ -39,8 +39,6 @@ public class ClassController {
 	@Autowired
 	private StudentInClassService studentInClassService;
 
-	// Admin role
-
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
 		Page<ClassDTO> classess = classService.getClassPage(page);
@@ -67,6 +65,7 @@ public class ClassController {
 	@GetMapping("/admin/class/deleteClass")
 	public String deleteClass(@ModelAttribute("classid") Long classId, RedirectAttributes redirectAttributes) {
 
+		// TODO :Should move 3 lines to the service, only call delete method on classService
 		studentInClassService.deleteAllByClass(classId);
 		assessmentService.deleteAssessmentClassid(classId);
 		classService.deleteClass(classId);
@@ -90,6 +89,7 @@ public class ClassController {
 
 		ClassDTO classDTO = classService.getClassByClassid(classid);
 		List<Long> listUsers = userService.getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
+		// TODO: please explain detail in here
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
 			classService.editStatusClass(classid);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!!");

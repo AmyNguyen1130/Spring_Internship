@@ -41,6 +41,7 @@ public class AssessmentController {
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
+	// TODO: why new in here
 	AssessmentValidation assessmentValidation = new AssessmentValidation();
 
 	// Teacher role
@@ -72,6 +73,7 @@ public class AssessmentController {
 	@GetMapping("/teacher/assessment/deleteAssessment")
 	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid,
 			RedirectAttributes redirectAttributes) {
+		//TODO: move to service
 		resultService.deleteResultByAssessmentId(assessmentid);
 		questionOfAssessmentService.deleteQuestionsByAssessmentId(assessmentid);
 		assessmentService.deleteById(assessmentid);
@@ -88,6 +90,7 @@ public class AssessmentController {
 
 		List<Long> listClasses = classService.getListIdByStatus(true);
 
+		// TODO: please explain detail in here
 		if (listClasses.contains(assessmentDTO.getAssessmentid())) {
 			assessmentService.editAssessmentStatus(assessmentid);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
