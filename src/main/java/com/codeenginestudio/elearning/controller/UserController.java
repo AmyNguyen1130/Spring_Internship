@@ -101,15 +101,6 @@ public class UserController {
 	@GetMapping("admin/user/deleteUser/{userId}")
 	public String deleteUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
 
-		// TODO: move all to service
-		UserDTO userDTO = userService.getUserByUserId(userId);
-		
-		if(userDTO.getRole().getRoleid() == 2) {
-			classService.deleteClassByTeacherId(userId);
-		}else if(userDTO.getRole().getRoleid() == 3) {
-			studentInClassService.deleteStudentInClass(userId);
-		}
-
 		userService.deleteUser(userId);
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete User Successfully!!!");
 

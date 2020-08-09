@@ -17,6 +17,8 @@ import com.codeenginestudio.elearning.dao.UserDAO;
 import com.codeenginestudio.elearning.dao.entity.ClassEntity;
 import com.codeenginestudio.elearning.dao.entity.UserEntity;
 import com.codeenginestudio.elearning.dto.UserDTO;
+import com.codeenginestudio.elearning.service.ClassService;
+import com.codeenginestudio.elearning.service.StudentInClassService;
 import com.codeenginestudio.elearning.service.UserService;
 import com.codeenginestudio.elearning.util.CommonUtil;
 import com.codeenginestudio.elearning.util.PasswordUtil;
@@ -33,6 +35,15 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ClassDAO classDAO;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private StudentInClassService studentInClassService;
+
+	@Autowired
+	private ClassService classService;
 
 	@Override
 	public Page<UserDTO> getUserPage(Integer page) {
@@ -61,6 +72,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(long userId) {
+
+		UserDTO userDTO = userService.getUserByUserId(userId);
+
+		if(userDTO.getRole().getRoleid() == 2) {
+			classService.deleteClassByTeacherId(userId);
+		}else if(userDTO.getRole().getRoleid() == 3) {
+			studentInClassService.deleteStudentInClass(userId);
+		}
+
 		userDAO.deleteById(userId);
 	}
 
@@ -89,11 +109,13 @@ public class UserServiceImpl implements UserService {
 		if (userEntity.isEnabled() == false) {
 			List<ClassEntity> listClasses = classDAO.findAll();
 			List<Long> listUsers = getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
+
 			for (ClassEntity classEntity : listClasses) {
 				if (!listUsers.contains(classEntity.getUser().getUserid())) {
 					classEntity.setStatus(false);
 				}
 			}
+
 		}
 		userDAO.saveAndFlush(userEntity);
 	}
@@ -151,6 +173,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Long> getUserIdByRoleAndStatus(String roleName, boolean status) {
+
 		List<UserEntity> listUserEntity = userDAO.findAll();
 		List<Long> listUserId = new ArrayList<>();
 

@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%
-	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
-%>
 <body>
 		<div class="container-fluid">
 		<div class="row">
@@ -43,26 +39,28 @@
 			<tbody>
 				<c:forEach items="${assessmentPage}" var="assessment" varStatus="count">
 					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid())}">
-						<tr>
-							<td>${count.index + 1}</td>
-							<td>${assessment.assessmentname}</td>
-							<td>${assessment.getClassForeign().getClassname()}</td>
-							<td>${assessment.startdate}</td>
-							<td>${assessment.expireddate}</td>
-							<td>${assessment.getStatus() ? 'Enable' : 'Disable'}</td>
-							<td class="pink-highlight">${assessment.getTotalscore()}</td>
-							<td class="pink-highlight">${assessment.getTotalquestion()}</td>
-							<td>
-								<c:choose>
-									<c:when test="${!assessment.isEdit()}">
-										<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-pink" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Do Exercise</button></a>
-									</c:when>
-									<c:otherwise>
-										<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Edit Exercise</button></a>
-									</c:otherwise>
-								</c:choose>
-							</td>
-						</tr>
+						<c:if test="${assessment.status}">
+							<tr>
+								<td>${count.index + 1}</td>
+								<td>${assessment.assessmentname}</td>
+								<td>${assessment.getClassForeign().getClassname()}</td>
+								<td>${assessment.startdate}</td>
+								<td>${assessment.expireddate}</td>
+								<td>${assessment.getStatus() ? 'Enable' : 'Disable'}</td>
+								<td class="pink-highlight">${assessment.getTotalscore()}</td>
+								<td class="pink-highlight">${assessment.getTotalquestion()}</td>
+								<td>
+									<c:choose>
+										<c:when test="${!assessment.isEdit()}">
+											<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-pink" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Do Exercise</button></a>
+										</c:when>
+										<c:otherwise>
+											<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Edit Exercise</button></a>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</c:if>
 					</c:if>
 				</c:forEach>
 			</tbody>

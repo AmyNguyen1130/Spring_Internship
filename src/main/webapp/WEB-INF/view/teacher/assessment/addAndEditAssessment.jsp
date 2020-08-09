@@ -15,7 +15,7 @@
 			<div class="col-sm-1"></div>
 			<label for="AssessmentName" class="col-sm-2 col-form-label">Name</label>
 			<div class="col-sm-8">
-				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname">
+				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname" placeholder="Please enter assessment's name here">
 				<p class="error">${error.errAssessmentName}</p>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 			<div class="col-sm-1"></div>
 			<label for="startdate" class="col-sm-2 col-form-label">Start Date</label>
 			<div class="col-sm-8">
-				<input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate">
+				<input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate" placeholder="Please choose a date here">
 			</div>
 		</div>
 
@@ -46,7 +46,7 @@
 			<div class="col-sm-1"></div>
 			<label for="expireddate" class="col-sm-2 col-form-label">Expired Date</label>
 			<div class="col-sm-8">
-				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate">
+				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate" placeholder="Please choose a date here">
 				<p class="error">${error.errExpiredDate}</p>
 			</div>
 		</div>

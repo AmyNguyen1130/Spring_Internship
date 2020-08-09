@@ -30,11 +30,11 @@
 
 					</div>
 					<div class="col-sm-4 justify-end">
-						<c:if test="${assessment.getStatus()}"> 
-							<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-								<button class="btn btn-pink" type="button">Add new question</button>
-							</a>		
-						</c:if>
+
+						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
+							<button class="btn btn-pink" type="button">Add new question</button>
+						</a>		
+
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
 							<button class="btn btn-warning" type="button">Preview</button>
 						</a>
@@ -67,16 +67,15 @@
 						<td>${question.content}</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
-						<c:if test="${assessment.getStatus()}">
-							<td>
-								<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
-										<img alt="edit" src="<%=editImageAddress%>" /> 
-								</a> 
-								<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
-									<img alt="delete" src="<%=deleteImageAddress%>" />
-								</a>
+
+						<td>
+							<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
+									<img alt="edit" src="<%=editImageAddress%>" /> 
+							</a> 
+							<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
+								<img alt="delete" src="<%=deleteImageAddress%>" />
+							</a>
 						</td>
-						</c:if>
 						
 					</tr>
 				</c:forEach>

@@ -21,7 +21,7 @@
 			<div class="col-sm-1"></div>
 			<label for="classname" class="col-sm-2 col-form-label">Class Name</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" name="classname" value="${editClass.classname}">
+				<input type="text" class="form-control" name="classname" value="${editClass.classname}" placeholder="Please enter class's name here"> 
 			</div>
 		</div>
 

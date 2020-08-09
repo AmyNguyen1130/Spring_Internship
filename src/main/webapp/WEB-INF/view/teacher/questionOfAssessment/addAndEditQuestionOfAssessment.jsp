@@ -18,7 +18,7 @@
 				<label for="numericalorder" class="col-sm-3 col-form-label">Numerical Order</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="numericalorder"
-						value="${questionInf.numericalorder}">
+						value="${questionInf.numericalorder}" placeholder="Please enter numericalorder here">
 					<p class="err errContent">${error.getErrNumericalOrder()}</p>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<label for="content" class="col-sm-3 col-form-label">Content</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="content"
-						value="${questionInf.content}">
+						value="${questionInf.content}" placeholder="Please enter question's content here">
 					<p class="err errContent">${error.getErrContent()}</p>
 				</div>
 			</div>
@@ -76,14 +76,13 @@
 							</c:otherwise>
 						</c:choose>
 						<div class="optionItem">
+							<input type="radio" name="correctanswer" value="${name}" 
+								class="radioOption" ${questionInf.getCorrectanswer() == name ? 'checked' : '' } ${num.index == 0 ? 'checked' : ''}>
 
-								<input type="radio" name="correctanswer" value="${name}" 
-									class="radioOption" ${questionInf.getCorrectanswer() == name ? 'checked' : '' } ${num.index == 0 ? 'checked' : ''}>
-
-								<label for="${name}" class="col-sm-1 col-form-label">${name}: </label> 
-								<input type="hidden" name="options[${num.index}].name" value="${name}"> 
-								<input type="text" class="form-control" name="options[${num.index}].optionValue" 
-									value="${questionInf.getOptions().size() > num.index ? questionInf.getOptions().get(num.index).getOptionValue() : ''}">
+							<label for="${name}" class="col-sm-1 col-form-label">${name}: </label> 
+							<input type="hidden" name="options[${num.index}].name" value="${name}"> 
+							<input type="text" class="form-control" name="options[${num.index}].optionValue" 
+								value="${questionInf.getOptions().size() > num.index ? questionInf.getOptions().get(num.index).getOptionValue() : ''}">
 						</div>
 					</c:forEach>
 				</div>

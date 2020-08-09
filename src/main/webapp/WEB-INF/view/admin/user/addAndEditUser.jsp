@@ -19,7 +19,7 @@
 				<div class="col-sm-1"></div>
 				<label for="userName" class="col-sm-2 col-form-label">UserName</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" name="username" placeholder="Lulu"
+					<input type="text" class="form-control" name="username" placeholder="Please enter username here"
 						value="${userInf.getUsername()}">
 					<div class="error">
 						<p id="errUsername">${error.errUsername}</p>
@@ -31,7 +31,7 @@
 				<div class="col-sm-1"></div>
 				<label for="password" class="col-sm-2 col-form-label">Password</label>
 				<div class="col-sm-8">
-					<input type="password" class="form-control" name="password" placeholder="andrew1125"
+					<input type="password" class="form-control" name="password" placeholder="Please enter password here"
 						value="${userInf.getPassword()}">
 					<div class="error">
 						<p id="errPassword">${error.errPassword}</p>
@@ -43,7 +43,7 @@
 				<div class="col-sm-1"></div>
 				<label for="firstName" class="col-sm-2 col-form-label">FirstName</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" name="firstname" placeholder="Andrew"
+					<input type="text" class="form-control" name="firstname" placeholder="Please enter firstname here"
 						value="${userInf.getFirstname()}">
 					<div class="error">
 						<p id="errFirstname">${error.errFirstname}</p>
@@ -55,7 +55,7 @@
 				<div class="col-sm-1"></div>
 				<label for="lastName" class="col-sm-2 col-form-label">LastName</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" name="lastname" placeholder="William"
+					<input type="text" class="form-control" name="lastname" placeholder="Please enter lastname here"
 						value="${userInf.getLastname()}">
 					<div class="error">
 						<p id="errLastname">${error.errLastname}</p>
@@ -67,7 +67,7 @@
 				<div class="col-sm-1"></div>
 				<label for="email" class="col-sm-2 col-form-label">Email</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" name="email" placeholder="andrew.william@gmail.com"
+					<input type="text" class="form-control" name="email" placeholder="Please enter email here"
 						value="${userInf.getEmail()}">
 					<div class="error">
 						<p id="errEmail">${error.errEmail}</p>
