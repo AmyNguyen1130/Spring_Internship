@@ -86,7 +86,7 @@ public class AssessmentController {
 		List<Long> listClasses = classService.getListIdByStatus(true);
 
 		// if parents object disable users cannot change status of child object
-		if (listClasses.contains(assessmentDTO.getAssessmentid())) {
+		if (listClasses.contains(assessmentDTO.getClassForeign().getClassid())) {
 			assessmentService.editAssessmentStatus(assessmentid);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
 		} else {

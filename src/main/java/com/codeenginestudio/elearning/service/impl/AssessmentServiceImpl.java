@@ -136,11 +136,14 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		for (AssessmentDTO assessment : listAssessment) {
 			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
-				listAssessmentUnExpired.add(assessment);
+				if (assessment.getStatus()) {
+					listAssessmentUnExpired.add(assessment);
 
-				assessment.setEdit(
-						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-								userDAO.getOne(userId)).isEmpty());
+					assessment.setEdit(
+							!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+									userDAO.getOne(userId)).isEmpty());
+				}
+
 			}
 		}
 		return listAssessmentUnExpired;
