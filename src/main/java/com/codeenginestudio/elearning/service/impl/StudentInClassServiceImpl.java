@@ -49,8 +49,9 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<Long> listStudentid = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntities) {
-			listStudentid.add(student.getStudent().getUserid());
-
+			if (student.getStudent().isEnabled()) {
+				listStudentid.add(student.getStudent().getUserid());
+			}
 		}
 
 		return listStudentid;
@@ -74,7 +75,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public void deleteStudentInClass(Long userid) {
 		List<StudentInClassEntity> listStudentInClass = studentInClassDAO.findByStudent(userDAO.getOne(userid));
 
-		if(listStudentInClass.size() > 0) {
+		if (listStudentInClass.size() > 0) {
 			for (StudentInClassEntity StudentInClass : listStudentInClass) {
 				resultService.deleteResultByStudent(StudentInClass.getStudent().getUserid());
 				studentInClassDAO.delete(StudentInClass);
