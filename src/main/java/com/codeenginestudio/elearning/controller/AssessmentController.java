@@ -41,9 +41,6 @@ public class AssessmentController {
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
-	// TODO: why new in here
-	AssessmentValidation assessmentValidation = new AssessmentValidation();
-
 	// Teacher role
 
 	@GetMapping("/teacher/assessment")
@@ -73,9 +70,7 @@ public class AssessmentController {
 	@GetMapping("/teacher/assessment/deleteAssessment")
 	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid,
 			RedirectAttributes redirectAttributes) {
-		//TODO: move to service
-		resultService.deleteResultByAssessmentId(assessmentid);
-		questionOfAssessmentService.deleteQuestionsByAssessmentId(assessmentid);
+
 		assessmentService.deleteById(assessmentid);
 
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Assessment Successfully!!! ");
@@ -90,12 +85,11 @@ public class AssessmentController {
 
 		List<Long> listClasses = classService.getListIdByStatus(true);
 
-		// TODO: please explain detail in here
+		// if parents object disable users cannot change status of child object
 		if (listClasses.contains(assessmentDTO.getAssessmentid())) {
 			assessmentService.editAssessmentStatus(assessmentid);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
-		}
-		else {
+		} else {
 			redirectAttributes.addFlashAttribute("messageDanger", "This Assessment Is Disabled!!!");
 		}
 		return "redirect:/teacher/assessment";
@@ -113,6 +107,7 @@ public class AssessmentController {
 	@PostMapping("/teacher/assessment/saveAddAssessment")
 	public String saveAddAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
+		AssessmentValidation assessmentValidation = new AssessmentValidation();
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
@@ -129,6 +124,7 @@ public class AssessmentController {
 	@PostMapping("/teacher/assessment/saveEditAssessment")
 	public String saveEditAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
+		AssessmentValidation assessmentValidation = new AssessmentValidation();
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveEditAssessment(assessmentDTO);

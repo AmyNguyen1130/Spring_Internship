@@ -65,9 +65,6 @@ public class ClassController {
 	@GetMapping("/admin/class/deleteClass")
 	public String deleteClass(@ModelAttribute("classid") Long classId, RedirectAttributes redirectAttributes) {
 
-		// TODO :Should move 3 lines to the service, only call delete method on classService
-		studentInClassService.deleteAllByClass(classId);
-		assessmentService.deleteAssessmentClassid(classId);
 		classService.deleteClass(classId);
 
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Class Successfully!!! ");
@@ -89,7 +86,8 @@ public class ClassController {
 
 		ClassDTO classDTO = classService.getClassByClassid(classid);
 		List<Long> listUsers = userService.getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
-		// TODO: please explain detail in here
+
+		// if parents object disable users cannot change status of child object
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
 			classService.editStatusClass(classid);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!!");

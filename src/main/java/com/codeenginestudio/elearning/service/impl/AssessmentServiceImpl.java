@@ -94,6 +94,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Override
 	public void deleteById(Long assessmentid) {
+
+		resultService.deleteResultByAssessmentId(assessmentid);
+		questionOfAssessmentService.deleteQuestionsByAssessmentId(assessmentid);
 		assessmentDAO.deleteById(assessmentid);
 
 	}
@@ -157,7 +160,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
 								userDAO.getOne(userId)).isEmpty());
 			}
-			
+
 		}
 		return listAssessmentExpired;
 	}
@@ -209,14 +212,14 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void deleteAssessmentClassid(Long classId) {
 
 		List<AssessmentEntity> listAssessments = assessmentDAO.findByClassForeign(classDAO.getOne(classId));
-		if(listAssessments.size() > 0) {
+		if (listAssessments.size() > 0) {
 
 			for (AssessmentEntity assessment : listAssessments) {
 				resultService.deleteResultByAssessmentId(assessment.getAssessmentid());
 				questionOfAssessmentService.deleteQuestionsByAssessmentId(assessment.getAssessmentid());
 				assessmentDAO.delete(assessment);
 			}
-			
+
 		}
 	}
 

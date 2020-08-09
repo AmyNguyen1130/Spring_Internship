@@ -15,7 +15,6 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.QuestionTypeService;
-import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.validation.QuestionValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -33,9 +32,6 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
-
-	@Autowired
-	private ResultService resultService;
 
 	QuestionValidator questionValidator = new QuestionValidator();
 
@@ -93,9 +89,8 @@ public class QuestionOfAssessmentController {
 	public String deleteQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid,
 			@PathVariable(name = "questionId") Long questionId, RedirectAttributes redirectAttributes) {
 
-		// TODO: move to service
-		resultService.deleteResultByQuestionId(questionId);
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
+
 		redirectAttributes.addFlashAttribute("messageSuccess", "Delete question Successfully!!! ");
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}

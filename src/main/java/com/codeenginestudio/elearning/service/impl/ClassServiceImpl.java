@@ -86,9 +86,11 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public void deleteClass(Long id) {
+	public void deleteClass(Long classId) {
 
-		classDAO.deleteById(id);
+		studentInClassService.deleteAllByClass(classId);
+		assessmentService.deleteAssessmentClassid(classId);
+		classDAO.deleteById(classId);
 	}
 
 	@Override

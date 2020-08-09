@@ -13,6 +13,7 @@ import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
 import com.codeenginestudio.elearning.dto.OptionDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
+import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.OptionUtil;
 import com.codeenginestudio.elearning.util.QuestionOfAssignmentUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,6 +31,9 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 	@Autowired
 	private QuestionTypeDAO questionTypeDAO;
+
+	@Autowired
+	private ResultService resultService;
 
 	@Override
 	public List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid) {
@@ -95,6 +99,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 	@Override
 	public void deleteQuestionOfAssessment(Long questionId) {
+
+		resultService.deleteResultByQuestionId(questionId);
 		questionOfAssessmentDAO.deleteById(questionId);
 	}
 
