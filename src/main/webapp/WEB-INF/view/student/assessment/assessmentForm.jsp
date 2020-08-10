@@ -56,7 +56,6 @@
 													path="resultDTOs[${status.index}].answerchoice"
 													value="${option.getName()}" class="inputRadioOption"
 													items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
-
 											</div>
 											<div class="col-sm-6">
 												<label class="optionName">${option.getOptionValue()}</label>
@@ -77,6 +76,24 @@
 		</div>
 	</div>
 
+	<div id="confirm" class="modal">
+
+		<form class="modal-content">
+			<div class="container-model">
+				<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h1 id="title"></h1>
+			<p id="ask"></p>
+		
+				<div class="clearfix">
+					<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
+						<button type="button" class="cancelbtn btn">No</button>
+					</a>
+					<a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn acceptbtn">Yes</button></a>
+				</div>
+			</div>
+		</form>
+	</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -95,6 +112,13 @@
 				}, 5000);
 			}
 		});
+
+		function confirmation(success, action) {
+			$('#acceptConfirm').attr("href", success);
+			$('#title').html(action + ' assignment');
+			$('#ask').html('Are you sure you want to ' + action + ' this assignment ?');
+			$('#confirm').show();
+		}
 	</script>
 
 </body>

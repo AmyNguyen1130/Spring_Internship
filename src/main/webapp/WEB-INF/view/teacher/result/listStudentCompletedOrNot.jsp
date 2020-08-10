@@ -8,10 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%
-	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
-%>
 <body>
 	<div class="container-fluid">
 			<div class="row">
@@ -19,10 +15,6 @@
 					<h5> Class Name: ${class.getClassname()}</h5> 
 					<h5> Assessment Name: ${assessment.getAssessmentname()}</h5>
 					<h5>( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h5>
-					<div class="alert success" style="display:none">
-						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-						<strong id="message">${messageSuccess}</strong>
-					</div>
 				</div>
 			</div>
 	</div>

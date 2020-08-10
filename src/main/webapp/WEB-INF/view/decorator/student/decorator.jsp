@@ -8,9 +8,15 @@
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/student/top_title.jsp" %>
 		<div id="wrapper">
-
 			<div id="content-wrapper">
-
+				<div class="row">
+					<div class="col-sm-7">
+						<div class="alert success" style="display:none">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong id="message">${messageSuccess}</strong> 
+						</div>
+					</div>
+				</div>
 		        <div class="container-fluid">
 		            <sitemesh:write property="body" />
 		        </div>

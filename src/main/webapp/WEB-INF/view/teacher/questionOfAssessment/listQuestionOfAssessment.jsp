@@ -19,18 +19,11 @@
 				<h5> Class Name: ${class.getClassname()} ${classNull} </h5> 
 				<h5> Assessment Name: ${assessment.getAssessmentname()}</h5>
 				<h5>( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h5>
-				<div class="alert success" style="display:none">
-					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong id="message">${messageSuccess}</strong>
-				</div>
 			</div>
 			<div class="col-sm-5">
 				<div class="row">
-					<div class="col-sm-8">
-
-					</div>
+					<div class="col-sm-8"></div>
 					<div class="col-sm-4 justify-end">
-
 						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
 							<button class="btn btn-pink" type="button">Add new question</button>
 						</a>		
@@ -67,7 +60,6 @@
 						<td>${question.content}</td>
 						<td>${question.correctanswer}</td>
 						<td>${question.score}</td>
-
 						<td>
 							<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
 									<img alt="edit" src="<%=editImageAddress%>" /> 
@@ -76,7 +68,6 @@
 								<img alt="delete" src="<%=deleteImageAddress%>" />
 							</a>
 						</td>
-						
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -87,41 +78,7 @@
 			url="${pageContext.request.contextPath}/teacher/questionOfAssignment"
 			curpage="${listQuestionOfAssignment.getNumber()}" />
 	</div>
-	
-	<div id="confirm" class="modal">
-	  
-	  <form class="modal-content">
-	    <div class="container-model">
-	    	<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>
-	      <h1 id="title"></h1>
-	      <p id="ask"></p>
-	
-	      <div class="clearfix">
-	        <a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'"><button type="button" class="btn cancelbtn">No</button></a>
-	        <a id="acceptConfirm" href="#"> <button type="button" class="btn-dark btn acceptbtn">Yes</button></a>
-	      </div>
-	    </div>
-	  </form>
-	</div>
-	<script type="text/javascript">
-	
-		$(document).ready(function() {
-			$('#confirm').hide();
-			
-			if($('#message').html() != ""){
-				$('.alert').css("display", "block");
-				setTimeout(function(){ $('.alert').css("display", "none"); }, 5000);
-			}
-		});
 
-		function confirmation(success, action) {
-			
-			$('#acceptConfirm').attr("href", success);
-			$('#title').html(action + ' Item');
-			$('#ask').html('Are you sure you want to ' + action + ' this Item ?');
-			$('#confirm').show();
-		}
-	</script>
 </body>
 </html>
 
