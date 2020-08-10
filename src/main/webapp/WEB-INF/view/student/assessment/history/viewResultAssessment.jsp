@@ -2,6 +2,7 @@
 <%@page import="com.codeenginestudio.elearning.dto.ResultDTO"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +24,7 @@
 						${assessment.getExpireddate()})</p>
 				</div>
 				<br>
-				<c:forEach items="${listQuestionOfAssessment}" var="question"
-					varStatus="status">
+				<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
 
 					<div class="questionName">
 						<c:if test="${!preview}">
@@ -67,7 +67,7 @@
 								<c:if test="${!preview}">
 									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 										<div class="correctAnswer">
-											<strong id="message">Correct answer is ${question.correctanswer}</strong>
+											<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
 										</div>
 									</c:if>
 								</c:if>

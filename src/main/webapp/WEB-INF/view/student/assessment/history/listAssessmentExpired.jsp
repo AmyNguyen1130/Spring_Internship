@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<div class="container-fluid">
@@ -28,14 +29,14 @@
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Assessment Name</th>
-						<th scope="col">Class Name</th>
-						<th scope="col">Start Date</th>
-						<th scope="col">Expired Date</th>
-						<th scope="col">Status</th>
-						<th scope="col">Total Score</th>
-						<th scope="col">Total Question</th>
-						<th scope="col">Actions</th>
+						<th scope="col"><spring:message code="assessment-name"/></th>
+						<th scope="col"><spring:message code="class-name"/></th>
+						<th scope="col"><spring:message code="start-date"/></th>
+						<th scope="col"><spring:message code="expired-date"/></th>
+						<th scope="col"><spring:message code="status"/></th>
+						<th scope="col"><spring:message code="total-score"/></th>
+						<th scope="col"><spring:message code="total-question"/></th>
+						<th scope="col"><spring:message code="action"/></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,11 +56,11 @@
 									<c:choose>
 										<c:when test="${listIdOfAssessment.contains(assessment.assessmentid)}">
 											<a class="href" href="/student/assessment/history/viewResult/${assessment.assessmentid }">
-												<button class="btn btn-pink" type="button">View Result</button>
+												<input class="btn btn-pink" type="button" value="View Result">
 											</a>
 										</c:when>
 										<c:otherwise>
-											<p>You haven't submitted this assignment!</p>
+											<span><spring:message code="have-not-submit"/></span>
 										</c:otherwise>
 									</c:choose>
 								</td>

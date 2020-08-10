@@ -23,27 +23,18 @@
 					</div>
 					<br>
 
-					<c:forEach items="${listQuestionOfAssessment}" var="question"
-						varStatus="status">
-						<form:input type="hidden" path="resultDTOs[${status.index}].id"
-							value="${resultDTOs[status.index].id}" />
-						<form:input type="hidden"
-							path="resultDTOs[${status.index}].assessment.assessmentid"
-							value="${assessment.assessmentid}" />
-						<form:input type="hidden"
-							path="resultDTOs[${status.index}].question.questionid"
-							value="${question.questionid}" />
+					<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
+						<form:input type="hidden" path="resultDTOs[${status.index}].id" value="${resultDTOs[status.index].id}" />
+						<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" />
+						<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" />
 						<div>
 							<div class="questionName">
-								<span> Question ${question.numericalorder}:
-									${question.content}</span>
+								<span> Question ${question.numericalorder}:${question.content}</span>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-6">
 
 									<c:forEach items="${question.options}" var="option">
-
-										<c:set var="check" value='' />
 
 										<div class="row">
 											<div class="col-sm-1">
@@ -68,9 +59,10 @@
 						</div>
 					</c:forEach>
 
-					<button id="submit-button" type="submit" class="btn btn-pink">Submit</button>
-					<a href="/student/assessment"><input class="btn btn-warning"
-						type="button" value="Cancel"></a>
+					<input id="submit-button" type="submit" class="btn btn-pink" value="Submit">
+					<a href="/student/assessment">
+						<input class="btn btn-warning" type="button" value="Cancel">
+					</a>
 				</form:form>
 			</div>
 		</div>

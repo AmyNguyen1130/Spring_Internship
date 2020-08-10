@@ -2,34 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
+	<br><br>
 	<div class="container-fluid">
-		<div class="col-sm-7"></div>
-		</div>	
-		<br><br>
-		<div class="container-fluid">
-		  <div class="row">
-		  	<table class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Assessment Name</th>
-					<th scope="col">Class Name</th>
-					<th scope="col">Start Date</th>
-					<th scope="col">Expired Date</th>
-					<th scope="col">Status</th>
-					<th scope="col">Total Score</th>
-					<th scope="col">Total Question</th>
-					<th scope="col">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
+		<div class="row">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col"><spring:message code="assessment-name"/></th>
+						<th scope="col"><spring:message code="class-name"/></th>
+						<th scope="col"><spring:message code="start-date"/></th>
+						<th scope="col"><spring:message code="expired-date"/></th>
+						<th scope="col"><spring:message code="status"/></th>
+						<th scope="col"><spring:message code="total-score"/></th>
+						<th scope="col"><spring:message code="total-question"/></th>
+						<th scope="col"><spring:message code="action"/></th>
+					</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${assessmentPage}" var="assessment" varStatus="count">
 					<c:if test="${listClassAssigned.contains(assessment.getClassForeign().getClassid())}">
 						<c:if test="${assessment.status}">
@@ -45,10 +43,14 @@
 								<td>
 									<c:choose>
 										<c:when test="${!assessment.isEdit()}">
-											<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }"><button class="btn btn-pink" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Do Exercise</button></a>
+											<a class="href" href="/student/addSubmitLesson/${assessment.assessmentid }">
+												<input class="btn btn-pink" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''} value="Do Exercise">
+											</a>
 										</c:when>
 										<c:otherwise>
-											<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }"><button class="btn btn-warning" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''}>Edit Exercise</button></a>
+											<a class="href" href="/student/editSubmitLesson/${assessment.assessmentid }">
+												<input class="btn btn-warning" type="button" ${!listAssessmentId.contains(assessment.assessmentid) ? 'disabled' : ''} value="Edit Exercise">
+											</a>
 										</c:otherwise>
 									</c:choose>
 								</td>
@@ -56,11 +58,10 @@
 						</c:if>
 					</c:if>
 				</c:forEach>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-		
 	<script type="text/javascript">	
 		$(document).ready(function() {
 

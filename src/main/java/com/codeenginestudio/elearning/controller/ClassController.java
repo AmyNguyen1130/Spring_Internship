@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,9 @@ public class ClassController {
 	@Autowired
 	private StudentInClassService studentInClassService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
 		Page<ClassDTO> classess = classService.getClassPage(page);
@@ -67,7 +72,8 @@ public class ClassController {
 
 		classService.deleteClass(classId);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Class Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("message-delete-class-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/admin/class";
 	}
 
@@ -90,9 +96,9 @@ public class ClassController {
 		// if parents object disable users cannot change status of child object
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
 			classService.editStatusClass(classid);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!!");
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("message-edit-status-success", null, LocaleContextHolder.getLocale()));
 		} else {
-			redirectAttributes.addFlashAttribute("messageDanger", "This Class Is Disabled!!!");
+			redirectAttributes.addFlashAttribute("messageDanger", messageSource.getMessage("message-edit-status-unsuccess", null, LocaleContextHolder.getLocale()));
 		}
 
 		return "redirect:/admin/class";
@@ -110,7 +116,8 @@ public class ClassController {
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveAddClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Add Class Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess",messageSource.getMessage("message-add-class-success", null, LocaleContextHolder.getLocale()));
+
 		}
 
 		return "redirect:/admin/class";
@@ -130,7 +137,7 @@ public class ClassController {
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveEditClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Class Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("message-edit-class-success", null, LocaleContextHolder.getLocale()));
 		}
 
 		return "redirect:/admin/class";

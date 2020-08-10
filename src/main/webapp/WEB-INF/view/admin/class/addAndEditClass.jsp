@@ -10,7 +10,7 @@
 	<div class="col-sm-3"></div>
 
 	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
-		<h1 class="form-title">Class Form</h1>
+		<h1 class="form-title"><spring:message code="class-form"/></h1>
 		<br>
 		<c:forEach items="${errors}" var="error">
 			<span style="color: red">${error}</span>
@@ -19,7 +19,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="classname" class="col-sm-2 col-form-label">Class Name</label>
+			<label for="classname" class="col-sm-2 col-form-label"><spring:message code="class-name"/></label>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="classname" value="${editClass.classname}" placeholder="Please enter class's name here"> 
 			</div>
@@ -27,11 +27,10 @@
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="Teacher" class="col-sm-2 col-form-label">Teacher</label>
+			<label for="Teacher" class="col-sm-2 col-form-label"><spring:message code="teacher-name"/></label>
 			<div class="col-sm-8">
-	
 				<select class="form-control" name="user.userid">
-					<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}>None</option>
+					<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}><spring:message code="none"/></option>
 					<c:forEach items="${users}" var="user">
 						<option value="${user.userid}" ${user.userid == editClass.getUser().getUserid() ? 'selected="selected"' : ''}>${user.getUsername()}</option>
 					</c:forEach>
@@ -46,6 +45,4 @@
 		<input class="btn btn-pink" type="submit" value="Save">
 		<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
 	</form>
-
-	<div class="col-sm-3"></div>
 </div>

@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="container-fluid center">
 
 	<div class="col-sm-3"></div>
-
 	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
-		<h1 class="form-title">Assessment Form</h1>
-		<br>
+		<h1 class="form-title"><spring:message code="assessment-form"/></h1>
 		<input class="form-control" value="${assessmentEdit.assessmentid}" type="hidden" name="assessmentid">
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="AssessmentName" class="col-sm-2 col-form-label">Name</label>
+			<label for="AssessmentName" class="col-sm-2 col-form-label"><spring:message code="assessment-name"/></label>
 			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname" placeholder="Please enter assessment's name here">
 				<p class="error">${error.errAssessmentName}</p>
@@ -22,7 +21,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="className" class="col-sm-2 col-form-label">Class Name</label>
+			<label for="className" class="col-sm-2 col-form-label"><spring:message code="class-name"/></label>
 			<div class="col-sm-8">
 				<select class="form-control" name="classForeign.classid">
 					<c:forEach items="${listClass}" var="class">
@@ -36,7 +35,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="startdate" class="col-sm-2 col-form-label">Start Date</label>
+			<label for="startdate" class="col-sm-2 col-form-label"><spring:message code="start-date"/></label>
 			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.startdate}" type="date" id="startdate" name="startdate" placeholder="Please choose a date here">
 			</div>
@@ -44,7 +43,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
-			<label for="expireddate" class="col-sm-2 col-form-label">Expired Date</label>
+			<label for="expireddate" class="col-sm-2 col-form-label"><spring:message code="expired-date"/></label>
 			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate" placeholder="Please choose a date here">
 				<p class="error">${error.errExpiredDate}</p>

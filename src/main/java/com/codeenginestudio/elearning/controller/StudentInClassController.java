@@ -3,6 +3,8 @@ package com.codeenginestudio.elearning.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,9 @@ public class StudentInClassController {
 
 	@Autowired
 	private StudentInClassService studentInClassService;
+
+	@Autowired
+	private MessageSource messageSource;
 
 	// Admin role
 	@GetMapping("/admin/getStudentInClass")
@@ -67,7 +72,8 @@ public class StudentInClassController {
 		if (listCheckedId == null) {
 			studentInClassService.deleteAllByClass(classid);
 		}
-		redirectAttributes.addFlashAttribute("messageSuccess", "Update assign students to Class Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess", messageSource
+				.getMessage("message-assign-studentinclass-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/admin/class";
 	}
 
@@ -76,7 +82,7 @@ public class StudentInClassController {
 	public String getStudentInClassWithTeacherRole(ModelMap model, @ModelAttribute("classid") Long classid) {
 
 		model.addAttribute("studentsInClass", studentInClassService.getByClassid(classid));
-		model.addAttribute("class",classService.getClassByClassid(classid));
+		model.addAttribute("class", classService.getClassByClassid(classid));
 
 		return "/teacher/class/listStudentInClass";
 	}

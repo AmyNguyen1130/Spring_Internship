@@ -17,6 +17,10 @@
 	margin-top: 5%;
 	margin-left: 46%;
 }
+.text-info{
+	color: #FE2E64;
+}
+
 </style>
 </head>
 
@@ -51,21 +55,22 @@
 						</h3>
 
 						<div class="form-group">
-							<label for="username" class="text-info"> <spring:message
-									code="username" />
-							</label> <br> <input type="text" name="username" id="username"
-								class="form-control">
+							<label for="username" class="text-info"> 
+								<spring:message code="username" />
+							</label> 
+							<br> 
+							<input type="text" name="username" id="username" class="form-control">
 						</div>
 						<div class="form-group">
-							<label for="password" class="text-info"> <spring:message
-									code="password" />
-							</label> <br> <input type="password" name="password" id="password"
-								class="form-control">
+							<label for="password" class="text-info"> 
+								<spring:message code="password" />
+							</label>
+							<br> 
+							<input type="password" name="password" id="password" class="form-control">
 						</div>
 
 						<div class="text-right">
-							<input type="submit" name="submit" class="btn btn-info btn-md"
-								value="<spring:message code="login"/>">
+							<input type="submit" name="submit" class="btn btn-pink" value="<spring:message code="login"/>">
 						</div>
 
 					</form>

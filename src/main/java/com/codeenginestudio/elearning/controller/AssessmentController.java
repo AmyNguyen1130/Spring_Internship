@@ -3,6 +3,8 @@ package com.codeenginestudio.elearning.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +43,9 @@ public class AssessmentController {
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	// Teacher role
 
 	@GetMapping("/teacher/assessment")
@@ -73,7 +78,8 @@ public class AssessmentController {
 
 		assessmentService.deleteById(assessmentid);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Delete Assessment Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("message-delete-assessment-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/teacher/assessment";
 	}
 
@@ -88,9 +94,11 @@ public class AssessmentController {
 		// if parents object disable users cannot change status of child object
 		if (listClasses.contains(assessmentDTO.getClassForeign().getClassid())) {
 			assessmentService.editAssessmentStatus(assessmentid);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Status Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("message-edit-status-success", null, LocaleContextHolder.getLocale()));
 		} else {
-			redirectAttributes.addFlashAttribute("messageDanger", "This Assessment Is Disabled!!!");
+			redirectAttributes.addFlashAttribute("messageDanger",
+					messageSource.getMessage("message-edit-status-unsuccess", null, LocaleContextHolder.getLocale()));
 		}
 		return "redirect:/teacher/assessment";
 	}
@@ -112,7 +120,8 @@ public class AssessmentController {
 
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAddAssessment(assessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Add Assessment Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("message-add-assessment-success", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -128,7 +137,8 @@ public class AssessmentController {
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveEditAssessment(assessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Edit Assessment Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("message-edit-assessment-success", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -200,7 +210,8 @@ public class AssessmentController {
 				resultService.saveSubmitLesson(lesson);
 			}
 		}
-		redirectAttributes.addFlashAttribute("messageSuccess", "Submit Lesson Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("message-submit-lesson-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/student/assessment";
 	}
 
@@ -213,7 +224,8 @@ public class AssessmentController {
 				resultService.saveEditSubmitLesson(lesson);
 			}
 		}
-		redirectAttributes.addFlashAttribute("messageSuccess", "Edit Lesson Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("message-edit-lesson-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/student/assessment";
 	}
 

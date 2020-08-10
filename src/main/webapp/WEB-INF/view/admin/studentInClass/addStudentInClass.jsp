@@ -1,5 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +18,10 @@
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">First Name</th>
-							<th scope="col">Last Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Status</th>
+							<th scope="col"><spring:message code="first-name"/></th>
+							<th scope="col"><spring:message code="last-name"/></th>
+							<th scope="col"><spring:message code="email"/></th>
+							<th scope="col"><spring:message code="status"/></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,8 +46,10 @@
 				</table>	
 				<br>
 
-				<button type="submit" id="assign_buton" class="btn btn-pink" ${!listClassEnable.contains(classid) ? 'disabled' : ''} >Save</button>
-				<a href="/admin/class"><button type="button" class="btn btn-warning">Cancel</button></a>
+				<input type="submit" id="assign_buton" class="btn btn-pink" ${!listClassEnable.contains(classid) ? 'disabled' : ''} value="Save" ></button>
+				<a href="/admin/class">
+					<input type="button" class="btn btn-warning" value="Cancel"></button>
+				</a>
 			</form>
 		</div>
 	<script type="text/javascript">
