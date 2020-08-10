@@ -10,10 +10,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<%
-	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
-%>
 <body>
 	<div class="container-fluid">
 		 <div class="row">
@@ -60,10 +56,10 @@
 					<td class="pink-highlight">${assessment.getTotalquestion()}</td>
 					<td>
 						<a href="/teacher/assessment/editAssessment/${assessment.assessmentid}">
-							<img alt="edit" src="<%=editImageAddress%>" class="optionSize" />
+							<img alt="edit" src="<spring:message code="editImageAddress"/>" class="optionSize" />
 						</a> 
 						<a href="#" onclick="confirmation('/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>', 'delete')">
-							<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />
+							<img alt="delete" src="<spring:message code="deleteImageAddress"/>" class="optionSize" />
 						</a>&emsp;
 						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
 							<input class="btn btn-pink" type="button" value="View questions">

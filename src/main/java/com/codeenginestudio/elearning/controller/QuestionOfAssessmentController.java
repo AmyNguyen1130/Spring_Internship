@@ -1,6 +1,8 @@
 package com.codeenginestudio.elearning.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,9 @@ public class QuestionOfAssessmentController {
 
 	@Autowired
 	private QuestionTypeService questionTypeService;
+
+	@Autowired
+	private MessageSource messageSource;
 
 	QuestionValidator questionValidator = new QuestionValidator();
 
@@ -71,7 +76,7 @@ public class QuestionOfAssessmentController {
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Add question Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("add-question-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
@@ -91,7 +96,7 @@ public class QuestionOfAssessmentController {
 
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", "Delete question Successfully!!! ");
+		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("delete-question-uccessfully", null, LocaleContextHolder.getLocale()));
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
@@ -116,7 +121,7 @@ public class QuestionOfAssessmentController {
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Edit question Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-question-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 

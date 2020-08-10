@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +47,10 @@
 
 					<div class="clearfix">
 						<a id="cancelConfirm" href="#" onclick="document.getElementById('confirm').style.display='none'">
-							<button type="button" class="btn cancelbtn">No</button>
+							<button type="button" class="btn cancelbtn"><spring:message code="no"/></button>
 						</a>
 						<a id="acceptConfirm" href="#">
-							<button type="button" class="btn-dark btn acceptbtn">Yes</button>
+							<button type="button" class="btn-dark btn acceptbtn"><spring:message code="yes"/></button>
 						</a>
 					</div>
 				</div>

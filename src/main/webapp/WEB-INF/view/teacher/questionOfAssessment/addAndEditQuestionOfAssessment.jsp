@@ -1,29 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <div class="container-fluid center">
 
 		<div class="col-sm-3"></div>
 
 		<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
-			<h1 class="form-title">New Question</h1>
+			<h1 class="form-title"><spring:message code="new-question"/></h1>
 
 			<input type="hidden" name="questionid"
-				value="${questionInf.questionid}" />
+				value="${questionInf.questionid}"/>
 
 			<div class="form-group row">
-				
-				<label for="numericalorder" class="col-sm-3 col-form-label">Numerical Order</label>
+				<label for="numericalorder" class="col-sm-3 col-form-label"><spring:message code="numerical-order"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="numericalorder"
-						value="${questionInf.numericalorder}" placeholder="Please enter numericalorder here">
+						value="${questionInf.numericalorder}" placeholder="<spring:message code="please-enter-numericalorder-here"/>">
 					<p class="err errContent">${error.getErrNumericalOrder()}</p>
 				</div>
 			</div>
+
 			<div class="form-group row">
-				<label for="score" class="col-sm-3 col-form-label">Score</label>
+				<label for="score" class="col-sm-3 col-form-label"><spring:message code="score"/></label>
 				<div class="col-sm-8">
 					<select name="score" class="form-control">
 						<c:forEach begin="1" end="10" step="1" varStatus="num">
@@ -34,17 +34,16 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="content" class="col-sm-3 col-form-label">Content</label>
+				<label for="content" class="col-sm-3 col-form-label"><spring:message code="content"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="content"
-						value="${questionInf.content}" placeholder="Please enter question's content here">
+						value="${questionInf.content}" placeholder="<spring:message code="please-enter-question's-content-here"/>">
 					<p class="err errContent">${error.getErrContent()}</p>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="questiontypeid" class="col-sm-3 col-form-label">Question
-					Type</label>
+				<label for="questiontypeid" class="col-sm-3 col-form-label"><spring:message code="question-type"/></label>
 				<div class="col-sm-8">
 					<select name="questionType.questionTypeId" class="form-control">
 						<c:forEach items="${listQuestionType}" var="questionType">
@@ -57,7 +56,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="options" class="col-sm-3 col-form-label">Options </label>
+				<label for="options" class="col-sm-3 col-form-label"><spring:message code="options"/></label>
 
 				<div class="col-sm-8">
 					<c:forEach begin="0" end="3" step="1" varStatus="num">
@@ -91,10 +90,10 @@
 			<input type="hidden" name="assessment.assessmentid"
 				value="${assessmentid}">
 
-			<button type="submit" class="btn btn-pink">Save</button>
+			<button type="submit" class="btn btn-pink"><spring:message code="save"/></button>
 
 			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
-					type="button" class="btn btn-warning">Cancel</button></a>
+					type="button" class="btn btn-warning"><spring:message code="cancel"/></button></a>
 		</form>
 
 		<div class="col-sm-3"></div>

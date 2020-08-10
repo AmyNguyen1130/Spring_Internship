@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +9,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/fontawesome.min.css">
 </head>
-<%
-	String deleteImageAddress = "https://img.icons8.com/cotton/2x/delete-sign--v2.png";
-	String editImageAddress = "https://img.icons8.com/cotton/2x/edit.png";
-%>
 <body>
 	<div class="container-fluid">
 		<div class="row">
@@ -25,11 +22,10 @@
 					<div class="col-sm-8"></div>
 					<div class="col-sm-4 justify-end">
 						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-							<button class="btn btn-pink" type="button">Add new question</button>
+							<button class="btn btn-pink" type="button"><spring:message code="add-question"/></button>
 						</a>		
-
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
-							<button class="btn btn-warning" type="button">Preview</button>
+							<button class="btn btn-warning" type="button"><spring:message code="preview"/></button>
 						</a>
 					</div>
 				</div>
@@ -41,13 +37,13 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th scope="col">Numerical Order</th>
-					<th scope="col">Question Type</th>
-					<th scope="col">Content</th>
-					<th scope="col">Correct Answer</th>
-					<th scope="col">Score</th>
+					<th scope="col"><spring:message code="numerical-order"/></th>
+					<th scope="col"><spring:message code="question-type"/></th>
+					<th scope="col"><spring:message code="content"/></th>
+					<th scope="col"><spring:message code="correct-answer"/></th>
+					<th scope="col"><spring:message code="score"/></th>
 					<c:if test="${assessment.getStatus()}">
-						<th scope="col">Options</th>
+						<th scope="col"><spring:message code="options"/></th>
 					</c:if>
 				</tr>
 			</thead>
@@ -62,10 +58,10 @@
 						<td>${question.score}</td>
 						<td>
 							<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
-									<img alt="edit" src="<%=editImageAddress%>" /> 
+									<img alt="edit" src="<spring:message code="editImageAddress"/>" /> 
 							</a> 
 							<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
-								<img alt="delete" src="<%=deleteImageAddress%>" />
+								<img alt="delete" src="<spring:message code="deleteImageAddress"/>" />
 							</a>
 						</td>
 					</tr>
