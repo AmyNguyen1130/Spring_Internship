@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,9 @@
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle btn-pink capitalize" href="#" id="userDropdown"
 										role="button" data-toggle="dropdown">
-										<button class="btn btn-pink"> Add User</button>
+										<button class="btn btn-pink">
+											<spring:message code="add-user" />
+										</button>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 										<a class="dropdown-item" href="/admin/user/addUser?role=3">Add New Student</a>

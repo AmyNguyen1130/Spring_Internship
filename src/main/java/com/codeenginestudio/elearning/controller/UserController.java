@@ -1,6 +1,8 @@
 package com.codeenginestudio.elearning.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,9 @@ public class UserController {
 	@Autowired
 	private ClassService classService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("/admin/user")
@@ -48,8 +53,8 @@ public class UserController {
 			}
 		}
 
-		if(listUsers.getContent().size() == 1) {
-			if(listUsers.getContent().get(0) .getRole().getRoleid() == 1){
+		if (listUsers.getContent().size() == 1) {
+			if (listUsers.getContent().get(0).getRole().getRoleid() == 1) {
 				return PREFIX + "noUserFound";
 			}
 		}
@@ -85,7 +90,8 @@ public class UserController {
 
 		if (inValid.noError()) {
 			userService.addUser(userDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", "Add User Successfully!!! ");
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("add-user-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/admin/user";
 		}
 
