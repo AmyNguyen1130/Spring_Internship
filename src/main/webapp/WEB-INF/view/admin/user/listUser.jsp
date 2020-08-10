@@ -28,7 +28,7 @@
 						<div class="col-sm-8">
 							<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
 								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle grey capitalize" href="#" id="userDropdown"
+									<a class="nav-link dropdown-toggle btn-pink capitalize" href="#" id="userDropdown"
 										role="button" data-toggle="dropdown">
 										<button class="btn btn-pink"> Add User</button>
 									</a>
@@ -63,28 +63,30 @@
 				<tbody>
 					<c:set var="i" value="1" />
 					<c:forEach items="${userPage.getContent()}" var="user">
-						<tr>
-							<td>${i}</td>
-							<td>${user.getUsername()}</td>
-							<td>${user.getFirstname()}</td>
-							<td>${user.getLastname()}</td>
-							<td>${user.getEmail()}</td>
-							<td>${user.getRole().getRolename()}</td>
-							<td>
-								<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
-									<button class="btn ${user.isEnabled() ? 'btn-active' : 'btn-inactive'}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
-								</a>
-							</td>
-							<td class="pink-highlight">${user.getTotalAssigned()}</td>
-							<td>
-								<a href="/admin/user/editUser/${user.getUserid()}"> 
-									<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
-								</a>
-								<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
-									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
-								</a>
-							</td>
-						</tr>
+						<c:if test="${user.getRole().getRoleid() != 1}">
+							<tr>
+								<td>${i}</td>
+								<td>${user.getUsername()}</td>
+								<td>${user.getFirstname()}</td>
+								<td>${user.getLastname()}</td>
+								<td>${user.getEmail()}</td>
+								<td>${user.getRole().getRolename()}</td>
+								<td>
+									<a href="#" onclick="confirmation('/admin/user/editUserEnabled/${user.getUserid()}', 'update')">
+										<button class="btn ${user.isEnabled() ? 'btn-active' : 'btn-inactive'}">${user.isEnabled() ? 'Enable' : 'Disable'}</button>
+									</a>
+								</td>
+								<td class="pink-highlight">${user.getTotalAssigned()}</td>
+								<td>
+									<a href="/admin/user/editUser/${user.getUserid()}"> 
+										<img alt="edit" src="<%=editImageAddress%>" class="optionSize"/>
+									</a>
+									<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
+										<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize"/>
+									</a>
+								</td>
+							</tr>
+						</c:if>
 						<c:set var="i" value="${i+1}" />
 					</c:forEach>
 
@@ -98,7 +100,6 @@
 	</div>
 
 	<div id="confirm" class="modal">
-
 		<form class="modal-content">
 			<div class="container-model">
 				<span onclick="document.getElementById('confirm').style.display='none'" class="close" title="Close Modal">&times;</span>

@@ -9,14 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<div class="container-fluid">
-		<div class="row">
-
-				<div class="alert success" style="display:none">
-					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong id="message">${messageSuccess}</strong> 
-				</div>
-
+	<div class="container-fluid">
+		<div class="col-sm-7">
+			<div class="alert success" style="display:none">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				<strong id="message">${messageSuccess}</strong>
+			</div>
 		</div>
 		</div>	
 		<br><br>
@@ -64,9 +62,10 @@
 					</c:if>
 				</c:forEach>
 			</tbody>
-			</table>
-			</div>
-		</div>
+		</table>
+	</div>
+</div>
+		
 	<script type="text/javascript">	
 		$(document).ready(function() {
 
