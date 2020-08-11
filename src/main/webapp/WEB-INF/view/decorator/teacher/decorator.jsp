@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<sitemesh:write property="head" />
+<sitemesh:write property="head"/>
 <%@ include file="/WEB-INF/view/decorator/teacher/header.jsp"%>
 </head>
 <body id="page-top">
@@ -12,22 +12,24 @@
 			<div id="content-wrapper">
 				<div class="row">
 					<div class="col-sm-7">
-						<c:choose>
-							<c:when test="${messageSuccess.length() > 0}">
-								<div class="alert success" style="display: none">
-									<span class="closebtn"
-										onclick="this.parentElement.style.display='none';">&times;</span>
-									<strong id="message">${messageSuccess}</strong>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="alert danger" style="display: none">
-									<span class="closebtn"
-										onclick="this.parentElement.style.display='none';">&times;</span>
-									<strong id="message">${messageDanger}</strong>
-								</div>
-							</c:otherwise>
-						</c:choose>
+						<c:if test="${messageSuccess != null}">
+							<c:choose>
+								<c:when test="${messageSuccess.length() > 0}">
+									<div class="alert success" style="display: none">
+										<span class="closebtn"
+											onclick="this.parentElement.style.display='none';">&times;</span>
+										<strong id="message">${messageSuccess}</strong>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="alert danger" style="display: none">
+										<span class="closebtn"
+											onclick="this.parentElement.style.display='none';">&times;</span>
+										<strong id="message">${messageDanger}</strong>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</div>
 				</div>
 		        <div class="container-fluid">

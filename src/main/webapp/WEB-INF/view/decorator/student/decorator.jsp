@@ -11,16 +11,17 @@
 			<div id="content-wrapper">
 				<div class="row">
 					<div class="col-sm-7">
-						<div class="alert success" style="display:none">
-							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-							<strong id="message">${messageSuccess}</strong> 
-						</div>
+						<c:if test="${messageSuccess != null}">
+							<div class="alert success" style="display:none">
+								<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+								<strong id="message">${messageSuccess}</strong> 
+							</div>
+						</c:if>
 					</div>
 				</div>
 		        <div class="container-fluid">
-		            <sitemesh:write property="body" />
+		            <sitemesh:write property="body"/>
 		        </div>
-
 				<%@ include file="/WEB-INF/view/decorator/student/footer.jsp"%>
 			</div>
 		</div>

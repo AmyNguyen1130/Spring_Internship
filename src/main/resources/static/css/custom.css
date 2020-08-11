@@ -302,7 +302,9 @@ img {
 	display: flex;
 }
 
-
+.radius-5{
+	border-radius: 5%;
+}
 
 
 
