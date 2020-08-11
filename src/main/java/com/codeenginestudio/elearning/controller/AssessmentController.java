@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -206,9 +207,9 @@ public class AssessmentController {
 	public String saveSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
-		for (ResultDTO lesson : lessonForm.getResultDTOs()) {
-			if (lesson.getAnswerchoice() != null) {
-				resultService.saveSubmitLesson(lesson);
+		for (ResultDTO result : lessonForm.getResultDTOs()) {
+			if (!StringUtils.isEmpty(result.getAnswerchoice())) {
+				resultService.saveSubmitResult(result);
 			}
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess",
@@ -220,9 +221,9 @@ public class AssessmentController {
 	public String saveEditSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
-		for (ResultDTO lesson : lessonForm.getResultDTOs()) {
-			if (lesson.getAnswerchoice() != null) {
-				resultService.saveEditSubmitLesson(lesson);
+		for (ResultDTO result : lessonForm.getResultDTOs()) {
+			if (!StringUtils.isEmpty(result.getAnswerchoice())) {
+				resultService.saveEditSubmitResult(result);
 			}
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess",

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
@@ -98,54 +99,50 @@ public class ResultServiceImpl implements ResultService {
 		return resultDTO;
 	}
 
-	public void saveSubmitLesson(ResultDTO lesson) {
+	public void saveSubmitResult(ResultDTO result) {
 
-		final LocalDate startDate = LocalDate.now();
-		LocalDate updateDate = LocalDate.now();
 		ResultEntity resultEntity = new ResultEntity();
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 
+		QuestionOfAssessmentEntity question = questionOfAssessmentDAO.getOne(result.getQuestion().getQuestionid());
+
 		resultEntity.setStudent(userDAO.getOne(userId));
-		resultEntity.setQuestion(questionOfAssessmentDAO.getOne(lesson.getQuestion().getQuestionid()));
-		resultEntity.setAssessment(assessmentDAO.getOne(lesson.getAssessment().getAssessmentid()));
-		resultEntity.setAnswerchoice(lesson.getAnswerchoice());
-		resultEntity.setScore(showScoreOfEachQuestion(lesson.getAnswerchoice(), lesson.getQuestion().getQuestionid()));
-		resultEntity.setStartdate(startDate);
-		resultEntity.setUpdatedate(updateDate);
+		resultEntity.setQuestion(question);
+		resultEntity.setAssessment(question.getAssessment());
+		resultEntity.setAnswerchoice(result.getAnswerchoice());
+		resultEntity
+				.setScore(caculateScore(result.getAnswerchoice(), result.getQuestion().getQuestionid()));
+		resultEntity.setStartdate(LocalDate.now());
+		resultEntity.setUpdatedate(LocalDate.now());
 
 		resultDAO.save(resultEntity);
 
 	}
 
 	@Override
-	public void saveEditSubmitLesson(ResultDTO lesson) {
-		LocalDate updateDate = LocalDate.now();
-
-		if (lesson.getId() == null) {
-			saveSubmitLesson(lesson);
+	public void saveEditSubmitResult(ResultDTO result) {
+		if (result.getId() == null) {
+			saveSubmitResult(result);
 		} else {
-			ResultEntity resultEntity = resultDAO.getOne(lesson.getId());
+			ResultEntity resultEntity = resultDAO.getOne(result.getId());
 
-			resultEntity.setAnswerchoice(lesson.getAnswerchoice());
-			resultEntity
-					.setScore(showScoreOfEachQuestion(lesson.getAnswerchoice(), lesson.getQuestion().getQuestionid()));
-			resultEntity.setUpdatedate(updateDate);
+			resultEntity.setAnswerchoice(result.getAnswerchoice());
+			resultEntity.setScore(
+					caculateScore(result.getAnswerchoice(), result.getQuestion().getQuestionid()));
+			resultEntity.setUpdatedate(LocalDate.now());
 
 			resultDAO.save(resultEntity);
 		}
 	}
 
-	public Float showScoreOfEachQuestion(String answerChoice, Long questionId) {
+	public Float caculateScore(String answerChoice, Long questionId) {
 		Float score = (float) 0;
 		QuestionOfAssessmentEntity question = questionOfAssessmentDAO.getOne(questionId);
 
-		if (answerChoice.equals(question.getCorrectanswer())) {
+		if (StringUtils.isEmpty(answerChoice) && answerChoice.equals(question.getCorrectanswer())) {
 			score = question.getScore();
-		} else {
-			score = (float) 0;
 		}
 		return score;
-
 	}
 
 	@Override
@@ -182,16 +179,16 @@ public class ResultServiceImpl implements ResultService {
 
 	@Override
 	public void deleteResultByAssessmentId(Long assessmentid) {
-		List<ResultEntity> listResults =  resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
-		for(ResultEntity result: listResults) {
+		List<ResultEntity> listResults = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
+		for (ResultEntity result : listResults) {
 			resultDAO.delete(result);
 		}
 	}
 
 	@Override
 	public void deleteResultByQuestionId(Long questionId) {
-		ResultEntity result =  resultDAO.findByQuestion(questionOfAssessmentDAO.getOne(questionId));
-		if(result != null) {
+		ResultEntity result = resultDAO.findByQuestion(questionOfAssessmentDAO.getOne(questionId));
+		if (result != null) {
 			resultDAO.delete(result);
 		}
 	}
@@ -199,13 +196,13 @@ public class ResultServiceImpl implements ResultService {
 	@Override
 	public void deleteResultByStudent(Long studentId) {
 
-		List<ResultEntity> results =  resultDAO.findByStudent(userDAO.getOne(studentId));
-		if(results.size() > 0) {
+		List<ResultEntity> results = resultDAO.findByStudent(userDAO.getOne(studentId));
+		if (results.size() > 0) {
 
 			for (ResultEntity result : results) {
 				resultDAO.delete(result);
 			}
-			
+
 		}
 	}
 

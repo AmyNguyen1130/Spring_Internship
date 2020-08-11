@@ -7,9 +7,9 @@ import com.codeenginestudio.elearning.dto.UserDTO;
 
 public interface ResultService {
 
-	void saveSubmitLesson(ResultDTO lesson);
+	void saveSubmitResult(ResultDTO result);
 
-	void saveEditSubmitLesson(ResultDTO lesson);
+	void saveEditSubmitResult(ResultDTO result);
 
 	void deleteResultByAssessmentId(Long assessmentid);
 
