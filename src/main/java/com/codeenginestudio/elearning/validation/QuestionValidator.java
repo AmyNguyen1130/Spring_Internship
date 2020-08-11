@@ -34,14 +34,20 @@ public class QuestionValidator {
 		this.errCorrectAnswer = errCorrectAnswer;
 	}
 
-	String checkNull(String value, String error) {
-		if (value == "") {
+	public boolean noError() {
+
+		return StringUtils.isEmpty(this.getErrContent()) && StringUtils.isEmpty(this.getErrCorrectAnswer())
+				&& StringUtils.isEmpty(this.getErrNumericalOrder());
+	}
+
+	public static String checkNull(String value, String error) {
+		if (StringUtils.isEmpty(value)) {
 			return error;
 		}
 		return "";
 	}
 
-	public QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
+	public static QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
 		QuestionValidator inValid = new QuestionValidator();
 
 		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
@@ -51,30 +57,25 @@ public class QuestionValidator {
 
 		return inValid;
 	}
-	
-	public boolean checkOnlyDigital (String data) {
+
+	public static boolean checkOnlyDigital(String data) {
 		String regex = "\\p{Digit}+";
 		return data.matches(regex);
 	}
-	
-	public String checkNumericalOrder(String numerical) {
-		if(numerical.equals("")) {
+
+	public static String checkNumericalOrder(String numerical) {
+		if (StringUtils.isEmpty(numerical)) {
 			return "Numerical Order should not be null";
-		}else {
-			if(!checkOnlyDigital(numerical)) {
-				return "Numerical Order should be only digital";
-			}else {
-				if(Integer.parseInt(numerical) <= 0) {
-					return "Numerical Order should be more than 0";
-				}
-			}
-			
+		}
+
+		if (!checkOnlyDigital(numerical)) {
+			return "Numerical Order should be only digital";
+		}
+
+		if (Integer.parseInt(numerical) <= 0) {
+			return "Numerical Order should be more than 0";
 		}
 		return "";
 	}
-	
-	public boolean noError() {
 
-		return StringUtils.isEmpty(this.getErrContent()) && StringUtils.isEmpty(this.getErrCorrectAnswer()) && StringUtils.isEmpty(this.getErrNumericalOrder());
-	}
 }

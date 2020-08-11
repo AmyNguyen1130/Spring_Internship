@@ -38,8 +38,6 @@ public class QuestionOfAssessmentController {
 	@Autowired
 	private MessageSource messageSource;
 
-	QuestionValidator questionValidator = new QuestionValidator();
-
 	// Teacher
 
 	@GetMapping("/teacher/questionOfAssessment")
@@ -72,7 +70,7 @@ public class QuestionOfAssessmentController {
 			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
 			throws JsonProcessingException {
 
-		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
@@ -117,7 +115,7 @@ public class QuestionOfAssessmentController {
 			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId,
 			RedirectAttributes redirectAttributes) throws JsonProcessingException {
 
-		QuestionValidator invalid = questionValidator.validateQuestion(questionOfAssessmentDTO);
+		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
