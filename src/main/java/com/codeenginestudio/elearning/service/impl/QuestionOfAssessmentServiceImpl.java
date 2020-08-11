@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
@@ -78,23 +79,28 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity
 				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
-		List<OptionDTO> revisedOption = removeNullOption(questionOfAssessmentDTO.getOptions());
-		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(revisedOption));
+
+		questionOfAssignmentEntity.setOptions(serializeOptions(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
-	public List<OptionDTO> removeNullOption(List<OptionDTO> options) {
+	public List<OptionDTO> removeEmptyOption(List<OptionDTO> options) {
 
-		List<OptionDTO> newOptions = new ArrayList<>();
+		List<OptionDTO> result = new ArrayList<>();
 
 		for (OptionDTO optionDTO : options) {
-			if (!optionDTO.getOptionValue().equals("")) {
-				newOptions.add(optionDTO);
+			if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getOptionValue())) {
+				result.add(optionDTO);
 			}
 		}
 
-		return newOptions;
+		return result;
+	}
+
+	public String serializeOptions(List<OptionDTO> options) throws JsonProcessingException {
+		List<OptionDTO> listOptionsAfterCheckEmpty = removeEmptyOption(options);
+		return OptionUtil.parseToJson(removeEmptyOption(listOptionsAfterCheckEmpty));
 	}
 
 	@Override
@@ -117,7 +123,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
-		questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(questionOfAssessmentDTO.getOptions()));
+
+		questionOfAssignmentEntity.setOptions(serializeOptions(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}

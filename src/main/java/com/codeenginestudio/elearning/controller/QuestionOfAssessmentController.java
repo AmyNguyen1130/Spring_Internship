@@ -74,7 +74,8 @@ public class QuestionOfAssessmentController {
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("add-question-successfully", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("add-question-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
@@ -94,7 +95,8 @@ public class QuestionOfAssessmentController {
 
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
 
-		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("delete-question-uccessfully", null, LocaleContextHolder.getLocale()));
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("delete-question-uccessfully", null, LocaleContextHolder.getLocale()));
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
@@ -119,7 +121,8 @@ public class QuestionOfAssessmentController {
 
 		if (invalid.noError()) {
 			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-question-successfully", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("edit-question-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 		}
 
