@@ -12,11 +12,14 @@
 	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
 		<h1 class="form-title"><spring:message code="class-form"/></h1>
 		<br>
-		<c:forEach items="${errors}" var="error">
-			<span style="color: red">${error}</span>
-		</c:forEach>
-		<input type="hidden" name="classid" value="${editClass.classid}" />
+		<div class="form-group row">
+			<c:forEach items="${errors}" var="error">
+				<span style="color: red; margin-left: 234px;">${error}</span>
+			</c:forEach>
+			<input type="hidden" name="classid" value="${editClass.classid}" />
 
+		</div>
+		
 		<div class="form-group row">
 			<div class="col-sm-1"></div>
 			<label for="classname" class="col-sm-2 col-form-label"><spring:message code="class-name"/></label>

@@ -17,6 +17,7 @@
 	<div class="container">
 		<div class="headerWelcome">WELCOME</div>
 		<div class="img">
+
 			<img src="<c:url value="../images/welcome.jpg"/>" class="welcomeImg">
 		</div>
 

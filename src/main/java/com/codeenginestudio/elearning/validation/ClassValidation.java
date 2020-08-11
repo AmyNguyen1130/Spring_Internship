@@ -23,7 +23,7 @@ public class ClassValidation {
 		if (listClass.size() != 0) {
 			for (ClassDTO existed : listClass) {
 				if (classname.equals(existed.getClassname())) {
-					if (classid.equals(existed.getClassid())) {
+					if (classid == existed.getClassid()) {
 						return true;
 					} else {
 						errClassname = "Class name already exists !";
