@@ -197,6 +197,7 @@ public class AssessmentController {
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 		model.addAttribute("lessonForm", lessonForm);
+		model.addAttribute("message", "none");
 
 		return PREFIX_STUDENT + "assessmentForm";
 	}

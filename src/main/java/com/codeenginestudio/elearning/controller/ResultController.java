@@ -53,6 +53,7 @@ public class ResultController {
 		List<ResultDTO> resultDTO = resultService.findByAssessmentAndStudent(assessmentid, userId);
 		model.addAttribute("listResult", resultDTO);
 		model.addAttribute("urlBack", "/student/assessment/history");
+		model.addAttribute("message", "none");
 
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}

@@ -31,7 +31,8 @@ img {
 }
 
 .inputRadioOption {
-	margin-top: 12px;
+	margin: 30% 0% 0% 18%
+	
 }
 
 .optionName {
@@ -290,13 +291,16 @@ img {
 }
 
 .checkboxChecked {
-  color: #777;
+  	color: #777;
 }
 
 .pd-10{
-	   padding-top: 10%;
+	padding-top: 10%;
 }
 
+.display-inline{
+	display: flex;
+}
 
 
 

@@ -45,4 +45,5 @@
 		<input class="btn btn-pink" type="submit" value="Save">
 		<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
 	</form>
+	<div class="col-sm-3"></div>
 </div>

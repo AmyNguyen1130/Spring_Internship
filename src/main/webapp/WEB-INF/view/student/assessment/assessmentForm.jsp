@@ -32,23 +32,21 @@
 								<span> Question ${question.numericalorder}:${question.content}</span>
 							</div>
 							<div class="form-group row">
-								<div class="col-sm-6">
+								<div class="col-sm-12">
 
 									<c:forEach items="${question.options}" var="option">
 
 										<div class="row">
-											<div class="col-sm-1">
+											<div class="col-sm-1 display-inline">
 												<label for="${option.getName()}"
 													class="col-sm-1 col-form-label">${option.getName()}:
 												</label>
-											</div>
-											<div class="col-sm-1">
 												<form:radiobutton
 													path="resultDTOs[${status.index}].answerchoice"
 													value="${option.getName()}" class="inputRadioOption"
 													items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
 											</div>
-											<div class="col-sm-6">
+											<div class="col-sm-11">
 												<label class="optionName">${option.getOptionValue()}</label>
 											</div>
 										</div>
