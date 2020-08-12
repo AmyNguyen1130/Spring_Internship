@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.codeenginestudio.elearning.constant.QuestionTypeEnum;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionOfAssessmentDAO;
 import com.codeenginestudio.elearning.dao.QuestionTypeDAO;
 import com.codeenginestudio.elearning.dao.entity.QuestionOfAssessmentEntity;
+import com.codeenginestudio.elearning.dao.entity.QuestionTypeEntity;
 import com.codeenginestudio.elearning.dto.OptionDTO;
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
@@ -70,9 +72,10 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 			throws JsonProcessingException {
 
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = new QuestionOfAssessmentEntity();
+		QuestionTypeEntity questionTypeEntity = questionTypeDAO
+				.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId());
 
-		questionOfAssignmentEntity
-				.setQuestiontype(questionTypeDAO.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId()));
+		questionOfAssignmentEntity.setQuestiontype(questionTypeEntity);
 		questionOfAssignmentEntity.setNumericalorder(Integer.parseInt(questionOfAssessmentDTO.getNumericalorder()));
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
@@ -80,10 +83,10 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
-		if (questionOfAssignmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
-			List<OptionDTO> revisedOption = _removeEmptyOption(questionOfAssessmentDTO.getOptions());
-			questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(revisedOption));
+		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
+			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
 		} else {
+			// TODO : do we need set null here
 			questionOfAssignmentEntity.setOptions(null);
 		}
 
@@ -103,15 +106,21 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO
 				.getOne(questionOfAssessmentDTO.getQuestionid());
+		QuestionTypeEntity questionTypeEntity = questionTypeDAO
+				.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId());
 
 		questionOfAssignmentEntity.setNumericalorder(Integer.parseInt(questionOfAssessmentDTO.getNumericalorder()));
-		questionOfAssignmentEntity
-				.setQuestiontype(questionTypeDAO.getOne(questionOfAssessmentDTO.getQuestionType().getQuestionTypeId()));
+		questionOfAssignmentEntity.setQuestiontype(questionTypeEntity);
 		questionOfAssignmentEntity.setContent(questionOfAssessmentDTO.getContent());
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
-		questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
+		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
+			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
+		} else {
+			// TODO : do we need set null here
+			questionOfAssignmentEntity.setOptions(null);
+		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
@@ -123,10 +132,12 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		QuestionOfAssessmentDTO questionOfAssignmentDTO = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentDTO(questionOfAssignmentEntity);
 
-		if (questionOfAssignmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
+		if (!questionOfAssignmentEntity.getQuestiontype().getQuestionTypeCode()
+				.equals(QuestionTypeEnum.INPUT.getCode())) {
 			questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssignmentEntity.getOptions()));
 		} else {
-			questionOfAssignmentEntity.setOptions(null);
+			// TODO : do we need set null here
+			questionOfAssignmentDTO.setOptions(null);
 		}
 		return questionOfAssignmentDTO;
 	}
@@ -157,7 +168,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		return OptionUtil.parseToJson(listOptionsAfterCheckEmpty);
 	}
 
-	public List<OptionDTO> _removeEmptyOption(List<OptionDTO> options) {
+	private List<OptionDTO> _removeEmptyOption(List<OptionDTO> options) {
 
 		List<OptionDTO> result = new ArrayList<>();
 
