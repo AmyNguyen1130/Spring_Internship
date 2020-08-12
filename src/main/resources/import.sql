@@ -2,9 +2,9 @@ INSERT INTO roles (roleid, rolename) VALUES (1, 'Admin');
 INSERT INTO roles (roleid, rolename) VALUES (2, 'Teacher');
 INSERT INTO roles (roleid, rolename) VALUES (3, 'Student');
 
-INSERT INTO questiontypes (questiontypeid, questiontypename) VALUES (1, 'Multiple question');
-INSERT INTO questiontypes (questiontypeid, questiontypename) VALUES (2, 'Yes/No question');
-INSERT INTO questiontypes (questiontypeid, questiontypename) VALUES (3, 'Input type');
+INSERT INTO questiontypes (questiontypeid, questiontypecode, questiontypename) VALUES (1, 'MULTIPLE', 'Multiple question');
+INSERT INTO questiontypes (questiontypeid, questiontypecode, questiontypename) VALUES (2, 'YESNO', 'Yes/No question');
+INSERT INTO questiontypes (questiontypeid, questiontypecode, questiontypename) VALUES (3, 'INPUT', 'Input type');
 
 INSERT INTO users (userid, username, password, firstname, email, enabled, roleid) VALUES (10000, 'admin', '$2a$11$tUilnpRbUmpBxKWap3oUP..fNsY19D6n/WrdcXc94YnF4yCgXVJty', 'Administrator1', 'admin@codeenginestudio.com', true, 1);
 
