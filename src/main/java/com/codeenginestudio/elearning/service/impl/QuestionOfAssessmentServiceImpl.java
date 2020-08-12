@@ -80,27 +80,9 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
-		questionOfAssignmentEntity.setOptions(serializeOptions(questionOfAssessmentDTO.getOptions()));
+		questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
-	}
-
-	public List<OptionDTO> removeEmptyOption(List<OptionDTO> options) {
-
-		List<OptionDTO> result = new ArrayList<>();
-
-		for (OptionDTO optionDTO : options) {
-			if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getOptionValue())) {
-				result.add(optionDTO);
-			}
-		}
-
-		return result;
-	}
-
-	public String serializeOptions(List<OptionDTO> options) throws JsonProcessingException {
-		List<OptionDTO> listOptionsAfterCheckEmpty = removeEmptyOption(options);
-		return OptionUtil.parseToJson(removeEmptyOption(listOptionsAfterCheckEmpty));
 	}
 
 	@Override
@@ -124,7 +106,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity.setScore(questionOfAssessmentDTO.getScore());
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
-		questionOfAssignmentEntity.setOptions(serializeOptions(questionOfAssessmentDTO.getOptions()));
+		questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
@@ -157,7 +139,27 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		for (QuestionOfAssessmentDTO question : listQuestions) {
 			questionOfAssessmentDAO.deleteById(question.getQuestionid());
 		}
+	}
 
+	private String _serializeOptions(List<OptionDTO> options) throws JsonProcessingException {
+
+		List<OptionDTO> listOptionsAfterCheckEmpty = _removeEmptyOption(options);
+
+		return OptionUtil.parseToJson(listOptionsAfterCheckEmpty);
+	}
+
+	public List<OptionDTO> _removeEmptyOption(List<OptionDTO> options) {
+
+		List<OptionDTO> result = new ArrayList<>();
+
+		for (OptionDTO optionDTO : options) {
+
+			if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getOptionValue())) {
+				result.add(optionDTO);
+			}
+		}
+
+		return result;
 	}
 
 }
