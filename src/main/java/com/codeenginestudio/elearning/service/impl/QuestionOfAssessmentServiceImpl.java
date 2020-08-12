@@ -47,15 +47,15 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntities) {
 
 			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
-
 				questionOfAssignmentDTO = QuestionOfAssignmentUtil
 						.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity);
-				questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
-
+				if (questionOfAssessmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
+					questionOfAssignmentDTO
+							.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
+				}
 				listQuestionDTOs.add(questionOfAssignmentDTO);
 			}
 		}
-
 		return listQuestionDTOs;
 	}
 
@@ -80,7 +80,12 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 				.setAssessment(assessmentDAO.getOne(questionOfAssessmentDTO.getAssessment().getAssessmentid()));
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
-		questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
+		if (questionOfAssignmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
+			List<OptionDTO> revisedOption = _removeEmptyOption(questionOfAssessmentDTO.getOptions());
+			questionOfAssignmentEntity.setOptions(OptionUtil.parseToJson(revisedOption));
+		} else {
+			questionOfAssignmentEntity.setOptions(null);
+		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
@@ -117,8 +122,12 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		QuestionOfAssessmentEntity questionOfAssignmentEntity = questionOfAssessmentDAO.getOne(questionId);
 		QuestionOfAssessmentDTO questionOfAssignmentDTO = QuestionOfAssignmentUtil
 				.parseToQuestionOfAssignmentDTO(questionOfAssignmentEntity);
-		questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssignmentEntity.getOptions()));
 
+		if (questionOfAssignmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
+			questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssignmentEntity.getOptions()));
+		} else {
+			questionOfAssignmentEntity.setOptions(null);
+		}
 		return questionOfAssignmentDTO;
 	}
 

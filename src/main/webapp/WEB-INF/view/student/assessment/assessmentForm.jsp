@@ -31,30 +31,39 @@
 							<div class="questionName">
 								<span> Question ${question.numericalorder}:${question.content}</span>
 							</div>
-							<div class="form-group row">
-								<div class="col-sm-12">
+							<c:choose>
+							<c:when test="${question.getQuestionType().getQuestionTypeId() != 1}">
+								<br>
+								<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
+							</c:when>
+							<c:otherwise>
+								<div class="form-group row">
+									<div class="col-sm-12">
 
-									<c:forEach items="${question.options}" var="option">
+										<c:forEach items="${question.options}" var="option">
 
-										<div class="row">
-											<div class="col-sm-1 display-inline">
-												<label for="${option.getName()}"
-													class="col-sm-1 col-form-label">${option.getName()}:
-												</label>
-												<form:radiobutton
-													path="resultDTOs[${status.index}].answerchoice"
-													value="${option.getName()}" class="inputRadioOption"
-													items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
+											<div class="row">
+												<div class="col-sm-1 display-inline">
+													<label for="${option.getName()}"
+														class="col-sm-1 col-form-label">${option.getName()}:
+													</label>
+													<form:radiobutton
+														path="resultDTOs[${status.index}].answerchoice"
+														value="${option.getName()}" class="inputRadioOption"
+														items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
+												</div>
+												<div class="col-sm-11">
+													<label class="optionName">${option.getOptionValue()}</label>
+												</div>
 											</div>
-											<div class="col-sm-11">
-												<label class="optionName">${option.getOptionValue()}</label>
-											</div>
-										</div>
 
-									</c:forEach>
+										</c:forEach>
+									</div>
 								</div>
-							</div>
+							</c:otherwise>
+						</c:choose>
 						</div>
+						<br>
 					</c:forEach>
 
 					<input id="submit-button" type="submit" class="btn btn-pink" value="Submit">
@@ -83,33 +92,6 @@
 			</div>
 		</form>
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			$("#submit-button").click(function() {
-				if (confirm("Are you sure to submit this assessment?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
-
-			if ($("#messageError").html() != "") {
-				$(".alert").css("display", "block");
-				setTimeout(function() {
-					$(".alert").css("display", "none");
-				}, 5000);
-			}
-		});
-
-		function confirmation(success, action) {
-			$('#acceptConfirm').attr("href", success);
-			$('#title').html(action + ' assignment');
-			$('#ask').html('Are you sure you want to ' + action + ' this assignment ?');
-			$('#confirm').show();
-		}
-	</script>
 
 </body>
 </html>

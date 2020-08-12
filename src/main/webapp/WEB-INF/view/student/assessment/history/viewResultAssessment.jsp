@@ -36,62 +36,56 @@
 							</c:if>
 						<span> Question ${question.numericalorder}: ${question.content}</span>
 					</div>
-					<div class="form-group row">
-						<div class="col-sm-12">
-							<c:forEach items="${question.options}" var="option">
-								<c:set var="check"
-									value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
-								<div class="row">
-									<div class="col-sm-1 display-inline">
-										<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label>
-										<input type="radio" name="${question.getQuestionid()}"
-											value="${option.getName()}"
-											class="inputRadioOption"
-											${check}
-											disabled="disabled">
+					<c:choose>
+						<c:when test="${question.getQuestionType().getQuestionTypeId() != 1}">
+							<br>
+							<input type="text" class="form-control" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
+							<c:if test="${!preview}">
+								<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+									<div class="correctAnswer">
+										<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
 									</div>
-									<div class="col-sm-11">
-										<label class="optionName">${option.getOptionValue()}</label>
-									</div>
-								</div>
-							</c:forEach>
-								<c:if test="${!preview}">
-									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-										<div class="correctAnswer">
-											<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
-										</div>
-									</c:if>
 								</c:if>
-						</div>
-					</div>
+							</c:if>
+							<br>
+						</c:when>
+						<c:otherwise>
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<c:forEach items="${question.options}" var="option">
+										<c:set var="check"
+											value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
+										<div class="row">
+											<div class="col-sm-1 display-inline">
+												<label for="${option.getName()}" class="col-sm-1 col-form-label">${option.getName()}: </label>
+												<input type="radio" name="${question.getQuestionid()}"
+													value="${option.getName()}"
+													class="inputRadioOption"
+													${check}
+													disabled="disabled">
+											</div>
+											<div class="col-sm-11">
+												<label class="optionName">${option.getOptionValue()}</label>
+											</div>
+										</div>
+									</c:forEach>
+										<c:if test="${!preview}">
+											<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+												<div class="correctAnswer">
+													<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
+												</div>
+											</c:if>
+										</c:if>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 				<a href="${urlBack}"><input class="btn btn-warning" type="button" value="Back"></a>
 			</div>
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			$("#submit-button").click(function() {
-				if (confirm("Are you sure to submit this assessment?")) {
-					return true;
-				} else {
-					return false;
-				}
-			});
-
-			if ($("#messageError").html() != "") {
-				$(".alert").css("display", "block");
-				setTimeout(function() {
-					$(".alert").css("display", "none");
-				}, 5000);
-			}
-		});
-
-
-	</script>
 
 </body>
 </html>

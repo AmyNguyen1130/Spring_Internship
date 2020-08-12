@@ -45,13 +45,21 @@
 			<div class="form-group row">
 				<label for="questiontypeid" class="col-sm-3 col-form-label"><spring:message code="question-type"/></label>
 				<div class="col-sm-8">
-					<select name="questionType.questionTypeId" class="form-control" id="questionType">
+
+					<select name="questionType.questionTypeId" id="questionType" class="form-control">
 						<c:forEach items="${listQuestionType}" var="questionType">
 							<option value="${questionType.questionTypeId}" 
 								${questionInf.getQuestionType().getQuestionTypeId() == questionType.questionTypeId ? 'selected' : ""}>
 								${questionType.questionTypeName}</option>
 						</c:forEach>
 					</select>
+				</div>
+			</div>
+
+			<div class="form-group row" id="inputType">
+				<label for="questiontypeid" class="col-sm-3 col-form-label"><spring:message code="input-answer"/></label>
+				<div class="col-sm-8">
+					<input id="inputAnswer" class="form-control" type="text" name="correctanswer" value="${questionInf.getCorrectanswer()}"> 
 				</div>
 			</div>
 
@@ -73,6 +81,7 @@
 							<label for="B" class="col-sm-1 col-form-label">B: </label> 
 							<input type="hidden" name="options[1].name" value="B" class="yesNoOption"> 
 							<input type="text" class="form-control yesNoOption" name="options[1].optionValue" value="No">
+
 						</div>
 				</div>
 
@@ -95,56 +104,75 @@
 							</c:choose>
 							<div class="optionItem">
 								<input type="radio" name="correctanswer" value="${name}"
-									class="radioOption multipleOption" ${questionInf.getCorrectanswer() == name ? 'checked' : '' } ${num.index == 0 ? 'checked' : ''}>
+									class="radioOption multipleOption" ${questionInf.getCorrectanswer() == name ? 'checked' : '' }>
 								<label for="${name}" class="col-sm-1 col-form-label">${name}: </label> 
 								<input type="hidden" name="options[${num.index}].name" value="${name}" class="multipleOption"> 
 								<input type="text" class="form-control multipleOption" name="options[${num.index}].optionValue"
 									value="${questionInf.getOptions().size() > num.index ? questionInf.getOptions().get(num.index).getOptionValue() : ''}">
 							</div>
 						</c:forEach>
+					</div>
 				</div>
-			</div>
 
-			<input type="hidden" name="assessment.assessmentid"
-				value="${assessmentid}">
+				<input type="hidden" name="assessment.assessmentid" value="${assessmentid}">
 
-			<button type="submit" class="btn btn-pink"><spring:message code="save"/></button>
+				<button type="submit" class="btn btn-pink"><spring:message code="save"/></button>
 
-			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
+				<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
 					type="button" class="btn btn-warning"><spring:message code="cancel"/></button></a>
-		</form>
-
+			</form>
 		<div class="col-sm-3"></div>
 	</div>
 
 <script>
-
 $(document).ready(function() {
-	$("#option").show();
-	$("#multipleOptions").show();
-	$("#yesNoOptions").hide();
-	$(".yesNoOption").prop("disabled" , true );
-	$(".multipleOption").prop("disabled" , false );
+	var selected = $('#questionType').val();
+
+	if(selected == 1){
+		$("#multipleOptions").show();
+		$("#yesNoOptions").hide();
+		$("#inputType").hide();
+		$("#inputAnswer").removeAttr( "name" );
+		$(".radioOption").removeAttr( "name" );
+	}
+	 if(selected == 2){
+		$("#multipleOptions").hide();
+		$("#inputType").hide();
+		$("#yesNoOptions").show();
+		$("#inputAnswer").removeAttr( "name" );
+	}
+	 if(selected == 3){
+		$("#inputType").show();
+		$("#multipleOptions").hide();
+		$("#yesNoOptions").hide();
+		$(".radioOption").removeAttr( "name" );
+	}
 });
 
 $(function() {
-    $('#questionType').change(function(e) {
-        var selected = $(e.target).val();
-        if(selected == 1){
-	$("#option").show();
-	$("#multipleOptions").show();
-	$("#yesNoOptions").hide();
-	$(".multipleOption").prop("disabled" , false );
-	$(".yesNoOption").prop("disabled" , true );
-	       	
-          }else if(selected == 2){
-	$("#option").show();
-	$("#multipleOptions").hide();
-	$("#yesNoOptions").show();
-	$(".yesNoOption").prop("disabled" , false );
-	$(".multipleOption").prop("disabled" , true );
-          }
-    }); 
+	$('#questionType').change(function(e) {
+		var selected = $(e.target).val();
+		if(selected == 1){
+			$("#multipleOptions").show();
+			$("#yesNoOptions").hide();
+			$("#inputType").hide();
+			$("#inputAnswer").removeAttr( "name" );
+			$(".radioOption").removeAttr( "name" );
+
+		}
+		 if(selected == 2){
+			$("#multipleOptions").hide();
+			$("#inputType").hide();
+			$("#yesNoOptions").show();
+			$("#inputAnswer").removeAttr( "name" );
+		}
+		 if(selected == 3){
+			$("#inputType").show();
+			$("#multipleOptions").hide();
+			$("#yesNoOptions").hide();
+			$(".radioOption").removeAttr( "name" );
+		}
+	}); 
 });
 
 </script>
