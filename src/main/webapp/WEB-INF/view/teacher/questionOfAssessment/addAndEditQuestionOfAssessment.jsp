@@ -132,8 +132,8 @@ $(document).ready(function() {
 		$("#multipleOptions").show();
 		$("#yesNoOptions").hide();
 		$("#inputType").hide();
-		$("#inputAnswer").removeAttr( "name" );
-		$(".radioOption").removeAttr( "name" );
+		$("#inputAnswer").removeAttr( "name");
+		$(".radioOption").removeAttr( "name");
 	}
 	 if(selected == 2){
 		$("#multipleOptions").hide();
@@ -157,7 +157,8 @@ $(function() {
 			$("#yesNoOptions").hide();
 			$("#inputType").hide();
 			$("#inputAnswer").removeAttr( "name" );
-			$(".radioOption").removeAttr( "name" );
+			$(".yesNoOption").removeAttr( "name" );
+			$(".multipleOption").attr("name", "correctanswer");
 
 		}
 		 if(selected == 2){
@@ -165,12 +166,17 @@ $(function() {
 			$("#inputType").hide();
 			$("#yesNoOptions").show();
 			$("#inputAnswer").removeAttr( "name" );
-		}
+			$(".multipleOption").removeAttr( "name" );
+			$(".yesNoOption").attr("name", "correctanswer");
+
+		 }
 		 if(selected == 3){
 			$("#inputType").show();
 			$("#multipleOptions").hide();
 			$("#yesNoOptions").hide();
-			$(".radioOption").removeAttr( "name" );
+			$(".multipleOption").removeAttr( "name" );
+			$(".yesNoOption").removeAttr( "name" );
+			$("#inputAnswer").attr("name", "correctanswer");
 		}
 	}); 
 });

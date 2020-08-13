@@ -85,11 +85,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
-		} else {
-			// TODO : do we need set null here
-			questionOfAssignmentEntity.setOptions(null);
-		}
-
+		} 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
@@ -117,9 +113,6 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
-		} else {
-			// TODO : do we need set null here
-			questionOfAssignmentEntity.setOptions(null);
 		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
@@ -135,10 +128,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		if (!questionOfAssignmentEntity.getQuestiontype().getQuestionTypeCode()
 				.equals(QuestionTypeEnum.INPUT.getCode())) {
 			questionOfAssignmentDTO.setOptions(OptionUtil.parseToObject(questionOfAssignmentEntity.getOptions()));
-		} else {
-			// TODO : do we need set null here
-			questionOfAssignmentDTO.setOptions(null);
 		}
+
 		return questionOfAssignmentDTO;
 	}
 

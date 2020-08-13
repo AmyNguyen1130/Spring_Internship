@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.codeenginestudio.elearning.constant.Constant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
 import com.codeenginestudio.elearning.dao.ClassDAO;
 import com.codeenginestudio.elearning.dao.ResultDAO;
@@ -22,7 +18,6 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 import com.codeenginestudio.elearning.service.QuestionOfAssessmentService;
 import com.codeenginestudio.elearning.service.ResultService;
 import com.codeenginestudio.elearning.util.AssessmentUtil;
-import com.codeenginestudio.elearning.util.CommonUtil;
 
 @Service("assessmentService")
 public class AssessmentServiceImpl implements AssessmentService {
@@ -52,16 +47,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
 		return assessmentDTO;
-	}
-
-	@Override
-	public Page<AssessmentDTO> getPageListAssessment(Integer page) {
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
-
-		Page<AssessmentEntity> listAssessment = assessmentDAO.findAll(pageable);
-
-		return listAssessment.map(x -> (AssessmentUtil.parseToDTO(x)));
-
 	}
 
 	@Override
