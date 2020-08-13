@@ -103,7 +103,8 @@ public class QuestionOfAssessmentController {
 	@GetMapping("/teacher/questionOfAssessment/editQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId,
 			@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
-
+		String[] alphabetName = {"A", "B", "C", "D", "E", "F"};
+		model.addAttribute("alphabetName", alphabetName);
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());

@@ -45,7 +45,6 @@
 			<div class="form-group row">
 				<label for="questiontypeid" class="col-sm-3 col-form-label"><spring:message code="question-type"/></label>
 				<div class="col-sm-8">
-
 					<select name="questionType.questionTypeId" id="questionType" class="form-control">
 						<c:forEach items="${listQuestionType}" var="questionType">
 							<option value="${questionType.questionTypeId}" 
@@ -65,7 +64,6 @@
 
 			<div class="form-group row" id="option">
 				<label for="options" class="col-sm-3 col-form-label"><spring:message code="options"/></label>
-
 				<div class="col-sm-8" id="yesNoOptions">
 						<div class="optionItem">
 							<input type="radio" name="correctanswer" value="A" 
@@ -75,65 +73,90 @@
 							<input type="text" class="form-control yesNoOption" name="options[0].optionValue" 
 								value="Yes">
 						</div>
+						
 						<div class="optionItem">
-							<input type="radio" name="correctanswer" value="B" 
+							<input type="radio" name="correctanswer" value="B"
 								class="radioOption yesNoOption">
 							<label for="B" class="col-sm-1 col-form-label">B: </label> 
 							<input type="hidden" name="options[1].name" value="B" class="yesNoOption"> 
 							<input type="text" class="form-control yesNoOption" name="options[1].optionValue" value="No">
-
 						</div>
 				</div>
 
-				<div class="col-sm-8" id="multipleOptions">
-					<c:set var="totalOption" value='0' />
-						<c:forEach begin="0" end="${totalOption}" step="1" varStatus="num">
-							<c:choose>
-								<c:when test="${num.index == 0}">
-									<c:set var="name" value='A' />
-								</c:when>
-								<c:when test="${num.index == 1}">
-									<c:set var="name" value='B' />
-								</c:when>
-								<c:when test="${num.index == 2}">
-									<c:set var="name" value='C' />
-								</c:when>
-								<c:otherwise>
-									<c:set var="name" value='D' />
-								</c:otherwise>
-							</c:choose>
-							<div class="optionItem">
-								<input type="radio" name="correctanswer" value="${name}"
-									class="radioOption multipleOption" ${questionInf.getCorrectanswer() == name ? 'checked' : '' }>
-								<label for="${name}" class="col-sm-1 col-form-label">${name}: </label> 
-								<input type="hidden" name="options[${num.index}].name" value="${name}" class="multipleOption"> 
-								<input type="text" class="form-control multipleOption" name="options[${num.index}].optionValue"
-									value="${questionInf.getOptions().size() > num.index ? questionInf.getOptions().get(num.index).getOptionValue() : ''}">
-							</div>
-						</c:forEach>
+				<div class="col-sm-8 multipleOptions " id="multipleOptions">
+						<div class='optionItem' id='div_0'>
+							<input type="radio" name="correctanswer" value="A" class="radioOption multipleOption" 
+							${questionInf.getCorrectanswer() == 'A' ? 'checked' : ''} checked>
+							<label for="A" class="col-sm-1 col-form-label">A: </label> 
+							<input type="hidden" name="options[0].name" value="A" class="multipleOption"> 
+							<input type="text" class="form-control multipleOption" name="options[0].optionValue"
+								value="${questionInf.getOptions().size() > 0 ? questionInf.getOptions().get(0).getOptionValue() : ''}">
+						</div>
+
+						<c:if test="${questionInf.getOptions().size() > 0}">
+							<c:forEach items="${questionInf.getOptions()}" var="option" varStatus="num" begin="1" step="1">
+								<div class='optionItem' id='div_${num.index}'>
+									<input type="radio" name="correctanswer" value="${alphabetName[num.index]}" class="radioOption multipleOption"
+									${questionInf.getCorrectanswer() == alphabetName[num.index] ? 'checked' : ''}>
+									<label for="${alphabetName[num.index]}" class="col-sm-1 col-form-label">${alphabetName[num.index]}: </label> 
+									<input type="hidden" name="options[${num.index}].name" value="${alphabetName[num.index]}" class="multipleOption"> 
+									<input type="text" class="form-control multipleOption" name="options[${num.index}].optionValue"
+										value="${questionInf.getOptions().size() > num.index ? questionInf.getOptions().get(num.index).getOptionValue() : ''}">
+										&nbsp;<span id='remove_${num.index}' class='remove btn btn-primary'>-</span>
+								</div>
+							</c:forEach>
+						</c:if>
+						<span class='add btn btn-primary'> + </span>
 					</div>
 				</div>
-
 				<input type="hidden" name="assessment.assessmentid" value="${assessmentid}">
-
 				<button type="submit" class="btn btn-pink"><spring:message code="save"/></button>
-
 				<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
 					type="button" class="btn btn-warning"><spring:message code="cancel"/></button></a>
 			</form>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-3">
+		
+			
+		</div>
 	</div>
 
 <script>
 $(document).ready(function() {
+
+	$(".add").click(function(){
+		var alphabet = new Array("A", "B", "C", "D", "E", "F");
+		var total_element = $(".optionItem").length;
+		var lastid = $(".optionItem:last").attr("id");
+		var split_id = lastid.split("_");
+		var nextindex = Number(split_id[1]) + 1;
+		var max = 6;
+
+		$(".yesNoOption").removeAttr( "name" );
+
+		 if(total_element < max ){
+			$(".optionItem:last").after("<div class='optionItem' id='div_"+ nextindex +"'></div>");
+			$("#div_" + nextindex).append("<input type='radio' name='correctanswer' value='"+ alphabet[nextindex] +"'class='radioOption multipleOption'}>");
+			$("#div_" + nextindex).append("<label for='"+ alphabet[nextindex] +"' class='col-sm-1 col-form-label'>"+ alphabet[nextindex] +": </label>");
+			$("#div_" + nextindex).append("<input type='hidden' name='options["+ nextindex +"].name' value='"+ alphabet[nextindex] +"' class='multipleOption'>");
+			$("#div_" + nextindex).append("<input type='text' class='form-control multipleOption' name='options["+ nextindex +"].optionValue' value=''>&nbsp;<span id='remove_" + nextindex + "' class='remove btn btn-primary'>-</span>");
+		 }
+
+	  $('.multipleOptions').on('click','.remove',function(){
+			var id = this.id;
+			var split_id = id.split("_");
+			var deleteindex = split_id[1];
+			$("#div_" + deleteindex).remove();
+		 }); 
+		});
+
+
 	var selected = $('#questionType').val();
 
 	if(selected == 1){
 		$("#multipleOptions").show();
 		$("#yesNoOptions").hide();
 		$("#inputType").hide();
-		$("#inputAnswer").removeAttr( "name");
-		$(".radioOption").removeAttr( "name");
+		$("#inputAnswer").removeAttr( "name" );
 	}
 	 if(selected == 2){
 		$("#multipleOptions").hide();
@@ -150,6 +173,7 @@ $(document).ready(function() {
 });
 
 $(function() {
+
 	$('#questionType').change(function(e) {
 		var selected = $(e.target).val();
 		if(selected == 1){
@@ -157,9 +181,6 @@ $(function() {
 			$("#yesNoOptions").hide();
 			$("#inputType").hide();
 			$("#inputAnswer").removeAttr( "name" );
-			$(".yesNoOption").removeAttr( "name" );
-			$(".multipleOption").attr("name", "correctanswer");
-
 		}
 		 if(selected == 2){
 			$("#multipleOptions").hide();
@@ -180,5 +201,6 @@ $(function() {
 		}
 	}); 
 });
+
 
 </script>
