@@ -306,5 +306,11 @@ img {
 	border-radius: 5%;
 }
 
+.hide_block {
+	display: none;
+}
 
-
+.flex-container {
+	display: flex;
+	justify-content: center;
+}

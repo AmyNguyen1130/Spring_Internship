@@ -53,7 +53,7 @@
 														items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
 												</div>
 												<div class="col-sm-11">
-													<label class="optionName">${option.getOptionValue()}</label>
+													<label class="optionName">${option.getValue()}</label>
 												</div>
 											</div>
 

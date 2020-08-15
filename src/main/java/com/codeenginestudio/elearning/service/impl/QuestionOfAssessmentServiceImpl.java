@@ -163,10 +163,12 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		List<OptionDTO> result = new ArrayList<>();
 
-		for (OptionDTO optionDTO : options) {
+		if(options != null) {
+			for (OptionDTO optionDTO : options) {
 
-			if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getOptionValue())) {
-				result.add(optionDTO);
+				if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getValue())) {
+					result.add(optionDTO);
+				}
 			}
 		}
 

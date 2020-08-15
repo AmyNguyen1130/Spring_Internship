@@ -65,7 +65,7 @@
 													disabled="disabled">
 											</div>
 											<div class="col-sm-11">
-												<label class="optionName">${option.getOptionValue()}</label>
+												<label class="optionName">${option.getValue()}</label>
 											</div>
 										</div>
 									</c:forEach>
