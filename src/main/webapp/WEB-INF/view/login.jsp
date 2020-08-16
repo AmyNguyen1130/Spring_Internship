@@ -1,29 +1,27 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title><spring:message code="elearning-math-for-kid" /></title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<style>
-#login-box {
-	margin-top: 5%;
-	margin-left: 46%;
-}
-.text-info{
-	color: #FE2E64;
-}
-
-</style>
+	<meta charset="utf-8">
+	<title><spring:message code="elearning-math-for-kid" /></title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
+	<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
+	<style>
+		#login-box {
+			margin-top: 5%;
+			margin-left: 46%;
+		}
+		.text-info{
+			color: #FE2E64;
+		}
+	</style>
+	<c:url var="loginURL" value="/login" />
 </head>
-
 <body>
 	<div class="container">
 		<div>
@@ -44,11 +42,10 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<div id="login-row"
-			class="row justify-content-center align-items-center">
+		<div id="login-row" class="row justify-content-center align-items-center">
 			<div id="login-column" class="col-md-6">
 				<div id="login-box" class="col-md-12">
-					<form id="login-form" class="form" action="/login" method="post">
+					<form id="login-form" class="form" action="${loginURL }" method="post">
 
 						<h3 class="text-center text-info">
 							<spring:message code="login" />

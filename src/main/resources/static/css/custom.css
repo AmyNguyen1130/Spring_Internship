@@ -314,3 +314,8 @@ img {
 	display: flex;
 	justify-content: center;
 }
+
+.logo-right {
+	max-width: 32;
+	vertical-align: middle;
+}

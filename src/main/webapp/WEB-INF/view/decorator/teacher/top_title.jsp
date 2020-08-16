@@ -6,9 +6,7 @@
 	<div class="navbar-top-right col-sm-4">
 
 		<div class="brand-top-right col-sm-4">
-			<img class="logo-right"
-				style="max-width: 32; vertical-align: middle;"
-				src="<c:url value="/images/logo.jpg"/>">
+			<img class="logo-right" src="<c:url value="/images/logo.jpg"/>">
 			<h6 class="brand-name white"><spring:message code="intern-app"/></h6>
 		</div>
 
