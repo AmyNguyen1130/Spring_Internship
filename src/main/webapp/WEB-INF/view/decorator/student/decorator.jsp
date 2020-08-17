@@ -8,7 +8,7 @@
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/student/top_title.jsp"%>
 		<div id="wrapper">
-			<div id="content-wrapper">
+			<div id="content-wrapper" class="col-8">
 				<div class="row">
 					<div class="col-sm-7">
 						<c:if test="${messageSuccess != null}">
@@ -26,5 +26,17 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			setMinHeightForWrapperContainer();
+		});
+
+		function setMinHeightForWrapperContainer() {
+			var min_height = $(window).height();
+			$("#wrapper").css("min-height", min_height + "px");
+			$("#content-wrapper").css("min-height", min_height + "px");
+		}
+	</script>
 </body>
 </html>

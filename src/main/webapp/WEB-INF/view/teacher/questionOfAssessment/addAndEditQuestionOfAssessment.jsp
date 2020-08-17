@@ -146,7 +146,7 @@
 
 	$(document).ready(function() {
 
-		$(".addOption").click(function(){
+		$(".addOption").click(function() {
 			addNewOption();
 
 			registerEventClickRemoveOption();
@@ -167,7 +167,7 @@
 
 	function fillCorrectAnswer(correctAnswer) {
 		var questionTypeCode = $('option:selected', $("#questionType")).attr("questionTypeCode");
-		
+
 		if('${QuestionTypeEnum.MULTIPLE.getCode()}' == questionTypeCode) {
 			$("#multiple-type-block").find("input:radio[value='" + correctAnswer + "']").prop('checked',true);
 		} else if('${QuestionTypeEnum.YESNO.getCode()}' == questionTypeCode) {

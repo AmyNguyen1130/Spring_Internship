@@ -9,7 +9,7 @@
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/teacher/top_title.jsp"%>
 		<div id="wrapper">
-			<div id="content-wrapper">
+			<div id="content-wrapper" class="col-8">
 				<div class="row">
 					<div class="col-sm-7">
 						<c:if test="${messageSuccess != null}">
@@ -66,7 +66,16 @@
 				$(".alert").css("display", "block");
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 5000);
 			}
+
+			setMinHeightForWrapperContainer();
 		});
+
+		function setMinHeightForWrapperContainer() {
+			var min_height = $(window).height();
+			$("#wrapper").css("min-height", min_height + "px");
+			$("#content-wrapper").css("min-height", min_height + "px");
+		}
+
 		function confirmation(success, action) {
 			
 			$('#acceptConfirm').attr("href", success);

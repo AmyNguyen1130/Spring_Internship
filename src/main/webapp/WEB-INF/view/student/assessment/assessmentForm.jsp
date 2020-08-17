@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-sm-3"></div>
 
-			<div class="col-sm-6" id="borderTest">
+			<div class="col-sm-6">
 				<form:form method="POST" action="${url}" modelAttribute="lessonForm">
 					<div class="descriptionAssessment">
 						<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
@@ -45,6 +45,7 @@
 														<label for="${option.getName()}"
 															class="col-sm-1 col-form-label">${option.getName()}:
 														</label>
+														<!-- TODO: Why items attribute ? -->
 														<form:radiobutton
 															path="resultDTOs[${status.index}].answerchoice"
 															value="${option.getName()}" class="inputRadioOption"

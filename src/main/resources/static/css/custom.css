@@ -319,3 +319,12 @@ img {
 	max-width: 32;
 	vertical-align: middle;
 }
+
+#wrapper {
+	background-image: url("../images/background.jpg");
+}
+
+#content-wrapper {
+	margin: auto;
+	background-color: white;
+}
