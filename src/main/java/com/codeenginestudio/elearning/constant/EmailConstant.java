@@ -1,6 +1,6 @@
-package com.codeenginestudio.elearning.emailConfig;
+package com.codeenginestudio.elearning.constant;
 
-public class MyConstants {
+public class EmailConstant {
 
 	public static final String MY_EMAIL = "thuycao625@gmail.com";
 
