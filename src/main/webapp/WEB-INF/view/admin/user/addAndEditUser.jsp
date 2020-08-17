@@ -42,7 +42,7 @@
 
 			<div class="form-group row">
 				<div class="col-sm-1"></div>
-				<label for="firstName" class="col-sm-2 col-form-label"><spring:message code="firstname"/></label>
+				<label for="firstName" class="col-sm-2 col-form-label"><spring:message code="first-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="firstname" placeholder="<spring:message code="please-enter-first-name-here"/>"
 						value="${userInf.getFirstname()}">
@@ -54,7 +54,7 @@
 
 			<div class="form-group row">
 				<div class="col-sm-1"></div>
-				<label for="lastName" class="col-sm-2 col-form-label"><spring:message code="lastname"/></label>
+				<label for="lastName" class="col-sm-2 col-form-label"><spring:message code="last-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="lastname" placeholder="<spring:message code="please-enter-last-name-here"/>"
 						value="${userInf.getLastname()}">
@@ -128,7 +128,6 @@
 		</form>
 		<div  class="col-sm-3"></div>
 	</div>
-
 
 
 

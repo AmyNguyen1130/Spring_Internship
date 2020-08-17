@@ -73,7 +73,7 @@ public class StudentInClassController {
 			studentInClassService.deleteAllByClass(classid);
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess", messageSource
-				.getMessage("message-assign-studentinclass-success", null, LocaleContextHolder.getLocale()));
+				.getMessage("assign-studentinclass-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/admin/class";
 	}
 

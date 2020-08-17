@@ -44,15 +44,37 @@ public class ClassController {
 	@Autowired
 	private MessageSource messageSource;
 
-	// admin role
+	@GetMapping("/admin/class")
+	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
+		Page<ClassDTO> classess = classService.getClassPage(page);
+		for (ClassDTO classDTO : classess) {
+			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
+			classDTO.setTotalAssessments(assessmentService.getListAssessmentByClassid(classDTO.getClassid()).size());
+			if (classDTO.getTotalAssessments() == 0 && classDTO.getTotalStudents() == 0) {
+				classDTO.setIsDelete(true);
+			}
+		}
+		model.addAttribute("classPage", classess);
+
+		return PREFIX + "listClass";
+	}
 
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
-
 		model.addAttribute("url", "/admin/class/saveAddClass");
 		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.TEACHER, true));
 
 		return PREFIX + "addAndEditClass";
+	}
+
+	@GetMapping("/admin/class/deleteClass")
+	public String deleteClass(@ModelAttribute("classid") Long classId, RedirectAttributes redirectAttributes) {
+
+		classService.deleteClass(classId);
+
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("delete-class-successfully", null, LocaleContextHolder.getLocale()));
+		return "redirect:/admin/class";
 	}
 
 	@GetMapping("/admin/class/editClass/{classid}")
@@ -74,36 +96,12 @@ public class ClassController {
 		// if parents object disable users cannot change status of child object
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
 			classService.editStatusClass(classid);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-edit-status-success", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 		} else {
-			redirectAttributes.addFlashAttribute("messageDanger",
-					messageSource.getMessage("message-edit-status-unsuccess", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageDanger", messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
 		}
+
 		return "redirect:/admin/class";
-	}
-
-	@GetMapping("/admin/class/deleteClass")
-	public String deleteClass(@ModelAttribute("classid") Long classId, RedirectAttributes redirectAttributes) {
-
-		classService.deleteClass(classId);
-		redirectAttributes.addFlashAttribute("messageSuccess",
-				messageSource.getMessage("message-delete-class-success", null, LocaleContextHolder.getLocale()));
-		return "redirect:/admin/class";
-	}
-
-	@GetMapping("/admin/class")
-	public String getListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
-		Page<ClassDTO> classess = classService.getClassPage(page);
-		for (ClassDTO classDTO : classess) {
-			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
-			classDTO.setTotalAssessments(assessmentService.getListAssessmentByClassid(classDTO.getClassid()).size());
-			if (classDTO.getTotalAssessments() == 0 && classDTO.getTotalStudents() == 0) {
-				classDTO.setIsDelete(true);
-			}
-		}
-		model.addAttribute("classPage", classess);
-		return PREFIX + "listClass";
 	}
 
 	@PostMapping("/admin/class/saveAddClass")
@@ -114,12 +112,14 @@ public class ClassController {
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
 			model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.TEACHER, true));
+
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveAddClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-add-class-success", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess",messageSource.getMessage("add-class-successfully", null, LocaleContextHolder.getLocale()));
+
 		}
+
 		return "redirect:/admin/class";
 	}
 
@@ -137,16 +137,16 @@ public class ClassController {
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveEditClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-edit-class-success", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-class-successfully", null, LocaleContextHolder.getLocale()));
 		}
+
 		return "redirect:/admin/class";
 	}
 
 	// Teacher role
 
 	@GetMapping("/teacher/class")
-	public String getListClassWithTeacherRole(Model model,
+	public String showListClassWithTeacherRole(Model model,
 			@RequestParam(name = "page", required = false) Integer page) {
 
 		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
@@ -154,13 +154,14 @@ public class ClassController {
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
+
 		model.addAttribute("listClassEnable", classService.getListIdByStatus(true));
 		model.addAttribute("classPage", classess);
 
 		return "teacher/class/listClass";
 	}
 
-	private List<String> validationClass(ClassDTO classDTO) {
+	public List<String> validationClass(ClassDTO classDTO) {
 		List<String> errors = new ArrayList<>();
 
 		if (!ClassValidation.checkEmpty(classDTO.getClassname())) {

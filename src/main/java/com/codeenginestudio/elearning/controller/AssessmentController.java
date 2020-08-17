@@ -81,10 +81,10 @@ public class AssessmentController {
 		if (listClasses.contains(assessmentDTO.getClassForeign().getClassid())) {
 			assessmentService.editAssessmentStatus(assessmentid);
 			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-edit-status-success", null, LocaleContextHolder.getLocale()));
+					messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 		} else {
 			redirectAttributes.addFlashAttribute("messageDanger",
-					messageSource.getMessage("message-edit-status-unsuccess", null, LocaleContextHolder.getLocale()));
+					messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
 		}
 		return "redirect:/teacher/assessment";
 	}
@@ -95,7 +95,7 @@ public class AssessmentController {
 
 		assessmentService.deleteById(assessmentid);
 		redirectAttributes.addFlashAttribute("messageSuccess",
-				messageSource.getMessage("message-delete-assessment-success", null, LocaleContextHolder.getLocale()));
+				messageSource.getMessage("delete-assessment-successfully", null, LocaleContextHolder.getLocale()));
 		return "redirect:/teacher/assessment";
 	}
 
@@ -124,7 +124,7 @@ public class AssessmentController {
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAddAssessment(assessmentDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-add-assessment-success", null, LocaleContextHolder.getLocale()));
+					messageSource.getMessage("add-assessment-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -142,7 +142,7 @@ public class AssessmentController {
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveEditAssessment(assessmentDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("message-edit-assessment-success", null, LocaleContextHolder.getLocale()));
+					messageSource.getMessage("edit-assessment-successfully", null, LocaleContextHolder.getLocale()));
 			return "redirect:/teacher/assessment";
 		} else {
 			model.addAttribute("error", inValid);
@@ -239,7 +239,7 @@ public class AssessmentController {
 			}
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess",
-				messageSource.getMessage("message-submit-lesson-success", null, LocaleContextHolder.getLocale()));
+				messageSource.getMessage("submit-lesson-successfully", null, LocaleContextHolder.getLocale()));
 		return "redirect:/student/assessment";
 	}
 
@@ -253,7 +253,7 @@ public class AssessmentController {
 			}
 		}
 		redirectAttributes.addFlashAttribute("messageSuccess",
-				messageSource.getMessage("message-edit-lesson-success", null, LocaleContextHolder.getLocale()));
+				messageSource.getMessage("edit-lesson-successfully", null, LocaleContextHolder.getLocale()));
 		return "redirect:/student/assessment";
 	}
 

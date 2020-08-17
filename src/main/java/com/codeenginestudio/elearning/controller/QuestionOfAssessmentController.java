@@ -38,23 +38,6 @@ public class QuestionOfAssessmentController {
 	@Autowired
 	private MessageSource messageSource;
 
-	// Teacher
-
-	@GetMapping("/teacher/questionOfAssessment")
-	public String getListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
-
-		AssessmentDTO assessmentDTO = assessmentService.getAssessmentByAssessmentid(assessmentid);
-		model.addAttribute("listQuestionOfAssessment",
-				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
-		model.addAttribute("assessment", assessmentDTO);
-		if (assessmentDTO.getClassForeign() == null) {
-			model.addAttribute("classNull", "Haven't assigned to any class yet");
-		} else {
-			model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
-		}
-		return PREFIX_TEACHER + "listQuestionOfAssessment";
-	}
-
 	@GetMapping("/teacher/questionOfAssessment/addQuestionOfAssessment/{assessmentid}")
 	public String addQuestionOfAssignment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
@@ -65,44 +48,21 @@ public class QuestionOfAssessmentController {
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
-	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
-	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
-			throws JsonProcessingException {
-
-		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
-
-		if (invalid.noError()) {
-			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("add-question-successfully", null, LocaleContextHolder.getLocale()));
-			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
-		}
-
-		model.addAttribute("error", invalid);
-		model.addAttribute("questionInf", questionOfAssessmentDTO);
-		model.addAttribute("assessmentid", assessmentid);
-		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
-		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-
-		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
-
-	}
-
 	@GetMapping("/teacher/questionOfAssessment/deleteQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String deleteQuestionOfAssessment(@PathVariable(name = "assessmentid") Long assessmentid,
 			@PathVariable(name = "questionId") Long questionId, RedirectAttributes redirectAttributes) {
 
 		questionOfAssessmentService.deleteQuestionOfAssessment(questionId);
-
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("delete-question-uccessfully", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
 	}
 
 	@GetMapping("/teacher/questionOfAssessment/editQuestionOfAssessment/{assessmentid}/{questionId}")
 	public String editQuestionOfAssessment(@PathVariable(name = "questionId") Long questionId,
 			@PathVariable(name = "assessmentid") Long assessmentid, Model model) {
+
 		model.addAttribute("questionInf", questionOfAssessmentService.getOneQuestionOfAssessment(questionId));
 		model.addAttribute("listAssessment", assessmentService.getListAssessment());
 		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
@@ -111,27 +71,25 @@ public class QuestionOfAssessmentController {
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
-	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
-	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
-			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId,
-			RedirectAttributes redirectAttributes) throws JsonProcessingException {
+	@GetMapping("/teacher/questionOfAssessment")
+	public String getListQuestion(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
-		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
+		AssessmentDTO assessmentDTO = assessmentService.getAssessmentByAssessmentid(assessmentid);
+		model.addAttribute("listQuestionOfAssessment",
+				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
+		model.addAttribute("assessment", assessmentDTO);
 
-		if (invalid.noError()) {
-			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("edit-question-successfully", null, LocaleContextHolder.getLocale()));
-			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		if (assessmentDTO.getClassForeign() == null) {
+
+			model.addAttribute("classNull", "Haven't assigned to any class yet");
+
+		} else {
+
+			model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
+
 		}
 
-		model.addAttribute("error", invalid);
-		model.addAttribute("questionInf", questionOfAssessmentDTO);
-		model.addAttribute("assessmentid", assessmentid);
-		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
-		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
-
-		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
+		return PREFIX_TEACHER + "listQuestionOfAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/preview/{assessmentid}")
@@ -142,9 +100,61 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 		model.addAttribute("preview", true);
 		model.addAttribute("urlBack", "/teacher/questionOfAssessment?assessmentid=" + assessmentid);
+
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
 
+	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
+	public String saveAddQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
+			@PathVariable(name = "assessmentid") Long assessmentid, RedirectAttributes redirectAttributes)
+			throws JsonProcessingException {
+
+		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
+
+		if (invalid.noError()) {
+
+			questionOfAssessmentService.addQuestionOfAssessment(questionOfAssessmentDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("add-question-successfully", null, LocaleContextHolder.getLocale()));
+
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		}
+
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
+
+	}
+
+	@PostMapping("/teacher/questionOfAssessment/saveEditQuestionOfAssessment/{assessmentid}")
+	public String saveEditQuestionOfAssessment(QuestionOfAssessmentDTO questionOfAssessmentDTO, Model model,
+			@PathVariable(name = "assessmentid") Long assessmentid, @ModelAttribute("questionid") Long questionId,
+			RedirectAttributes redirectAttributes) throws JsonProcessingException {
+
+		QuestionValidator invalid = QuestionValidator.validateQuestion(questionOfAssessmentDTO);
+
+		if (invalid.noError()) {
+
+			questionOfAssessmentService.editQuestionOfAssessment(questionOfAssessmentDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("edit-question-successfully", null, LocaleContextHolder.getLocale()));
+
+			return "redirect:/teacher/questionOfAssessment?assessmentid=" + assessmentid;
+		}
+
+		model.addAttribute("error", invalid);
+		model.addAttribute("questionInf", questionOfAssessmentDTO);
+		model.addAttribute("assessmentid", assessmentid);
+		model.addAttribute("url", "/teacher/questionOfAssessment/saveAddQuestionOfAssessment/" + assessmentid);
+		model.addAttribute("listQuestionType", questionTypeService.getListQuestionType());
+
+		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
+	}
+
 	private static final String PREFIX_STUDENT = "/student/assessment/";
-	private final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
+	private static final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
 }

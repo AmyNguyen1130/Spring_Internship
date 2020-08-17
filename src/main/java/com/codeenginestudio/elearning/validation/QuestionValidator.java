@@ -41,15 +41,17 @@ public class QuestionValidator {
 	}
 
 	public static String checkNull(String value, String error) {
+
 		if (StringUtils.isEmpty(value)) {
 			return error;
 		}
+
 		return "";
 	}
 
 	public static QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
-		QuestionValidator inValid = new QuestionValidator();
 
+		QuestionValidator inValid = new QuestionValidator();
 		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
 		inValid.errNumericalOrder = checkNumericalOrder(questionOfAssessmentDTO.getNumericalorder());
 		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(),
@@ -59,22 +61,32 @@ public class QuestionValidator {
 	}
 
 	public static boolean checkOnlyDigital(String data) {
+
 		String regex = "\\p{Digit}+";
+
 		return data.matches(regex);
 	}
 
 	public static String checkNumericalOrder(String numerical) {
+
 		if (StringUtils.isEmpty(numerical)) {
+
 			return "Numerical Order should not be null";
+
 		}
 
 		if (!checkOnlyDigital(numerical)) {
+
 			return "Numerical Order should be only digital";
+
 		}
 
 		if (Integer.parseInt(numerical) <= 0) {
+
 			return "Numerical Order should be more than 0";
+
 		}
+
 		return "";
 	}
 

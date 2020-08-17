@@ -22,7 +22,7 @@
 					<div class="col-sm-8"></div>
 					<div class="col-sm-4 justify-end">
 						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
-							<button class="btn btn-pink" type="button"><spring:message code="add-question"/></button>
+							<button class="btn btn-pink" type="button"><spring:message code="add-new-question"/></button>
 						</a>		
 						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
 							<button class="btn btn-warning" type="button"><spring:message code="preview"/></button>
@@ -77,5 +77,4 @@
 
 </body>
 </html>
-
 

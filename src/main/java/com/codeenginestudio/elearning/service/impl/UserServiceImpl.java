@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
 		Pageable pageable = PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 		Page<UserEntity> listUserEntity = userDAO.findAll(pageable);
+
 		return listUserEntity.map(x -> (UserUtil.parseToUserDTO(x)));
 	}
 
@@ -76,9 +77,13 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDTO = userService.getUserByUserId(userId);
 
 		if(userDTO.getRole().getRoleid() == 2) {
+
 			classService.deleteClassByTeacherId(userId);
+
 		}else if(userDTO.getRole().getRoleid() == 3) {
+
 			studentInClassService.deleteStudentInClass(userId);
+
 		}
 
 		userDAO.deleteById(userId);
@@ -106,17 +111,24 @@ public class UserServiceImpl implements UserService {
 
 		UserEntity userEntity = userDAO.getOne(userId);
 		userEntity.setEnabled(!userEntity.isEnabled());
+
 		if (userEntity.isEnabled() == false) {
+
 			List<ClassEntity> listClasses = classDAO.findAll();
 			List<Long> listUsers = getUserIdByRoleAndStatus(RoleConstant.TEACHER, true);
 
 			for (ClassEntity classEntity : listClasses) {
+
 				if (!listUsers.contains(classEntity.getUser().getUserid())) {
+
 					classEntity.setStatus(false);
+
 				}
+
 			}
 
 		}
+
 		userDAO.saveAndFlush(userEntity);
 	}
 
@@ -126,7 +138,9 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> listUserDTOs = new ArrayList<>();
 
 		for (UserEntity userEntity : userDAO.findByUsername(username)) {
+
 			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
+
 		}
 
 		return listUserDTOs;
@@ -138,7 +152,9 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> listUserDTOs = new ArrayList<>();
 
 		for (UserEntity userEntity : userDAO.findByEmail(email)) {
+
 			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
+
 		}
 
 		return listUserDTOs;
@@ -163,9 +179,11 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> listUserDTO = new ArrayList<>();
 
 		for (UserEntity userEntity : listUserEntity) {
+
 			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 			}
+
 		}
 
 		return listUserDTO;
@@ -178,9 +196,11 @@ public class UserServiceImpl implements UserService {
 		List<Long> listUserId = new ArrayList<>();
 
 		for (UserEntity userEntity : listUserEntity) {
+
 			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserId.add(userEntity.getUserid());
 			}
+
 		}
 
 		return listUserId;

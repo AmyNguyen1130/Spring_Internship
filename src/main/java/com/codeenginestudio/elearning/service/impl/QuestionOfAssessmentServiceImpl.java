@@ -49,23 +49,21 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		for (QuestionOfAssessmentEntity questionOfAssessmentEntity : listQuestionEntities) {
 
 			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
+
 				questionOfAssignmentDTO = QuestionOfAssignmentUtil
 						.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity);
-				if (!questionOfAssessmentEntity.getQuestiontype().getQuestionTypeCode()
-						.equals(QuestionTypeEnum.INPUT.getCode())) {
+
+				if (questionOfAssessmentEntity.getQuestiontype().getQuestionTypeId() != 3) {
+
 					questionOfAssignmentDTO
 							.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
 				}
+
 				listQuestionDTOs.add(questionOfAssignmentDTO);
 			}
+
 		}
 		return listQuestionDTOs;
-	}
-
-	@Override
-	public int generateNumericalOrder(Long assessmentid) {
-
-		return getListQuestionOfAssessmentByAssessment(assessmentid).size() + 1;
 	}
 
 	@Override
@@ -85,8 +83,11 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
+
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
+
 		}
+
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
@@ -113,7 +114,9 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		questionOfAssignmentEntity.setCorrectanswer(questionOfAssessmentDTO.getCorrectanswer());
 
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
+
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
+
 		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
@@ -136,11 +139,16 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 	@Override
 	public Float getTotalScoreByAssessment(Long assessmentid) {
+
 		List<QuestionOfAssessmentDTO> listQuestions = getListQuestionOfAssessmentByAssessment(assessmentid);
 		Float totalScore = (float) 0;
+
 		for (QuestionOfAssessmentDTO question : listQuestions) {
+
 			totalScore += question.getScore();
+
 		}
+
 		return totalScore;
 	}
 
@@ -148,9 +156,13 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 	public void deleteQuestionsByAssessmentId(Long assessmentid) {
 
 		List<QuestionOfAssessmentDTO> listQuestions = getListQuestionOfAssessmentByAssessment(assessmentid);
+
 		for (QuestionOfAssessmentDTO question : listQuestions) {
+
 			questionOfAssessmentDAO.deleteById(question.getQuestionid());
+
 		}
+
 	}
 
 	private String _serializeOptions(List<OptionDTO> options) throws JsonProcessingException {
@@ -164,7 +176,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		List<OptionDTO> result = new ArrayList<>();
 
-		if (options != null) {
+		if(options != null) {
 			for (OptionDTO optionDTO : options) {
 
 				if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getValue())) {

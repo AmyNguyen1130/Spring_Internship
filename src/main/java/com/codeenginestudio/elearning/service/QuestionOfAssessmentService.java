@@ -22,8 +22,6 @@ public interface QuestionOfAssessmentService {
 
 	List<QuestionOfAssessmentDTO> getListQuestionOfAssessmentByAssessment(Long assessmentid);
 
-	int generateNumericalOrder(Long assessmentid);
-
 	Float getTotalScoreByAssessment(Long assessmentid);
 
 }

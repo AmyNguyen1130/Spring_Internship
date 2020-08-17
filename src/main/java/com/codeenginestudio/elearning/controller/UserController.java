@@ -40,65 +40,11 @@ public class UserController {
 
 	UserValidator userValidator = new UserValidator();
 
-	@GetMapping("/admin/user")
-	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
-
-		Page<UserDTO> listUsers = userService.getUserPage(page);
-
-		for (UserDTO userDTO : listUsers) {
-			userDTO.setTotalAssigned(studentInClassService.getClassIdByStudent(userDTO.getUserid()).size()
-					+ classService.getClassByTeacherId(userDTO.getUserid()).size());
-			if (userDTO.getTotalAssigned() == 0) {
-				userDTO.setIsDelete(true);
-			}
-		}
-
-		if (listUsers.getContent().size() == 1) {
-			if (listUsers.getContent().get(0).getRole().getRoleid() == 1) {
-				return PREFIX + "noUserFound";
-			}
-		}
-
-		model.addAttribute("userPage", listUsers);
-
-		return PREFIX + "listUser";
-	}
-
 	@GetMapping("admin/user/addUser")
 	public String addUser(Model model, @ModelAttribute("role") Long roleId) {
 
 		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("roleId", roleId);
-		model.addAttribute("listRole", roleService.getListRole());
-
-		return PREFIX + "addAndEditUser";
-	}
-
-	@GetMapping("/admin/user/editUserEnabled/{userId}")
-	public String editStatusUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
-
-		userService.editUserStatus(userId);
-		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
-
-		return "redirect:/admin/user";
-	}
-
-	@PostMapping("admin/user/saveAddUser")
-	public String saveAddUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
-
-		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
-
-		if (inValid.noError()) {
-			userService.addUser(userDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",
-					messageSource.getMessage("add-user-successfully", null, LocaleContextHolder.getLocale()));
-			return "redirect:/admin/user";
-		}
-
-		model.addAttribute("error", inValid);
-		model.addAttribute("roleId", userDTO.getRole().getRoleid());
-		model.addAttribute("userInf", userDTO);
-		model.addAttribute("url", "/admin/user/saveAddUser");
 		model.addAttribute("listRole", roleService.getListRole());
 
 		return PREFIX + "addAndEditUser";
@@ -123,14 +69,48 @@ public class UserController {
 		return PREFIX + "addAndEditUser";
 	}
 
+	@GetMapping("/admin/user/editUserEnabled/{userId}")
+	public String editStatusUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
+
+		userService.editUserStatus(userId);
+		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
+
+		return "redirect:/admin/user";
+	}
+
+	@PostMapping("admin/user/saveAddUser")
+	public String saveAddUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
+
+		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
+
+		if (inValid.noError()) {
+
+			userService.addUser(userDTO);
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("add-user-successfully", null, LocaleContextHolder.getLocale()));
+
+			return "redirect:/admin/user";
+		}
+
+		model.addAttribute("error", inValid);
+		model.addAttribute("roleId", userDTO.getRole().getRoleid());
+		model.addAttribute("userInf", userDTO);
+		model.addAttribute("url", "/admin/user/saveAddUser");
+		model.addAttribute("listRole", roleService.getListRole());
+
+		return PREFIX + "addAndEditUser";
+	}
+
 	@PostMapping("admin/user/saveEditUser")
 	public String saveEditUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
 
 		UserValidator userInValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
 
 		if (userInValid.noError()) {
+
 			userService.editUser(userDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit User Successfully!!! ");
+
 			return "redirect:/admin/user";
 		}
 
@@ -142,5 +122,38 @@ public class UserController {
 		return PREFIX + "addAndEditUser";
 	}
 
-	private final String PREFIX = "/admin/user/";
+	@GetMapping("/admin/user")
+	public String showListUser(Model model, @RequestParam(name = "page", required = false) Integer page) {
+
+		Page<UserDTO> listUsers = userService.getUserPage(page);
+
+		for (UserDTO userDTO : listUsers) {
+
+			userDTO.setTotalAssigned(studentInClassService.getClassIdByStudent(userDTO.getUserid()).size()
+					+ classService.getClassByTeacherId(userDTO.getUserid()).size());
+
+			if (userDTO.getTotalAssigned() == 0) {
+
+				userDTO.setIsDelete(true);
+
+			}
+
+		}
+
+		if (listUsers.getContent().size() == 1) {
+
+			if (listUsers.getContent().get(0).getRole().getRoleid() == 1) {
+
+				return PREFIX + "noUserFound";
+
+			}
+
+		}
+
+		model.addAttribute("userPage", listUsers);
+
+		return PREFIX + "listUser";
+	}
+
+	private static final String PREFIX = "/admin/user/";
 }

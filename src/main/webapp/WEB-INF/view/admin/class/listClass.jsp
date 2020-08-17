@@ -65,7 +65,7 @@
 								<a onclick="confirmation('/admin/class/deleteClass?classid=<c:out value='${class.classid}'/>', 'delete ')">
 									<img alt="delete" src="<%=deleteImageAddress%>" class="optionSize" />&ensp;
 								<a href="/admin/getStudentInClass?classid=<c:out value='${class.classid}'/> ">
-									<button class="btn btn-pink"><spring:message code="button-assign"/></button>
+									<button class="btn btn-pink"><spring:message code="assign"/></button>
 								</a>
 
 							</td>

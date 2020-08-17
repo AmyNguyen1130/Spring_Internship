@@ -13,7 +13,7 @@
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-7">
-				<h1><spring:message code="title-list-student-in-class"/>${class.classname}</h1>
+				<h1><spring:message code="list-student-in-class"/>${class.classname}</h1>
 			</div>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
-						<th scope="col"><spring:message code="user-name"/></th>
+						<th scope="col"><spring:message code="username"/></th>
 						<th scope="col"><spring:message code="first-name"/></th>
 						<th scope="col"><spring:message code="last-name"/></th>
 						<th scope="col"><spring:message code="email"/></th>

@@ -21,11 +21,11 @@
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle btn-pink capitalize radius-5" href="#" id="userDropdown"
 										role="button" data-toggle="dropdown">
-										<button class="btn btn-pink"><spring:message code="add-user"/></button>
+										<button class="btn btn-pink"><spring:message code="add-new-user"/></button>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="/admin/user/addUser?role=3"><spring:message code="add-student"/></a>
-										<a class="dropdown-item" href="/admin/user/addUser?role=2"><spring:message code="add-teacher"/></a>
+										<a class="dropdown-item" href="/admin/user/addUser?role=3"><spring:message code="add-new-student"/></a>
+										<a class="dropdown-item" href="/admin/user/addUser?role=2"><spring:message code="add-new-teacher"/></a>
 									</div>
 								</li>
 							</ul>
@@ -42,8 +42,8 @@
 					<tr>
 						<th scope="col"><spring:message code=".NO"/></th>
 						<th scope="col"><spring:message code="username"/></th>
-						<th scope="col"><spring:message code="firstname"/></th>
-						<th scope="col"><spring:message code="lastname"/></th>
+						<th scope="col"><spring:message code="first-name"/></th>
+						<th scope="col"><spring:message code="last-name"/></th>
 						<th scope="col"><spring:message code="email"/></th>
 						<th scope="col"><spring:message code="role"/></th>
 						<th scope="col"><spring:message code="status"/></th>
