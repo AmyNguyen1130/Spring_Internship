@@ -58,10 +58,10 @@
 						<td>${question.score}</td>
 						<td>
 							<a href="/teacher/questionOfAssessment/editQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}">
-									<img alt="edit" src="<spring:message code="editImageAddress"/>" /> 
+									<img alt="edit" src="<c:url value="../../images/edit.png"/>" /> 
 							</a> 
 							<a href="#" onclick="confirmation('/teacher/questionOfAssessment/deleteQuestionOfAssessment/${assessment.assessmentid}/${question.questionid}', 'delete')"> 
-								<img alt="delete" src="<spring:message code="deleteImageAddress"/>" />
+								<img alt="delete" src="<c:url value="../../images/delete.png"/>" />
 							</a>
 						</td>
 					</tr>

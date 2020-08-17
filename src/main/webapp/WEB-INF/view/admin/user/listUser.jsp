@@ -70,10 +70,10 @@
 								<td class="pink-highlight">${user.getTotalAssigned()}</td>
 								<td>
 									<a href="/admin/user/editUser/${user.getUserid()}"> 
-										<img alt="edit" src="<spring:message code="editImageAddress"/>" class="optionSize"/>
+										<img alt="edit" src="<c:url value="../../images/edit.png"/>" class="optionSize"/>
 									</a>
 									<a href="#" onclick="confirmation('/admin/user/deleteUser/${user.getUserid()}', 'delete')">
-										<img alt="delete" src="<spring:message code="deleteImageAddress"/>" class="optionSize"/>
+										<img alt="delete" src="<c:url value="../../images/delete.png"/>" class="optionSize"/>
 									</a>
 								</td>
 							</tr>

@@ -26,8 +26,8 @@
 			<thead>
 				<tr>
 					<th scope="col"><spring:message code=".NO"/></th>
-					<th scope="col"><spring:message code="firstname"/></th>
-					<th scope="col"><spring:message code="lastname"/></th>
+					<th scope="col"><spring:message code="first-name"/></th>
+					<th scope="col"><spring:message code="last-name"/></th>
 					<th scope="col"><spring:message code="email"/></th>
 					<th scope="col"><spring:message code="gender"/></th>
 					<th scope="col"><spring:message code="total-score"/></th>

@@ -26,11 +26,11 @@
 						<c:if test="${!preview}">
 								<c:choose>
 									<c:when test="${question.correctanswer eq listResult[status.index].answerchoice}">
-										<img alt="correct" src="<spring:message code="correctAnswerIcon"/>"
+										<img alt="correct" src="<c:url value="../../../images/cancel.jpg"/>"
 											class="optionSize" />
 									</c:when>
 									<c:otherwise>
-										<img alt="incorrect" src="<spring:message code="wrongAnswerIcon"/>"
+										<img alt="incorrect" src="<c:url value="../../../images/tick.jpg"/>"
 											class="optionSize" />
 									</c:otherwise>
 								</c:choose>
@@ -44,7 +44,7 @@
 							<c:if test="${!preview}">
 								<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 									<div class="correctAnswer">
-										<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
+										<strong id="message"><spring:message code="correct-answer"/>${question.correctanswer}</strong>
 									</div>
 								</c:if>
 							</c:if>
@@ -73,7 +73,7 @@
 										<c:if test="${!preview}">
 											<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 												<div class="correctAnswer">
-													<strong id="message"><spring:message code="message-correct"/>${question.correctanswer}</strong>
+													<strong id="message"><spring:message code="correct-answer"/>${question.correctanswer}</strong>
 												</div>
 											</c:if>
 										</c:if>
