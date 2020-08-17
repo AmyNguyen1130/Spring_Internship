@@ -6,13 +6,17 @@ import com.codeenginestudio.elearning.dto.StudentInClassDTO;
 
 public interface StudentInClassService {
 
-	void saveStudentInClass(Long classid, Long userid);
+	void deleteAllByClass(Long classid);
 
 	void deleteStudentInClass(Long userid);
 
-	void deleteAllByClass(Long classid);
+	void saveStudentInClass(Long classid, Long userid);
+
+	Float setScoreForStudent(Long assessmentId, Long studentId);
 
 	Long findIdByValue(Long check);
+
+	List<Long> getClassIdByStudent(Long userid);
 
 	List<Long> getListStudenIdtByClassid(Long classid);
 
@@ -20,7 +24,4 @@ public interface StudentInClassService {
 
 	List<StudentInClassDTO> getAllStudentInClass();
 
-	List<Long> getClassIdByStudent(Long userid);
-
-	Float setScoreForStudent(Long assessmentId, Long studentId);
 }

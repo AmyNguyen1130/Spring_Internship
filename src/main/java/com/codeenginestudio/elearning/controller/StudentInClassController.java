@@ -25,20 +25,21 @@ public class StudentInClassController {
 	private ClassService classService;
 
 	@Autowired
+	private MessageSource messageSource;
+
+	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private StudentInClassService studentInClassService;
 
-	@Autowired
-	private MessageSource messageSource;
-
 	// Admin role
+
 	@GetMapping("/admin/getStudentInClass")
 	public String getStudentInClass(ModelMap model, @ModelAttribute("classid") Long classid) {
+
 		model.addAttribute("classid", classid);
-		List<Long> listClassId = classService.getListIdByStatus(true);
-		model.addAttribute("listClassEnable", listClassId);
+		model.addAttribute("listClassEnable", classService.getListIdByStatus(true));
 		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true));
 		model.addAttribute("studentChecked", studentInClassService.getListStudenIdtByClassid(classid));
 
@@ -51,7 +52,6 @@ public class StudentInClassController {
 			@RequestParam(required = false, name = "checkSelected") List<Long> listCheckedId) {
 
 		List<Long> listStudentIdInClass = studentInClassService.getListStudenIdtByClassid(classid);
-
 		if (listCheckedId != null) {
 			// check student existed from url
 			for (Long userid : listCheckedId) {
@@ -87,7 +87,7 @@ public class StudentInClassController {
 		return "/teacher/class/listStudentInClass";
 	}
 
-	public Boolean checkDuplicateStudentInClass(Long check, Long classid) {
+	private Boolean checkDuplicateStudentInClass(Long check, Long classid) {
 
 		List<Long> list = studentInClassService.getListStudenIdtByClassid(classid);
 		if (list.contains(check)) {

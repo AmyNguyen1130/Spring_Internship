@@ -13,14 +13,14 @@ import com.codeenginestudio.elearning.dao.entity.UserEntity;
 @Repository
 public interface ResultDAO extends JpaRepository<ResultEntity, Long> {
 
-	List<ResultEntity> findByAssessment(AssessmentEntity assessment);
-
-	List<ResultEntity> findByStudent(UserEntity userEntity);
-
 	ResultEntity getOneByAssessment(AssessmentEntity assessment);
+
+	ResultEntity findByQuestion(QuestionOfAssessmentEntity question);
+
+	List<ResultEntity> findByAssessment(AssessmentEntity assessment);
 
 	List<ResultEntity> findByAssessmentAndStudent(AssessmentEntity assessment, UserEntity student);
 
-	ResultEntity findByQuestion(QuestionOfAssessmentEntity question);
+	List<ResultEntity> findByStudent(UserEntity userEntity);
 
 }

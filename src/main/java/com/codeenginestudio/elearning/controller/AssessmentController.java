@@ -36,52 +36,38 @@ public class AssessmentController {
 	private ClassService classService;
 
 	@Autowired
-	private ResultService resultService;
-
-	@Autowired
-	private StudentInClassService studentInClassService;
+	private MessageSource messageSource;
 
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
 	@Autowired
-	private MessageSource messageSource;
+	private ResultService resultService;
+
+	@Autowired
+	private StudentInClassService studentInClassService;
 
 	// Teacher role
 
-	@GetMapping("/teacher/assessment")
-	public String showListAssessment(Model model) {
-
-		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
-		List<ClassDTO> listClass = classService.getClassByTeacherId(teacherId);
-		List<AssessmentDTO> listAssessments = assessmentService.getAssessmentByClassForeign(listClass);
-
-		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(questionOfAssessmentService
-					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
-		}
-		model.addAttribute("listAssessment", listAssessments);
-		return PREFIX_TEACHER + "listAssessment";
-	}
-
 	@GetMapping("/teacher/assessment/addAssessment")
 	public String addAssessment(Model model) {
-		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
 
+		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
 		model.addAttribute("url", "/teacher/assessment/saveAddAssessment");
 		model.addAttribute("listClass", classService.getClassByTeacherId(teacherId));
+
 		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
-	@GetMapping("/teacher/assessment/deleteAssessment")
-	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid,
-			RedirectAttributes redirectAttributes) {
+	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
+	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
-		assessmentService.deleteById(assessmentid);
+		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
+		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
+		model.addAttribute("listClass", classService.getClassByTeacherId(teacherId));
+		model.addAttribute("assessmentEdit", assessmentService.getAssessmentByAssessmentid(assessmentid));
 
-		redirectAttributes.addFlashAttribute("messageSuccess",
-				messageSource.getMessage("message-delete-assessment-success", null, LocaleContextHolder.getLocale()));
-		return "redirect:/teacher/assessment";
+		return PREFIX_TEACHER + "addAndEditAssessment";
 	}
 
 	@GetMapping("/teacher/assessment/editAssessmentStatus/{assessmentid}")
@@ -89,7 +75,6 @@ public class AssessmentController {
 			RedirectAttributes redirectAttributes) {
 
 		AssessmentDTO assessmentDTO = assessmentService.getAssessmentByAssessmentid(assessmentid);
-
 		List<Long> listClasses = classService.getListIdByStatus(true);
 
 		// if parents object disable users cannot change status of child object
@@ -104,13 +89,30 @@ public class AssessmentController {
 		return "redirect:/teacher/assessment";
 	}
 
-	@GetMapping("/teacher/assessment/editAssessment/{assessmentid}")
-	public String editAssessment(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
+	@GetMapping("/teacher/assessment/deleteAssessment")
+	public String deleteAssessment(@ModelAttribute("assessmentid") Long assessmentid,
+			RedirectAttributes redirectAttributes) {
+
+		assessmentService.deleteById(assessmentid);
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("message-delete-assessment-success", null, LocaleContextHolder.getLocale()));
+		return "redirect:/teacher/assessment";
+	}
+
+	@GetMapping("/teacher/assessment")
+	public String getListAssessment(Model model) {
+
 		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
-		model.addAttribute("url", "/teacher/assessment/saveEditAssessment");
-		model.addAttribute("listClass", classService.getClassByTeacherId(teacherId));
-		model.addAttribute("assessmentEdit", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		return PREFIX_TEACHER + "addAndEditAssessment";
+		List<ClassDTO> listClass = classService.getClassByTeacherId(teacherId);
+		List<AssessmentDTO> listAssessments = assessmentService.getAssessmentByClassForeign(listClass);
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+		}
+		model.addAttribute("listAssessment", listAssessments);
+
+		return PREFIX_TEACHER + "listAssessment";
 	}
 
 	@PostMapping("/teacher/assessment/saveAddAssessment")
@@ -136,6 +138,7 @@ public class AssessmentController {
 
 		AssessmentValidation assessmentValidation = new AssessmentValidation();
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
+
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveEditAssessment(assessmentDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
@@ -151,27 +154,6 @@ public class AssessmentController {
 	}
 
 	// Student role
-
-	@GetMapping("/student/assessment")
-	public String showListAssessmentWithStudentRole(Model model) {
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
-
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired(userId);
-		for (AssessmentDTO assessmentDTO : listAssessments) {
-			assessmentDTO.setTotalquestion(questionOfAssessmentService
-					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
-
-			assessmentDTO.setTotalscore(
-					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
-
-		}
-		model.addAttribute("listAssessmentId", assessmentService.getAssessmentEnable(true));
-		model.addAttribute("listClassAssigned", listClassid);
-		model.addAttribute("assessmentPage", listAssessments);
-
-		return PREFIX_STUDENT + "listAssessment";
-	}
 
 	@GetMapping("/student/addSubmitLesson/{assessmentid}")
 	public String addSubmitLesson(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
@@ -191,8 +173,8 @@ public class AssessmentController {
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
 		List<ResultDTO> resultDTOs = resultService.findByAssessmentAndStudent(assessmentid, userId);
 		LessonForm lessonForm = new LessonForm();
-		lessonForm.setResultDTOs(resultDTOs);
 
+		lessonForm.setResultDTOs(resultDTOs);
 		model.addAttribute("url", "/student/saveEditSubmitLesson/" + assessmentid);
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
@@ -201,6 +183,50 @@ public class AssessmentController {
 		model.addAttribute("message", "none");
 
 		return PREFIX_STUDENT + "assessmentForm";
+	}
+
+	@GetMapping("/student/assessment")
+	public String getListAssessmentWithStudentRole(Model model) {
+
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired(userId);
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+			assessmentDTO.setTotalscore(
+					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
+
+		}
+		model.addAttribute("listAssessmentId", assessmentService.getAssessmentEnable(true));
+		model.addAttribute("listClassAssigned", listClassid);
+		model.addAttribute("assessmentPage", listAssessments);
+
+		return PREFIX_STUDENT + "listAssessment";
+	}
+
+	@GetMapping("/student/assessment/history")
+	public String showHistoryWithStudentRole(Model model) {
+
+		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
+		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired(userId);
+
+		for (AssessmentDTO assessmentDTO : listAssessments) {
+
+			assessmentDTO.setTotalquestion(questionOfAssessmentService
+					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
+			assessmentDTO.setTotalscore(
+					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
+			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
+		}
+
+		model.addAttribute("listIdOfAssessment", resultService.getListAssessmentIdByStudentId(userId));
+		model.addAttribute("listClassAssigned", listClassid);
+		model.addAttribute("listAssessment", listAssessments);
+
+		return PREFIX_STUDENT + "history/listAssessmentExpired";
 	}
 
 	@PostMapping(value = "student/saveSubmitLesson/{assessmentid}")
@@ -229,29 +255,6 @@ public class AssessmentController {
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("message-edit-lesson-success", null, LocaleContextHolder.getLocale()));
 		return "redirect:/student/assessment";
-	}
-
-	@GetMapping("/student/assessment/history")
-	public String showHistoryWithStudentRole(Model model) {
-
-		Long userId = SecurityUtil.getUserPrincipal().getUserid();
-		List<Long> listClassid = studentInClassService.getClassIdByStudent(userId);
-		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByExpired(userId);
-
-		for (AssessmentDTO assessmentDTO : listAssessments) {
-
-			assessmentDTO.setTotalquestion(questionOfAssessmentService
-					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
-			assessmentDTO.setTotalscore(
-					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
-			assessmentDTO.setUserscore(resultService.getUserScoreByAssessment(assessmentDTO.getAssessmentid()));
-		}
-
-		model.addAttribute("listIdOfAssessment", resultService.getListAssessmentIdByStudentId(userId));
-		model.addAttribute("listClassAssigned", listClassid);
-		model.addAttribute("listAssessment", listAssessments);
-
-		return PREFIX_STUDENT + "history/listAssessmentExpired";
 	}
 
 	private static final String PREFIX_TEACHER = "/teacher/assessment/";

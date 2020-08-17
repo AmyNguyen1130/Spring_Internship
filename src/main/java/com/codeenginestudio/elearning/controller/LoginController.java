@@ -19,13 +19,10 @@ public class LoginController {
 		if (error != null) {
 			model.addAttribute("messageDanger",
 					messageSource.getMessage("login-unsuccess", null, LocaleContextHolder.getLocale()));
-
 		}
-
 		if (logout != null) {
 			model.addAttribute("messageSuccess",
 					messageSource.getMessage("logout-success", null, LocaleContextHolder.getLocale()));
-
 		}
 
 		return "login";

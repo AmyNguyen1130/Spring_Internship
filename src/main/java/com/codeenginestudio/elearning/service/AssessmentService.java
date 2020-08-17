@@ -7,15 +7,15 @@ import com.codeenginestudio.elearning.dto.ClassDTO;
 
 public interface AssessmentService {
 
+	void editAssessmentStatus(Long assessmentid);
+
 	void deleteById(Long assessmentid);
+
+	void deleteAssessmentClassid(Long classId);
 
 	void saveAddAssessment(AssessmentDTO assessmentDTO);
 
 	void saveEditAssessment(AssessmentDTO assessmentDTO);
-
-	void deleteAssessmentClassid(Long classId);
-
-	void editAssessmentStatus(Long assessmentid);
 
 	List<Long> getAssessmentEnable(boolean status);
 
@@ -25,12 +25,12 @@ public interface AssessmentService {
 
 	List<AssessmentDTO> getListAssessment();
 
-	List<AssessmentDTO> getListAssessmentByUnExpired(Long userId);
+	List<AssessmentDTO> getListAssessmentByClassid(Long classid);
 
 	List<AssessmentDTO> getListAssessmentByExpired(Long userId);
 
-	List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass);
+	List<AssessmentDTO> getListAssessmentByUnExpired(Long userId);
 
-	List<AssessmentDTO> getListAssessmentByClassid(Long classid);
+	List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass);
 
 }

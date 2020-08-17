@@ -26,10 +26,13 @@ import com.codeenginestudio.elearning.util.CommonUtil;
 public class ClassServiceImpl implements ClassService {
 
 	@Autowired
-	private ClassDAO classDAO;
+	private AssessmentService assessmentService;
 
 	@Autowired
-	private AssessmentService assessmentService;
+	private AssessmentDAO assessmentDAO;
+
+	@Autowired
+	private ClassDAO classDAO;
 
 	@Autowired
 	private StudentInClassService studentInClassService;
@@ -37,26 +40,45 @@ public class ClassServiceImpl implements ClassService {
 	@Autowired
 	private UserDAO userDAO;
 
-	@Autowired
-	private AssessmentDAO assessmentDAO;
+	@Override
+	public void editStatusClass(Long classid) {
+
+		ClassEntity classEntity = classDAO.getOne(classid);
+		classEntity.setStatus(!classEntity.getStatus());
+		if (classEntity.getStatus() == false) {
+			List<AssessmentEntity> listAssessmentEntities = assessmentDAO.findByClassForeign(classEntity);
+			for (AssessmentEntity assessmentEntity : listAssessmentEntities) {
+				assessmentEntity.setStatus(false);
+			}
+		}
+		classDAO.saveAndFlush(classEntity);
+	}
 
 	@Override
-	public List<ClassDTO> getAllClass() {
+	public void deleteClass(Long classId) {
 
-		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findAll();
-		List<ClassDTO> classDTO = new ArrayList<>();
+		studentInClassService.deleteAllByClass(classId);
+		assessmentService.deleteAssessmentClassid(classId);
+		classDAO.deleteById(classId);
+	}
 
-		for (ClassEntity classes : listClass) {
-			classDTO.add(ClassUtil.parseToDTO(classes));
+	@Override
+	public void deleteClassByTeacherId(Long teacherId) {
+
+		List<ClassEntity> listClasses = classDAO.findByUser(userDAO.getOne(teacherId));
+		if (listClasses.size() > 0) {
+			for (ClassEntity classEntity : listClasses) {
+				studentInClassService.deleteAllByClass(classEntity.getClassid());
+				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
+				classDAO.delete(classEntity);
+			}
 		}
-
-		return classDTO;
 	}
 
 	@Override
 	public void saveAddClass(ClassDTO classDTO) {
-		ClassEntity classEntity = new ClassEntity();
 
+		ClassEntity classEntity = new ClassEntity();
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
 		Long userid = classDTO.getUser().getUserid();
@@ -70,8 +92,8 @@ public class ClassServiceImpl implements ClassService {
 
 	@Override
 	public void saveEditClass(ClassDTO classDTO) {
-		ClassEntity classEntity = classDAO.getOne(classDTO.getClassid());
 
+		ClassEntity classEntity = classDAO.getOne(classDTO.getClassid());
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
 		Long userid = classDTO.getUser().getUserid();
@@ -80,17 +102,8 @@ public class ClassServiceImpl implements ClassService {
 		} else {
 			classEntity.setUser(userDAO.getOne(userid));
 		}
-
 		classDAO.saveAndFlush(classEntity);
 
-	}
-
-	@Override
-	public void deleteClass(Long classId) {
-
-		studentInClassService.deleteAllByClass(classId);
-		assessmentService.deleteAssessmentClassid(classId);
-		classDAO.deleteById(classId);
 	}
 
 	@Override
@@ -100,28 +113,25 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId) {
+	public List<Long> getListIdByStatus(boolean status) {
 
-		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
-
-		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
-
-		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
+		List<ClassEntity> listClass = classDAO.findByStatus(status);
+		List<Long> listClassId = new ArrayList<>();
+		for (ClassEntity classes : listClass) {
+			listClassId.add(classes.getClassid());
+		}
+		return listClassId;
 	}
 
 	@Override
-	public void editStatusClass(Long classid) {
+	public List<ClassDTO> getAllClass() {
 
-		ClassEntity classEntity = classDAO.getOne(classid);
-		classEntity.setStatus(!classEntity.getStatus());
-
-		if (classEntity.getStatus() == false) {
-			List<AssessmentEntity> listAssessmentEntities = assessmentDAO.findByClassForeign(classEntity);
-			for (AssessmentEntity assessmentEntity : listAssessmentEntities) {
-				assessmentEntity.setStatus(false);
-			}
+		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findAll();
+		List<ClassDTO> classDTO = new ArrayList<>();
+		for (ClassEntity classes : listClass) {
+			classDTO.add(ClassUtil.parseToDTO(classes));
 		}
-		classDAO.saveAndFlush(classEntity);
+		return classDTO;
 	}
 
 	@Override
@@ -129,7 +139,6 @@ public class ClassServiceImpl implements ClassService {
 
 		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getOne(teacherId));
 		List<ClassDTO> classDTO = new ArrayList<>();
-
 		for (ClassEntity classes : listClass) {
 			classDTO.add(ClassUtil.parseToDTO(classes));
 		}
@@ -141,34 +150,15 @@ public class ClassServiceImpl implements ClassService {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
-
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 
 	@Override
-	public List<Long> getListIdByStatus(boolean status) {
+	public Page<ClassDTO> getClassPageByTeacherId(Integer page, Long teacherId) {
 
-		List<ClassEntity> listClass = classDAO.findByStatus(status);
-		List<Long> listClassId = new ArrayList<>();
-
-		for (ClassEntity classes : listClass) {
-			listClassId.add(classes.getClassid());
-		}
-
-		return listClassId;
+		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
+		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
+		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 
-	@Override
-	public void deleteClassByTeacherId(Long teacherId) {
-
-		List<ClassEntity> listClasses = classDAO.findByUser(userDAO.getOne(teacherId));
-
-		if (listClasses.size() > 0) {
-			for (ClassEntity classEntity : listClasses) {
-				studentInClassService.deleteAllByClass(classEntity.getClassid());
-				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
-				classDAO.delete(classEntity);
-			}
-		}
-	}
 }

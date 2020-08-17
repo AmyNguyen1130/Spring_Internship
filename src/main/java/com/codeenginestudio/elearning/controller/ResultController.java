@@ -29,9 +29,6 @@ public class ResultController {
 	private AssessmentService assessmentService;
 
 	@Autowired
-	private ResultService resultService;
-
-	@Autowired
 	private ClassService classService;
 
 	@Autowired
@@ -39,6 +36,9 @@ public class ResultController {
 
 	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
+
+	@Autowired
+	private ResultService resultService;
 
 	// Student role
 
@@ -61,7 +61,7 @@ public class ResultController {
 	// role Teacher
 
 	@GetMapping("/teacher/viewResultOfStudent/{assessmentid}/{userid}")
-	public String showStudentResult(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
+	public String getResultWithTeacherRole(Model model, @PathVariable(name = "assessmentid") Long assessmentid,
 			@PathVariable(name = "userid") Long userid) {
 
 		model.addAttribute("listQuestionOfAssessment",
@@ -73,7 +73,7 @@ public class ResultController {
 	}
 
 	@GetMapping("/teacher/viewResult")
-	public String showListStudentCompletedTheTest(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
+	public String getListStudentCompletedTheTest(Model model, @ModelAttribute("assessmentid") Long assessmentid) {
 
 		AssessmentDTO assessment = assessmentService.getAssessmentByAssessmentid(assessmentid);
 		ClassDTO classDTO = classService.getClassByClassid(assessment.getClassForeign().getClassid());

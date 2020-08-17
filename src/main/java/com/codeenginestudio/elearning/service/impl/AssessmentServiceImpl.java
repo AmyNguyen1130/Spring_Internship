@@ -26,6 +26,9 @@ public class AssessmentServiceImpl implements AssessmentService {
 	private AssessmentDAO assessmentDAO;
 
 	@Autowired
+	private ClassDAO classDAO;
+
+	@Autowired
 	private QuestionOfAssessmentService questionOfAssessmentService;
 
 	@Autowired
@@ -33,47 +36,15 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 	@Autowired
 	private ResultDAO resultDAO;
+
 	@Autowired
 	private UserDAO userDAO;
-	@Autowired
-	private ClassDAO classDAO;
 
 	@Override
-	public List<AssessmentDTO> getListAssessment() {
-		List<AssessmentEntity> listAssessment = (List<AssessmentEntity>) assessmentDAO.findAll();
+	public void editAssessmentStatus(Long assessmentid) {
 
-		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
-		for (AssessmentEntity assessment : listAssessment) {
-			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
-		}
-		return assessmentDTO;
-	}
-
-	@Override
-	public void saveAddAssessment(AssessmentDTO assessmentDTO) {
-		AssessmentEntity assessmentEntity = new AssessmentEntity();
-
-		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
-		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
-		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
-		assessmentEntity.setStatus(assessmentDTO.getStatus());
-		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
-
-		assessmentDAO.saveAndFlush(assessmentEntity);
-
-	}
-
-	@Override
-	public void saveEditAssessment(AssessmentDTO assessmentDTO) {
-		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentDTO.getAssessmentid());
-
-		assessmentEntity.setAssessmentid(assessmentDTO.getAssessmentid());
-		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
-		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
-		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
-		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
-		assessmentEntity.setStatus(assessmentDTO.getStatus());
-
+		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentid);
+		assessmentEntity.setStatus(!assessmentEntity.getStatus());
 		assessmentDAO.saveAndFlush(assessmentEntity);
 	}
 
@@ -83,27 +54,70 @@ public class AssessmentServiceImpl implements AssessmentService {
 		resultService.deleteResultByAssessmentId(assessmentid);
 		questionOfAssessmentService.deleteQuestionsByAssessmentId(assessmentid);
 		assessmentDAO.deleteById(assessmentid);
-
 	}
 
 	@Override
-	public AssessmentDTO getAssessmentByAssessmentid(Long assessmentid) {
-		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentid);
-		return AssessmentUtil.parseToDTO(assessmentEntity);
+	public void deleteAssessmentClassid(Long classId) {
+
+		List<AssessmentEntity> listAssessments = assessmentDAO.findByClassForeign(classDAO.getOne(classId));
+		if (listAssessments.size() > 0) {
+			for (AssessmentEntity assessment : listAssessments) {
+				resultService.deleteResultByAssessmentId(assessment.getAssessmentid());
+				questionOfAssessmentService.deleteQuestionsByAssessmentId(assessment.getAssessmentid());
+				assessmentDAO.delete(assessment);
+			}
+		}
 	}
 
 	@Override
-	public void editAssessmentStatus(Long assessmentid) {
-		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentid);
-		assessmentEntity.setStatus(!assessmentEntity.getStatus());
+	public void saveAddAssessment(AssessmentDTO assessmentDTO) {
+
+		AssessmentEntity assessmentEntity = new AssessmentEntity();
+		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
+		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
+		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
+		assessmentEntity.setStatus(assessmentDTO.getStatus());
+		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
 		assessmentDAO.saveAndFlush(assessmentEntity);
 
 	}
 
 	@Override
-	public AssessmentDTO findByAssessmentName(String assessmentname) {
-		List<AssessmentDTO> listAssessment = getListAssessment();
+	public void saveEditAssessment(AssessmentDTO assessmentDTO) {
 
+		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentDTO.getAssessmentid());
+		assessmentEntity.setAssessmentid(assessmentDTO.getAssessmentid());
+		assessmentEntity.setAssessmentname(assessmentDTO.getAssessmentname());
+		assessmentEntity.setClassForeign(classDAO.getOne(assessmentDTO.getClassForeign().getClassid()));
+		assessmentEntity.setExpireddate(assessmentDTO.getExpireddate());
+		assessmentEntity.setStartdate(assessmentDTO.getStartdate());
+		assessmentEntity.setStatus(assessmentDTO.getStatus());
+		assessmentDAO.saveAndFlush(assessmentEntity);
+	}
+
+	@Override
+	public List<Long> getAssessmentEnable(boolean status) {
+
+		List<AssessmentEntity> listAssessment = assessmentDAO.findByStatus(status);
+		List<Long> listAssessmentId = new ArrayList<>();
+
+		for (AssessmentEntity assessment : listAssessment) {
+			listAssessmentId.add(assessment.getAssessmentid());
+		}
+		return listAssessmentId;
+	}
+
+	@Override
+	public AssessmentDTO getAssessmentByAssessmentid(Long assessmentid) {
+
+		AssessmentEntity assessmentEntity = assessmentDAO.getOne(assessmentid);
+		return AssessmentUtil.parseToDTO(assessmentEntity);
+	}
+
+	@Override
+	public AssessmentDTO findByAssessmentName(String assessmentname) {
+
+		List<AssessmentDTO> listAssessment = getListAssessment();
 		for (AssessmentDTO existed : listAssessment) {
 			if (assessmentname.equals(existed.getAssessmentname())) {
 				return existed;
@@ -113,60 +127,13 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public List<AssessmentDTO> getListAssessmentByUnExpired(Long userId) {
+	public List<AssessmentDTO> getListAssessment() {
 
-		LocalDate currentDate = LocalDate.now();
-		List<AssessmentDTO> listAssessment = getListAssessment();
-		List<AssessmentDTO> listAssessmentUnExpired = new ArrayList<>();
-
-		for (AssessmentDTO assessment : listAssessment) {
-			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
-				if (assessment.getStatus()) {
-					listAssessmentUnExpired.add(assessment);
-
-					assessment.setEdit(
-							!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-									userDAO.getOne(userId)).isEmpty());
-				}
-
-			}
-		}
-		return listAssessmentUnExpired;
-	}
-
-	@Override
-	public List<AssessmentDTO> getListAssessmentByExpired(Long userId) {
-
-		LocalDate currentDate = LocalDate.now();
-		List<AssessmentDTO> listAssessment = getListAssessment();
-		List<AssessmentDTO> listAssessmentExpired = new ArrayList<>();
-
-		for (AssessmentDTO assessment : listAssessment) {
-			if (assessment.getExpireddate().isBefore(currentDate)) {
-				listAssessmentExpired.add(assessment);
-				assessment.setEdit(
-						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
-								userDAO.getOne(userId)).isEmpty());
-			}
-
-		}
-		return listAssessmentExpired;
-	}
-
-	@Override
-	public List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass) {
-
-		List<AssessmentEntity> listAssessment = assessmentDAO.findAll();
-
+		List<AssessmentEntity> listAssessment = (List<AssessmentEntity>) assessmentDAO.findAll();
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
 		for (AssessmentEntity assessment : listAssessment) {
-			for (ClassDTO classes : listClass) {
-				if (assessment.getClassForeign().getClassid() == classes.getClassid()) {
-					assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
-				}
-			}
+			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
-
 		return assessmentDTO;
 	}
 
@@ -184,31 +151,55 @@ public class AssessmentServiceImpl implements AssessmentService {
 	}
 
 	@Override
-	public List<Long> getAssessmentEnable(boolean status) {
+	public List<AssessmentDTO> getListAssessmentByExpired(Long userId) {
 
-		List<AssessmentEntity> listAssessment = assessmentDAO.findByStatus(status);
-		List<Long> listAssessmentId = new ArrayList<>();
+		LocalDate currentDate = LocalDate.now();
+		List<AssessmentDTO> listAssessment = getListAssessment();
+		List<AssessmentDTO> listAssessmentExpired = new ArrayList<>();
 
-		for (AssessmentEntity assessment : listAssessment) {
-			listAssessmentId.add(assessment.getAssessmentid());
+		for (AssessmentDTO assessment : listAssessment) {
+			if (assessment.getExpireddate().isBefore(currentDate)) {
+				listAssessmentExpired.add(assessment);
+				assessment.setEdit(
+						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+								userDAO.getOne(userId)).isEmpty());
+			}
 		}
-
-		return listAssessmentId;
+		return listAssessmentExpired;
 	}
 
 	@Override
-	public void deleteAssessmentClassid(Long classId) {
+	public List<AssessmentDTO> getListAssessmentByUnExpired(Long userId) {
 
-		List<AssessmentEntity> listAssessments = assessmentDAO.findByClassForeign(classDAO.getOne(classId));
-		if (listAssessments.size() > 0) {
+		LocalDate currentDate = LocalDate.now();
+		List<AssessmentDTO> listAssessment = getListAssessment();
+		List<AssessmentDTO> listAssessmentUnExpired = new ArrayList<>();
 
-			for (AssessmentEntity assessment : listAssessments) {
-				resultService.deleteResultByAssessmentId(assessment.getAssessmentid());
-				questionOfAssessmentService.deleteQuestionsByAssessmentId(assessment.getAssessmentid());
-				assessmentDAO.delete(assessment);
+		for (AssessmentDTO assessment : listAssessment) {
+			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
+				if (assessment.getStatus()) {
+					listAssessmentUnExpired.add(assessment);
+					assessment.setEdit(
+							!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
+									userDAO.getOne(userId)).isEmpty());
+				}
 			}
-
 		}
+		return listAssessmentUnExpired;
 	}
 
+	@Override
+	public List<AssessmentDTO> getAssessmentByClassForeign(List<ClassDTO> listClass) {
+
+		List<AssessmentEntity> listAssessment = assessmentDAO.findAll();
+		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+		for (AssessmentEntity assessment : listAssessment) {
+			for (ClassDTO classes : listClass) {
+				if (assessment.getClassForeign().getClassid() == classes.getClassid()) {
+					assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
+				}
+			}
+		}
+		return assessmentDTO;
+	}
 }

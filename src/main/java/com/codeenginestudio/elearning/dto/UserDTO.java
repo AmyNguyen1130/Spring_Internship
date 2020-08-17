@@ -26,6 +26,8 @@ public class UserDTO {
 
 	private int totalAssigned;
 
+	private AssessmentDTO assignmentNotSubmit;
+
 	public UserDTO() {
 
 	}
@@ -142,6 +144,14 @@ public class UserDTO {
 
 	public Boolean getEnabled() {
 		return enabled;
+	}
+
+	public AssessmentDTO getAssignmentNotSubmit() {
+		return assignmentNotSubmit;
+	}
+
+	public void setAssignmentNotSubmit(AssessmentDTO assignmentNotSubmit) {
+		this.assignmentNotSubmit = assignmentNotSubmit;
 	}
 
 }

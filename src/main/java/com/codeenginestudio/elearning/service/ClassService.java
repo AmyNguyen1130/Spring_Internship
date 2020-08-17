@@ -8,11 +8,11 @@ import com.codeenginestudio.elearning.dto.ClassDTO;
 
 public interface ClassService {
 
+	void editStatusClass(Long classid);
+
 	void deleteClass(Long id);
 
 	void deleteClassByTeacherId(Long teacherId);
-
-	void editStatusClass(Long classid);
 
 	void saveAddClass(ClassDTO classDTO);
 
