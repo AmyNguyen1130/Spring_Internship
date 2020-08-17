@@ -129,8 +129,8 @@
 		<div class="form-group row flex-container">
 			<input type="hidden" name="assessment.assessmentid" value="${assessmentid}">
 			<button id="submitBtn" type="submit" class="btn btn-pink"><spring:message code="save"/></button>
-			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
-				type="button" class="btn btn-warning"><spring:message code="cancel"/></button></a>
+			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}">
+				<button type="button" class="btn btn-warning"><spring:message code="cancel"/></button></a>
 		</div>
 	</form>
 </div>

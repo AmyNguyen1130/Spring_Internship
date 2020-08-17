@@ -51,7 +51,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 			if (questionOfAssessmentEntity.getAssessment().getAssessmentid() == assessmentid) {
 				questionOfAssignmentDTO = QuestionOfAssignmentUtil
 						.parseToQuestionOfAssignmentDTO(questionOfAssessmentEntity);
-				if (questionOfAssessmentEntity.getQuestiontype().getQuestionTypeId() == 1) {
+				if (!questionOfAssessmentEntity.getQuestiontype().getQuestionTypeCode()
+						.equals(QuestionTypeEnum.INPUT.getCode())) {
 					questionOfAssignmentDTO
 							.setOptions(OptionUtil.parseToObject(questionOfAssessmentEntity.getOptions()));
 				}
@@ -85,7 +86,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
-		} 
+		}
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
 	}
 
@@ -163,7 +164,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		List<OptionDTO> result = new ArrayList<>();
 
-		if(options != null) {
+		if (options != null) {
 			for (OptionDTO optionDTO : options) {
 
 				if (optionDTO != null && !StringUtils.isEmpty(optionDTO.getValue())) {

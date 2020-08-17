@@ -3,6 +3,7 @@
 <%@ taglib uri="WEB-INF/taglibs/util.tld" prefix="util"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="com.codeenginestudio.elearning.constant.QuestionTypeEnum" %>
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,7 @@
 						<span> Question ${question.numericalorder}: ${question.content}</span>
 					</div>
 					<c:choose>
-						<c:when test="${question.getQuestionType().getQuestionTypeId() != 1}">
+						<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
 							<br>
 							<input type="text" class="form-control" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
 							<c:if test="${!preview}">
