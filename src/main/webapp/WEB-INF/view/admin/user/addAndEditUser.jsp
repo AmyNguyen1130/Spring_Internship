@@ -17,8 +17,7 @@
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="userName" class="col-sm-2 col-form-label"><spring:message code="username"/></label>
+				<label for="userName" class="col-sm-3 col-form-label"><spring:message code="username"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="username" placeholder="<spring:message code="please-enter-user-name-here"/>"
 						value="${userInf.getUsername()}">
@@ -29,8 +28,7 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="password" class="col-sm-2 col-form-label"><spring:message code="password"/></label>
+				<label for="password" class="col-sm-3 col-form-label"><spring:message code="password"/></label>
 				<div class="col-sm-8">
 					<input type="password" class="form-control" name="password" placeholder="<spring:message code="please-enter-password-here"/>"
 						value="${userInf.getPassword()}">
@@ -41,8 +39,7 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="firstName" class="col-sm-2 col-form-label"><spring:message code="first-name"/></label>
+				<label for="firstName" class="col-sm-3 col-form-label"><spring:message code="first-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="firstname" placeholder="<spring:message code="please-enter-first-name-here"/>"
 						value="${userInf.getFirstname()}">
@@ -53,8 +50,7 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="lastName" class="col-sm-2 col-form-label"><spring:message code="last-name"/></label>
+				<label for="lastName" class="col-sm-3 col-form-label"><spring:message code="last-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="lastname" placeholder="<spring:message code="please-enter-last-name-here"/>"
 						value="${userInf.getLastname()}">
@@ -65,8 +61,7 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="email" class="col-sm-2 col-form-label"><spring:message code="email"/></label>
+				<label for="email" class="col-sm-3 col-form-label"><spring:message code="email"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="email" placeholder="<spring:message code="please-enter-email-here"/>"
 						value="${userInf.getEmail()}">
@@ -77,8 +72,7 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="gender" class="col-sm-2 col-form-label"><spring:message code="gender"/></label>
+				<label for="gender" class="col-sm-3 col-form-label"><spring:message code="gender"/></label>
 				<div class="col-sm-8 space-evenly">
 					<div>
 						<input type="radio" name="gender" value="Male" class="checkbox"
@@ -92,15 +86,13 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-1"></div>
-				<label for="role" class="col-sm-2 col-form-label"><spring:message code="role"/></label>
+				<label for="role" class="col-sm-3 col-form-label"><spring:message code="role"/></label>
 				<div class="col-sm-8">
 						<c:choose>
 							<c:when test="${roleId == null}">
 								<select name="role.roleid" class="form-control">
 									<c:forEach items="${listRole}" var="role">
-										<option value="${role.getRoleid()}"
-											${userInf.getRole().getRoleid() == role.getRoleid() ? 'selected' : "" }>
+										<option value="${role.getRoleid()}" ${userInf.getRole().getRoleid() == role.getRoleid() ? 'selected' : "" }>
 												${role.getRolename()}</option>
 									</c:forEach>
 								</select>
@@ -108,8 +100,7 @@
 							<c:otherwise>
 								<c:forEach items="${listRole}" var="role">
 									<c:if test="${roleId eq role.getRoleid()}">
-										<input type="hidden" name="role.roleid"
-											value="${role.getRoleid()}"/>
+										<input type="hidden" name="role.roleid" value="${role.getRoleid()}"/>
 										<input type="text" class="form-control" value="${role.getRolename()}" disabled="disabled">
 									</c:if>
 								</c:forEach>
@@ -124,7 +115,9 @@
 					name="enabled" />
 			</div>
 			<input class="btn btn-pink" type="submit" value="Save">
-			<a href="/admin/user"><input class="btn btn-warning" type="button" value="Cancel"></a>
+			<a href="/admin/user">
+				<input class="btn btn-warning" type="button" value="Cancel">
+			</a>
 		</form>
 		<div  class="col-sm-3"></div>
 	</div>

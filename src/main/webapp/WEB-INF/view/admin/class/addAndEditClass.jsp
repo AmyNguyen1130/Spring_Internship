@@ -21,16 +21,14 @@
 		</div>
 		
 		<div class="form-group row">
-			<div class="col-sm-1"></div>
-			<label for="classname" class="col-sm-2 col-form-label"><spring:message code="class-name"/></label>
+			<label for="classname" class="col-sm-3 col-form-label"><spring:message code="class-name"/></label>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="classname" value="${editClass.classname}" placeholder="Please enter class's name here"> 
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<div class="col-sm-1"></div>
-			<label for="Teacher" class="col-sm-2 col-form-label"><spring:message code="teacher-name"/></label>
+			<label for="Teacher" class="col-sm-3 col-form-label"><spring:message code="teacher-name"/></label>
 			<div class="col-sm-8">
 				<select class="form-control" name="user.userid">
 					<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}><spring:message code="none"/></option>
@@ -46,7 +44,9 @@
 		</div>
 
 		<input class="btn btn-pink" type="submit" value="Save">
-		<a href="/admin/class"><input class="btn btn-warning" type="button" value="Cancel"></a>
+		<a href="/admin/class">
+			<input class="btn btn-warning" type="button" value="Cancel">
+		</a>
 	</form>
 	<div class="col-sm-3"></div>
 </div>

@@ -146,11 +146,10 @@ public class ClassController {
 	// Teacher role
 
 	@GetMapping("/teacher/class")
-	public String showListClassWithTeacherRole(Model model,
-			@RequestParam(name = "page", required = false) Integer page) {
+	public String showListClassWithTeacherRole(Model model) {
 
 		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
-		Page<ClassDTO> classess = classService.getClassPageByTeacherId(page, teacherId);
+		List<ClassDTO> classess = classService.getClassByTeacherId(teacherId);
 		for (ClassDTO classDTO : classess) {
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}

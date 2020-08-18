@@ -10,39 +10,35 @@
 
 </head>
 <body>
-<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-7">
-				<h1><spring:message code="list-student-in-class"/>${class.classname}</h1>
-			</div>
+	<div class="container-fluid row">
+		<div class="col-sm-7">
+			<h1><spring:message code="list-student-in-class"/>:${class.classname}</h1>
 		</div>
 	</div>
 	<br>
 	<br>
 	<div class="container-fluid">
-		<div class="row">
-			<table class="table table-bordered table-hover">
-				<thead>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th scope="col"><spring:message code="username"/></th>
+					<th scope="col"><spring:message code="first-name"/></th>
+					<th scope="col"><spring:message code="last-name"/></th>
+					<th scope="col"><spring:message code="email"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${studentsInClass}" var="student">
 					<tr>
-						<th scope="col"><spring:message code="username"/></th>
-						<th scope="col"><spring:message code="first-name"/></th>
-						<th scope="col"><spring:message code="last-name"/></th>
-						<th scope="col"><spring:message code="email"/></th>
+						<td>${student.getStudent().getUsername()}</td>
+						<td>${student.getStudent().getFirstname()}</td>
+						<td>${student.getStudent().getLastname()}</td>
+						<td>${student.getStudent().getEmail()}</td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${studentsInClass}" var="student">
-						<tr>
-							<td>${student.getStudent().getUsername()}</td>
-							<td>${student.getStudent().getFirstname()}</td>
-							<td>${student.getStudent().getLastname()}</td>
-							<td>${student.getStudent().getEmail()}</td>
-						</tr>
 
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

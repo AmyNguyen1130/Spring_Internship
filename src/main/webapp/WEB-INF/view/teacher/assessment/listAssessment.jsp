@@ -11,29 +11,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container-fluid">
-		 <div class="row">
-			<div class="col-sm-7"></div>
-			<div class="col-sm-5">
-				<div class="row">
-					<div class="col-sm-8"></div>
-					 <div class="col-sm-4">
-						<a href='/teacher/assessment/addAssessment'><button class="btn btn-pink" type="button">Add new assessment</button></a>
-					</div>
+	<div class="container-fluid row">
+		<div class="col-sm-7">
+		</div>
+		<div class="col-sm-5">
+			<div class="row">
+				<div class="col-sm-8"></div>
+				<div class="col-sm-4">
+					<a href='/teacher/assessment/addAssessment'>
+						<button class="btn btn-pink button-display-right" type="button">
+							<spring:message code="add-new-assessment"/>
+						</button>
+					</a>
 				</div>
 			</div>
 		</div>
-	</div>	
-	<br><br>
+	</div>
+	<br>
 	<div class="container-fluid">
-	  <div class="row">
-	  	<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
-				<th scope="col">#</th>
+				<th scope="col"><spring:message code=".NO"/></th>
 				<th scope="col"><spring:message code="assessment-name"/></th>
 				<th scope="col"><spring:message code="class-name"/></th>
-				<th scope="col"><spring:message code="start-date"/></th>
 				<th scope="col"><spring:message code="expired-date"/></th>
 				<th scope="col"><spring:message code="status"/></th>
 				<th scope="col"><spring:message code="total-question"/></th>
@@ -46,7 +47,6 @@
 					<td>${status.index + 1}</td>
 					<td>${assessment.assessmentname}</td>
 					<td>${assessment.getClassForeign().getClassname()}</td>
-					<td>${assessment.startdate}</td>
 					<td>${assessment.expireddate}</td>
 					<td>
 						<a href="#" onclick="confirmation('/teacher/assessment/editAssessmentStatus/${assessment.assessmentid}', 'update')">
@@ -63,7 +63,7 @@
 						</a>&emsp;
 						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
 							<input class="btn btn-pink" type="button" value="View questions">
-						</a>&emsp;
+						</a>
 						<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>">
 							<input class="btn btn-warning" type="button" value="View result">
 						</a>
@@ -72,7 +72,6 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		</div>
 	</div>
 
 	<script type="text/javascript">

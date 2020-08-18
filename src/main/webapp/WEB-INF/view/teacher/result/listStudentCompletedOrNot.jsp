@@ -19,47 +19,45 @@
 				</div>
 			</div>
 	</div>
-		<br><br>
-		<div class="container-fluid">
-		  <div class="row">
-		  	<table class="table table-bordered table-hover">
-			<thead>
+	<br><br>
+	<div class="container-fluid">
+		<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th scope="col"><spring:message code=".NO"/></th>
+				<th scope="col"><spring:message code="first-name"/></th>
+				<th scope="col"><spring:message code="last-name"/></th>
+				<th scope="col"><spring:message code="email"/></th>
+				<th scope="col"><spring:message code="gender"/></th>
+				<th scope="col"><spring:message code="total-score"/></th>
+				<th scope="col"><spring:message code="options"/></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${listStudentInClass}" var="studentInClass" varStatus="num">
 				<tr>
-					<th scope="col"><spring:message code=".NO"/></th>
-					<th scope="col"><spring:message code="first-name"/></th>
-					<th scope="col"><spring:message code="last-name"/></th>
-					<th scope="col"><spring:message code="email"/></th>
-					<th scope="col"><spring:message code="gender"/></th>
-					<th scope="col"><spring:message code="total-score"/></th>
-					<th scope="col"><spring:message code="options"/></th>
+					<td>${num.index + 1}</td>
+					<td>${studentInClass.student.firstname}</td>
+					<td>${studentInClass.student.lastname}</td>
+					<td>${studentInClass.student.email}</td>
+					<td>${studentInClass.student.gender}</td>
+					<td>${studentInClass.score} / ${assessment.totalscore}</td>
+					<td>
+						<c:choose>
+							<c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
+								<a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
+									<button class="btn btn-pink"><spring:message code="view-detail"/></button>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<p><spring:message code="haven't-done-the-assignment-yet"/></p>
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${listStudentInClass}" var="studentInClass" varStatus="num">
-					<tr>
-						<td>${num.index + 1}</td>
-						<td>${studentInClass.student.firstname}</td>
-						<td>${studentInClass.student.lastname}</td>
-						<td>${studentInClass.student.email}</td>
-						<td>${studentInClass.student.gender}</td>
-						<td>${studentInClass.score} / ${assessment.totalscore}</td>
-						<td>
-							<c:choose>
-								<c:when test="${listIdOfStudent.contains(studentInClass.student.userid)}">
-									<a href="/teacher/viewResultOfStudent/${assessment.assessmentid}/${studentInClass.student.userid}">
-										<button class="btn btn-pink"><spring:message code="view-detail"/></button>
-									</a>
-								</c:when>
-								<c:otherwise>
-									<p><spring:message code="haven't-done-the-assignment-yet"/></p>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			</table>
-		</div>
+			</c:forEach>
+		</tbody>
+		</table>
 	</div>
 </body>
 </html>

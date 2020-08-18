@@ -32,7 +32,6 @@ img {
 
 .inputRadioOption {
 	margin: 30% 0% 0% 18%
-	
 }
 
 .optionName {
@@ -328,3 +327,18 @@ img {
 	margin: auto;
 	background-color: white;
 }
+
+#userDropdown{
+	width: 140px;
+}
+.button-display-right{
+	margin-left: -29px;
+}
+.display-center{
+	display: flex;
+	justify-content: center;
+}
+.position-radio{
+	margin-top: 8px;
+}
+
