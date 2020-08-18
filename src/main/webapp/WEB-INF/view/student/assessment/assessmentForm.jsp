@@ -38,25 +38,23 @@
 								</c:when>
 								<c:otherwise>
 									<div class="form-group row">
-										<div class="col-sm-12">
-											<c:forEach items="${question.options}" var="option">
-												<div class="row">
-													<div class="col-sm-1 display-inline">
-														<label for="${option.getName()}"
-															class="col-sm-1 col-form-label">${option.getName()}:
-														</label>
-														<!-- TODO: Why items attribute ? -->
-														<form:radiobutton
-															path="resultDTOs[${status.index}].answerchoice"
-															value="${option.getName()}" class="inputRadioOption"
-															items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
-													</div>
-													<div class="col-sm-11">
-														<label class="optionName">${option.getValue()}</label>
-													</div>
-												</div>
-											</c:forEach>
-										</div>
+										<c:forEach items="${question.options}" var="option">
+											<div class="col-sm-1">
+												<label for="${option.getName()}"
+													class="col-form-label">${option.getName()}:
+												</label>
+											</div>
+											<div class="col-sm-1 position-radio">
+												<!-- TODO: Why items attribute ? -->
+												<form:radiobutton
+													path="resultDTOs[${status.index}].answerchoice"
+													value="${option.getName()}" class="inputRadioOption"
+													items="${option.getName() eq resultDTOs[status.index].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
+											</div>
+											<div class="col-sm-10 answer-choice-postion">
+												<label class="optionName">${option.getValue()}</label>
+											</div>
+										</c:forEach>
 									</div>
 								</c:otherwise>
 							</c:choose>

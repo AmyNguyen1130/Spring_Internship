@@ -339,6 +339,10 @@ img {
 	justify-content: center;
 }
 .position-radio{
-	margin-top: 8px;
+	margin-top: 7px;
+	margin-left: -26px;
+}
+.answer-choice-postion{
+	margin-left: -15px;
 }
 
