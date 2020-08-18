@@ -380,6 +380,10 @@ img {
 	font-weight: bold;
 }
 
+.container-fluid {
+	padding: 0px;
+}
 
-
-
+.footer-copyright {
+	color: white;
+}

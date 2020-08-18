@@ -5,24 +5,25 @@
 	<sitemesh:write property="head" />
 	<%@ include file="/WEB-INF/view/decorator/administrator/header.jsp"%>
 </head>
-<body id="page-top">
+<body>
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/administrator/top_title.jsp"%>
 		<div id="wrapper">
 			<div id="content-wrapper" class="col-8">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="alert success" style="display:none">
-						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-						<strong id="message">${messageSuccess}</strong> 
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="alert success" style="display:none">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+							<strong id="message">${messageSuccess}</strong>
+						</div>
 					</div>
 				</div>
-			</div>
 				<div class="container-fluid">
 					<sitemesh:write property="body" />
 				</div>
-				<%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
 			</div>
+
+			<%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
 		</div>
 	</div>
 		<div id="confirm" class="modal">

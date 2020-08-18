@@ -5,7 +5,7 @@
 <sitemesh:write property="head"/>
 <%@ include file="/WEB-INF/view/decorator/teacher/header.jsp"%>
 </head>
-<body id="page-top">
+<body>
 	<div class="container-fluid">
 		<%@ include file="/WEB-INF/view/decorator/teacher/top_title.jsp"%>
 		<div id="wrapper">
@@ -35,11 +35,12 @@
 		        <div class="container-fluid">
 		            <sitemesh:write property="body" />
 		        </div>
-		        <%@ include file="/WEB-INF/view/decorator/teacher/footer.jsp"%>
 		    </div>
+		     <%@ include file="/WEB-INF/view/decorator/teacher/footer.jsp"%>
 		</div>
 	</div>
 
+	<!-- TODO: Should create a modal jsp to include -->
 	<div id="confirm" class="modal">
 			<form class="modal-content">
 				<div class="container-model">
@@ -59,6 +60,7 @@
 			</form>
 		</div>
 
+	<!-- TODO: Should create a global.js to import -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 	
