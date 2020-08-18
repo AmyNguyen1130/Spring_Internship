@@ -24,11 +24,11 @@
 					<c:if test="${!preview}">
 						<c:choose>
 							<c:when test="${question.correctanswer eq listResult[status.index].answerchoice}">
-								<img alt="correct" src="<c:url value="../images/cancel.jpg"/>"
+								<img alt="correct" src="<c:url value="../../../images/cancel.jpg"/>"
 									class="optionSize" />
 							</c:when>
 							<c:otherwise>
-								<img alt="incorrect" src="<c:url value="../images/tick.jpg"/>"
+								<img alt="incorrect" src="<c:url value="../../../images/tick.jpg"/>"
 									class="optionSize" />
 							</c:otherwise>
 						</c:choose>

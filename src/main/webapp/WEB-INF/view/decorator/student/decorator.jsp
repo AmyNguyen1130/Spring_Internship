@@ -10,7 +10,7 @@
 		<div id="wrapper">
 			<div id="content-wrapper" class="col-8">
 				<div class="row">
-					<div class="col-sm-7">
+					<div class="col-sm-12">
 						<c:if test="${messageSuccess != null}">
 							<div class="alert success" style="display:none">
 								<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>

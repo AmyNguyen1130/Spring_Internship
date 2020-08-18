@@ -11,7 +11,7 @@
 		<div id="wrapper">
 			<div id="content-wrapper" class="col-8">
 				<div class="row">
-					<div class="col-sm-7">
+					<div class="col-sm-12">
 						<c:if test="${messageSuccess != null}">
 							<c:choose>
 								<c:when test="${messageSuccess.length() > 0}">

@@ -13,7 +13,7 @@
 							<div class="col-sm-8">
 								<ul class="navbar-nav ml-auto ml-md-0" style="position: absolute; right: 20px; color: white;">
 									<li class="nav-item dropdown">
-										<a class="nav-link dropdown-toggle btn-pink capitalize radius-5" href="#" id="userDropdown"
+										<a class="nav-link  btn-pink radius-5" href="#" id="userDropdown"
 											role="button" data-toggle="dropdown">
 											<button class="btn btn-pink"><spring:message code="add-new-user"/></button>
 										</a>
