@@ -38,6 +38,7 @@ public class UserController {
 	@Autowired
 	private MessageSource messageSource;
 
+	// TODO: please fix in here, not use new UserValidator
 	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("admin/user/addUser")
@@ -147,7 +148,6 @@ public class UserController {
 				return PREFIX + "noUserFound";
 
 			}
-
 		}
 
 		model.addAttribute("userPage", listUsers);

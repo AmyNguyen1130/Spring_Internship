@@ -88,6 +88,7 @@ public class ResultServiceImpl implements ResultService {
 		}
 	}
 
+	@Override
 	public void saveSubmitResult(ResultDTO result) {
 
 		ResultEntity resultEntity = new ResultEntity();

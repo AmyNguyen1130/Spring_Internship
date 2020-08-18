@@ -96,9 +96,11 @@ public class ClassController {
 		// if parents object disable users cannot change status of child object
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
 			classService.editStatusClass(classid);
-			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 		} else {
-			redirectAttributes.addFlashAttribute("messageDanger", messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageDanger",
+					messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
 		}
 
 		return "redirect:/admin/class";
@@ -107,7 +109,7 @@ public class ClassController {
 	@PostMapping("/admin/class/saveAddClass")
 	public String saveAddClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
-		List<String> errors = validationClass(classDTO);
+		List<String> errors = _validationClass(classDTO);
 		if (errors.size() > 0) {
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
@@ -116,8 +118,8 @@ public class ClassController {
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveAddClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess",messageSource.getMessage("add-class-successfully", null, LocaleContextHolder.getLocale()));
-
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("add-class-successfully", null, LocaleContextHolder.getLocale()));
 		}
 
 		return "redirect:/admin/class";
@@ -126,7 +128,7 @@ public class ClassController {
 	@PostMapping("/admin/class/saveEditClass")
 	public String saveEditClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
-		List<String> errors = validationClass(classDTO);
+		List<String> errors = _validationClass(classDTO);
 		if (errors.size() > 0) {
 
 			model.addAttribute("url", "/admin/class/saveEditClass");
@@ -137,7 +139,8 @@ public class ClassController {
 			return PREFIX + "addAndEditClass";
 		} else {
 			classService.saveEditClass(classDTO);
-			redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-class-successfully", null, LocaleContextHolder.getLocale()));
+			redirectAttributes.addFlashAttribute("messageSuccess",
+					messageSource.getMessage("edit-class-successfully", null, LocaleContextHolder.getLocale()));
 		}
 
 		return "redirect:/admin/class";
@@ -160,7 +163,7 @@ public class ClassController {
 		return "teacher/class/listClass";
 	}
 
-	public List<String> validationClass(ClassDTO classDTO) {
+	private List<String> _validationClass(ClassDTO classDTO) {
 		List<String> errors = new ArrayList<>();
 
 		if (!ClassValidation.checkEmpty(classDTO.getClassname())) {

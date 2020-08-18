@@ -55,7 +55,7 @@ public class StudentInClassController {
 		if (listCheckedId != null) {
 			// check student existed from url
 			for (Long userid : listCheckedId) {
-				if (!checkDuplicateStudentInClass(userid, classid)) {
+				if (!_checkDuplicateStudentInClass(userid, classid)) {
 					studentInClassService.saveStudentInClass(classid, userid);
 				}
 			}
@@ -87,7 +87,7 @@ public class StudentInClassController {
 		return "/teacher/class/listStudentInClass";
 	}
 
-	private Boolean checkDuplicateStudentInClass(Long check, Long classid) {
+	private Boolean _checkDuplicateStudentInClass(Long check, Long classid) {
 
 		List<Long> list = studentInClassService.getListStudenIdtByClassid(classid);
 		if (list.contains(check)) {

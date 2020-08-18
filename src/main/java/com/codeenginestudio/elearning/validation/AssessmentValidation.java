@@ -2,6 +2,8 @@ package com.codeenginestudio.elearning.validation;
 
 import java.time.LocalDate;
 
+import org.springframework.util.StringUtils;
+
 import com.codeenginestudio.elearning.dto.AssessmentDTO;
 import com.codeenginestudio.elearning.service.AssessmentService;
 
@@ -26,8 +28,9 @@ public class AssessmentValidation {
 		this.errExpiredDate = errExpiredDate;
 	}
 
+	// TODO: Should revise in here
 	String checkEmpty(String value, String error) {
-		if (value == "") {
+		if (StringUtils.isEmpty(value)) {
 			return error;
 		}
 		return "";

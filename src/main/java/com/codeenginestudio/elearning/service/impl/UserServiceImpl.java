@@ -76,11 +76,11 @@ public class UserServiceImpl implements UserService {
 
 		UserDTO userDTO = userService.getUserByUserId(userId);
 
-		if(userDTO.getRole().getRoleid() == 2) {
+		if (userDTO.getRole().getRoleid() == 2) {
 
 			classService.deleteClassByTeacherId(userId);
 
-		}else if(userDTO.getRole().getRoleid() == 3) {
+		} else if (userDTO.getRole().getRoleid() == 3) {
 
 			studentInClassService.deleteStudentInClass(userId);
 

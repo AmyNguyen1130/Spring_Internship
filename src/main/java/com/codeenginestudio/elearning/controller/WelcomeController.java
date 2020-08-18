@@ -24,7 +24,8 @@ public class WelcomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(Model model) {
 
-		sendSimpleEmail();
+		// TODO: need discuss later
+		// sendSimpleEmail();
 
 		return "welcome";
 	}
