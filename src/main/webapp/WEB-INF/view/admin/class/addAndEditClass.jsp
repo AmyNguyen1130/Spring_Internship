@@ -5,11 +5,11 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<div class="container-fluid center">
+<div class="container-fluid center mg-top-2">
 
-	<div class="col-sm-3"></div>
+	<div class="col-sm-2"></div>
 
-	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
+	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general">
 		<h1 class="form-title"><spring:message code="class-form"/></h1>
 		<br>
 		<div class="form-group row">
@@ -42,11 +42,12 @@
 		<div class="form-group row">
 			<input type="hidden" value="${url == '/admin/class/saveAddClass' ? 'true' : editClass.status}"  name="status" />
 		</div>
-
-		<input class="btn btn-pink" type="submit" value="Save">
-		<a href="/admin/class">
-			<input class="btn btn-warning" type="button" value="Cancel">
-		</a>
+		<div class="form-group row flex-around ">
+			<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save">
+			<a href="/admin/class" class="large-btn mg-right-6"">
+				<input class="btn btn-warning large-btn type="button" value="Cancel">
+			</a>
+		</div>
 	</form>
-	<div class="col-sm-3"></div>
+	<div class="col-sm-2"></div>
 </div>

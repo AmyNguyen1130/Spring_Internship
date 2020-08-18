@@ -13,10 +13,10 @@
 		<div>
 			<h4><spring:message code="there-are-no-data.-Please-creating-the-first-user-here"/></h4>
 			<a href="/admin/user/addUser?role=3">
-				<button class="btn btn-pink"><spring:message code="add-student"/></button>
+				<button class="btn btn-pink"><spring:message code="add-new-student"/></button>
 			</a>
 			<a href="/admin/user/addUser?role=2">
-				<button class="btn btn-warning"><spring:message code="add-teacher"/></button>
+				<button class="btn btn-warning"><spring:message code="add-new-teacher"/></button>
 			</a>		
 		</div>
 	</div>

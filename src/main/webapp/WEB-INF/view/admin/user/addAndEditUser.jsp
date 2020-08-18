@@ -9,9 +9,9 @@
 		}
 	</style>
 
-	<div class="container-fluid center">
-		<div class="col-sm-3"></div>
-		<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general">
+	<div class="container-fluid center mg-top-2">
+		<div class="col-sm-2"></div>
+		<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general">
 			<h1 class="form-title"><spring:message code="register-user"/></h1>
 			<br>
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
@@ -114,12 +114,13 @@
 					value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
 					name="enabled" />
 			</div>
-			<input class="btn btn-pink" type="submit" value="Save">
-			<a href="/admin/user">
-				<input class="btn btn-warning" type="button" value="Cancel">
-			</a>
+
+			<div class="form-group row flex-around ">
+				<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save">
+				<a href="/admin/user" class="large-btn mg-right-6"><input class="large-btn btn btn-warning " type="button" value="Cancel"></a>
+			</div>
 		</form>
-		<div  class="col-sm-3"></div>
+		<div  class="col-sm-2"></div>
 	</div>
 
 

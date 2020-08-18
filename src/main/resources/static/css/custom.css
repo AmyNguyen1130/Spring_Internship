@@ -200,6 +200,14 @@ img {
 	margin-left: 2%;
 }
 
+.mg-left-10{
+	margin-left: 10%;
+}
+
+.mg-right-6{
+	margin-right: 6%;
+}
+
 .navbar-custom {
 	display: inline-block;
 	padding-top: .3125rem;
@@ -314,6 +322,11 @@ img {
 	justify-content: center;
 }
 
+.flex-around{
+	display: flex;
+    justify-content: space-around;
+}
+
 .logo-right {
 	max-width: 32;
 	vertical-align: middle;
@@ -345,4 +358,33 @@ img {
 .answer-choice-postion{
 	margin-left: -15px;
 }
+
+.dropdown-toggle::after {
+	margin-left: -7%;
+}
+
+.mg-top-2{
+	margin-top: 2%;
+}
+
+.addOptionDiv{
+	display: flex;
+    justify-content: flex-end;
+}
+
+.large-btn{
+	width: 250px;
+}
+.table-mg-top-8{
+	margin-top: 8%;
+}
+.title-class{
+	padding-left: 5%;
+}
+.name-class{
+	font-weight: bold;
+}
+
+
+
 

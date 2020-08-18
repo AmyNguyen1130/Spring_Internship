@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container-fluid row">
+	<div class="container-fluid row mg-top-2">
 		<div class="col-sm-7">
 		</div>
 		<div class="col-sm-5">

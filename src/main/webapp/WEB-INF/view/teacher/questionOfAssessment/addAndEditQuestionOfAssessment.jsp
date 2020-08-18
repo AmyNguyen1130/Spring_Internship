@@ -3,8 +3,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page import="com.codeenginestudio.elearning.constant.QuestionTypeEnum" %>
 
-<div class="container-fluid center">
-	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-6 form-general" id="formQuestion">
+<div class="container-fluid center mg-top-2">
+	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general" id="formQuestion">
 
 		<h1 class="form-title">
 			<spring:message code="new-question"/>
@@ -105,7 +105,7 @@
 					<c:forEach items="${questionInf.getOptions()}" var="option" varStatus="num" begin="0" step="1">
 						<div class='optionItem'>
 
-							<input type="radio" name="correctanswer" value="${option.getName()}">
+							<input type="radio" class="radioOption" name="correctanswer" value="${option.getName()}">
 
 							<label for="${option.getName()}" class="col-sm-1 col-form-label">
 								${option.getName()}:
@@ -120,16 +120,17 @@
 					</c:forEach>
 				</c:if>
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-11 addOptionDiv">
 				<span class='addOption btn btn-primary'><spring:message code="add-option"/></span>
 			</div>
 		</div>
-		<div class="form-group row flex-container">
+		<div class="form-group row flex-around ">
 			<input type="hidden" name="assessment.assessmentid" value="${assessmentid}">
-			<input id="submitBtn" type="submit" class="btn btn-pink" value="Save">&ensp;
-			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}">
-				<input id="submitBtn" type="button" class="btn btn-warning" value="Cancel">
-			</a>
+
+			<button id="submitBtn" type="submit" class="large-btn btn btn-pink"><spring:message code="save"/></button>
+
+			<a href="/teacher/questionOfAssessment?assessmentid=${assessmentid}"><button
+				type="button" class="large-btn btn btn-warning mg-right-6 "><spring:message code="cancel"/></button></a>
 		</div>
 	</form>
 </div>
@@ -181,7 +182,7 @@
 	function addNewOption() {
 		var $optionRow = $("<div class='optionItem'></div>");
 		// Add radio button
-		$optionRow.append("<input type='radio' name='correctanswer' value='"+ alphabet[nextindex] +"'>");
+		$optionRow.append("<input type='radio' class='radioOption' name='correctanswer' value='"+ alphabet[nextindex] +"'>");
 		// Add label
 		$optionRow.append("<label for='"+ alphabet[nextindex] +"' class='col-sm-1 col-form-label'>"+ alphabet[nextindex] +": </label>");
 		// Add input type

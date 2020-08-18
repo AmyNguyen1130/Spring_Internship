@@ -10,7 +10,7 @@
 </head>
 <body>
 	<br><br><br>
-	<div class="container-fluid" style="text-align: center;">
+	<div class="container-fluid center">
 		<h1><spring:message code="list-student-in-class"/></h1>
 	</div>
 	<br>
