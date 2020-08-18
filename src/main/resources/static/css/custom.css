@@ -358,11 +358,6 @@ img {
 .answer-choice-postion{
 	margin-left: -15px;
 }
-
-.dropdown-toggle::after {
-	margin-left: -7%;
-}
-
 .mg-top-2{
 	margin-top: 2%;
 }
