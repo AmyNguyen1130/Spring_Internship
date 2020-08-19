@@ -28,12 +28,22 @@ public class AssessmentValidation {
 		this.errExpiredDate = errExpiredDate;
 	}
 
-	// TODO: Should revise in here
-	String checkEmpty(String value, String error) {
+	private String _checkEmpty(String value) {
 		if (StringUtils.isEmpty(value)) {
-			return error;
+			return "Assessment name could not be null";
 		}
 		return "";
+	}
+
+	public AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
+			AssessmentService assessmentService) {
+
+		AssessmentValidation inValid = new AssessmentValidation();
+		inValid.errAssessmentName = _checkEmpty(assessmentDTO.getAssessmentname());
+		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentid(),
+				assessmentDTO.getAssessmentname(), assessmentService);
+		inValid.errExpiredDate = _checkExpiredDate(assessmentDTO.getStartdate(), assessmentDTO.getExpireddate());
+		return inValid;
 	}
 
 	public String checkAssessmentNameExisted(Long assessmentid, String assessmentname,
@@ -52,21 +62,11 @@ public class AssessmentValidation {
 		return "";
 	}
 
-	public String checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
+	private String _checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
 		if (expiredDate.isBefore(startDate)) {
 			return "Expired date must be after start date";
 		}
 		return "";
 	}
 
-	public AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
-			AssessmentService assessmentService) {
-
-		AssessmentValidation inValid = new AssessmentValidation();
-		inValid.errAssessmentName = checkEmpty(assessmentDTO.getAssessmentname(), "Assessment name could not be null");
-		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentid(),
-				assessmentDTO.getAssessmentname(), assessmentService);
-		inValid.errExpiredDate = checkExpiredDate(assessmentDTO.getStartdate(), assessmentDTO.getExpireddate());
-		return inValid;
-	}
 }
