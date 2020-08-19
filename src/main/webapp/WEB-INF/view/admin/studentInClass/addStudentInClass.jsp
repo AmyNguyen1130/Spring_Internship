@@ -49,12 +49,12 @@
 				</tbody>
 			</table>	
 			<br>
-			<div class="display-center">
-				<input type="submit" id="assign_buton" class="btn btn-pink" ${!listClassEnable.contains(classid) ? 'disabled' : ''} value="Save">&nbsp;
-				<a	 href="/admin/class">
-					<input type="button" class="btn btn-warning" value="Cancel">
-				</a>
-			</div>
+			<div class="form-group row flex-around ">
+			<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save" ${!listClassEnable.contains(classid) ? 'disabled' : ''}>
+			<a href="/admin/class" class="large-btn mg-right-6" >
+				<input class="btn btn-warning large-btn" type="button" value="Cancel">
+			</a>
+		</div>
 		</form>
 	</div>
 	<script type="text/javascript">

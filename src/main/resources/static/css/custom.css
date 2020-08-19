@@ -5,6 +5,15 @@ div.dataTables_paginate ul.pagination {
 	justify-content: flex-end;
 }
 
+.welcomeImg {
+	width: 66%;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	margin-left: 17%;
+	height: 230px;
+}
+
 img {
 	width: 30px;
 	height: 30px;
