@@ -33,11 +33,7 @@
 			setMinHeightForWrapperContainer();
 		});
 
-		function setMinHeightForWrapperContainer() {
-			var min_height = $(window).height();
-			$("#wrapper").css("min-height", min_height + "px");
-			$("#content-wrapper").css("min-height", min_height + "px");
-		}
+		
 	</script>
 </body>
 </html>

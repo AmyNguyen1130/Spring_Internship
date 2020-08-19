@@ -28,4 +28,5 @@
 	<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
 	<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 	<script src="<c:url value="/vendor/bootoast/bootoast.min.js"/>"></script>
+	<script src="<c:url value="/js/global.js"/>"></script>
 </head>

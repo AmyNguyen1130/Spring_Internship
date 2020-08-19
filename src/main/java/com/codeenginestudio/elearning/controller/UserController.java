@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.codeenginestudio.elearning.dto.UserDTO;
 import com.codeenginestudio.elearning.service.ClassService;
 import com.codeenginestudio.elearning.service.RoleService;
@@ -37,9 +36,6 @@ public class UserController {
 
 	@Autowired
 	private MessageSource messageSource;
-
-	// TODO: please fix in here, not use new UserValidator
-	UserValidator userValidator = new UserValidator();
 
 	@GetMapping("admin/user/addUser")
 	public String addUser(Model model, @ModelAttribute("role") Long roleId) {
@@ -81,7 +77,8 @@ public class UserController {
 
 	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
-
+		
+		UserValidator userValidator = new UserValidator();
 		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
 
 		if (inValid.noError()) {
@@ -105,6 +102,7 @@ public class UserController {
 	@PostMapping("admin/user/saveEditUser")
 	public String saveEditUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
 
+		UserValidator userValidator = new UserValidator();
 		UserValidator userInValid = userValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
 
 		if (userInValid.noError()) {
