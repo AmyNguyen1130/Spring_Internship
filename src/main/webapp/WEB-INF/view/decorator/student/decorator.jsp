@@ -27,13 +27,5 @@
 			<%@ include file="/WEB-INF/view/decorator/student/footer.jsp"%>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			setMinHeightForWrapperContainer();
-		});
-
-		
-	</script>
 </body>
 </html>

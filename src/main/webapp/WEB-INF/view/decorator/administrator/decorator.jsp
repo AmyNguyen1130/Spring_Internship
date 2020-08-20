@@ -31,12 +31,7 @@
 				$(".alert").css("display", "block");
 				setTimeout(function(){ $(".alert").css("display", "none"); }, 5000);
 			}
-
-			setMinHeightForWrapperContainer();
 		});
-
-		
 	</script>
-
 </body>
 </html>
