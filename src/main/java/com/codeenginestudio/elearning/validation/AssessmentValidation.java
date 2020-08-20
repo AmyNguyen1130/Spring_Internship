@@ -28,14 +28,14 @@ public class AssessmentValidation {
 		this.errExpiredDate = errExpiredDate;
 	}
 
-	private String _checkEmpty(String value) {
+	private static String _checkEmpty(String value) {
 		if (StringUtils.isEmpty(value)) {
 			return "Assessment name could not be null";
 		}
 		return "";
 	}
 
-	public AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
+	public static AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
 			AssessmentService assessmentService) {
 
 		AssessmentValidation inValid = new AssessmentValidation();
@@ -46,11 +46,10 @@ public class AssessmentValidation {
 		return inValid;
 	}
 
-	public String checkAssessmentNameExisted(Long assessmentid, String assessmentname,
+	public static String checkAssessmentNameExisted(Long assessmentid, String assessmentname,
 			AssessmentService assessmentService) {
 
-		// TODO: Please using StringUtil.empty()
-		if (assessmentname == "") {
+		if (StringUtils.isEmpty(assessmentname)) {
 			return "Assessment name could not be null";
 		} else {
 			if (assessmentService.findByAssessmentName(assessmentname) != null) {
@@ -64,7 +63,7 @@ public class AssessmentValidation {
 		return "";
 	}
 
-	private String _checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
+	private static String _checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
 		if (expiredDate.isBefore(startDate)) {
 			return "Expired date must be after start date";
 		}

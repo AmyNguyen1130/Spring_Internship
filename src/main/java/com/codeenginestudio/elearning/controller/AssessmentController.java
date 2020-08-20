@@ -118,9 +118,7 @@ public class AssessmentController {
 	@PostMapping("/teacher/assessment/saveAddAssessment")
 	public String saveAddAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
-		// TODO: please using static method, not new object
-		AssessmentValidation assessmentValidation = new AssessmentValidation();
-		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
+		AssessmentValidation inValid = AssessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveAddAssessment(assessmentDTO);
@@ -137,8 +135,7 @@ public class AssessmentController {
 	@PostMapping("/teacher/assessment/saveEditAssessment")
 	public String saveEditAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
-		AssessmentValidation assessmentValidation = new AssessmentValidation();
-		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
+		AssessmentValidation inValid = AssessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
 		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
 			assessmentService.saveEditAssessment(assessmentDTO);
