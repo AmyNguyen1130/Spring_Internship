@@ -262,6 +262,7 @@ img {
 .error {
 	display: flex;
 	justify-content: start;
+	color: red;
 }
 
 .form-title {

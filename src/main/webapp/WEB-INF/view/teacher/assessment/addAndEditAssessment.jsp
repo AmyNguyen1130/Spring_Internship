@@ -60,8 +60,7 @@
 </div>
 	<script type="text/javascript">
 		var url = window.location.href;
-		if(url == "http://localhost:8080/teacher/assessment/addAssessment"){
-
+		if(url.includes("addAssessment") || url.includes("AddAssessment")){
 			$("#startdate").val(getFormattedDate(today()));
 
 			$("#expireddate").val(getFormattedDate(tomorrow()));

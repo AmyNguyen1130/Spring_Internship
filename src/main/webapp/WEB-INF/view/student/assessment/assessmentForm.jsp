@@ -45,7 +45,6 @@
 														</label>
 													</div>
 													<div class="col-sm-1 position-radio">
-														<!-- TODO: Why items attribute ? -->
 														<form:radiobutton
 															path="resultDTOs[${status.index}].answerchoice"
 															value="${option.getName()}" class="inputRadioOption"

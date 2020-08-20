@@ -10,7 +10,7 @@
 			<div class="row">
 				<div class="col-sm-8"></div>
 				<div class="col-sm-4">
-					<button data-toggle="dropdown" class="btn btn-pink"><spring:message code="add-new-user"/></button>
+					<button data-toggle="dropdown" style="margin-left: 23px"  class="btn btn-pink"><spring:message code="add-new-user"/></button>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 						<a class="dropdown-item" href="/admin/user/addUser?role=3"><spring:message code="add-new-student"/></a>
 						<a class="dropdown-item" href="/admin/user/addUser?role=2"><spring:message code="add-new-teacher"/></a>

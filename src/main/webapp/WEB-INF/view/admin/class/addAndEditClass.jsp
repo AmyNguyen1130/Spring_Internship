@@ -45,7 +45,7 @@
 		<div class="form-group row flex-around ">
 			<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save">
 			<a href="/admin/class" class="large-btn mg-right-6"">
-				<input class="btn btn-warning large-btn type="button" value="Cancel">
+				<input class="btn btn-warning large-btn" type="button" value="Cancel">
 			</a>
 		</div>
 	</form>
