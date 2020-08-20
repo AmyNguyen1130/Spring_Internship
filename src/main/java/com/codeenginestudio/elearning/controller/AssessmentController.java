@@ -118,6 +118,7 @@ public class AssessmentController {
 	@PostMapping("/teacher/assessment/saveAddAssessment")
 	public String saveAddAssessment(Model model, AssessmentDTO assessmentDTO, RedirectAttributes redirectAttributes) {
 
+		// TODO: please using static method, not new object
 		AssessmentValidation assessmentValidation = new AssessmentValidation();
 		AssessmentValidation inValid = assessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 

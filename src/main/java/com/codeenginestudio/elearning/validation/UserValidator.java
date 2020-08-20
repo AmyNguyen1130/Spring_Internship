@@ -54,6 +54,7 @@ public class UserValidator {
 		this.errEmail = errEmail;
 	}
 
+	// TOTO: please refer in QuestionValidator
 	String checkUsernameUnique(String username, UserService userService) {
 
 		if (username == "") {

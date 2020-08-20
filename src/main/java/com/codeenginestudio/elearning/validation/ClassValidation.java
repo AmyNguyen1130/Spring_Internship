@@ -10,6 +10,7 @@ public class ClassValidation {
 	public static String errClassname = "";
 
 	public static boolean checkEmpty(String classname) {
+		// TODO: please using StringUtil.empty
 		if (classname == "") {
 			errClassname = "Class name could not be null";
 			return false;
@@ -32,6 +33,7 @@ public class ClassValidation {
 				}
 			}
 		} else {
+			// TODO: please revise login in here, make it simplyier, not complicate
 			return true;
 		}
 

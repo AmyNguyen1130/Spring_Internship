@@ -51,7 +51,8 @@ public class UserController {
 	public String deleteUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
 
 		userService.deleteUser(userId);
-		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("delete-user-successfully", null, LocaleContextHolder.getLocale()));
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("delete-user-successfully", null, LocaleContextHolder.getLocale()));
 
 		return "redirect:/admin/user";
 	}
@@ -70,14 +71,16 @@ public class UserController {
 	public String editStatusUser(@PathVariable(name = "userId") Long userId, RedirectAttributes redirectAttributes) {
 
 		userService.editUserStatus(userId);
-		redirectAttributes.addFlashAttribute("messageSuccess", messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
+		redirectAttributes.addFlashAttribute("messageSuccess",
+				messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 
 		return "redirect:/admin/user";
 	}
 
 	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
-		
+
+		// TODO: please using static method, not new object
 		UserValidator userValidator = new UserValidator();
 		UserValidator inValid = userValidator.validateAddUser(userDTO, userService);
 

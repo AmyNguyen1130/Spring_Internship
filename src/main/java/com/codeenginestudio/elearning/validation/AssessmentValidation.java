@@ -48,6 +48,8 @@ public class AssessmentValidation {
 
 	public String checkAssessmentNameExisted(Long assessmentid, String assessmentname,
 			AssessmentService assessmentService) {
+
+		// TODO: Please using StringUtil.empty()
 		if (assessmentname == "") {
 			return "Assessment name could not be null";
 		} else {

@@ -72,21 +72,20 @@ public class QuestionValidator {
 		if (StringUtils.isEmpty(numerical)) {
 
 			return "Numerical Order should not be null";
-
 		}
 
 		if (!checkOnlyDigital(numerical)) {
 
 			return "Numerical Order should be only digital";
-
 		}
 
 		if (Integer.parseInt(numerical) <= 0) {
 
+			// TODO: should return message key
 			return "Numerical Order should be more than 0";
-
 		}
 
+		// TODO: Please using StringPool.BLANK instead of ""
 		return "";
 	}
 
