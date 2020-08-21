@@ -43,8 +43,11 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public void deleteStudentInClass(Long userid) {
 
 		List<StudentInClassEntity> listStudentInClass = studentInClassDAO.findByStudent(userDAO.getOne(userid));
+
 		if (listStudentInClass.size() > 0) {
+
 			for (StudentInClassEntity StudentInClass : listStudentInClass) {
+
 				resultService.deleteResultByStudent(StudentInClass.getStudent().getUserid());
 				studentInClassDAO.delete(StudentInClass);
 			}
@@ -65,11 +68,15 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 
 		List<ResultDTO> listResult = resultService.findByAssessmentId(assessmentId);
 		Float userScore = (float) 0;
+
 		for (ResultDTO result : listResult) {
+
 			if (studentId == result.getStudent().getUserid()) {
+
 				userScore += result.getScore();
 			}
 		}
+
 		return userScore;
 	}
 
@@ -77,11 +84,15 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 	public Long findIdByValue(Long userid) {
 
 		List<StudentInClassDTO> studentInClassDTO = getAllStudentInClass();
+
 		for (StudentInClassDTO student : studentInClassDTO) {
+
 			if (student.getStudent().getUserid().equals(userid)) {
+
 				return student.getIdrow();
 			}
 		}
+
 		return null;
 	}
 
@@ -92,8 +103,10 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<Long> listClass = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntity) {
+
 			listClass.add(student.getClassForeign().getClassid());
 		}
+
 		return listClass;
 	}
 
@@ -103,11 +116,15 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<StudentInClassEntity> studentInClassEntities = studentInClassDAO
 				.findByClassForeign(classDAO.getOne(classid));
 		List<Long> listStudentid = new ArrayList<>();
+
 		for (StudentInClassEntity student : studentInClassEntities) {
+
 			if (student.getStudent().isEnabled()) {
+
 				listStudentid.add(student.getStudent().getUserid());
 			}
 		}
+
 		return listStudentid;
 	}
 
@@ -118,6 +135,7 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<StudentInClassDTO> studentInClassDTO = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntity) {
+
 			studentInClassDTO.add(StudentInClassUtil.parseToDTO(student));
 		}
 		return studentInClassDTO;
@@ -131,8 +149,10 @@ public class StudentInClassServiceImpl implements StudentInClassService {
 		List<StudentInClassDTO> studentInClassDTOs = new ArrayList<>();
 
 		for (StudentInClassEntity student : studentInClassEntities) {
+
 			studentInClassDTOs.add(StudentInClassUtil.parseToDTO(student));
 		}
+
 		return studentInClassDTOs;
 	}
 

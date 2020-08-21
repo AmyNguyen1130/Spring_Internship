@@ -20,7 +20,7 @@
 				<input type="text" class="form-control" name="numericalorder"
 					value="${questionInf.numericalorder}"
 					placeholder="<spring:message code="please-enter-numerical-order-here"/>">
-				<p class="err errContent">${error.getErrNumericalOrder()}</p>
+				<p class="err errContent"><spring:message code="${error.getErrNumericalOrder()}"/></p>
 			</div>
 		</div>
 
@@ -45,7 +45,7 @@
 				<input type="text" class="form-control" name="content"
 					value="${questionInf.content}"
 					placeholder="<spring:message code="please-enter-question's-content-here"/>">
-				<p class="err errContent">${error.getErrContent()}</p>
+				<p class="err errContent"><spring:message code="${error.getErrContent()}"/></p>
 			</div>
 		</div>
 

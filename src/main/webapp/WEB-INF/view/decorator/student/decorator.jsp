@@ -12,14 +12,7 @@
 		<div id="wrapper">
 			<div id="content-wrapper" class="col-8">
 				<div class="row">
-					<div class="col-sm-12">
-						<c:if test="${messageSuccess != null}">
-							<div class="alert success" style="display:none">
-								<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-								<strong id="message">${messageSuccess}</strong> 
-							</div>
-						</c:if>
-					</div>
+					<%@ include file="/WEB-INF/view/decorator/student/popUp.jsp"%>
 				</div>
 		        <div class="container-fluid">
 		            <sitemesh:write property="body"/>
@@ -30,7 +23,5 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="<c:url value="/js/global.js"/>"></script>
-
-	<!-- TODO: Why student decorator don't have script popup, same as teacher and student ? -->
 </body>
 </html>

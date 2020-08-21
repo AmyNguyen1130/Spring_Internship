@@ -45,12 +45,17 @@ public class ClassServiceImpl implements ClassService {
 
 		ClassEntity classEntity = classDAO.getOne(classid);
 		classEntity.setStatus(!classEntity.getStatus());
+
 		if (classEntity.getStatus() == false) {
+
 			List<AssessmentEntity> listAssessmentEntities = assessmentDAO.findByClassForeign(classEntity);
+
 			for (AssessmentEntity assessmentEntity : listAssessmentEntities) {
+
 				assessmentEntity.setStatus(false);
 			}
 		}
+
 		classDAO.saveAndFlush(classEntity);
 	}
 
@@ -66,8 +71,11 @@ public class ClassServiceImpl implements ClassService {
 	public void deleteClassByTeacherId(Long teacherId) {
 
 		List<ClassEntity> listClasses = classDAO.findByUser(userDAO.getOne(teacherId));
+
 		if (listClasses.size() > 0) {
+
 			for (ClassEntity classEntity : listClasses) {
+
 				studentInClassService.deleteAllByClass(classEntity.getClassid());
 				assessmentService.deleteAssessmentClassid(classEntity.getClassid());
 				classDAO.delete(classEntity);
@@ -82,11 +90,15 @@ public class ClassServiceImpl implements ClassService {
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
 		Long userid = classDTO.getUser().getUserid();
+
 		if (userid == null) {
+
 			classEntity.setUser(null);
 		} else {
+
 			classEntity.setUser(userDAO.getOne(userid));
 		}
+
 		classDAO.saveAndFlush(classEntity);
 	}
 
@@ -97,11 +109,15 @@ public class ClassServiceImpl implements ClassService {
 		classEntity.setClassname(classDTO.getClassname());
 		classEntity.setStatus(classDTO.getStatus());
 		Long userid = classDTO.getUser().getUserid();
+
 		if (userid == null) {
+
 			classEntity.setUser(null);
 		} else {
+
 			classEntity.setUser(userDAO.getOne(userid));
 		}
+
 		classDAO.saveAndFlush(classEntity);
 
 	}
@@ -117,9 +133,12 @@ public class ClassServiceImpl implements ClassService {
 
 		List<ClassEntity> listClass = classDAO.findByStatus(status);
 		List<Long> listClassId = new ArrayList<>();
+
 		for (ClassEntity classes : listClass) {
+
 			listClassId.add(classes.getClassid());
 		}
+
 		return listClassId;
 	}
 
@@ -128,9 +147,12 @@ public class ClassServiceImpl implements ClassService {
 
 		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findAll();
 		List<ClassDTO> classDTO = new ArrayList<>();
+
 		for (ClassEntity classes : listClass) {
+
 			classDTO.add(ClassUtil.parseToDTO(classes));
 		}
+
 		return classDTO;
 	}
 
@@ -139,9 +161,12 @@ public class ClassServiceImpl implements ClassService {
 
 		List<ClassEntity> listClass = (List<ClassEntity>) classDAO.findByUser(userDAO.getOne(teacherId));
 		List<ClassDTO> classDTO = new ArrayList<>();
+
 		for (ClassEntity classes : listClass) {
+
 			classDTO.add(ClassUtil.parseToDTO(classes));
 		}
+
 		return classDTO;
 	}
 
@@ -150,6 +175,7 @@ public class ClassServiceImpl implements ClassService {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 		Page<ClassEntity> listClassEntity = classDAO.findAll(pageable);
+
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 
@@ -158,6 +184,7 @@ public class ClassServiceImpl implements ClassService {
 
 		Pageable pageable = (Pageable) PageRequest.of(CommonUtil.getInt(page), Constant.ITEM_PER_PAGE);
 		Page<ClassEntity> listClassEntity = classDAO.findPageByUser(userDAO.getOne(teacherId), pageable);
+
 		return listClassEntity.map(x -> (ClassUtil.parseToDTO(x)));
 	}
 

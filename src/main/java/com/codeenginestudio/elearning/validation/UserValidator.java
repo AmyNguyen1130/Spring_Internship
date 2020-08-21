@@ -62,19 +62,19 @@ public class UserValidator {
 
 		if (StringUtils.isEmpty(username)) {
 	
-			return "Username could not be null";
+			return "username-could-not-be-null";
 		} 
 	
 		int err = username.indexOf(SPACE);
 	
 		if (err >= 0) {
 	
-			return "Username could not contains the space";
+			return "username-could-not-contains-the-space";
 		}
 	
 		if (!CollectionUtils.isEmpty(userService.findByUsername(username))) {
 	
-			return "Username is already exsits !";
+			return "username-is-already-exsits";
 		}
 
 		return BLANK;
@@ -84,15 +84,15 @@ public class UserValidator {
 
 		if (StringUtils.isEmpty(email)) {
 
-			return "Email could not be null";
+			return "email-could-not-be-null";
 
 		} else if (!isValidEmail(email)) {
 
-			return "Email is wrong format !";
+			return "email-is-wrong-format";
 
 		} else if (!CollectionUtils.isEmpty(userService.findByEmail(email))) {
 
-			return "Email is already exsits !";
+			return "email-is-already-exsits";
 		}
 
 		return BLANK;
@@ -116,9 +116,9 @@ public class UserValidator {
 	public static void validateAddUser(UserDTO userDTO, UserService userService) {
 
 		UserValidator.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
-		UserValidator.errPassword = checkNull(userDTO.getPassword(), "Password could not be null");
-		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "Firstname could not be null");
-		UserValidator.errLastname = checkNull(userDTO.getLastname(), "Lastname could not be null");
+		UserValidator.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
+		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
+		UserValidator.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
 		UserValidator.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
 	}
 
@@ -131,9 +131,9 @@ public class UserValidator {
 			UserValidator.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
 		}
 
-		UserValidator.errPassword = checkNull(userDTO.getPassword(), "Password could not be null");
-		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "Firstname could not be null");
-		UserValidator.errLastname = checkNull(userDTO.getLastname(), "Lastname could not be null");
+		UserValidator.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
+		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
+		UserValidator.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
 
 		if (!originUser.getEmail().equals(userDTO.getEmail())) {
 

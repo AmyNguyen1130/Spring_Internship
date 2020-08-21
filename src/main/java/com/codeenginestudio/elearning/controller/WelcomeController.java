@@ -35,7 +35,9 @@ public class WelcomeController {
 		// Create a Simple MailMessage.
 		SimpleMailMessage message = new SimpleMailMessage();
 		List<UserDTO> listUsers = resultService.getListStudentNotyetSubmitAssessment();
+
 		for (UserDTO user : listUsers) {
+
 			message.setTo(user.getEmail());
 			message.setSubject("The Assignment Has Expired Submit");
 			message.setText("Hello " + user.getUsername().toUpperCase() + ", Today is expired date to submit the "
@@ -43,6 +45,7 @@ public class WelcomeController {
 					+ " assignment. Please submit it. Thank you.");
 			emailSende.send(message);
 		}
+
 		// Send Message!
 		return "Email Sent!";
 	}

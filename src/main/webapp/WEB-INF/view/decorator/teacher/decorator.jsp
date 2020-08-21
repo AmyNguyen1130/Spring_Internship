@@ -26,7 +26,6 @@
 	
 	<script type="text/javascript" src="<c:url value="/js/global.js"/>"></script>
 
-	<!-- TODO: Should create a global.js to import -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 	

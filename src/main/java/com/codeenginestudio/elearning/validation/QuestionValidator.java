@@ -1,14 +1,13 @@
 package com.codeenginestudio.elearning.validation;
 
 import org.springframework.util.StringUtils;
-
 import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 
 public class QuestionValidator {
 
-	private String errContent = "";
-	private String errNumericalOrder = "";
-	private String errCorrectAnswer = "";
+	private String errContent = BLANK;
+	private String errNumericalOrder = BLANK;
+	private String errCorrectAnswer = BLANK;
 
 	public String getErrContent() {
 		return errContent;
@@ -46,47 +45,45 @@ public class QuestionValidator {
 			return error;
 		}
 
-		return "";
+		return BLANK;
 	}
 
 	public static QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
 
 		QuestionValidator inValid = new QuestionValidator();
-		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "Content could not be null");
+		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "content-could-not-be-null");
 		inValid.errNumericalOrder = checkNumericalOrder(questionOfAssessmentDTO.getNumericalorder());
 		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(),
-				"Correct answer could not be null");
+				"correct-answer-could-not-be-null");
 
 		return inValid;
 	}
 
 	public static boolean checkOnlyDigital(String data) {
 
-		String regex = "\\p{Digit}+";
-
-		return data.matches(regex);
+		return data.matches(REGEX_DIGITAL_FORMAT);
 	}
 
 	public static String checkNumericalOrder(String numerical) {
 
 		if (StringUtils.isEmpty(numerical)) {
 
-			return "Numerical Order should not be null";
+			return "numerical-order-should-not-be-null";
 		}
 
 		if (!checkOnlyDigital(numerical)) {
 
-			return "Numerical Order should be only digital";
+			return "numerical-order-should-be-only-digital";
 		}
 
 		if (Integer.parseInt(numerical) <= 0) {
 
-			// TODO: should return message key
-			return "Numerical Order should be more than 0";
+			return "numerical-order-should-be-more-than-0";
 		}
 
-		// TODO: Please using StringPool.BLANK instead of ""
-		return "";
+		return BLANK;
 	}
 
+	private static final String BLANK = "";
+	private static final String REGEX_DIGITAL_FORMAT = "\\p{Digit}+";
 }

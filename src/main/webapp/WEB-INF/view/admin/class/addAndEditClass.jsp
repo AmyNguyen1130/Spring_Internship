@@ -14,7 +14,7 @@
 		<br>
 		<div class="form-group row">
 			<c:forEach items="${errors}" var="error">
-				<span style="color: red; margin-left: 234px;">${error}</span>
+				<span style="color: red; margin-left: 234px;"><spring:message code="${error}"/></span>
 			</c:forEach>
 			<input type="hidden" name="classid" value="${editClass.classid}" />
 

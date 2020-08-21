@@ -49,7 +49,9 @@ public class ResultServiceImpl implements ResultService {
 	public void deleteResultByAssessmentId(Long assessmentid) {
 
 		List<ResultEntity> listResults = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
+
 		for (ResultEntity result : listResults) {
+
 			resultDAO.delete(result);
 		}
 	}
@@ -58,8 +60,11 @@ public class ResultServiceImpl implements ResultService {
 	public void deleteResultByStudent(Long studentId) {
 
 		List<ResultEntity> results = resultDAO.findByStudent(userDAO.getOne(studentId));
+
 		if (results.size() > 0) {
+
 			for (ResultEntity result : results) {
+
 				resultDAO.delete(result);
 			}
 		}
@@ -69,7 +74,9 @@ public class ResultServiceImpl implements ResultService {
 	public void deleteResultByQuestionId(Long questionId) {
 
 		ResultEntity result = resultDAO.findByQuestion(questionOfAssessmentDAO.getOne(questionId));
+
 		if (result != null) {
+
 			resultDAO.delete(result);
 		}
 	}
@@ -78,8 +85,10 @@ public class ResultServiceImpl implements ResultService {
 	public void saveEditSubmitResult(ResultDTO result) {
 
 		if (result.getId() == null) {
+
 			saveSubmitResult(result);
 		} else {
+
 			ResultEntity resultEntity = resultDAO.getOne(result.getId());
 			resultEntity.setAnswerchoice(result.getAnswerchoice());
 			resultEntity.setScore(_caculateScore(result.getAnswerchoice(), result.getQuestion().getQuestionid()));
@@ -109,9 +118,12 @@ public class ResultServiceImpl implements ResultService {
 
 		List<ResultDTO> listResult = findByAssessmentId(assessmentid);
 		Float totalScore = (float) 0;
+
 		for (ResultDTO result : listResult) {
+
 			totalScore += result.getScore();
 		}
+
 		return totalScore;
 	}
 
@@ -120,9 +132,12 @@ public class ResultServiceImpl implements ResultService {
 
 		List<Long> listIdOfStudent = new ArrayList<>();
 		List<ResultDTO> listResultDTOs = findByAssessmentId(assessmentid);
+
 		for (ResultDTO resultDTO : listResultDTOs) {
+
 			listIdOfStudent.add(resultDTO.getStudent().getUserid());
 		}
+
 		return listIdOfStudent;
 	}
 
@@ -131,9 +146,12 @@ public class ResultServiceImpl implements ResultService {
 
 		List<Long> listIdOfAssessment = new ArrayList<>();
 		List<ResultDTO> listResultDTOs = findByStudentId(studentid);
+
 		for (ResultDTO resultDTO : listResultDTOs) {
+
 			listIdOfAssessment.add(resultDTO.getAssessment().getAssessmentid());
 		}
+
 		return listIdOfAssessment;
 	}
 
@@ -142,9 +160,12 @@ public class ResultServiceImpl implements ResultService {
 
 		List<ResultEntity> listResult = resultDAO.findByAssessment(assessmentDAO.getOne(assessmentid));
 		List<ResultDTO> resultDTO = new ArrayList<>();
+
 		for (ResultEntity result : listResult) {
+
 			resultDTO.add(ResultUtil.parseToDTO(result));
 		}
+
 		return resultDTO;
 	}
 
@@ -154,9 +175,12 @@ public class ResultServiceImpl implements ResultService {
 		List<ResultEntity> listResult = resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessmentid),
 				userDAO.getOne(userId));
 		List<ResultDTO> resultDTO = new ArrayList<>();
+
 		for (ResultEntity result : listResult) {
+
 			resultDTO.add(ResultUtil.parseToDTO(result));
 		}
+
 		return resultDTO;
 	}
 
@@ -165,9 +189,12 @@ public class ResultServiceImpl implements ResultService {
 
 		List<ResultEntity> listResult = resultDAO.findByStudent(userDAO.getOne(studentid));
 		List<ResultDTO> resultDTO = new ArrayList<>();
+
 		for (ResultEntity result : listResult) {
+
 			resultDTO.add(ResultUtil.parseToDTO(result));
 		}
+
 		return resultDTO;
 	}
 
@@ -178,12 +205,19 @@ public class ResultServiceImpl implements ResultService {
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessment();
 		List<UserDTO> listUsers = userService.getUserByRoleAndStatus(RoleConstant.STUDENT, true);
 		List<UserDTO> listUserDTOs = new ArrayList<>();
+
 		for (AssessmentDTO assessment : listAssessments) {
+
 			if (assessment.getStatus()) {
+
 				if (assessment.getExpireddate().equals(currentDate)) {
+
 					List<Long> listIdOfStudentDTOs = getListStudentIdtByAssessmentId(assessment.getAssessmentid());
+
 					for (UserDTO user : listUsers) {
+
 						if (!listIdOfStudentDTOs.contains(user.getUserid())) {
+
 							user.setAssignmentNotSubmit(assessment);
 							listUserDTOs.add(user);
 						}
@@ -191,6 +225,7 @@ public class ResultServiceImpl implements ResultService {
 				}
 			}
 		}
+
 		return listUserDTOs;
 	}
 
@@ -198,9 +233,12 @@ public class ResultServiceImpl implements ResultService {
 
 		Float score = (float) 0;
 		QuestionOfAssessmentEntity question = questionOfAssessmentDAO.getOne(questionId);
+
 		if (StringUtils.isEmpty(answerChoice) && answerChoice.equals(question.getCorrectanswer())) {
+
 			score = question.getScore();
 		}
+
 		return score;
 	}
 

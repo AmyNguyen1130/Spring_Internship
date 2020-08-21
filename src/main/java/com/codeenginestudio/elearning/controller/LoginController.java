@@ -16,11 +16,15 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
+
 		if (error != null) {
+
 			model.addAttribute("messageDanger",
 					messageSource.getMessage("login-unsuccess", null, LocaleContextHolder.getLocale()));
 		}
+
 		if (logout != null) {
+
 			model.addAttribute("messageSuccess",
 					messageSource.getMessage("logout-success", null, LocaleContextHolder.getLocale()));
 		}

@@ -46,14 +46,20 @@ public class ClassController {
 
 	@GetMapping("/admin/class")
 	public String showListClass(Model model, @RequestParam(name = "page", required = false) Integer page) {
+
 		Page<ClassDTO> classess = classService.getClassPage(page);
+
 		for (ClassDTO classDTO : classess) {
+
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 			classDTO.setTotalAssessments(assessmentService.getListAssessmentByClassid(classDTO.getClassid()).size());
+
 			if (classDTO.getTotalAssessments() == 0 && classDTO.getTotalStudents() == 0) {
+
 				classDTO.setIsDelete(true);
 			}
 		}
+
 		model.addAttribute("classPage", classess);
 
 		return PREFIX + "listClass";
@@ -61,6 +67,7 @@ public class ClassController {
 
 	@GetMapping("/admin/class/addClass")
 	public String addClass(Model model) {
+
 		model.addAttribute("url", "/admin/class/saveAddClass");
 		model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.TEACHER, true));
 
@@ -74,6 +81,7 @@ public class ClassController {
 
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("delete-class-successfully", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/admin/class";
 	}
 
@@ -95,10 +103,12 @@ public class ClassController {
 
 		// if parents object disable users cannot change status of child object
 		if (listUsers.contains(classDTO.getUser().getUserid())) {
+
 			classService.editStatusClass(classid);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 		} else {
+
 			redirectAttributes.addFlashAttribute("messageDanger",
 					messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
 		}
@@ -110,13 +120,16 @@ public class ClassController {
 	public String saveAddClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
 		List<String> errors = _validationClass(classDTO);
+
 		if (errors.size() > 0) {
+
 			model.addAttribute("url", "/admin/class/saveAddClass");
 			model.addAttribute("errors", errors);
 			model.addAttribute("users", userService.getUserByRoleAndStatus(RoleConstant.TEACHER, true));
 
 			return PREFIX + "addAndEditClass";
 		} else {
+
 			classService.saveAddClass(classDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("add-class-successfully", null, LocaleContextHolder.getLocale()));
@@ -129,6 +142,7 @@ public class ClassController {
 	public String saveEditClass(Model model, ClassDTO classDTO, RedirectAttributes redirectAttributes) {
 
 		List<String> errors = _validationClass(classDTO);
+
 		if (errors.size() > 0) {
 
 			model.addAttribute("url", "/admin/class/saveEditClass");
@@ -138,6 +152,7 @@ public class ClassController {
 
 			return PREFIX + "addAndEditClass";
 		} else {
+
 			classService.saveEditClass(classDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("edit-class-successfully", null, LocaleContextHolder.getLocale()));
@@ -153,7 +168,9 @@ public class ClassController {
 
 		Long teacherId = SecurityUtil.getUserPrincipal().getUserid();
 		List<ClassDTO> classess = classService.getClassByTeacherId(teacherId);
+
 		for (ClassDTO classDTO : classess) {
+
 			classDTO.setTotalStudents(studentInClassService.getListStudenIdtByClassid(classDTO.getClassid()).size());
 		}
 
@@ -164,16 +181,22 @@ public class ClassController {
 	}
 
 	private List<String> _validationClass(ClassDTO classDTO) {
-		List<String> errors = new ArrayList<>();
 
+		List<String> errors = new ArrayList<>();
+		
 		if (!ClassValidation.checkEmpty(classDTO.getClassname())) {
-			errors.add(ClassValidation.errClassname);
+
+			errors.add(ClassValidation.getErrClassname());
 		}
+
 		if (ClassValidation.checkEmpty(classDTO.getClassname())) {
+
 			if (!ClassValidation.checkClassnameExisted(classDTO.getClassid(), classDTO.getClassname(), classService)) {
-				errors.add(ClassValidation.errClassname);
+
+				errors.add(ClassValidation.getErrClassname());
 			}
 		}
+
 		return errors;
 	}
 

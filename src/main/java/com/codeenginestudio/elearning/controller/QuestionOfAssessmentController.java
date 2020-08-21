@@ -82,11 +82,9 @@ public class QuestionOfAssessmentController {
 		if (assessmentDTO.getClassForeign() == null) {
 
 			model.addAttribute("classNull", "Haven't assigned to any class yet");
-
 		} else {
 
 			model.addAttribute("class", classService.getClassByClassid(assessmentDTO.getClassForeign().getClassid()));
-
 		}
 
 		return PREFIX_TEACHER + "listQuestionOfAssessment";

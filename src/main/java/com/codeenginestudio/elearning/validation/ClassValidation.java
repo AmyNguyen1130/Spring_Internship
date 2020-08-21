@@ -9,29 +9,50 @@ import com.codeenginestudio.elearning.service.ClassService;
 
 public class ClassValidation {
 
-	public static String errClassname = "";
+	private static final String BLANK = "";
+
+	private static String errClassname = BLANK;
+
+	public static String getErrClassname() {
+		return errClassname;
+	}
+
+	public static void setErrClassname(String errClassname) {
+		ClassValidation.errClassname = errClassname;
+	}
 
 	public static boolean checkEmpty(String classname) {
+
 		if (StringUtils.isEmpty(classname)) {
-			errClassname = "Class name could not be null";
+
+			ClassValidation.errClassname = "class-name-could-not-be-null";
+
 			return false;
 		}
+
 		return true;
 	}
 
 	public static boolean checkClassnameExisted(Long classid, String classname, ClassService classService) {
+
 		List<ClassDTO> listClass = classService.getAllClass();
 
 		if (listClass.size() != 0) {
+
 			for (ClassDTO existed : listClass) {
+
 				if (classname.equals(existed.getClassname())) {
+
 					if (classid != existed.getClassid()) {
-						errClassname = "Class name already exists !";
+
+						ClassValidation.errClassname = "class-name-already-exists";
+
 						return false;
 					} 
 				}
 			}
-		} 
+		}
+
 		return true;
 	}
 }

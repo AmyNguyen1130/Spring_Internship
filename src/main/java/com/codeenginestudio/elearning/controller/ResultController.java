@@ -46,11 +46,11 @@ public class ResultController {
 	public String getResultWithStudentRole(Model model, @PathVariable(name = "assessmentid") Long assessmentid) {
 
 		Long userId = SecurityUtil.getUserPrincipal().getUserid();
+		List<ResultDTO> resultDTO = resultService.findByAssessmentAndStudent(assessmentid, userId);
+
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-
-		List<ResultDTO> resultDTO = resultService.findByAssessmentAndStudent(assessmentid, userId);
 		model.addAttribute("listResult", resultDTO);
 		model.addAttribute("urlBack", "/student/assessment/history");
 		model.addAttribute("message", "none");
@@ -69,6 +69,7 @@ public class ResultController {
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
 		model.addAttribute("listResult", resultService.findByAssessmentAndStudent(assessmentid, userid));
 		model.addAttribute("urlBack", "/teacher/viewResult?assessmentid=" + assessmentid);
+
 		return PREFIX_STUDENT + "history/viewResultAssessment";
 	}
 
@@ -81,6 +82,7 @@ public class ResultController {
 		List<StudentInClassDTO> listStudentsInclass = studentInClassService.getByClassid(classDTO.getClassid());
 
 		for (StudentInClassDTO studentInClassDTO : listStudentsInclass) {
+
 			studentInClassDTO.setScore(
 					studentInClassService.setScoreForStudent(assessmentid, studentInClassDTO.getStudent().getUserid()));
 		}

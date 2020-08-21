@@ -61,8 +61,8 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 				listQuestionDTOs.add(questionOfAssignmentDTO);
 			}
-
 		}
+
 		return listQuestionDTOs;
 	}
 
@@ -85,7 +85,6 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
 
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
-
 		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
@@ -116,7 +115,6 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		if (!questionTypeEntity.getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())) {
 
 			questionOfAssignmentEntity.setOptions(_serializeOptions(questionOfAssessmentDTO.getOptions()));
-
 		}
 
 		questionOfAssessmentDAO.saveAndFlush(questionOfAssignmentEntity);
@@ -146,7 +144,6 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		for (QuestionOfAssessmentDTO question : listQuestions) {
 
 			totalScore += question.getScore();
-
 		}
 
 		return totalScore;
@@ -160,9 +157,7 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 		for (QuestionOfAssessmentDTO question : listQuestions) {
 
 			questionOfAssessmentDAO.deleteById(question.getQuestionid());
-
 		}
-
 	}
 
 	private String _serializeOptions(List<OptionDTO> options) throws JsonProcessingException {
@@ -187,5 +182,4 @@ public class QuestionOfAssessmentServiceImpl implements QuestionOfAssessmentServ
 
 		return result;
 	}
-
 }

@@ -14,7 +14,7 @@
 			<label for="AssessmentName" class="col-sm-3 col-form-label"><spring:message code="assessment-name"/></label>
 			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.assessmentname}" type="text" name="assessmentname" placeholder="Please enter assessment's name here">
-				<p class="error">${error.errAssessmentName}</p>
+				<p class="error"><spring:message code="${error.errAssessmentName}"/></p>
 			</div>
 		</div>
 
@@ -42,7 +42,7 @@
 			<label for="expireddate" class="col-sm-3 col-form-label"><spring:message code="expired-date"/></label>
 			<div class="col-sm-8">
 				<input class="form-control" value="${assessmentEdit.expireddate}" type="date" id="expireddate" name="expireddate" placeholder="Please choose a date here">
-				<p class="error">${error.errExpiredDate}</p>
+				<p class="error"><spring:message code="${error.errExpiredDate}"/></p>
 			</div>
 		</div>
 

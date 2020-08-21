@@ -9,8 +9,8 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 
 public class AssessmentValidation {
 
-	private String errAssessmentName;
-	private String errExpiredDate = "";
+	private String errAssessmentName = BLANK;
+	private String errExpiredDate = BLANK;
 
 	public String getErrAssessmentName() {
 		return errAssessmentName;
@@ -29,10 +29,13 @@ public class AssessmentValidation {
 	}
 
 	private static String _checkEmpty(String value) {
+
 		if (StringUtils.isEmpty(value)) {
-			return "Assessment name could not be null";
+
+			return "assessment-name-could-not-be-null";
 		}
-		return "";
+
+		return BLANK;
 	}
 
 	public static AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
@@ -43,6 +46,7 @@ public class AssessmentValidation {
 		inValid.errAssessmentName = checkAssessmentNameExisted(assessmentDTO.getAssessmentid(),
 				assessmentDTO.getAssessmentname(), assessmentService);
 		inValid.errExpiredDate = _checkExpiredDate(assessmentDTO.getStartdate(), assessmentDTO.getExpireddate());
+
 		return inValid;
 	}
 
@@ -50,24 +54,32 @@ public class AssessmentValidation {
 			AssessmentService assessmentService) {
 
 		if (StringUtils.isEmpty(assessmentname)) {
-			return "Assessment name could not be null";
-		} else {
-			if (assessmentService.findByAssessmentName(assessmentname) != null) {
-				if (assessmentService.findByAssessmentName(assessmentname).getAssessmentid() == assessmentid) {
-					return "";
-				} else {
-					return "Assessment name already exists !";
-				}
-			}
+
+			return "assessment-name-could-not-be-null";
 		}
-		return "";
+		
+		if (assessmentService.findByAssessmentName(assessmentname) != null) {
+
+			if (assessmentService.findByAssessmentName(assessmentname).getAssessmentid() == assessmentid) {
+
+				return BLANK;
+			} 
+
+			return "assessment-name-already-exists";
+		}
+
+		return BLANK;
 	}
 
 	private static String _checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
+
 		if (expiredDate.isBefore(startDate)) {
-			return "Expired date must be after start date";
+
+			return "expired-date-must-be-after-start-date";
 		}
-		return "";
+
+		return BLANK;
 	}
 
+	private static final String BLANK = "";
 }

@@ -60,8 +60,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public void deleteAssessmentClassid(Long classId) {
 
 		List<AssessmentEntity> listAssessments = assessmentDAO.findByClassForeign(classDAO.getOne(classId));
+
 		if (listAssessments.size() > 0) {
+
 			for (AssessmentEntity assessment : listAssessments) {
+
 				resultService.deleteResultByAssessmentId(assessment.getAssessmentid());
 				questionOfAssessmentService.deleteQuestionsByAssessmentId(assessment.getAssessmentid());
 				assessmentDAO.delete(assessment);
@@ -102,8 +105,10 @@ public class AssessmentServiceImpl implements AssessmentService {
 		List<Long> listAssessmentId = new ArrayList<>();
 
 		for (AssessmentEntity assessment : listAssessment) {
+
 			listAssessmentId.add(assessment.getAssessmentid());
 		}
+
 		return listAssessmentId;
 	}
 
@@ -118,11 +123,15 @@ public class AssessmentServiceImpl implements AssessmentService {
 	public AssessmentDTO findByAssessmentName(String assessmentname) {
 
 		List<AssessmentDTO> listAssessment = getListAssessment();
+
 		for (AssessmentDTO existed : listAssessment) {
+
 			if (assessmentname.equals(existed.getAssessmentname())) {
+
 				return existed;
 			}
 		}
+
 		return null;
 	}
 
@@ -131,9 +140,12 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		List<AssessmentEntity> listAssessment = (List<AssessmentEntity>) assessmentDAO.findAll();
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+
 		for (AssessmentEntity assessment : listAssessment) {
+
 			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
+
 		return assessmentDTO;
 	}
 
@@ -144,6 +156,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
 
 		for (AssessmentEntity assessment : listAssessment) {
+
 			assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 		}
 
@@ -158,13 +171,16 @@ public class AssessmentServiceImpl implements AssessmentService {
 		List<AssessmentDTO> listAssessmentExpired = new ArrayList<>();
 
 		for (AssessmentDTO assessment : listAssessment) {
+
 			if (assessment.getExpireddate().isBefore(currentDate)) {
+
 				listAssessmentExpired.add(assessment);
 				assessment.setEdit(
 						!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
 								userDAO.getOne(userId)).isEmpty());
 			}
 		}
+
 		return listAssessmentExpired;
 	}
 
@@ -176,8 +192,11 @@ public class AssessmentServiceImpl implements AssessmentService {
 		List<AssessmentDTO> listAssessmentUnExpired = new ArrayList<>();
 
 		for (AssessmentDTO assessment : listAssessment) {
+
 			if (!assessment.getExpireddate().isBefore(currentDate) || assessment.getExpireddate().equals(currentDate)) {
+
 				if (assessment.getStatus()) {
+
 					listAssessmentUnExpired.add(assessment);
 					assessment.setEdit(
 							!resultDAO.findByAssessmentAndStudent(assessmentDAO.getOne(assessment.getAssessmentid()),
@@ -185,6 +204,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 				}
 			}
 		}
+
 		return listAssessmentUnExpired;
 	}
 
@@ -193,13 +213,18 @@ public class AssessmentServiceImpl implements AssessmentService {
 
 		List<AssessmentEntity> listAssessment = assessmentDAO.findAll();
 		List<AssessmentDTO> assessmentDTO = new ArrayList<>();
+
 		for (AssessmentEntity assessment : listAssessment) {
+
 			for (ClassDTO classes : listClass) {
+
 				if (assessment.getClassForeign().getClassid() == classes.getClassid()) {
+
 					assessmentDTO.add(AssessmentUtil.parseToDTO(assessment));
 				}
 			}
 		}
+
 		return assessmentDTO;
 	}
 }

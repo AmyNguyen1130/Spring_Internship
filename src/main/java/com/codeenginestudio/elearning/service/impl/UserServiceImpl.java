@@ -122,11 +122,8 @@ public class UserServiceImpl implements UserService {
 				if (!listUsers.contains(classEntity.getUser().getUserid())) {
 
 					classEntity.setStatus(false);
-
 				}
-
 			}
-
 		}
 
 		userDAO.saveAndFlush(userEntity);
@@ -140,7 +137,6 @@ public class UserServiceImpl implements UserService {
 		for (UserEntity userEntity : userDAO.findByUsername(username)) {
 
 			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
-
 		}
 
 		return listUserDTOs;
@@ -154,7 +150,6 @@ public class UserServiceImpl implements UserService {
 		for (UserEntity userEntity : userDAO.findByEmail(email)) {
 
 			listUserDTOs.add(UserUtil.parseToUserDTO(userEntity));
-
 		}
 
 		return listUserDTOs;
@@ -183,7 +178,6 @@ public class UserServiceImpl implements UserService {
 			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserDTO.add(UserUtil.parseToUserDTO(userEntity));
 			}
-
 		}
 
 		return listUserDTO;
@@ -200,7 +194,6 @@ public class UserServiceImpl implements UserService {
 			if (userEntity.getRole().getRolename().equals(roleName) && userEntity.isEnabled().equals(status)) {
 				listUserId.add(userEntity.getUserid());
 			}
-
 		}
 
 		return listUserId;

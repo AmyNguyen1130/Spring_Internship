@@ -22,9 +22,11 @@ public class OptionUtil {
 		List<OptionDTO> options = new ArrayList<>();
 
 		try {
+
 			options = mapper.readValue(jsonString,
 					mapper.getTypeFactory().constructCollectionType(List.class, OptionDTO.class));
 		} catch (IOException e) {
+
 			e.printStackTrace();
 		}
 

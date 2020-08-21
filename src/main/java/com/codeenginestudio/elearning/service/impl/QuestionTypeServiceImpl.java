@@ -22,9 +22,10 @@ public class QuestionTypeServiceImpl implements QuestionTypeService {
 	public List<QuestionTypeDTO> getListQuestionType() {
 
 		List<QuestionTypeDTO> listQuestionTypeDTOs = new ArrayList<>();
-
 		List<QuestionTypeEntity> listQuestionTypeEntities = questionTypeDAO.findAll();
+
 		for (QuestionTypeEntity questionTypeEntity : listQuestionTypeEntities) {
+
 			listQuestionTypeDTOs.add(QuestionTypeUtil.parseToQuestionTypeDTO(questionTypeEntity));
 		}
 
