@@ -21,8 +21,10 @@
 			<%@ include file="/WEB-INF/view/decorator/administrator/footer.jsp"%>
 		</div>
 	</div>
-	
+
 	<%@ include file="/WEB-INF/view/decorator/administrator/model.jsp"%>
+
+	<script type="text/javascript" src="<c:url value="/js/global.js"/>"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {

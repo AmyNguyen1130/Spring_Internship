@@ -1,4 +1,5 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,7 @@
 
 	<%@ include file="/WEB-INF/view/decorator/teacher/model.jsp"%>
 	
+	<script type="text/javascript" src="<c:url value="/js/global.js"/>"></script>
 
 	<!-- TODO: Should create a global.js to import -->
 	<script type="text/javascript">

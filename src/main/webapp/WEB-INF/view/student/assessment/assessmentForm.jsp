@@ -27,6 +27,7 @@
 								<form:input type="hidden" path="resultDTOs[${status.index}].id" value="${resultDTOs[status.index].id}" />
 								<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" />
 								<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" />
+								<!-- TODO: please using the class col-x to design, not using br -->
 								<div>
 									<div class="questionName">
 										<span> Question ${question.numericalorder}:${question.content}</span>
@@ -45,6 +46,7 @@
 														</label>
 													</div>
 													<div class="col-sm-1 position-radio">
+														<!--  TODO: what is the "items" attribute meaning ? -->
 														<form:radiobutton
 															path="resultDTOs[${status.index}].answerchoice"
 															value="${option.getName()}" class="inputRadioOption"

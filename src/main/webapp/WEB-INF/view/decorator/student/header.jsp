@@ -25,8 +25,7 @@
 	<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
 	<link href="<c:url value="/css/top_title.css"/>" rel="stylesheet" type="text/css">
 
-	<script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
-	<script src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
-	<script src="<c:url value="/vendor/bootoast/bootoast.min.js"/>"></script>
-	<script src="<c:url value="/js/global.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/vendor/bootoast/bootoast.min.js"/>"></script>
 </head>
