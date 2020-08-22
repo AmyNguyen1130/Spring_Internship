@@ -39,12 +39,10 @@
 								<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
 									<br>
 									<input type="text" class="form-control" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
-									<c:if test="${!preview}">
-										<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-											<div class="correctAnswer">
-												<strong><spring:message code="correct-answer"/>${question.correctanswer}</strong>
-											</div>
-										</c:if>
+									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+										<div class="correctAnswer">
+											<strong><spring:message code="correct-answer"/>${question.correctanswer}</strong>
+										</div>
 									</c:if>
 									<br>
 								</c:when>
@@ -67,15 +65,14 @@
 												</div>
 										</c:forEach>
 									</div>
-										<c:if test="${!preview}">
-											<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-												<div class="correctAnswer">
-													<strong ><spring:message code="correct-answer"/>${question.correctanswer}</strong>
-												</div>
-										</c:if>
+									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+										<div class="correctAnswer">
+											<strong ><spring:message code="correct-answer"/>${question.correctanswer}</strong>
+										</div>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
+							<br>
 						</c:forEach>
 						<br><br>
 						<a href="${urlBack}"><input class="btn btn-warning" type="button" value="Back"></a>
