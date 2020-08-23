@@ -428,3 +428,19 @@ img {
 	height: 100px;
 	font-size: 50px;
 }
+
+.question-numerical {
+	text-align: right;
+	padding: 0;
+}
+
+.question-content {
+	font-weight: bold;
+	font-size: 16px;
+	margin-bottom: 0.5em;
+}
+
+.button-row {
+	padding: 2em;
+    text-align: right;
+}

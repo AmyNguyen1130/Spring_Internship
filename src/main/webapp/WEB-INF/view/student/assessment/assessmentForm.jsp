@@ -13,12 +13,18 @@
 <body>
 	<div class="container-fluid row">
 		<div class="col-sm-3"></div>
-		<div class="col-sm-7">
+		<div class="col-sm-9">
 			<form:form method="POST" action="${url}" modelAttribute="lessonForm">
-				<div class="descriptionAssessment">
-					<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
-					<p class="dateTime">(${assessment.getStartdate()} -
-						${assessment.getExpireddate()})</p>
+				<div class="descriptionAssessment row">
+					<div class="col-sm-12">
+						<span class="assignmentTitle">${assessment.getAssessmentname()}</span>
+					</div>
+					<div class="col-sm-12">
+						<span><spring:message code="start-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" /></span>
+					</div>
+					<div class="col-sm-12">
+						<span><spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" /></span>
+					</div>
 				</div>
 				<c:choose>
 					<c:when test="${listQuestionOfAssessment.size() > 0}">
@@ -26,65 +32,75 @@
 							<form:input type="hidden" path="resultDTOs[${status.index}].id" value="${resultDTOs[status.index].id}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" />
-							<!-- TODO: please using the class col-x to design, not using br -->
-							<div class="mb-5">
-								<div class="questionName mb-2">
-									<span class="h5 font-weight-bold"> Question ${question.numericalorder}:${question.content}</span>
+
+							<div class="row">
+								<div class="col-sm-1 question-numerical">
+									<span>${question.numericalorder}.</span>
 								</div>
-								<c:choose>
-									<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
-										<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
-									</c:when>
-									<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
-										<div class="form-group row ml-2">
-											<table >
-												<tr>
-													<th>
-														<div class="optionItem">
-															<form:radiobutton data-id="yes_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="A" class="radio-none"/>
-															<button data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-success btn-action fa fa-check" type="button"></button>
-														</div>
-													</th>
-													<th>
-														<div class="optionItem">
-															<form:radiobutton data-id="no_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="B" class="radio-none"/>
-															<button data-id="no_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-warning btn-action fa fa-ban" type="button"></button>
-														</div>
-													</th>
-												</tr>
-											</table>
+								<div class="col-sm-11">
+									<div class="row">
+										<div class="col-sm-12 question-content">
+											<span>${question.content}:</span>
 										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="form-group row">
-											<c:forEach items="${question.options}" var="option">
-												<c:set var="check" value="${option.getName() eq resultDTOs[status.indexb].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
-												<div class="col-sm-1">
-													<label for="${option.getName()}"
-														class="col-form-label">${option.getName()}:
-													</label>
-												</div>
-												<div class="col-sm-1 position-radio">
-													<!--  TODO: what is the "items" attribute meaning ? -->
-													<form:radiobutton
-														path="resultDTOs[${status.index}].answerchoice"
-														value="${option.getName()}" class="inputRadioOption"
-														items="${check}" />
-												</div>
-												<div class="col-sm-10 answer-choice-postion">
-													<label class="optionName">${option.getValue()}</label>
-												</div>
-											</c:forEach>
+										<div class="col-sm-12">
+											<c:choose>
+												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
+													<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
+												</c:when>
+												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
+													<div class="form-group row ml-2">
+														<table >
+															<tr>
+																<th>
+																	<div class="optionItem">
+																		<form:radiobutton data-id="yes_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="A" class="radio-none"/>
+																		<button data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-success btn-action fa fa-check" type="button"></button>
+																	</div>
+																</th>
+																<th>
+																	<div class="optionItem">
+																		<form:radiobutton data-id="no_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="B" class="radio-none"/>
+																		<button data-id="no_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-warning btn-action fa fa-ban" type="button"></button>
+																	</div>
+																</th>
+															</tr>
+														</table>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="form-group row">
+														<c:forEach items="${question.options}" var="option">
+															<c:set var="check" value="${option.getName() eq resultDTOs[status.indexb].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
+															<div class="col-sm-1">
+																<label for="${option.getName()}"
+																	class="col-form-label">${option.getName()}:
+																</label>
+															</div>
+															<div class="col-sm-1 position-radio">
+																<form:radiobutton
+																	path="resultDTOs[${status.index}].answerchoice"
+																	value="${option.getName()}" class="inputRadioOption"
+																	checked="${check}" />
+															</div>
+															<div class="col-sm-10 answer-choice-postion">
+																<label class="optionName">${option.getValue()}</label>
+															</div>
+														</c:forEach>
+													</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
-									</c:otherwise>
-								</c:choose>
+									</div>
+								</div>
 							</div>
 						</c:forEach>
-						<div class="pb-5">
-							<input id="submit-button" type="submit" class="btn btn-pink mr-2" value="Submit">
-							<a href="/student/assessment">
-								<input class="btn btn-warning" type="button" value="Cancel">
-							</a>
+						<div class="row">
+							<div class="col-sm-12 button-row">
+								<input id="submit-button" type="submit" class="btn btn-pink mr-2" value="Submit">
+								<a href="/student/assessment">
+									<input class="btn btn-warning" type="button" value="Cancel">
+								</a>
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
