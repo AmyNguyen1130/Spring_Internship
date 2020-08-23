@@ -12,8 +12,7 @@
 <meta charset="UTF-8">
 <body>
 	<div class="container-fluid row">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-9">
+		<div class="col-sm-12">
 			<form:form method="POST" action="${url}" modelAttribute="lessonForm">
 				<div class="descriptionAssessment row">
 					<div class="col-sm-12">
@@ -68,31 +67,26 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<div class="form-group row">
-														<c:forEach items="${question.options}" var="option">
-															<c:set var="check" value="${option.getName() eq resultDTOs[status.indexb].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
-															<div class="col-sm-1">
-																<label for="${option.getName()}"
-																	class="col-form-label">${option.getName()}:
-																</label>
-															</div>
-															<div class="col-sm-1 position-radio">
+												<div class="form-group row">
+													<c:forEach items="${question.options}" var="option">
+														<c:set var="check" value="${option.getName() eq resultDTOs[status.indexb].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
+														<div class="col-sm-12 answer-group">
+															<lable class="answer-item">${option.getValue()}
 																<form:radiobutton
 																	path="resultDTOs[${status.index}].answerchoice"
-																	value="${option.getName()}" class="inputRadioOption"
-																	checked="${check}" />
-															</div>
-															<div class="col-sm-10 answer-choice-postion">
-																<label class="optionName">${option.getValue()}</label>
-															</div>
-														</c:forEach>
-													</div>
-												</c:otherwise>
-											</c:choose>
-										</div>
+																	value="${option.getName()}"
+																	items="${check}" />
+																<span class="radio-btn"></span>
+															</lable>
+														</div>
+													</c:forEach>
+												</div>
+											</c:otherwise>
+										</c:choose>	
 									</div>
 								</div>
 							</div>
+						</div>
 						</c:forEach>
 						<div class="row">
 							<div class="col-sm-12 button-row">

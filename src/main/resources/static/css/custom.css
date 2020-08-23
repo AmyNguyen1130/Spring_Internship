@@ -45,8 +45,72 @@ img {
 	margin-top: 2%;
 }
 
-.inputRadioOption {
-	margin: 30% 0% 0% 18%
+.answer-group {
+	display: flex;
+	justify-content: flex-start;
+	height: 100%;
+	max-height: 45px;
+	align-content: center;
+	align-items: center;
+	margin: 3px 0;
+}
+
+.answer-group * {
+	margin-right: 5px;
+}
+
+.answer-item {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 17px;
+	user-select: none;
+}
+
+.answer-item input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	width: 100%;
+	left: 0;
+	height: 100%;
+	z-index: 9999;
+}
+
+.radio-btn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 50%;
+	border: 0.5px solid #e2d9d9;
+}
+
+.answer-item input:checked ~ .radio-btn {
+	background-color: #2196f3;
+}
+
+.radio-btn:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.answer-item input:checked ~ .radio-btn:after {
+	display: block;
+}
+
+.answer-item .radio-btn:after {
+	top: 7px;
+	left: 8px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
 }
 
 .optionName {
@@ -424,9 +488,9 @@ img {
 .btn-action {
 	border-radius: 50%;
 	display: inline-block;
-	width: 100px;
-	height: 100px;
-	font-size: 50px;
+	width: 50px;
+	height: 50px;
+	font-size: 20px;
 }
 
 .question-numerical {
@@ -442,5 +506,12 @@ img {
 
 .button-row {
 	padding: 2em;
-    text-align: right;
+	text-align: right;
+	width: 50px;
+	height: 50px;
+	font-size: 20px;
+}
+
+.filter-choice {
+	filter: brightness(0.5);
 }
