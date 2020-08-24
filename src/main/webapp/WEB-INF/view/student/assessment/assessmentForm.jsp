@@ -44,7 +44,9 @@
 										<div class="col-sm-12">
 											<c:choose>
 												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
-													<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
+													<div class="inputAnswer">
+														<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
+													</div>
 												</c:when>
 												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
 													<div class="form-group row ml-2">
@@ -64,7 +66,7 @@
 																</th>
 															</tr>
 														</table>
-													</div>
+												</div>
 												</c:when>
 												<c:otherwise>
 												<div class="form-group row">
@@ -96,6 +98,7 @@
 								</a>
 							</div>
 						</div>
+
 					</c:when>
 					<c:otherwise>
 						<h1><strong ><spring:message code="no-question"/>${question.correctanswer}</strong></h1>

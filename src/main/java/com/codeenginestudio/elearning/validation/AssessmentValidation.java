@@ -9,8 +9,8 @@ import com.codeenginestudio.elearning.service.AssessmentService;
 
 public class AssessmentValidation {
 
-	private String errAssessmentName = BLANK;
-	private String errExpiredDate = BLANK;
+	private String errAssessmentName = null;
+	private String errExpiredDate = null;
 
 	public String getErrAssessmentName() {
 		return errAssessmentName;
@@ -35,7 +35,7 @@ public class AssessmentValidation {
 			return "assessment-name-could-not-be-null";
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	public static AssessmentValidation validateAddAssessment(AssessmentDTO assessmentDTO,
@@ -62,13 +62,13 @@ public class AssessmentValidation {
 
 			if (assessmentService.findByAssessmentName(assessmentname).getAssessmentid() == assessmentid) {
 
-				return BLANK;
+				return null;
 			} 
 
 			return "assessment-name-already-exists";
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	private static String _checkExpiredDate(LocalDate startDate, LocalDate expiredDate) {
@@ -78,8 +78,6 @@ public class AssessmentValidation {
 			return "expired-date-must-be-after-start-date";
 		}
 
-		return BLANK;
+		return null;
 	}
-
-	private static final String BLANK = "";
 }

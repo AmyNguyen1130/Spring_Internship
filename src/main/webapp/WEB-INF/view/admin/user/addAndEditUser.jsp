@@ -20,10 +20,12 @@
 				<label for="userName" class="col-sm-3 col-form-label"><spring:message code="username"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="username" placeholder="<spring:message code="please-enter-user-name-here"/>"
-						value="${userInf.getUsername()}">
-					<div class="error">
-						<p id="errUsername"><spring:message code="${err.get(0)}"/></p>
-					</div>
+						value="${userInf.getUsername()}">						
+						<c:if test="${err.get(0) != null}">
+							<div class="error">
+								<p id="errUsername"><spring:message code="${err.get(0)}"/></p>
+							</div>
+						</c:if>
 				</div>
 			</div>
 
@@ -32,9 +34,11 @@
 				<div class="col-sm-8">
 					<input type="password" class="form-control" name="password" placeholder="<spring:message code="please-enter-password-here"/>"
 						value="${userInf.getPassword()}">
-					<div class="error">
-						<p id="errPassword"><spring:message code="${err.get(1)}"/></p>
-					</div>
+						<c:if test="${err.get(1) != null}">
+							<div class="error">
+								<p id="errPassword"><spring:message code="${err.get(1)}"/></p>
+							</div>
+						</c:if>
 				</div>
 			</div>
 
@@ -43,9 +47,11 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="firstname" placeholder="<spring:message code="please-enter-first-name-here"/>"
 						value="${userInf.getFirstname()}">
-					<div class="error">
-						<p id="errFirstname"><spring:message code="${err.get(2)}"/></p>
-					</div>
+						<c:if test="${err.get(2) != null}">
+							<div class="error">
+								<p id="errFirstname"><spring:message code="${err.get(2)}"/></p>
+							</div>
+						</c:if>
 				</div>
 			</div>
 
@@ -54,9 +60,11 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="lastname" placeholder="<spring:message code="please-enter-last-name-here"/>"
 						value="${userInf.getLastname()}">
-					<div class="error">
-						<p id="errLastname"><spring:message code="${err.get(3)}"/></p>
-					</div>
+						<c:if test="${err.get(3) != null}">
+							<div class="error">
+								<p id="errLastname"><spring:message code="${err.get(3)}"/></p>
+							</div>
+						</c:if>
 				</div>
 			</div>
 
@@ -65,9 +73,11 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="email" placeholder="<spring:message code="please-enter-email-here"/>"
 						value="${userInf.getEmail()}">
-					<div class="error">
-						<p id="errEmail"><spring:message code="${err.get(4)}"/></p>
-					</div>
+						<c:if test="${err.get(4) != null}">
+							<div class="error">
+								<p id="errEmail"><spring:message code="${err.get(4)}"/></p>
+							</div>
+						</c:if>
 				</div>
 			</div>
 

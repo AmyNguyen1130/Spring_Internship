@@ -281,7 +281,7 @@ img {
 }
 
 .preview {
-	margin-left: 2%;
+	margin-left: 12%;
 }
 
 .mg-left-10 {
@@ -347,6 +347,7 @@ img {
 .justify-end {
 	display: flex;
 	justify-content: flex-end;
+	margin-top: 20%;
 }
 
 #pagination {
@@ -430,11 +431,11 @@ img {
 	width: 140px;
 }
 
-.button-display-right {
+.button-display-right{
 	margin-left: -29px;
 }
 
-.display-center {
+.display-center{
 	display: flex;
 	justify-content: center;
 }
@@ -515,3 +516,9 @@ img {
 .filter-choice {
 	filter: brightness(0.5);
 }
+
+.inputAnswer{
+	margin: 10px 0px 15px 0px
+}
+
+

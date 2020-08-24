@@ -5,9 +5,9 @@ import com.codeenginestudio.elearning.dto.QuestionOfAssessmentDTO;
 
 public class QuestionValidator {
 
-	private String errContent = BLANK;
-	private String errNumericalOrder = BLANK;
-	private String errCorrectAnswer = BLANK;
+	private String errContent = null;
+	private String errNumericalOrder = null;
+	private String errCorrectAnswer = null;
 
 	public String getErrContent() {
 		return errContent;
@@ -45,7 +45,7 @@ public class QuestionValidator {
 			return error;
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	public static QuestionValidator validateQuestion(QuestionOfAssessmentDTO questionOfAssessmentDTO) {
@@ -81,9 +81,8 @@ public class QuestionValidator {
 			return "numerical-order-should-be-more-than-0";
 		}
 
-		return BLANK;
+		return null;
 	}
 
-	private static final String BLANK = "";
 	private static final String REGEX_DIGITAL_FORMAT = "\\p{Digit}+";
 }

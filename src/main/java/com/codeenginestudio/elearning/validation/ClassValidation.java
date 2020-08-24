@@ -9,9 +9,7 @@ import com.codeenginestudio.elearning.service.ClassService;
 
 public class ClassValidation {
 
-	private static final String BLANK = "";
-
-	private static String errClassname = BLANK;
+	private static String errClassname = null;
 
 	public static String getErrClassname() {
 		return errClassname;

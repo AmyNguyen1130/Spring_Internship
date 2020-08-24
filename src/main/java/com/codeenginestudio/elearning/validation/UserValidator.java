@@ -8,15 +8,14 @@ import com.codeenginestudio.elearning.service.UserService;
 
 public class UserValidator {
 
-	private static final String BLANK = "";
 	private static final String SPACE = " ";
 	private static final String REGEX_EMAIL_FORMAT = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	private static String errUsername = BLANK;
-	private static String errPassword = BLANK;
-	private static String errFirstname = BLANK;
-	private static String errLastname = BLANK;
-	private static String errEmail = BLANK;
+	private static String errUsername = null;
+	private static String errPassword = null;
+	private static String errFirstname = null;
+	private static String errLastname = null;
+	private static String errEmail = null;
 
 	public static String getErrUsername() {
 		return errUsername;
@@ -77,7 +76,7 @@ public class UserValidator {
 			return "username-is-already-exsits";
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	public static String checkEmailUnique(String email, UserService userService) {
@@ -95,7 +94,7 @@ public class UserValidator {
 			return "email-is-already-exsits";
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	public static String checkNull(String value, String error) {
@@ -105,7 +104,7 @@ public class UserValidator {
 			return error;
 		}
 
-		return BLANK;
+		return null;
 	}
 
 	public static boolean isValidEmail(String email) {

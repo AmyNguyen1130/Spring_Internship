@@ -16,14 +16,17 @@
 			<div class="col-sm-7">
 					<div class="row mg-top-2 display-inline">
 					<h4 class="title-class grey"><spring:message code="class"/></h4>
-					<h4 class="name-class"> ${class.getClassname()} ${classNull}</h4>
+					<h4 class="name-class">&nbsp; ${class.getClassname()} ${classNull}</h4>
 				</div>
 				<div class="row display-inline">
 					<h4 class="title-class grey"><spring:message code="assessment"/></h4>
-					<h4 class="name-class"> ${assessment.getAssessmentname()}</h4>
+					<h4 class="name-class">&nbsp; ${assessment.getAssessmentname()}</h4>
 				</div>
 				<div class="row display-inline">
-					<h6 class="title-class grey">( ${assessment.getStartdate()} - ${assessment.getExpireddate()})</h6>
+					<h6 class="title-class grey"><spring:message code="start-date-x" arguments="${assessment.getStartdate()}" htmlEscape="false" /></h6>
+				</div>
+				<div class="row display-inline">
+					<h6 class="title-class grey"><spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" /></h6>
 				</div>
 			</div>
 			<div class="col-sm-5">
