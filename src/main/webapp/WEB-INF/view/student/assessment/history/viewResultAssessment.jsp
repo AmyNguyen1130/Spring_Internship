@@ -25,10 +25,10 @@
 								<c:if test="${!preview}">
 									<c:choose>
 										<c:when test="${question.correctanswer eq listResult[status.index].answerchoice}">
-											<img alt="correct" src="<c:url value="../../../images/tick.jpg"/>" class="optionSize" />
+											<img alt="correct" src="<c:url value="/images/correct.png"/>" class="optionSize" />
 										</c:when>
 										<c:otherwise>
-											<img alt="incorrect" src="<c:url value="../../../images/cancel.jpg"/>"
+											<img alt="incorrect" src="<c:url value="/images/incorrect.png"/>"
 												class="optionSize" />
 										</c:otherwise>
 									</c:choose>
@@ -40,7 +40,7 @@
 									<input type="text" class="form-control" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
 									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 										<div class="correctAnswer pt-4">
-											<strong><spring:message code="correct-answer"/>${question.correctanswer}</strong>
+											<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
 										</div>
 									</c:if>
 								</c:when>
@@ -49,41 +49,31 @@
 										<table>
 											<tr>
 												<th>
-													<div class="optionItem">
-														<button data-id="yes_choice_${question.questionid}" class="btn btn-success btn-action fa fa-check"  type="button" ${listResult[status.index].answerchoice == 'B' ? 'disabled' : ''}></button>
+													<div class="optionItem ${listResult[status.index].answerchoice == 'A' ? 'checkCorrect' : 'checkInCorrect'}">
+														<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_yes.png"/>" class="yesnoImage" />
 													</div>
 												</th>
 												<th>
-													<div class="optionItem">
-														<button data-id="no_choice_${question.questionid}" class="btn btn-warning btn-action fa fa-ban"  type="button" ${listResult[status.index].answerchoice == 'A' ? 'disabled' : ''}></button>
+													<div class="optionItem ${listResult[status.index].answerchoice == 'B' ? 'checkCorrect' : 'checkInCorrect'}">
+														<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_no.png"/>" class="yesnoImage" />
 													</div>
 												</th>
 											</tr>
 										</table>
 									</div>
-									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-										<div class="correctAnswer pt-3">
-											<strong><spring:message code="correct-answer"/>${question.correctanswer}</strong>
-										</div>
-									</c:if>
 								</c:when>
 								<c:otherwise>
-									<div class="form-group row">
+									<div class="form-group row ml-2">
 										<c:forEach items="${question.options}" var="option">
 											<c:set var="check" value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
 											<div class="col-sm-12 answer-group">
 												<lable class="answer-item">${option.getValue()}
-													<input value="${option.getName()}" ${check} type="radio" disabled/>
-													<span class="radio-btn"></span>
+													<input value="${option.getName()}" ${check} type="radio" ${option.getName() eq question.correctanswer ? 'checked' : ''} disabled />
+													<span class="radio-btn ${option.getName() eq listResult[status.index].answerchoice ? 'multiple-incorrect' : ''} ${option.getName() eq question.correctanswer ? 'multiple-correct' : ''}"></span>
 												</lable>
 											</div>
 										</c:forEach>
 									</div>
-									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-										<div class="correctAnswer pt-1">
-											<strong ><spring:message code="correct-answer"/>${question.correctanswer}</strong>
-										</div>
-									</c:if>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>

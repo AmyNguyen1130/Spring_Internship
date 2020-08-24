@@ -39,58 +39,58 @@
 								<div class="col-sm-11">
 									<div class="row">
 										<div class="col-sm-12 question-content">
-											<span>${question.content}:</span>
+											<span>${question.content}&ensp;?</span>
 										</div>
-										<div class="col-sm-12">
-											<c:choose>
-												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
-													<div class="inputAnswer">
-														<form:input class="form-control" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
-													</div>
-												</c:when>
-												<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
-													<div class="form-group row ml-2">
+										<c:choose>
+											<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
+												<div class="col-sm-12 mb-4">
+													<form:input class="form-control col-sm-6" type="text" path="resultDTOs[${status.index}].answerchoice" value="" />
+												</div>
+											</c:when>
+											<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
+												<div class="col-sm-12 mb-2">
+													<div class="form-group row ml-2 mb-4">
 														<table >
 															<tr>
 																<th>
-																	<div class="optionItem">
+																	<div class="optionItem" data-id="yes_choice_${question.questionid}" >
 																		<form:radiobutton data-id="yes_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="A" class="radio-none"/>
-																		<button data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-success btn-action fa fa-check" type="button"></button>
+																		<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="../../../images/_yes.png"/>" class="yesnoImage" />
 																	</div>
 																</th>
 																<th>
-																	<div class="optionItem">
+																	<div class="optionItem" data-id="no_choice_${question.questionid}" >
 																		<form:radiobutton data-id="no_choice_${question.questionid}" path="resultDTOs[${status.index}].answerchoice" value="B" class="radio-none"/>
-																		<button data-id="no_choice_${question.questionid}" data-question="${question.questionid}" class="btn btn-warning btn-action fa fa-ban" type="button"></button>
+																		<img data-id="no_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="../../../images/_no.png"/>" class="yesnoImage" />
 																	</div>
 																</th>
 															</tr>
 														</table>
+													</div>
 												</div>
-												</c:when>
-												<c:otherwise>
-												<div class="form-group row">
-													<c:forEach items="${question.options}" var="option">
-														<c:set var="check" value="${option.getName() eq resultDTOs[status.indexb].answerchoice && question.questionid eq resultDTOs[status.index].question.questionid ? 'checked': ''}" />
-														<div class="col-sm-12 answer-group">
-															<lable class="answer-item">${option.getValue()}
-																<form:radiobutton
-																	path="resultDTOs[${status.index}].answerchoice"
-																	value="${option.getName()}"
-																	items="${check}" />
-																<span class="radio-btn"></span>
-															</lable>
-														</div>
-													</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<div class="col-sm-12">
+													<div class="form-group row">
+														<c:forEach items="${question.options}" var="option">
+															<div class="col-sm-12 answer-group">
+																<lable class="answer-item">${option.getValue()}
+																	<form:radiobutton
+																		path="resultDTOs[${status.index}].answerchoice"
+																		value="${option.getName()}" />
+																	<span class="radio-btn"></span>
+																</lable>
+															</div>
+														</c:forEach>
+													</div>
 												</div>
-											</c:otherwise>
-										</c:choose>	
-									</div>
+										</c:otherwise>
+									</c:choose>	
 								</div>
 							</div>
 						</div>
 						</c:forEach>
-						<div class="row">
+						<div class="row mb-5">
 							<div class="col-sm-12 button-row">
 								<input id="submit-button" type="submit" class="btn btn-pink mr-2" value="Submit">
 								<a href="/student/assessment">
@@ -98,7 +98,6 @@
 								</a>
 							</div>
 						</div>
-
 					</c:when>
 					<c:otherwise>
 						<h1><strong ><spring:message code="no-question"/>${question.correctanswer}</strong></h1>
@@ -115,15 +114,15 @@
 			var dataId = e.target.getAttribute("data-id");
 			var questionId = e.target.getAttribute("data-question");
 			if(dataId){
-				var currentYesOption = document.querySelector("button[data-id = 'yes_choice_" + questionId + "']");
-				var currentNoOption = document.querySelector("button[data-id = 'no_choice_" + questionId + "']");
+				var currentYesOption = document.querySelector("div[data-id = 'yes_choice_" + questionId + "']");
+				var currentNoOption = document.querySelector("div[data-id = 'no_choice_" + questionId + "']");
 
 				if(dataId.indexOf("yes") === 0){
-					currentYesOption.setAttribute("style","filter: brightness(0.5)");
-					currentNoOption.removeAttribute("style");
+					currentYesOption.classList.add("optionActive");
+					currentNoOption.classList.remove("optionActive");
 				}else{
-					currentNoOption.setAttribute("style","filter: brightness(0.5)");
-					currentYesOption.removeAttribute("style");
+					currentNoOption.classList.add("optionActive");
+					currentYesOption.classList.remove("optionActive");
 				}
 				e.target.previousElementSibling.checked = true;
 			}
@@ -131,8 +130,10 @@
 
 		var radioSelect = document.querySelectorAll('[checked="checked"]');
 		radioSelect.forEach((node) => { 
-			if(node.nextElementSibling){
-				node.nextElementSibling.setAttribute("style","filter: brightness(0.5)");
+			if(node.matches('.radio-none')){
+				if(node.parentNode){
+					node.parentNode.classList.add("optionActive");
+				}
 			}
 		});
 	});

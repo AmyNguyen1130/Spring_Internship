@@ -118,8 +118,9 @@ img {
 }
 
 .yesnoImage {
-	width: 100px;
-	height: 100px;
+	width: 50px;
+	height: 50px;
+	background-color: #fff;
 }
 
 .sticky-footer {
@@ -491,7 +492,7 @@ img {
 	display: inline-block;
 	width: 50px;
 	height: 50px;
-	font-size: 20px;
+	font-size: 12px;
 }
 
 .question-numerical {
@@ -513,12 +514,27 @@ img {
 	font-size: 20px;
 }
 
-.filter-choice {
-	filter: brightness(0.5);
+.optionActive {
+	border: 2px solid #17a2b8;
+	border-radius: 50%;
 }
 
-.inputAnswer{
-	margin: 10px 0px 15px 0px
+.checkCorrect {
+	border: 2px solid #17a2b8;
+	border-radius: 50%;
+}
+
+.checkInCorrect {
+	border: 2px solid red;
+	border-radius: 50%;
+}
+
+.multiple-incorrect {
+	background-color: red !important;
+}
+
+.multiple-correct {
+	background-color: #2196f3 !important;
 }
 
 
