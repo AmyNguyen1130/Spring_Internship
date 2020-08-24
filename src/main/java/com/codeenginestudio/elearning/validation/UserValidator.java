@@ -11,50 +11,50 @@ public class UserValidator {
 	private static final String SPACE = " ";
 	private static final String REGEX_EMAIL_FORMAT = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	private static String errUsername = null;
-	private static String errPassword = null;
-	private static String errFirstname = null;
-	private static String errLastname = null;
-	private static String errEmail = null;
+	private String errUsername = null;
+	private String errPassword = null;
+	private String errFirstname = null;
+	private String errLastname = null;
+	private String errEmail = null;
 
-	public static String getErrUsername() {
+	public String getErrUsername() {
 		return errUsername;
 	}
 
-	public static void setErrUsername(String errUsername) {
-		UserValidator.errUsername = errUsername;
+	public void setErrUsername(String errUsername) {
+		this.errUsername = errUsername;
 	}
 
-	public static String getErrPassword() {
+	public String getErrPassword() {
 		return errPassword;
 	}
 
 	public void setErrPassword(String errPassword) {
-		UserValidator.errPassword = errPassword;
+		this.errPassword = errPassword;
 	}
 
-	public static String getErrFirstname() {
+	public String getErrFirstname() {
 		return errFirstname;
 	}
 
-	public static void setErrFirstname(String errFirstname) {
-		UserValidator.errFirstname = errFirstname;
+	public void setErrFirstname(String errFirstname) {
+		this.errFirstname = errFirstname;
 	}
 
-	public static String getErrLastname() {
+	public String getErrLastname() {
 		return errLastname;
 	}
 
 	public void setErrLastname(String errLastname) {
-		UserValidator.errLastname = errLastname;
+		this.errLastname = errLastname;
 	}
 
-	public static String getErrEmail() {
+	public String getErrEmail() {
 		return errEmail;
 	}
 
-	public static void setErrEmail(String errEmail) {
-		UserValidator.errEmail = errEmail;
+	public void setErrEmail(String errEmail) {
+		this.errEmail = errEmail;
 	}
 
 	public static String checkUsernameUnique(String username, UserService userService) {
@@ -112,38 +112,44 @@ public class UserValidator {
 		return email.matches(REGEX_EMAIL_FORMAT);
 	}
 
-	public static void validateAddUser(UserDTO userDTO, UserService userService) {
+	public static UserValidator validateAddUser(UserDTO userDTO, UserService userService) {
 
-		UserValidator.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
-		UserValidator.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
-		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
-		UserValidator.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
-		UserValidator.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
+		UserValidator inValid = new UserValidator();
+		inValid.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
+		inValid.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
+		inValid.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
+		inValid.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
+		inValid.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
+
+		return inValid;
 	}
 
-	public static void validateEditUser(UserDTO userDTO, UserService userService, long userId) {
+	public static UserValidator validateEditUser(UserDTO userDTO, UserService userService, long userId) {
 
+		UserValidator inValid = new UserValidator();
 		UserDTO originUser = userService.getUserByUserId(userId);
 
 		if (!originUser.getUsername().equals(userDTO.getUsername())) {
 
-			UserValidator.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
+			inValid.errUsername = checkUsernameUnique(userDTO.getUsername(), userService);
 		}
 
-		UserValidator.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
-		UserValidator.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
-		UserValidator.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
+		inValid.errPassword = checkNull(userDTO.getPassword(), "password-could-not-be-null");
+		inValid.errFirstname = checkNull(userDTO.getFirstname(), "firstname-could-not-be-null");
+		inValid.errLastname = checkNull(userDTO.getLastname(), "lastname-could-not-be-null");
 
 		if (!originUser.getEmail().equals(userDTO.getEmail())) {
 
-			UserValidator.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
+			inValid.errEmail = checkEmailUnique(userDTO.getEmail(), userService);
 		}
+
+		return inValid;
 	}
 
-	public static boolean noError() {
+	public static boolean noError(UserValidator inValid) {
 
-		return StringUtils.isEmpty(UserValidator.getErrUsername()) && StringUtils.isEmpty(UserValidator.getErrPassword())
-				&& StringUtils.isEmpty(UserValidator.getErrFirstname()) && StringUtils.isEmpty(UserValidator.getErrLastname())
-				&& StringUtils.isEmpty(UserValidator.getErrEmail());
+		return StringUtils.isEmpty(inValid.getErrUsername()) && StringUtils.isEmpty(inValid.getErrPassword())
+				&& StringUtils.isEmpty(inValid.getErrFirstname()) && StringUtils.isEmpty(inValid.getErrLastname())
+				&& StringUtils.isEmpty(inValid.getErrEmail());
 	}
 }

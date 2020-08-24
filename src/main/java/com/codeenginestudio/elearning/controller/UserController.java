@@ -1,8 +1,5 @@
 package com.codeenginestudio.elearning.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -83,9 +80,9 @@ public class UserController {
 	@PostMapping("admin/user/saveAddUser")
 	public String saveAddUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
 
-		UserValidator.validateAddUser(userDTO, userService);
+		UserValidator inValid = UserValidator.validateAddUser(userDTO, userService);
 
-		if (UserValidator.noError()) {
+		if (UserValidator.noError(inValid)) {
 
 			userService.addUser(userDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
@@ -94,7 +91,7 @@ public class UserController {
 			return "redirect:/admin/user";
 		}
 
-		model.addAttribute("err", _generateErrorList());
+		model.addAttribute("err", inValid);
 		model.addAttribute("roleId", userDTO.getRole().getRoleid());
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveAddUser");
@@ -106,9 +103,9 @@ public class UserController {
 	@PostMapping("admin/user/saveEditUser")
 	public String saveEditUser(UserDTO userDTO, Model model, RedirectAttributes redirectAttributes) {
 
-		UserValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
+		UserValidator inValid = UserValidator.validateEditUser(userDTO, userService, userDTO.getUserid());
 
-		if (UserValidator.noError()) {
+		if (UserValidator.noError(inValid)) {
 
 			userService.editUser(userDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess", "Edit User Successfully!!! ");
@@ -116,7 +113,7 @@ public class UserController {
 			return "redirect:/admin/user";
 		}
 		
-		model.addAttribute("err", _generateErrorList());
+		model.addAttribute("err", inValid);
 		model.addAttribute("userInf", userDTO);
 		model.addAttribute("url", "/admin/user/saveEditUser");
 		model.addAttribute("listRole", roleService.getListRole());
@@ -152,18 +149,6 @@ public class UserController {
 		model.addAttribute("userPage", listUsers);
 
 		return PREFIX + "listUser";
-	}
-	
-	public List<String> _generateErrorList(){
-
-		List<String> errors = new ArrayList<>();
-		errors.add(UserValidator.getErrUsername());
-		errors.add(UserValidator.getErrPassword());
-		errors.add(UserValidator.getErrFirstname());
-		errors.add(UserValidator.getErrLastname());
-		errors.add(UserValidator.getErrEmail());
-
-		return errors;
 	}
 
 	private static final String PREFIX = "/admin/user/";
