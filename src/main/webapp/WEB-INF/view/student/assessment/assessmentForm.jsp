@@ -12,7 +12,8 @@
 <meta charset="UTF-8">
 <body>
 	<div class="container-fluid row">
-		<div class="col-sm-12">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-7">
 			<form:form method="POST" action="${url}" modelAttribute="lessonForm">
 				<div class="descriptionAssessment row">
 					<div class="col-sm-12">
@@ -31,7 +32,7 @@
 							<form:input type="hidden" path="resultDTOs[${status.index}].id" value="${resultDTOs[status.index].id}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" />
-
+	
 							<div class="row">
 								<div class="col-sm-1 question-numerical">
 									<span>${question.numericalorder}.</span>
@@ -100,12 +101,13 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<h1><strong ><spring:message code="no-question"/>${question.correctanswer}</strong></h1>
+						<h1 class="mt-5"><strong ><spring:message code="no-question"/>${question.correctanswer}</strong></h1>
 						<img src="<c:url value="../../../images/no-data.jpg"/>" class="welcomeImg"/>
 					</c:otherwise>
 				</c:choose>
 			</form:form>
 		</div>
+		<div class="col-sm-2"></div>
 	</div>
 <script>
 	$(document).ready(() => {
