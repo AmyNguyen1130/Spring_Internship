@@ -79,13 +79,16 @@ public class AssessmentController {
 
 		// if parents object disable users cannot change status of child object
 		if (listClasses.contains(assessmentDTO.getClassForeign().getClassid())) {
+
 			assessmentService.editAssessmentStatus(assessmentid);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("edit-status-successfully", null, LocaleContextHolder.getLocale()));
 		} else {
+
 			redirectAttributes.addFlashAttribute("messageDanger",
 					messageSource.getMessage("edit-status-unsuccessfully", null, LocaleContextHolder.getLocale()));
 		}
+
 		return "redirect:/teacher/assessment";
 	}
 
@@ -96,6 +99,7 @@ public class AssessmentController {
 		assessmentService.deleteById(assessmentid);
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("delete-assessment-successfully", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/teacher/assessment";
 	}
 
@@ -110,6 +114,7 @@ public class AssessmentController {
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 		}
+
 		model.addAttribute("listAssessment", listAssessments);
 
 		return PREFIX_TEACHER + "listAssessment";
@@ -120,14 +125,17 @@ public class AssessmentController {
 
 		AssessmentValidation inValid = AssessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
-		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
+		if (inValid.getErrAssessmentName() == null && inValid.getErrExpiredDate() == null) {
 			assessmentService.saveAddAssessment(assessmentDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("add-assessment-successfully", null, LocaleContextHolder.getLocale()));
+
 			return "redirect:/teacher/assessment";
 		} else {
+
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
+
 			return PREFIX_TEACHER + "addAndEditAssessment";
 		}
 	}
@@ -137,16 +145,19 @@ public class AssessmentController {
 
 		AssessmentValidation inValid = AssessmentValidation.validateAddAssessment(assessmentDTO, assessmentService);
 
-		if (inValid.getErrAssessmentName() == "" && inValid.getErrExpiredDate() == "") {
+		if (inValid.getErrAssessmentName() == null && inValid.getErrExpiredDate() == null) {
 			assessmentService.saveEditAssessment(assessmentDTO);
 			redirectAttributes.addFlashAttribute("messageSuccess",
 					messageSource.getMessage("edit-assessment-successfully", null, LocaleContextHolder.getLocale()));
+
 			return "redirect:/teacher/assessment";
 		} else {
+
 			model.addAttribute("error", inValid);
 			model.addAttribute("listClass", classService.getAllClass());
 			model.addAttribute("assessmentEdit",
 					assessmentService.getAssessmentByAssessmentid(assessmentDTO.getAssessmentid()));
+
 			return PREFIX_TEACHER + "addAndEditAssessment";
 		}
 	}
@@ -191,12 +202,13 @@ public class AssessmentController {
 		List<AssessmentDTO> listAssessments = assessmentService.getListAssessmentByUnExpired(userId);
 
 		for (AssessmentDTO assessmentDTO : listAssessments) {
+
 			assessmentDTO.setTotalquestion(questionOfAssessmentService
 					.getListQuestionOfAssessmentByAssessment(assessmentDTO.getAssessmentid()).size());
 			assessmentDTO.setTotalscore(
 					questionOfAssessmentService.getTotalScoreByAssessment(assessmentDTO.getAssessmentid()));
-
 		}
+
 		model.addAttribute("listAssessmentId", assessmentService.getAssessmentEnable(true));
 		model.addAttribute("listClassAssigned", listClassid);
 		model.addAttribute("assessmentPage", listAssessments);
@@ -232,12 +244,16 @@ public class AssessmentController {
 			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
 		for (ResultDTO result : lessonForm.getResultDTOs()) {
+
 			if (!StringUtils.isEmpty(result.getAnswerchoice())) {
+
 				resultService.saveSubmitResult(result);
 			}
 		}
+
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("submit-lesson-successfully", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/student/assessment";
 	}
 
@@ -246,16 +262,19 @@ public class AssessmentController {
 			@ModelAttribute(name = "lessonForm") LessonForm lessonForm, RedirectAttributes redirectAttributes) {
 
 		for (ResultDTO result : lessonForm.getResultDTOs()) {
+
 			if (!StringUtils.isEmpty(result.getAnswerchoice())) {
+
 				resultService.saveEditSubmitResult(result);
 			}
 		}
+
 		redirectAttributes.addFlashAttribute("messageSuccess",
 				messageSource.getMessage("edit-lesson-successfully", null, LocaleContextHolder.getLocale()));
+
 		return "redirect:/student/assessment";
 	}
 
 	private static final String PREFIX_TEACHER = "/teacher/assessment/";
 	private static final String PREFIX_STUDENT = "/student/assessment/";
-
 }

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="col-sm-12">
+<div class="col-sm-12 mg-top-2">
 	<c:if test="${messageSuccess != null}">
 		<c:choose>
 			<c:when test="${messageSuccess.length() > 0}">

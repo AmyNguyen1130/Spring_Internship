@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title><spring:message code="elearning-math-for-kid"/></title>
+	<title><spring:message code="teacher-elearning-math-for-kid"/></title>
 
 	<!-- Bootstrap core CSS-->
 	<link href="<c:url value="/vendor/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet">

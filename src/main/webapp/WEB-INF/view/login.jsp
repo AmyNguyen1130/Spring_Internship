@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title><spring:message code="elearning-math-for-kid" /></title>
+	<title><spring:message code="elearning-math-for-kid"/></title>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="<c:url value="/css/custom.css"/>" rel="stylesheet" type="text/css">
@@ -20,21 +20,21 @@
 			color: #FE2E64;
 		}
 	</style>
-	<c:url var="loginURL" value="/login" />
+	<c:url var="loginURL" value="/login"/>
 </head>
 <body>
 	<div class="container">
 		<div>
 			<c:choose>
 				<c:when test="${messageSuccess.length() > 0}">
-					<div class="alert success" style="display: none">
+					<div class="alert success mg-top-2" style="display: none">
 						<span class="closebtn"
 							onclick="this.parentElement.style.display='none';">&times;</span>
 						<strong id="message">${messageSuccess}</strong>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="alert danger" style="display: none">
+					<div class="alert danger mg-top-2" style="display: none">
 						<span class="closebtn"
 							onclick="this.parentElement.style.display='none';">&times;</span>
 						<strong id="message">${messageDanger}</strong>

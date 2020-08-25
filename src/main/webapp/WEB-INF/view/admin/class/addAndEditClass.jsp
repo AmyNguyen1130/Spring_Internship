@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<head>
+<title><spring:message code="add-edit-class"/></title>
+</head>
 <div class="container-fluid center mg-top-2">
 
 	<div class="col-sm-2"></div>
