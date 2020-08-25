@@ -60,11 +60,11 @@
 						</a> 
 						<a href="#" onclick="confirmation('/teacher/assessment/deleteAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>', 'delete')">
 							<img alt="delete" src="<c:url value="../../images/delete.png"/>" class="optionSize" />
-						</a>&emsp;
-						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>">
+						</a>
+						<a href="/teacher/questionOfAssessment?assessmentid=<c:out value='${assessment.assessmentid}'/>" class="ml-2">
 							<input class="btn btn-pink" type="button" value="View questions">
 						</a>
-						<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>">
+						<a href="/teacher/viewResult?assessmentid=<c:out value='${assessment.assessmentid}'/>" class="ml-2">
 							<input class="btn btn-warning" type="button" value="View result">
 						</a>
 					</td>

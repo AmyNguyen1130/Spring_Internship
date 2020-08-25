@@ -46,7 +46,7 @@
 		<div class="form-group row">
 			<input type="hidden" value="${url == '/admin/class/saveAddClass' ? 'true' : editClass.status}"  name="status" />
 		</div>
-		<div class="form-group row flex-around ">
+		<div class="form-group row flex-around mt-5">
 			<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save">
 			<a href="/admin/class" class="large-btn mg-right-6"">
 				<input class="btn btn-warning large-btn" type="button" value="Cancel">

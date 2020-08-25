@@ -6,7 +6,7 @@
 <div class="container-fluid center mg-top-2">
 	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general" id="formQuestion">
 
-		<h1 class="form-title">
+		<h1 class="form-title mb-5">
 			<spring:message code="new-question"/>
 		</h1>
 

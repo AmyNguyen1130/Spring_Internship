@@ -96,10 +96,8 @@ public class QuestionOfAssessmentController {
 		model.addAttribute("listQuestionOfAssessment",
 				questionOfAssessmentService.getListQuestionOfAssessmentByAssessment(assessmentid));
 		model.addAttribute("assessment", assessmentService.getAssessmentByAssessmentid(assessmentid));
-		model.addAttribute("preview", true);
-		model.addAttribute("urlBack", "/teacher/questionOfAssessment?assessmentid=" + assessmentid);
 
-		return PREFIX_STUDENT + "history/viewResultAssessment";
+		return "/teacher/preview/previewAssessment";
 	}
 
 	@PostMapping("teacher/questionOfAssessment/saveAddQuestionOfAssessment/{assessmentid}")
@@ -153,6 +151,5 @@ public class QuestionOfAssessmentController {
 		return PREFIX_TEACHER + "addAndEditQuestionOfAssessment";
 	}
 
-	private static final String PREFIX_STUDENT = "/student/assessment/";
 	private static final String PREFIX_TEACHER = "/teacher/questionOfAssessment/";
 }

@@ -10,21 +10,42 @@
 <title><spring:message code="list-users-finished-assignment"/></title>
 </head>
 <body>
-	<div class="container-fluid">
-			<div class="row mg-top-2 display-inline">
-					<h4 class="title-class grey"><spring:message code="class"/></h4>
-					<h4 class="name-class">&nbsp;${class.getClassname()}</h4>
+	<div class="container-fluid mg-top-2">
+		<div class="row">
+			<div class="col-sm-7">
+					<div class="row mt-2">
+					<h4 class="pl-3"><spring:message code="class"/></h4>
+					<h4 class="name-class">&nbsp; ${class.getClassname()}</h4>
 				</div>
-				<div class="row display-inline">
-					<h4 class="title-class grey"><spring:message code="assessment"/></h4>
-					<h4 class="name-class">&nbsp;${assessment.getAssessmentname()}</h4>
+				<div class="row">
+					<h4 class="pl-3"><spring:message code="assessment"/></h4>
+					<h4 class="name-class">&nbsp; ${assessment.getAssessmentname()}</h4>
 				</div>
-				<div class="row display-inline">
-					<h6 class="title-class grey"><spring:message code="start-date-x" arguments="${assessment.getStartdate()}" htmlEscape="false" /></h6>
+				<div class="row">
+					<h6 class="pl-3">
+						<spring:message code="start-date-x" arguments="${assessment.getStartdate()}" htmlEscape="false" />
+					</h6>
 				</div>
-				<div class="row display-inline">
-					<h6 class="title-class grey"><spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" /></h6>
+				<div class="row">
+					<h6 class="pl-3">
+						<spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" />
+					</h6>
 				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="row">
+					<div class="col-sm-8"></div>
+					<div class="col-sm-4 justify-end">
+						<a href='/teacher/questionOfAssessment/addQuestionOfAssessment/${assessment.assessmentid}'>
+							<button class="btn btn-pink" type="button"><spring:message code="add-new-question"/></button>
+						</a>		
+						<a href='/teacher/assessment/preview/${assessment.assessmentid}' class="preview">
+							<button class="btn btn-warning" type="button"><spring:message code="preview"/></button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<br><br>
 	<div class="container-fluid">
