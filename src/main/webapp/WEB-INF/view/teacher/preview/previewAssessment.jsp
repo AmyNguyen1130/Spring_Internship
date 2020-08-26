@@ -23,6 +23,7 @@
 						<img alt="dog" src="https://i.gifer.com/Ybp.gif" class="image-preview">
 					</div>
 				</div>
+
 				<c:choose>
 					<c:when test="${listQuestionOfAssessment.size() > 0}">
 						<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">

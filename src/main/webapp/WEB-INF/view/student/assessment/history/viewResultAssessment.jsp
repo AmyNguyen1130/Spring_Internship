@@ -12,12 +12,17 @@
 <meta charset="UTF-8">
 <body>
 	<div class="container-fluid row">
-	<div class="col-sm-3"></div>
-		<div class="col-sm-7" id="borderTest">
-			<div class="descriptionAssessment">
-				<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
-				<p class="dateTime">(${assessment.getStartdate()}-${assessment.getExpireddate()})</p>
-			</div>
+	<div class="col-sm-2"></div>
+		<div class="col-sm-9 border-preview" id="borderTest">
+			<div class="descriptionAssessment row" >
+					<div class="title-preview">
+						<p class="assignmentTitle">${assessment.getAssessmentname()}</p>	
+						<p class="dateTime grey">( ${assessment.getStartdate()} - ${assessment.getExpireddate()} )</p>
+					</div>
+					<div>
+						<img alt="dog" src="https://i.gifer.com/Ybp.gif" class="image-preview">
+					</div>
+				</div>
 			<c:choose>
 				<c:when test="${listQuestionOfAssessment.size() > 0}">
 					<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
@@ -35,38 +40,44 @@
 						</div>
 						<c:choose>
 							<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
-								<input type="text" class="form-control col-sm-6 ml-4" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
+								<div class="form-group row seperate-question ml-2">
+								<input type="text" class="form-control ml col-sm-12" name="${question.getQuestionid()}" value="${listResult[status.index].answerchoice}" disabled="disabled">
+								
 								<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 									<div class="correctAnswer pt-5">
 										<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
 									</div>
 								</c:if>
+								</div>
 							</c:when>
 							<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
-								<div data-track="hel" class="form-group row ml-4">
-									<table>
-										<tr>
-											<th>
-												<div class="optionItem ${listResult[status.index].answerchoice == 'A' ? 'checkCorrect' : ''}">
-													<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_yes.png"/>" class="yesnoImage" />
-												</div>
-											</th>
-											<th>
-												<div class="optionItem ${listResult[status.index].answerchoice == 'B' ? 'checkCorrect' : ''}">
-													<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_no.png"/>" class="yesnoImage" />
-												</div>
-											</th>
-										</tr>
-									</table>
-								</div>
-								<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-									<div class="correctAnswer pt-4">
-										<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
+								<div class="seperate-question ml-2">
+									<div data-track="hel" class="form-group row ml-4">
+										<table>
+											<tr>
+												<th>
+													<div class="optionItem ${listResult[status.index].answerchoice == 'A' ? 'checkCorrect' : ''}">
+														<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_yes.png"/>" class="yesnoImage" />
+													</div>
+												</th>
+												<th>
+													<div class="optionItem ${listResult[status.index].answerchoice == 'B' ? 'checkCorrect' : ''}">
+														<img data-id="yes_choice_${question.questionid}" data-question="${question.questionid}" src="<c:url value="/images/_no.png"/>" class="yesnoImage" />
+													</div>
+												</th>
+											</tr>
+										</table>
 									</div>
-								</c:if>
+									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+										<div class="correctAnswer pt-4">
+											<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
+										</div>
+									</c:if>
+								</div>
+								
 							</c:when>
 							<c:otherwise>
-								<div class="form-group row ml-2">
+								<div class="form-group row ml-2 seperate-question ml-2">
 									<c:forEach items="${question.options}" var="option">
 										<c:set var="check" value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
 										<div class="col-sm-12 answer-group">
@@ -76,17 +87,18 @@
 											</lable>
 										</div>
 									</c:forEach>
+									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
+										<div class="correctAnswer pt-3">
+											<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
+										</div>
+									</c:if>
 								</div>
-								<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
-									<div class="correctAnswer pt-3">
-										<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
-									</div>
-								</c:if>
+								
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<div class="mt-5 pb-5">
-						<a href="${urlBack}"><input class="btn btn-warning" type="button" value="Back"></a>
+					<div class="table-mg-top-8">
+						<a href="${urlBack}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -95,7 +107,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<div class="col-sm-2"></div>
+		<div class="col-sm-1"></div>
 	</div>
 </body>
 </html>
