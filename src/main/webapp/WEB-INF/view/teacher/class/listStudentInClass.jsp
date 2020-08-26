@@ -11,9 +11,8 @@
 </head>
 <body>
 	<div class="col-sm-12">
-		<div class="mg-top-2 display-inline">
-			<h4 class="title-class grey"><spring:message code="class"/></h4>
-			<h4 class="name-class"> ${class.classname}</h4>
+		<div class="mg-top-2 display-center">
+			<h1 class="name-class"> ${class.classname}</h1>
 		</div>
 	</div>
 	<br>

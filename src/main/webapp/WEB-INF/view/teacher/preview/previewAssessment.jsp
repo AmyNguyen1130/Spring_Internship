@@ -12,11 +12,16 @@
 <meta charset="UTF-8">
 <body>
 	<div class="container-fluid row">
-		<div class="col-sm-3"></div>
-			<div class="col-sm-7" id="borderTest">
-				<div class="descriptionAssessment">
-					<p class="assignmentTitle">${assessment.getAssessmentname()}</p>
-					<p class="dateTime">(${assessment.getStartdate()}-${assessment.getExpireddate()})</p>
+		<div class="col-sm-2"></div>
+			<div class="col-sm-9 border-preview" id="borderTest">
+				<div class="descriptionAssessment row" >
+					<div class="title-preview">
+						<p class="assignmentTitle">${assessment.getAssessmentname()}</p>	
+						<p class="dateTime grey">( ${assessment.getStartdate()} - ${assessment.getExpireddate()} )</p>
+					</div>
+					<div>
+						<img alt="dog" src="https://i.gifer.com/Ybp.gif" class="image-preview">
+					</div>
 				</div>
 				<c:choose>
 					<c:when test="${listQuestionOfAssessment.size() > 0}">
@@ -26,10 +31,12 @@
 							</div>
 							<c:choose>
 								<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
-									<input type="text" class="form-control ml-5 col-sm-6" name="${question.getQuestionid()}" value="${question.correctanswer}" disabled="disabled">
+									<div class="form-group row seperate-question ml-2">
+										<input type="text" class="form-control ml col-sm-12" name="${question.getQuestionid()}" value="${question.correctanswer}" disabled="disabled">
+									</div>
 								</c:when>
 								<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.YESNO.getCode())}">
-									<div data-track="hel" class="form-group row ml-2">
+									<div data-track="hel" class="form-group row ml-2 seperate-question">
 										<table>
 											<tr>
 												<th>
@@ -47,7 +54,7 @@
 									</div>
 								</c:when>
 								<c:otherwise>
-									<div class="form-group row ml-2">
+									<div class="form-group row ml-2 seperate-question">
 										<c:forEach items="${question.options}" var="option">
 											<c:set var="check" value='${option.getName() eq question.correctanswer ? "checked" : ""}' />
 											<div class="col-sm-12 answer-group">
@@ -61,8 +68,8 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<div class="mt-5 pb-5">
-							<a href="/teacher/questionOfAssessment?assessmentid=${assessment.getAssessmentid()}"><input class="btn btn-warning" type="button" value="Back"></a>
+						<div class="table-mg-top-8">
+							<a href="/teacher/questionOfAssessment?assessmentid=${assessment.getAssessmentid()}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -71,7 +78,7 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-		<div class="col-sm-2"></div>
+		<div class="col-sm-1"></div>
 	</div>
 </body>
 </html>

@@ -111,29 +111,39 @@
 	</div>
 <script>
 	$(document).ready(() => {
+
 		questionForm = document.querySelector("#lessonForm");
 		questionForm.addEventListener("click",(e) => {
 			var dataId = e.target.getAttribute("data-id");
 			var questionId = e.target.getAttribute("data-question");
+
 			if(dataId){
+
 				var currentYesOption = document.querySelector("div[data-id = 'yes_choice_" + questionId + "']");
 				var currentNoOption = document.querySelector("div[data-id = 'no_choice_" + questionId + "']");
 
 				if(dataId.indexOf("yes") === 0){
+
 					currentYesOption.classList.add("optionActive");
 					currentNoOption.classList.remove("optionActive");
 				}else{
+
 					currentNoOption.classList.add("optionActive");
 					currentYesOption.classList.remove("optionActive");
 				}
+
 				e.target.previousElementSibling.checked = true;
 			}
 		});
 
 		var radioSelect = document.querySelectorAll('[checked="checked"]');
+
 		radioSelect.forEach((node) => { 
+
 			if(node.matches('.radio-none')){
+
 				if(node.parentNode){
+
 					node.parentNode.classList.add("optionActive");
 				}
 			}

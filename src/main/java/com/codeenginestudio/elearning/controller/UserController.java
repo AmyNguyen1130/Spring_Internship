@@ -135,7 +135,6 @@ public class UserController {
 
 				userDTO.setIsDelete(true);
 			}
-
 		}
 
 		if (listUsers.getContent().size() == 1) {
