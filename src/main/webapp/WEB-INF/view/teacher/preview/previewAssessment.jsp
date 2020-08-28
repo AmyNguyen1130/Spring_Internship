@@ -76,6 +76,9 @@
 					<c:otherwise>
 						<h1><strong ><spring:message code="no-question"/></strong></h1>
 						<img src="<c:url value="../../../images/no-data.jpg"/>" class="welcomeImg"/>
+						<div class="table-mg-top-8">
+							<a href="/teacher/questionOfAssessment?assessmentid=${assessment.getAssessmentid()}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
+						</div>
 					</c:otherwise>
 				</c:choose>
 			</div>

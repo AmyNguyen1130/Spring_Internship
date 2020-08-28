@@ -88,11 +88,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<util:pagination
-			count="${listQuestionOfAssignment.getTotalElements()}"
-			totalPages="${listQuestionOfAssignment.getTotalPages()}"
-			url="${pageContext.request.contextPath}/teacher/questionOfAssignment"
-			curpage="${listQuestionOfAssignment.getNumber()}" />
 	</div>
 
 </body>

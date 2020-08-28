@@ -14,7 +14,7 @@
 	<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general">
 		<h1 class="form-title"><spring:message code="class-form"/></h1>
 		<br>
-		<div class="form-group row">
+		<div class="form-group row form-row">
 			<c:if test="${errors != null}">
 				<c:forEach items="${errors}" var="error">
 					<span style="color: red; margin-left: 234px;"><spring:message code="${error}"/></span>
@@ -24,15 +24,17 @@
 
 		</div>
 		
-		<div class="form-group row">
-			<label for="classname" class="col-sm-3 col-form-label"><spring:message code="class-name"/></label>
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="classname" class="col-sm-2 col-form-label"><spring:message code="class-name"/></label>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="classname" value="${editClass.classname}" placeholder="Please enter class's name here"> 
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<label for="Teacher" class="col-sm-3 col-form-label"><spring:message code="teacher-name"/></label>
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="Teacher" class="col-sm-2 col-form-label"><spring:message code="teacher-name"/></label>
 			<div class="col-sm-8">
 				<select class="form-control" name="user.userid">
 					<option value="" ${editClass.getUser().getUserid() == null ? 'selected="selected"' : ''}><spring:message code="none"/></option>
@@ -43,7 +45,7 @@
 			</div>
 		</div>
 
-		<div class="form-group row">
+		<div class="form-group row form-row">
 			<input type="hidden" value="${url == '/admin/class/saveAddClass' ? 'true' : editClass.status}"  name="status" />
 		</div>
 		<div class="form-group row flex-around mt-5">

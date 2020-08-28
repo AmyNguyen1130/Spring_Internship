@@ -214,22 +214,7 @@ img {
 	font-weight: bold;
 }
 
-.cancelbtn, .acceptbtn {
-	float: left;
-	width: 50%;
-}
-
-.acceptbtn {
-	background-color: #f44336;
-}
-
-.cancelbtn {
-	background-color: #ccc;
-	color: black;
-}
-
 .container-model {
-	padding: 16px;
 	text-align: center;
 	background-color: aliceblue;
 }
@@ -590,3 +575,46 @@ img {
 .form-row{
 	text-align: start;
 }
+
+.image-popUp{
+	width: 120px;
+    height: 100px;
+}
+
+.title-popup{
+	background-color: forestgreen;
+    height: 80px;
+    margin-bottom: 4%;
+    padding: 3%;
+}
+
+.action-confirm{
+	font-weight: bold;
+	text-transform: capitalize;
+}
+.ask{
+	font-weight: bold;
+}
+
+.confirm-btn {
+	width: 182px;
+}
+
+.clearfix{
+	padding: 2%;
+}
+
+.acceptbtn{
+	margin-left: 15px;
+}
+
+.mg-top-nodata{
+	margin-top: 10%;
+}
+
+
+
+
+
+
+
