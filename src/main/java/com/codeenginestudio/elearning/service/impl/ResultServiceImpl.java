@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.codeenginestudio.elearning.constant.RoleConstant;
 import com.codeenginestudio.elearning.dao.AssessmentDAO;
@@ -234,7 +233,7 @@ public class ResultServiceImpl implements ResultService {
 		Float score = (float) 0;
 		QuestionOfAssessmentEntity question = questionOfAssessmentDAO.getOne(questionId);
 
-		if (StringUtils.isEmpty(answerChoice) && answerChoice.equals(question.getCorrectanswer())) {
+		if (answerChoice != null && answerChoice.equals(question.getCorrectanswer())) {
 
 			score = question.getScore();
 		}

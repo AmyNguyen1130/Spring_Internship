@@ -27,7 +27,7 @@
 				<h6 class="pl-3">
 					<spring:message code="start-date-x" arguments="${assessment.getStartdate()}" htmlEscape="false" />
 				</h6>
-				<h6>
+				<h6 class="pl-3">
 					<spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" />
 				</h6>
 			</div>

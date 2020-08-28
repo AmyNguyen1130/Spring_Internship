@@ -10,7 +10,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/fontawesome.min.css">
 </head>
 <body>
-
 	<div class="container-fluid mg-top-2">
 		<div class="row display-center">
 			<h1 class="name-class">&nbsp; ${assessment.getAssessmentname()}</h1>
@@ -28,7 +27,7 @@
 				<h6 class="pl-3">
 					<spring:message code="start-date-x" arguments="${assessment.getStartdate()}" htmlEscape="false" />
 				</h6>
-				<h6>
+				<h6 class="pl-3">
 					<spring:message code="expired-date-x" arguments="${assessment.getExpireddate()}" htmlEscape="false" />
 				</h6>
 			</div>
