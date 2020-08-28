@@ -12,8 +12,9 @@
 
 		<input type="hidden" name="questionid" value="${questionInf.questionid}"/>
 
-		<div class="form-group row">
-			<label for="numericalorder" class="col-sm-3 col-form-label">
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="numericalorder" class="col-sm-2 col-form-label">
 				<spring:message code="numerical-order"/>
 			</label>
 			<div class="col-sm-8">
@@ -21,13 +22,16 @@
 					value="${questionInf.numericalorder}"
 					placeholder="<spring:message code="please-enter-numerical-order-here"/>">
 				<c:if test="${error.getErrNumericalOrder() != null}">
-					<p class="err errContent"><spring:message code="${error.getErrNumericalOrder()}"/></p>
+					<div class="error">
+						<p class="err"><spring:message code="${error.getErrNumericalOrder()}"/></p>
+					</div>
 				</c:if>
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<label for="score" class="col-sm-3 col-form-label">
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="score" class="col-sm-2 col-form-label">
 				<spring:message code="score"/>
 			</label>
 			<div class="col-sm-8">
@@ -39,8 +43,9 @@
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<label for="content" class="col-sm-3 col-form-label">
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="content" class="col-sm-2 col-form-label">
 				<spring:message code="content"/>
 			</label>
 			<div class="col-sm-8">
@@ -48,13 +53,16 @@
 					value="${questionInf.content}"
 					placeholder="<spring:message code="please-enter-question's-content-here"/>">
 				<c:if test="${error.getErrContent() != null}">
-					<p class="err errContent"><spring:message code="${error.getErrContent()}"/></p>
+					<div class="error">
+						<p class="err"><spring:message code="${error.getErrContent()}"/></p>
+					</div>
 				</c:if>
 			</div>
 		</div>
 
-		<div class="form-group row">
-			<label for="questiontypeid" class="col-sm-3 col-form-label">
+		<div class="form-group row form-row">
+			<div class="col-sm-1"></div>
+			<label for="questiontypeid" class="col-sm-2 col-form-label">
 				<spring:message code="question-type"/>
 			</label>
 			<div class="col-sm-8">
@@ -68,17 +76,24 @@
 			</div>
 		</div>
 
-		<div class="form-group row block-question-type" id="input-type-block">
-			<label for="questiontypeid" class="col-sm-3 col-form-label">
+		<div class="form-group row block-question-type form-row" id="input-type-block">
+			<div class="col-sm-1"></div>
+			<label for="questiontypeid" class="col-sm-2 col-form-label">
 				<spring:message code="input-answer"/>
 			</label>
 			<div class="col-sm-8">
 				<input class="form-control" type="text" name="correctanswer"> 
+				<c:if test="${error.getErrCorrectAnswer() != null}">
+					<div class="error">
+						<p class="err"><spring:message code="${error.getErrCorrectAnswer()}"/></p>
+					</div>
+				</c:if>
 			</div>
 		</div>
 
-		<div class="form-group row block-question-type" id="yesno-type-block">
-			<label for="options" class="col-sm-3 col-form-label">
+		<div class="form-group row block-question-type form-row" id="yesno-type-block">
+			<div class="col-sm-1"></div>
+			<label for="options" class="col-sm-2 col-form-label">
 				<spring:message code="options"/>
 			</label>
 			<div class="col-sm-8">
@@ -97,14 +112,25 @@
 						<input type="hidden" name="options[1].name" value="B">
 						<input type="text" class="form-control" name="options[1].value" value="No">
 					</div>
+					<c:if test="${error.getErrCorrectAnswer() != null}">
+						<div class="error">
+							<p class="err"><spring:message code="${error.getErrCorrectAnswer()}"/></p>
+						</div>
+					</c:if>
 			</div>
 		</div>
-		<div class="form-group row block-question-type" id="multiple-type-block">
-			<label for="options" class="col-sm-3 col-form-label">
+		<div class="form-group row block-question-type form-row" id="multiple-type-block">
+			<div class="col-sm-1"></div>
+			<label for="options" class="col-sm-2 col-form-label">
 				<spring:message code="options"/>
 			</label>
 
 			<div class="col-sm-8 options-container">
+				<c:if test="${error.getErrCorrectAnswer() != null}">
+					<div class="error">
+						<p class="err"><spring:message code="${error.getErrCorrectAnswer()}"/></p>
+					</div>
+				</c:if>
 				<c:if test="${questionInf.getOptions() != null && questionInf.getOptions().size() > 0}">
 					<c:forEach items="${questionInf.getOptions()}" var="option" varStatus="num" begin="0" step="1">
 						<div class='optionItem'>
@@ -124,6 +150,7 @@
 					</c:forEach>
 				</c:if>
 			</div>
+			
 			<div class="col-sm-11 addOptionDiv">
 				<span class='addOption btn btn-primary'><spring:message code="add-option"/></span>
 			</div>

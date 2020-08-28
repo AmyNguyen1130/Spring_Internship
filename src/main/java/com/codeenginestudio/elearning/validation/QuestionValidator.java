@@ -52,6 +52,7 @@ public class QuestionValidator {
 
 		QuestionValidator inValid = new QuestionValidator();
 		inValid.errContent = checkNull(questionOfAssessmentDTO.getContent(), "content-could-not-be-null");
+		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getContent(), "correct-answer-could-not-be-null");
 		inValid.errNumericalOrder = checkNumericalOrder(questionOfAssessmentDTO.getNumericalorder());
 		inValid.errCorrectAnswer = checkNull(questionOfAssessmentDTO.getCorrectanswer(),
 				"correct-answer-could-not-be-null");

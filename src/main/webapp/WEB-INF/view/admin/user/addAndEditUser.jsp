@@ -16,8 +16,9 @@
 			<br>
 			<input type="hidden" name="userid" value="${userInf.getUserid()}" />
 
-			<div class="form-group row">
-				<label for="userName" class="col-sm-3 col-form-label"><spring:message code="username"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="userName" class="col-sm-2 col-form-label"><spring:message code="username"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="username" placeholder="<spring:message code="please-enter-user-name-here"/>"
 						value="${userInf.getUsername()}">						
@@ -29,8 +30,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="password" class="col-sm-3 col-form-label"><spring:message code="password"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="password" class="col-sm-2 col-form-label"><spring:message code="password"/></label>
 				<div class="col-sm-8">
 					<input type="password" class="form-control" name="password" placeholder="<spring:message code="please-enter-password-here"/>"
 						value="${userInf.getPassword()}">
@@ -42,8 +44,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="firstName" class="col-sm-3 col-form-label"><spring:message code="first-name"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="firstName" class="col-sm-2 col-form-label"><spring:message code="first-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="firstname" placeholder="<spring:message code="please-enter-first-name-here"/>"
 						value="${userInf.getFirstname()}">
@@ -55,8 +58,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="lastName" class="col-sm-3 col-form-label"><spring:message code="last-name"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="lastName" class="col-sm-2 col-form-label"><spring:message code="last-name"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="lastname" placeholder="<spring:message code="please-enter-last-name-here"/>"
 						value="${userInf.getLastname()}">
@@ -68,8 +72,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="email" class="col-sm-3 col-form-label"><spring:message code="email"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="email" class="col-sm-2 col-form-label"><spring:message code="email"/></label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="email" placeholder="<spring:message code="please-enter-email-here"/>"
 						value="${userInf.getEmail()}">
@@ -81,8 +86,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="gender" class="col-sm-3 col-form-label"><spring:message code="gender"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="gender" class="col-sm-2 col-form-label"><spring:message code="gender"/></label>
 				<div class="col-sm-8 space-evenly">
 					<div>
 						<input type="radio" name="gender" value="Male" class="checkbox"
@@ -95,8 +101,9 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label for="role" class="col-sm-3 col-form-label"><spring:message code="role"/></label>
+			<div class="form-group row form-row">
+				<div class="col-sm-1"></div>
+				<label for="role" class="col-sm-2 col-form-label"><spring:message code="role"/></label>
 				<div class="col-sm-8">
 						<c:choose>
 							<c:when test="${roleId == null}">
@@ -119,7 +126,7 @@
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="form-group row form-row">
 				<input type="hidden"
 					value="${url == '/admin/user/saveAddUser' ? 'true' : userInf.isEnabled()}"
 					name="enabled" />

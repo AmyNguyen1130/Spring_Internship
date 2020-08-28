@@ -21,7 +21,7 @@
 						<p class="dateTime grey">( ${assessment.getStartdate()} - ${assessment.getExpireddate()} )</p>
 					</div>
 					<div>
-						<img alt="dog" src="https://i.gifer.com/Ybp.gif" class="image-preview">
+						<img alt="dog" src="../../../images/dog.gif" class="image-preview">
 					</div>
 				</div>
 				<c:choose>

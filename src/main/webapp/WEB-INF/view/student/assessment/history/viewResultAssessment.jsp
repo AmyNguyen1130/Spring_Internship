@@ -20,7 +20,7 @@
 						<p class="dateTime grey">( ${assessment.getStartdate()} - ${assessment.getExpireddate()} )</p>
 					</div>
 					<div>
-						<img alt="dog" src="https://i.gifer.com/Ybp.gif" class="image-preview">
+						<img alt="dog" src="../../../images/dog.gif" class="image-preview">
 					</div>
 				</div>
 			<c:choose>
@@ -82,7 +82,7 @@
 										<c:set var="check" value='${option.getName() eq listResult[status.index].answerchoice ? "checked" : ""}' />
 										<div class="col-sm-12 answer-group">
 											<lable class="answer-item">${option.getValue()}
-												<input value="${option.getName()}" ${check} type="radio" disabled />
+												<input value="${option.getName()}" ${check} type="radio" disabled class=""/>
 												<span class="radio-btn ${option.getName() eq listResult[status.index].answerchoice ? 'multiple-incorrect' : ''}"></span>
 											</lable>
 										</div>

@@ -586,3 +586,7 @@ img {
     height: 100px;
     margin-top: -42%;
 }
+
+.form-row{
+	text-align: start;
+}
