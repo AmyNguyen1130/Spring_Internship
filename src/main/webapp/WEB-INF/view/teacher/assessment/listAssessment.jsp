@@ -16,14 +16,15 @@
 		</div>
 		<div class="col-sm-5">
 			<div class="row">
-				<div class="col-sm-8"></div>
-				<div class="col-sm-4">
+				<div class="col-sm-5"></div>
+				<div class="col-sm-3">
 					<a href='/teacher/assessment/addAssessment'>
 						<button class="btn btn-pink button-display-right" type="button">
 							<spring:message code="add-new-assessment"/>
 						</button>
 					</a>
 				</div>
+				<div class="col-sm-4"></div>
 			</div>
 		</div>
 	</div>

@@ -7,8 +7,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<br><br><br>
-	<div class="container-fluid">
+	<div class="container-fluid mg-top-2">
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>

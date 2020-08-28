@@ -74,7 +74,6 @@
 										</div>
 									</c:if>
 								</div>
-								
 							</c:when>
 							<c:otherwise>
 								<div class="form-group row ml-2 seperate-question ml-2">
@@ -104,6 +103,9 @@
 				<c:otherwise>
 					<h1"><strong ><spring:message code="no-question"/></strong></h1>
 					<img src="<c:url value="../../../images/no-data.jpg"/>" class="welcomeImg"/>
+					<div class="table-mg-top-8">
+						<a href="${urlBack}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

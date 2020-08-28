@@ -8,17 +8,29 @@
 <title>List student in class</title>
 
 </head>
-<body>
-	<br><br><br>
-	<div class="container-fluid center">
-		<h1><spring:message code="list-student-in-class"/></h1>
-	</div>
-	<br>
-	<div class="container-fluid">
-		<form class="form-group"
+<body> 
+	<div class="container-fluid mg-top-2">
+		<div class="row display-center">
+			<h1><spring:message code="list-student"/></h1>
+		</div>
+		<form class="form-group "
 			action="<%=request.getContextPath()%>/admin/saveStudentInClass?classid=<c:out value='${classid}'/>"
 			method="POST">
-			<table class="table table-bordered table-hover">
+
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-3">
+					<a href="/admin/class" class="large-btn mg-right-6" >
+						<input class="btn btn-warning medium-btn" type="button" value="Cancel">
+					</a>
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4 ">
+					<input class="btn btn-pink medium-btn mg-left-10" type="submit" value="Save" ${!listClassEnable.contains(classid) ? 'disabled' : ''}>
+				</div>
+			</div>
+
+			<table class="table table-bordered table-hover mg-top-2">
 				<thead>
 					<tr>
 						<th scope="col"><spring:message code=".NO"/></th>
@@ -49,12 +61,6 @@
 				</tbody>
 			</table>	
 			<br>
-			<div class="form-group row flex-around ">
-			<input class="btn btn-pink large-btn mg-left-10" type="submit" value="Save" ${!listClassEnable.contains(classid) ? 'disabled' : ''}>
-			<a href="/admin/class" class="large-btn mg-right-6" >
-				<input class="btn btn-warning large-btn" type="button" value="Cancel">
-			</a>
-		</div>
 		</form>
 	</div>
 	<script type="text/javascript">

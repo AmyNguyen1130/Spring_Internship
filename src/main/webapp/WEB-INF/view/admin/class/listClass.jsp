@@ -8,18 +8,18 @@
 <html>
 <body>
 	<div class="container-fluid row mg-top-2">
-		<div class="col-sm-7">
-		</div>
+		<div class="col-sm-7"></div>
 		<div class="col-sm-5">
 			<div class="row">
-				<div class="col-sm-8"></div>
-				<div class="col-sm-4">
+				<div class="col-sm-5"></div>
+				<div class="col-sm-3">
 					<a href='/admin/class/addClass'>
 						<button class="btn btn-pink " type="button" style="margin-left: 18px">
 							<spring:message code="add-new-class"/>
 						</button>
 					</a>
 				</div>
+				<div class="col-sm-4"></div>
 			</div>
 		</div>
 	</div>

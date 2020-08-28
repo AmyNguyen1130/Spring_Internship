@@ -3,12 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-	<style>
-		p {
-			color: red
-		}
-	</style>
-
 	<div class="container-fluid center mg-top-2">
 		<div class="col-sm-2"></div>
 		<form action="<%=request.getContextPath()%>${url}" method="post" class="col-sm-8 form-general">

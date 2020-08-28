@@ -10,14 +10,11 @@
 
 </head>
 <body>
-	<div class="col-sm-12">
-		<div class="mg-top-2 display-center">
-			<h1 class="name-class"> ${class.classname}</h1>
+	<div class="container-fluid mg-top-2">
+		<div class="row display-center">
+			<h1 class="name-class">&nbsp; ${class.classname}</h1>
 		</div>
-	</div>
-	<br>
-	<div class="container-fluid">
-		<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-hover mg-top-2">
 			<thead>
 				<tr>
 					<th scope="col"><spring:message code="username"/></th>

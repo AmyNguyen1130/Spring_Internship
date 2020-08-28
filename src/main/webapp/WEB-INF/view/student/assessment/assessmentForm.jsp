@@ -85,6 +85,11 @@
 					<c:otherwise>
 						<h1 class="mt-5"><strong ><spring:message code="no-question"/>${question.correctanswer}</strong></h1>
 						<img src="<c:url value="../../../images/no-data.jpg"/>" class="welcomeImg"/>
+						<div class="table-mg-top-8">
+							<a href="/student/assessment">
+								<input class="btn btn-warning large-btn" type="button" value="Cancel">
+							</a>
+						</div>
 					</c:otherwise>
 				</c:choose>
 			</form:form>

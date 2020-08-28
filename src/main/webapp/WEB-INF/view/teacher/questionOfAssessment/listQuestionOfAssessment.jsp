@@ -14,7 +14,7 @@
 		<div class="row display-center">
 			<h1 class="name-class">&nbsp; ${assessment.getAssessmentname()}</h1>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-sm-1" ></div>
 			<div class="col-sm-6">
@@ -32,7 +32,7 @@
 				</h6>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-3">
