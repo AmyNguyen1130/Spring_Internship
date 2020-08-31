@@ -27,8 +27,8 @@
 				<c:choose>
 					<c:when test="${listQuestionOfAssessment.size() > 0}">
 						<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
-							<div class="questionName mt-5">
-								<span>Question ${question.numericalorder}: ${question.content}</span>
+							<div class="mt-2">
+								<span>${question.numericalorder}.</span><span class="questionName">${question.content}</span>
 							</div>
 							<c:choose>
 								<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
@@ -69,7 +69,7 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<div class="table-mg-top-8">
+						<div class="table-mg-top-3 float_right">
 							<a href="/teacher/questionOfAssessment?assessmentid=${assessment.getAssessmentid()}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
 						</div>
 					</c:when>

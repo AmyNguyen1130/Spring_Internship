@@ -26,7 +26,7 @@
 			<c:choose>
 				<c:when test="${listQuestionOfAssessment.size() > 0}">
 					<c:forEach items="${listQuestionOfAssessment}" var="question" varStatus="status">
-						<div class="questionName mt-5">
+						<div class="mt-2">
 							<c:choose>
 								<c:when test="${question.correctanswer eq listResult[status.index].answerchoice}">
 									<img alt="correct" src="<c:url value="/images/correct.png"/>" class="optionSize" />
@@ -36,7 +36,7 @@
 										class="optionSize" />
 								</c:otherwise>
 							</c:choose>
-							<span> Question ${question.numericalorder}: ${question.content}</span>
+							<span>${question.numericalorder}.</span><span class="questionName">${question.content}</span>
 						</div>
 						<c:choose>
 							<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
@@ -96,7 +96,7 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<div class="table-mg-top-8">
+					<div class="table-mg-top-3 float_right">
 						<a href="${urlBack}"><input class="btn btn-warning large-btn" type="button" value="Back"></a>
 					</div>
 				</c:when>

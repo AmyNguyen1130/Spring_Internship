@@ -549,8 +549,7 @@ img {
 }
 
 .seperate-question{
-	border-bottom-style: dashed;
-    padding-bottom: 2%;
+   padding: 2%;
 }
 
 .justify-right{
@@ -574,6 +573,7 @@ img {
 
 .form-row{
 	text-align: start;
+	margin-bottom: 1.5em;
 }
 
 .image-popUp{
@@ -612,9 +612,14 @@ img {
 	margin-top: 10%;
 }
 
+.float_right {
+	float: right;
+}
 
+.title_edit_question {
+	text-align: right;
+}
 
-
-
-
-
+.title_edit_question .col-form-label {
+	padding-right: 1em;
+}

@@ -30,8 +30,8 @@
 							<form:input type="hidden" path="resultDTOs[${status.index}].id" value="${resultDTOs[status.index].id}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].assessment.assessmentid" value="${assessment.assessmentid}" />
 							<form:input type="hidden" path="resultDTOs[${status.index}].question.questionid" value="${question.questionid}" />
-								<div class="questionName mt-5">
-									<span>${question.numericalorder}: ${question.content}</span>
+								<div class="mt-2">
+									<span>${question.numericalorder}.</span><span class="questionName">${question.content}</span>
 								</div>
 								<c:choose>
 									<c:when test="${question.getQuestionType().getQuestionTypeCode().equals(QuestionTypeEnum.INPUT.getCode())}">
