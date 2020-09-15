@@ -68,11 +68,9 @@
 											</tr>
 										</table>
 									</div>
-									<c:if test="${question.correctanswer != listResult[status.index].answerchoice}">
 										<div class="correctAnswer pt-4">
-											<strong><spring:message code="correct-answer"/>&ensp;${question.correctanswer}</strong>
+											<strong><spring:message code="correct-answer"/>&ensp;${listResult[status.index].answerchoice == 'A' ? 'No' : 'Yes' }</strong>
 										</div>
-									</c:if>
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -82,7 +80,7 @@
 										<div class="col-sm-12 answer-group">
 											<lable class="answer-item">${option.getValue()}
 												<input value="${option.getName()}" ${check} type="radio" disabled class=""/>
-												<span class="radio-btn ${option.getName() eq listResult[status.index].answerchoice ? 'multiple-incorrect' : ''}"></span>
+												<span class="radio-btn ${option.getName() eq listResult[status.index].answerchoice && option.getName() != question.correctanswer ? 'multiple-incorrect' : ''}"></span>
 											</lable>
 										</div>
 									</c:forEach>
